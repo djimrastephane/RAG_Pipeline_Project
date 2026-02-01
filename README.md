@@ -16,7 +16,6 @@ The scripts are designed for reproducible, page-accurate retrieval on large repo
 - `build_index.py` — embed chunks and build a FAISS index
 - `retrieval_eval.py` — evaluate retrieval with an `eval_set.json`
 - `figures/` — charts/figures produced by analysis scripts (ignored by git)
-- `RAG_NHS.tex`, `RAG_Poster.tex` — thesis/poster sources (PDF outputs ignored by git)
 
 ## Requirements
 

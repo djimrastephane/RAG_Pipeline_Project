@@ -18,7 +18,10 @@ figures/
 *.out
 *.toc
 *.synctex.gz
+*.fls
+*.fdb_latexmk
+*.bbl
+*.blg
 
 # PDFs built from LaTeX (keep sources)
-RAG_NHS.pdf
-RAG_Poster.pdf
+*.pdf

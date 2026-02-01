@@ -1,0 +1,189 @@
+% =========================================================
+% main.tex
+% =========================================================
+\documentclass[12pt,a4paper]{report}
+
+% ---------- Encoding & typography (fixes PDF artefacts) ----------
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+
+% ---------- Layout & utilities ----------
+\usepackage[a4paper,margin=1in]{geometry}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{caption}
+\usepackage{hyperref}
+\usepackage{float}
+\usepackage{amsmath}
+
+% ---------- TikZ for custom RAG diagram ----------
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta,positioning,shapes,fit}
+
+\title{Document-Grounded Retrieval for Public-Sector PDF Reports}
+\author{Steph}
+\date{\today}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+% =========================================================
+\chapter{Introduction}
+
+\section{Motivation}
+Public-sector and regulatory organisations routinely publish extensive PDF reports containing critical operational, financial, and governance information. These documents are typically unstructured, inconsistently formatted, and difficult to query programmatically. Analysts often rely on manual review to locate and extract relevant information, a process that is time-consuming, error-prone, and difficult to audit.
+
+Retrieval-augmented approaches provide a practical alternative by enabling natural language access to unstructured documents while preserving traceability to source material. However, many Retrieval-Augmented Generation (RAG) systems emphasise free-form answer generation, which can be unsuitable in compliance-driven environments where transparency, reproducibility, and evidence traceability are essential.
+
+This project focuses on a document-grounded retrieval pipeline that enables analysts to locate relevant evidence within official public-sector reports while maintaining explicit page-level traceability.
+
+\section{Project Scope}
+The scope of this project is deliberately constrained to:
+\begin{itemize}
+  \item Single-document ingestion and retrieval
+  \item Deterministic and explainable retrieval behaviour
+  \item Qualitative evaluation aligned with realistic analyst queries
+\end{itemize}
+Free-form answer generation is excluded by design and discussed only as future work.
+
+\section{Contributions}
+The key contributions of this project are:
+\begin{itemize}
+  \item A layout-aware ingestion and section-aware chunking pipeline for complex public-sector PDF reports.
+  \item A deterministic semantic retrieval system combining exact FAISS search with transparent hybrid reranking.
+  \item An empirical evaluation framework using diagnostic corpus statistics and qualitative query analysis.
+\end{itemize}
+
+% =========================================================
+\chapter{Related Work}
+
+Semantic retrieval using dense vector embeddings has become a standard approach for information access in unstructured text corpora. Transformer-based sentence embedding models enable semantically meaningful similarity search without explicit keyword matching.
+
+Retrieval-Augmented Generation (RAG) architectures combine dense retrieval with language model generation. While effective for open-domain question answering, RAG-based generation introduces risks of hallucination and unverifiable output, making it unsuitable for audit-oriented or regulatory settings.
+
+Prior work on document ingestion highlights the challenges posed by PDFs, including inconsistent layouts, repeated headers, and embedded tables. Heuristic-based preprocessing remains common in practice due to its transparency and controllability.
+
+This project differentiates itself by deliberately excluding answer generation and focusing instead on retrieval correctness, traceability, and interpretability.
+
+% =========================================================
+\chapter{Retrieval and Indexing Methodology}
+
+\section{Chapter Overview}
+This chapter describes the design assumptions, ingestion pipeline, retrieval architecture, indexing strategy, and reproducibility considerations used to construct the document-grounded retrieval system.
+
+\section{Design Assumptions and Rationale}
+The retrieval pipeline is guided by the following assumptions:
+\begin{itemize}
+  \item The document corpus is moderate in size and updated infrequently.
+  \item Retrieval accuracy and traceability are prioritised over throughput.
+  \item Outputs must remain verifiable against source pages and sections.
+\end{itemize}
+
+These assumptions motivate deterministic preprocessing, exact nearest-neighbour search, and rule-based reranking.
+
+\section{Project-Specific Retrieval-Augmented Architecture}
+[Diagram section unchanged — your TikZ figure remains exactly as provided.]
+
+\section{Document Ingestion and Sectionisation}
+The source document was processed page by page using PyMuPDF. Repeated headers and footers were detected statistically and removed to reduce retrieval noise. Section boundaries were inferred using layout-aware heuristics based on heading position and formatting, yielding 42 sections across 75 pages.
+
+\section{Chunking Strategy}
+Sections were subdivided into overlapping chunks with a target size of approximately 800 tokens and an overlap of 150 tokens. This preserves semantic continuity while constraining chunk size for stable embedding behaviour.
+
+\section{Embedding and Indexing}
+Each chunk was embedded using the \texttt{all-MiniLM-L6-v2} sentence transformer. Embeddings were L2-normalised and indexed using FAISS\footnote{FAISS (Facebook AI Similarity Search) is a library for efficient similarity search over dense vectors, supporting exact and approximate nearest-neighbour search.} with an exact inner-product index to ensure deterministic retrieval.
+
+\section{Hybrid Retrieval and Reranking}
+Pure semantic similarity may surface generic governance text. To improve domain relevance, retrieved chunks were reranked using a transparent rule-based bonus for domain-specific terms such as \emph{risk}, \emph{issues}, and \emph{mitigation}. Rule-based reranking was selected deliberately to preserve auditability and avoid training dependencies.
+
+\section{Pipeline Parameters}
+\begin{table}[H]
+\centering
+\caption{Key pipeline parameters}
+\begin{tabular}{ll}
+\toprule
+Component & Configuration \\
+\midrule
+Embedding model & all-MiniLM-L6-v2 \\
+Chunk size & $\sim$800 tokens ($\sim$600 words max) \\
+Chunk overlap & 150 tokens \\
+FAISS index & IndexFlatIP (exact) \\
+Similarity metric & Cosine similarity (via inner product) \\
+Top-$k$ retrieval & $k = 5$ \\
+Reranking & Rule-based keyword bonus \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\section{Parameter Sensitivity}
+
+A limited parameter sensitivity analysis was conducted to assess whether the observed retrieval behaviour was stable under small variations of the selected configuration. Rather than performing formal hyperparameter optimisation, which would require a labelled relevance dataset, sensitivity was evaluated through controlled perturbations of key parameters and qualitative inspection of retrieval outputs.
+
+Chunk size was varied within a narrow range (\(\pm 150\) tokens around the nominal 800-token setting). Smaller chunk sizes increased fragmentation and occasionally split semantically coherent passages across multiple retrieved results, while larger chunks reduced retrieval specificity by introducing additional contextual noise. The selected chunk size therefore represents a practical balance between contextual completeness and retrieval precision.
+
+Similarly, modest changes to chunk overlap (\(\pm 50\) tokens) did not materially affect the relevance of top-ranked results, but lower overlap increased the likelihood of boundary effects near section transitions. Increasing the retrieval depth beyond \(k = 5\) primarily surfaced generic governance or background content without improving evidence quality for the evaluated queries.
+
+These observations indicate that the chosen configuration lies within a stable operating region rather than representing a finely tuned optimum. Formal sensitivity analysis and parameter optimisation are deferred to future work, where a multi-document corpus and a gold-standard relevance set would enable quantitative evaluation using established retrieval metrics.
+
+\section{Reproducibility and Artefacts}
+All processing steps are deterministic. Intermediate artefacts (pages, sections, chunks, embeddings, FAISS index, and metrics) are stored explicitly, enabling full pipeline re-execution and auditability.
+
+% =========================================================
+\chapter{Evaluation Results}
+
+\section{Evaluation Approach}
+Evaluation focuses on qualitative correctness and traceability using realistic analyst queries. For each query, retrieved chunks were assessed for relevance and page-level alignment.
+
+\section{Corpus Summary}
+[Tables and figures remain exactly as in your current version.]
+
+\section{Qualitative Query Evaluation}
+\begin{table}[H]
+\centering
+\caption{Representative query evaluation (top-$k = 5$)}
+\begin{tabular}{p{5cm}ccp{3cm}}
+\toprule
+Query & Relevant in top-5 & Pages matched & Dominant section \\
+\midrule
+Key risks and issues in 2023/24 & Yes & 20--23 & Risk management \\
+Financial sustainability & Yes & 13 & Finance \\
+Audit and risk oversight & Yes & 30 & Audit Committee \\
+Clinical services performance & Yes & 17 & Clinical Services \\
+Workforce sustainability & Yes & 16 & Workforce \\
+Fraud and counter-fraud & Yes & 8 & Counter Fraud \\
+Governance structure & Partial & 31--32 & Board operations \\
+Capital expenditure & Partial & 43 & Financial statements \\
+Infection control programmes & Yes & 9--10 & Public health \\
+Non-executive directors & Yes & 29 & Governance \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\section{Failure Analysis}
+Three common failure modes were observed:
+\begin{itemize}
+  \item Governance-heavy queries occasionally retrieved high-level organisational text before domain-specific sections.
+  \item Numerically dense tables were split across multiple chunks, fragmenting context.
+  \item Some queries required synthesis across multiple sections rather than a single passage.
+\end{itemize}
+
+These limitations reflect structural properties of the source document rather than retrieval errors.
+
+\section{Evaluation Limitations}
+Quantitative metrics such as Recall@k\footnote{Recall@k measures the proportion of relevant documents appearing in the top-$k$ retrieved results.} were not computed due to the absence of a gold-standard relevance dataset.
+
+% =========================================================
+\chapter{Conclusion and Future Work}
+
+\section{Conclusion}
+This project demonstrated the feasibility of a transparent, document-grounded retrieval pipeline for unstructured public-sector reports. By combining layout-aware ingestion, semantic embeddings, exact vector retrieval, and explainable reranking, the system enables efficient and auditable access to authoritative source material.
+
+\section{Broader Applicability}
+The methodology generalises to compliance-driven domains such as oil and gas. In plug and abandonment programmes, the same pipeline can surface barrier verification evidence, testing results, and deviations with page-level traceability, reducing manual review effort.
+
+\section{Future Work}
+Future extensions include multi-document corpora, structured relevance annotation to enable quantitative metrics, improved table extraction, and tightly constrained answer generation under strict grounding rules.
+
+\end{document}

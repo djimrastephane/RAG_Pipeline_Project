@@ -1,0 +1,9 @@
+pandas
+pyarrow
+pymupdf
+tiktoken
+numpy
+faiss-cpu
+sentence-transformers
+torch
+matplotlib

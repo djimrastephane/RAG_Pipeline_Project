@@ -1,0 +1,24 @@
+# OS / editor
+.DS_Store
+.idea/
+
+# Python env
+.venv/
+__pycache__/
+*.pyc
+
+# Data and outputs
+Data/
+data_processed/
+figures/
+
+# LaTeX build artifacts
+*.aux
+*.log
+*.out
+*.toc
+*.synctex.gz
+
+# PDFs built from LaTeX (keep sources)
+RAG_NHS.pdf
+RAG_Poster.pdf

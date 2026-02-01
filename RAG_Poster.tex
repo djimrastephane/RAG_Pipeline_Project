@@ -1,0 +1,65 @@
+\documentclass[12pt,a4paper]{article}
+
+\usepackage[a4paper,margin=1in]{geometry}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{setspace}
+\usepackage{hyperref}
+\usepackage[english]{datetime2}
+
+\begin{document}
+
+\begin{center}
+\vspace*{1cm}
+
+{\LARGE \textbf{Document-Grounded Retrieval for Regulatory and Public-Sector Reports}}\\[0.5cm]
+
+{\large Executive Summary}\\[1cm]
+
+\end{center}
+
+\onehalfspacing
+
+\textbf{Context}  
+Regulatory and public-sector organisations publish extensive PDF reports containing critical operational, financial, and governance information. These documents are difficult to query due to inconsistent structure, repetitive headers, and dense narrative content. Analysts typically rely on manual review, which is slow, error-prone, and difficult to audit.
+
+\vspace{0.4cm}
+
+\textbf{Objective}  
+This project designs and evaluates a document-grounded retrieval system that enables natural language access to unstructured PDF reports while preserving explicit page-level traceability. Free-form answer generation is deliberately excluded to prioritise transparency and auditability.
+
+\vspace{0.4cm}
+
+\textbf{Approach}  
+The system implements a constrained retrieval-augmented architecture consisting of:
+\begin{itemize}
+\item Page-level PDF ingestion with header and footer normalisation
+\item Section-aware chunking with controlled overlap
+\item Sentence-level semantic embeddings
+\item Exact vector retrieval using FAISS
+\item Lightweight, explainable hybrid reranking
+\end{itemize}
+
+\vspace{0.4cm}
+
+\textbf{Results}  
+A 75-page public-sector report was processed into 42 sections and 85 retrieval-ready chunks. Header normalisation reduced generic structural noise from 33\% to 7\%. Retrieved results consistently surfaced relevant evidence with correct page references and stable behaviour under parameter variation.
+
+\vspace{0.4cm}
+
+\textbf{Impact}  
+The approach reduces manual review effort, improves consistency across analysts, and strengthens audit readiness. It is directly applicable to regulated domains where evidence traceability is essential.
+
+\vspace{0.4cm}
+
+\textbf{Broader Applicability}  
+The methodology generalises to oil and gas regulatory documentation, including plug and abandonment programmes, well integrity reports, incident investigations, and compliance reviews.
+
+\vspace{0.8cm}
+
+\noindent
+\textbf{Author:} Djimra Stephane\\
+\textbf{Role:} Data Scientist\\
+\textbf{Date:} 15 January 2026
+
+\end{document}

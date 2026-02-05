@@ -3,26 +3,40 @@ build_index.py
 
 Build embeddings + FAISS index from chunks.parquet produced by preprocess_pdf_rag.py.
 
-Batch mode (Option 2):
-- Automatically scans BASE_DATA_DIR for document folders.
+Batch mode:
+- Scans BASE_DATA_DIR for document folders.
 - For each folder containing chunks.parquet, builds:
   - faiss.index
   - embeddings.npy
   - chunk_meta.parquet
   - updates metrics.json with embedding/index details
 
-How this is used later
-- Retrieval: embed a query, search the FAISS index, map returned row ids to chunk_id + page_list
-- Evaluation: compute Recall@k and citation accuracy using expected_pages vs retrieved page_list
+Key requirements supported by this script
+- Metadata row order matches FAISS row order.
+  This guarantees FAISS row id i maps to chunk_meta row i.
+
+- Multi-document safety.
+  If chunks.parquet includes chunk_id_global, chunk_meta.parquet will include it.
+  Retrieval evaluation can then log globally unique chunk ids.
+
+- Page-level grounding for evaluation.
+  chunk_meta.parquet will include a canonical pages field (list[int]).
+  It will also include page_start and page_end.
+  page_list is kept as a structured compatibility field when available.
+
+Outputs used later
+- Retrieval: embed query, search FAISS, map returned ids to chunk_id_global or chunk_id plus pages/page_start/page_end
+- Evaluation: compute Recall@k, MRR, and failure attribution using expected_pages vs retrieved pages
 """
 
 from __future__ import annotations
 
 import json
 import re
+import math
 from pathlib import Path
 from datetime import datetime, timezone
-from typing import Any
+from typing import Any, Optional
 
 import numpy as np
 import pandas as pd
@@ -137,82 +151,240 @@ def find_text_artifacts(text: str) -> dict[str, int]:
     }
 
 
+def _to_int_if_whole(x: Any) -> Optional[int]:
+    """
+    Convert a value into an integer when it represents a whole number.
+
+    Purpose:
+        Parquet readers and transforms can change numeric types. Page fields may
+        appear as int, float (2.0), or str ("2"). This helper normalises such
+        values so downstream logic can treat page numbers as plain integers.
+
+    Args:
+        x (Any): Candidate numeric value.
+
+    Returns:
+        Optional[int]: Integer when conversion is safe and exact, else None.
+    """
+    if x is None:
+        return None
+    if isinstance(x, bool):
+        return None
+    if isinstance(x, int):
+        return x
+    if isinstance(x, float):
+        if math.isfinite(x) and float(x).is_integer():
+            return int(x)
+        return None
+    if isinstance(x, str):
+        s = x.strip()
+        if not s:
+            return None
+        if s.isdigit():
+            return int(s)
+        try:
+            f = float(s)
+            if math.isfinite(f) and f.is_integer():
+                return int(f)
+        except Exception:
+            return None
+    return None
+
+
+def normalize_pages_value(v: Any) -> list[int]:
+    """
+    Normalise a pages-like value into list[int].
+
+    Supported inputs:
+    - list[int]
+    - tuple[int]
+    - numpy array
+    - scalar
+    - stringified lists
+    - list of dicts like [{"element": 2}, {"element": 3}]
+    - stringified list of dicts like '[{"element":2}]'
+
+    Returns:
+        list[int]: Sorted unique pages, empty list if not parseable.
+    """
+    if v is None or (isinstance(v, float) and pd.isna(v)):
+        return []
+
+    if isinstance(v, (list, tuple)):
+        out: list[int] = []
+        for x in v:
+            if x is None or (isinstance(x, float) and pd.isna(x)):
+                continue
+            if isinstance(x, dict):
+                if "element" in x:
+                    iv = _to_int_if_whole(x.get("element"))
+                    if iv is not None:
+                        out.append(iv)
+                continue
+            iv = _to_int_if_whole(x)
+            if iv is not None:
+                out.append(iv)
+        return sorted(set(out))
+
+    if hasattr(v, "tolist"):
+        try:
+            vv = v.tolist()
+            return normalize_pages_value(vv)
+        except Exception:
+            return []
+
+    if isinstance(v, str):
+        s = v.strip()
+        if not s:
+            return []
+        nums = re.findall(r"\d+", s)
+        return sorted(set(int(n) for n in nums)) if nums else []
+
+    iv = _to_int_if_whole(v)
+    return [iv] if iv is not None else []
+
+
+def build_pages_from_span(page_start: Any, page_end: Any) -> list[int]:
+    """
+    Build pages list from page_start/page_end.
+
+    Returns:
+        list[int]: Inclusive range between start and end when valid, else [].
+    """
+    ps = _to_int_if_whole(page_start)
+    pe = _to_int_if_whole(page_end)
+    if ps is None or pe is None:
+        return []
+    if ps <= pe:
+        return list(range(ps, pe + 1))
+    return list(range(pe, ps + 1))
+
+
+def build_page_list_struct(pages: list[int]) -> list[dict]:
+    """
+    Build structured page list field for compatibility with earlier viewers.
+
+    Output form:
+        [{"element": 2}, {"element": 3}]
+    """
+    return [{"element": int(p)} for p in pages]
+
+
 def build_meta_table(chunks: pd.DataFrame) -> pd.DataFrame:
     """
-    Builds a lightweight metadata table aligned to the FAISS index rows.
+    Build a metadata table aligned to FAISS index rows.
 
-    Critical for:
-    - mapping FAISS row ids -> chunk_id
-    - returning page provenance for citations (page_list, page_start)
+    This function guarantees:
+    - chunk_id exists
+    - pages exists as list[int]
+    - page_start/page_end exist when present in input
+    - chunk_id_global is preserved when present in input
+
+    Why:
+        Retrieval evaluation needs stable document and page grounding.
+        Multi-document indexing needs globally unique chunk ids.
+
+    Output columns are ordered and minimal to keep chunk_meta.parquet lightweight.
     """
+    if "chunk_id" not in chunks.columns:
+        raise ValueError("chunks.parquet must include 'chunk_id'.")
+
     preferred_cols = [
         "chunk_id",
+        "chunk_id_global",
         "doc_id",
+        "corpus_id",
         "report_year",
         "report_year_source",
         "period_end_date",
+        "run_date_utc",
         "part",
         "section_title",
         "page_start",
         "page_end",
+        "pages",
         "page_list",
     ]
 
     cols = [c for c in preferred_cols if c in chunks.columns]
-    if "chunk_id" not in cols:
-        raise ValueError("chunks.parquet must include 'chunk_id'.")
-
     meta = chunks[cols].copy()
 
-    def _to_page_list(v) -> list[int]:
-        """
-        Normalises page_list into a python list[int].
-        Handles list/tuple, numpy arrays, scalars, and stringified lists.
-        """
-        if v is None or (isinstance(v, float) and pd.isna(v)):
-            return []
+    # Ensure page_start/page_end exist if present in source.
+    # If missing, attempt to derive from pages.
+    if "pages" in meta.columns:
+        meta["pages"] = meta["pages"].apply(normalize_pages_value)
+    elif "page_list" in meta.columns:
+        # If pages is missing but page_list exists, derive pages from it.
+        meta["pages"] = meta["page_list"].apply(normalize_pages_value)
+    else:
+        # Create pages later from span if possible.
+        meta["pages"] = [[] for _ in range(len(meta))]
 
-        if isinstance(v, (list, tuple)):
-            out = []
-            for x in v:
-                if x is None or (isinstance(x, float) and pd.isna(x)):
-                    continue
-                out.append(int(x))
-            return out
+    # Normalize page_start and page_end where possible.
+    if "page_start" in meta.columns and "page_end" in meta.columns:
+        meta["page_start"] = meta["page_start"].apply(_to_int_if_whole)
+        meta["page_end"] = meta["page_end"].apply(_to_int_if_whole)
 
-        if hasattr(v, "tolist"):
-            try:
-                vv = v.tolist()
-                if isinstance(vv, list):
-                    return [int(x) for x in vv if x is not None]
-                return [int(vv)]
-            except Exception:
-                pass
+        # Fill pages from span when pages is empty.
+        def _fill_pages_from_span(row) -> list[int]:
+            pages = row["pages"]
+            if isinstance(pages, list) and len(pages) > 0:
+                return sorted(set(int(p) for p in pages))
+            return build_pages_from_span(row.get("page_start"), row.get("page_end"))
 
-        if isinstance(v, str):
-            s = v.strip()
-            if s.startswith("[") and s.endswith("]"):
-                nums = re.findall(r"\d+", s)
-                return [int(n) for n in nums]
-            nums = re.findall(r"\d+", s)
-            if len(nums) == 1:
-                return [int(nums[0])]
-            return []
+        meta["pages"] = meta.apply(_fill_pages_from_span, axis=1)
+    else:
+        # If page_start/page_end not present, try to derive from pages.
+        if "page_start" not in meta.columns:
+            meta["page_start"] = meta["pages"].apply(lambda ps: int(min(ps)) if ps else None)
+        if "page_end" not in meta.columns:
+            meta["page_end"] = meta["pages"].apply(lambda ps: int(max(ps)) if ps else None)
 
-        try:
-            return [int(v)]
-        except Exception:
-            return []
-
+    # Keep page_list as compatibility field.
+    # If the input has it but it is nested or stringified, normalise it to list[dict].
+    # If input does not have it, create it from pages.
     if "page_list" in meta.columns:
-        meta["page_list"] = meta["page_list"].apply(_to_page_list)
+        def _norm_page_list(v: Any, pages: list[int]) -> list[dict]:
+            # If v already looks like a list of dicts, keep it.
+            if isinstance(v, list) and all(isinstance(x, dict) for x in v):
+                if all(("element" in x) for x in v):
+                    return [{"element": int(_to_int_if_whole(x.get("element")) or 0)} for x in v if _to_int_if_whole(x.get("element")) is not None]
+            # Otherwise, rebuild from pages.
+            return build_page_list_struct(pages)
+
+        meta["page_list"] = [
+            _norm_page_list(v, pages)
+            for v, pages in zip(meta["page_list"].tolist(), meta["pages"].tolist())
+        ]
+    else:
+        meta["page_list"] = meta["pages"].apply(build_page_list_struct)
+
+    # Final column order
+    out_cols = [
+        "chunk_id",
+        "chunk_id_global",
+        "doc_id",
+        "corpus_id",
+        "report_year",
+        "report_year_source",
+        "period_end_date",
+        "run_date_utc",
+        "part",
+        "section_title",
+        "page_start",
+        "page_end",
+        "pages",
+        "page_list",
+    ]
+    out_cols = [c for c in out_cols if c in meta.columns]
+    meta = meta[out_cols].copy()
 
     return meta
 
 
 def should_skip_doc(doc_dir: Path) -> tuple[bool, str]:
     """
-    Determines whether a document folder should be skipped.
+    Determine whether a document folder should be skipped.
 
     Skips when:
     - chunks.parquet is missing
@@ -234,7 +406,7 @@ def should_skip_doc(doc_dir: Path) -> tuple[bool, str]:
 
 def iter_document_dirs(base_dir: Path) -> list[Path]:
     """
-    Returns all immediate subdirectories of base_dir.
+    Return all immediate subdirectories of base_dir.
     """
     if not base_dir.exists():
         raise FileNotFoundError(f"BASE_DATA_DIR not found: {base_dir}")
@@ -246,7 +418,13 @@ def iter_document_dirs(base_dir: Path) -> list[Path]:
 # =============================================================================
 def build_index_for_doc(doc_dir: Path, model: SentenceTransformer) -> None:
     """
-    Build embeddings + FAISS index for one processed document folder.
+    Build embeddings and FAISS index for one processed document folder.
+
+    Guarantees:
+    - chunk_meta.parquet includes chunk_id_global when available
+    - chunk_meta.parquet includes pages as list[int]
+    - embeddings.npy row order matches chunk_meta.parquet row order
+    - faiss.index row order matches chunk_meta.parquet row order
     """
     chunks_path = doc_dir / CHUNKS_FILENAME
     metrics_path = doc_dir / METRICS_FILENAME
@@ -279,7 +457,7 @@ def build_index_for_doc(doc_dir: Path, model: SentenceTransformer) -> None:
     # Metadata aligned with index rows
     meta = build_meta_table(chunks)
 
-    # Load preprocess metrics (traceability)
+    # Load preprocess metrics for traceability
     preprocess_metrics = read_json(metrics_path)
     preprocess_schema = preprocess_metrics.get("schema_version")
     preprocess_norm = preprocess_metrics.get("params", {}).get("final_text_normalization", {})
@@ -297,7 +475,7 @@ def build_index_for_doc(doc_dir: Path, model: SentenceTransformer) -> None:
     emb = l2_normalize(emb).astype("float32")
     n, d = emb.shape
 
-    # Build FAISS index (exact baseline)
+    # Build FAISS index
     index = faiss.IndexFlatIP(d)
     index.add(emb)
 
@@ -325,6 +503,14 @@ def build_index_for_doc(doc_dir: Path, model: SentenceTransformer) -> None:
             "normalised_for_cosine": True,
             "topk_default": TOPK_DEFAULT,
             "embedding_summary": describe_array(emb),
+            "chunk_meta_schema": {
+                "columns": list(meta.columns),
+                "has_chunk_id_global": bool("chunk_id_global" in meta.columns),
+                "has_pages": bool("pages" in meta.columns),
+                "sample_chunk_id": str(meta["chunk_id"].iloc[0]) if len(meta) else "",
+                "sample_chunk_id_global": str(meta["chunk_id_global"].iloc[0]) if "chunk_id_global" in meta.columns and len(meta) else "",
+                "sample_pages": meta["pages"].iloc[0] if "pages" in meta.columns and len(meta) else [],
+            },
             "artifacts": {
                 "faiss_index": str(index_path),
                 "embeddings_npy": str(emb_path),

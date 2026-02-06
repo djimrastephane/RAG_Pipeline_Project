@@ -1,15 +1,28 @@
+from __future__ import annotations
+
 from pathlib import Path
 import json
+
 
 base = Path(
     "/Users/djimra/MSc Data Science Jan 2025/Thesis documents/RAG_Pipeline_Project/data_processed"
 )
 
+
 def final_norm_flag(data: dict) -> bool:
+    """
+    Determine whether final text normalization was applied.
+
+    Supports both legacy location:
+      params.final_text_normalization
+
+    And newer location:
+      embedding.preprocess_trace.final_text_normalization
+    """
     v = (
         data.get("embedding", {})
-            .get("preprocess_trace", {})
-            .get("final_text_normalization", None)
+        .get("preprocess_trace", {})
+        .get("final_text_normalization", None)
     )
     if v is None:
         v = data.get("params", {}).get("final_text_normalization", None)
@@ -20,7 +33,102 @@ def final_norm_flag(data: dict) -> bool:
         return v
     return False
 
+
+def _parse_schema_version(v) -> tuple[int, int]:
+    """
+    Parse a schema version string like '2.4' into a comparable tuple (2, 4).
+    Returns (0, 0) when parsing fails.
+    """
+    if v is None:
+        return (0, 0)
+    if isinstance(v, (int, float)):
+        s = str(v)
+    else:
+        s = str(v).strip()
+    m = s.split(".")
+    try:
+        major = int(m[0])
+        minor = int(m[1]) if len(m) > 1 else 0
+        return (major, minor)
+    except Exception:
+        return (0, 0)
+
+
+def preprocessing_param_assertions(data: dict, run_name: str) -> None:
+    """
+    Validate preprocessing parameters recorded in metrics.json.
+
+    This stays lightweight and focuses on:
+    - required keys for the current schema
+    - basic sanity ranges for strip fractions and chunk settings
+
+    It does not inspect pages.parquet content, it only checks metadata.
+    """
+    params = data.get("params", {})
+    sv = _parse_schema_version(data.get("schema_version"))
+
+    # Always expected in your pipeline
+    required = [
+        "chunk_size_tokens",
+        "chunk_overlap_tokens",
+        "top_strip_frac",
+        "bottom_strip_frac",
+        "header_footer_repeat_frac",
+        "min_chunk_words",
+        "primary_extractor",
+        "fallback_min_chars",
+        "fallback_on_bad_text",
+        "fallback_on_exception",
+    ]
+    for k in required:
+        assert k in params, f"{run_name}: params.{k} missing"
+
+    # New for rotated/wide-page logic in schema 2.4+
+    if sv >= (2, 4):
+        assert "left_strip_frac" in params, f"{run_name}: params.left_strip_frac missing"
+        assert "right_strip_frac" in params, f"{run_name}: params.right_strip_frac missing"
+
+    # Sanity ranges
+    def _frac_ok(x) -> bool:
+        try:
+            f = float(x)
+            return 0.0 <= f <= 0.30
+        except Exception:
+            return False
+
+    assert _frac_ok(params["top_strip_frac"]), f"{run_name}: top_strip_frac out of range"
+    assert _frac_ok(params["bottom_strip_frac"]), f"{run_name}: bottom_strip_frac out of range"
+    if sv >= (2, 4):
+        assert _frac_ok(params["left_strip_frac"]), f"{run_name}: left_strip_frac out of range"
+        assert _frac_ok(params["right_strip_frac"]), f"{run_name}: right_strip_frac out of range"
+
+    # Chunking sanity
+    cs = params["chunk_size_tokens"]
+    co = params["chunk_overlap_tokens"]
+    try:
+        cs_i = int(cs)
+        co_i = int(co)
+    except Exception:
+        raise AssertionError(f"{run_name}: chunk_size_tokens/chunk_overlap_tokens not int-like")
+
+    assert cs_i > 0, f"{run_name}: chunk_size_tokens must be > 0"
+    assert 0 <= co_i < cs_i, f"{run_name}: chunk_overlap_tokens must be >=0 and < chunk_size_tokens"
+
+    # Repeat fraction sanity
+    try:
+        r = float(params["header_footer_repeat_frac"])
+    except Exception:
+        raise AssertionError(f"{run_name}: header_footer_repeat_frac not numeric")
+    assert 0.0 <= r <= 1.0, f"{run_name}: header_footer_repeat_frac out of range"
+
+
 def embedding_qa_assertions(data: dict, run_name: str) -> None:
+    """
+    Validate embedding stage metadata when present.
+
+    Some runs may not write 'embedding' yet. In that case, this function
+    should be skipped by the caller.
+    """
     emb = data.get("embedding", {})
     summary = emb.get("embedding_summary", {})
 
@@ -29,7 +137,6 @@ def embedding_qa_assertions(data: dict, run_name: str) -> None:
     normalised_for_cosine = emb.get("normalised_for_cosine")
     shape = summary.get("shape")
 
-    # Hard failures, these invalidate retrieval if broken
     assert chunks_embedded is not None, f"{run_name}: chunks_embedded missing"
     assert embedding_dim is not None, f"{run_name}: embedding_dim missing"
     assert shape is not None, f"{run_name}: embedding_summary.shape missing"
@@ -48,6 +155,7 @@ def embedding_qa_assertions(data: dict, run_name: str) -> None:
         f"{run_name}: embeddings not normalised for cosine similarity"
     )
 
+
 for d in sorted(base.iterdir()):
     if not d.is_dir():
         continue
@@ -57,13 +165,28 @@ for d in sorted(base.iterdir()):
         print(d.name, "MISSING metrics.json")
         continue
 
-    data = json.loads(m.read_text())
+    data = json.loads(m.read_text(encoding="utf-8"))
 
+    # Preprocessing QA (based on metrics.json params)
     try:
-        embedding_qa_assertions(data, d.name)
-        emb_status = "OK"
+        preprocessing_param_assertions(data, d.name)
+        prep_status = "OK"
     except AssertionError as e:
-        emb_status = f"FAIL ({e})"
+        prep_status = f"FAIL ({e})"
+
+    # Embedding QA (only if embedding block exists)
+    if "embedding" in data and isinstance(data.get("embedding"), dict) and data.get("embedding"):
+        try:
+            embedding_qa_assertions(data, d.name)
+            emb_status = "OK"
+        except AssertionError as e:
+            emb_status = f"FAIL ({e})"
+    else:
+        emb_status = "SKIP (no embedding block)"
+
+    params = data.get("params", {})
+    left = params.get("left_strip_frac", None)
+    right = params.get("right_strip_frac", None)
 
     print(
         d.name,
@@ -71,6 +194,12 @@ for d in sorted(base.iterdir()):
         data.get("schema_version"),
         "final_norm:",
         final_norm_flag(data),
+        "preproc_QA:",
+        prep_status,
         "embedding_QA:",
         emb_status,
+        "left_strip:",
+        left,
+        "right_strip:",
+        right,
     )

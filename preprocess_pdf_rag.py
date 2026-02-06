@@ -11,7 +11,9 @@ GOAL
 
 WHY THIS SCRIPT USES A "HYBRID LOADER" (PyMuPDF with PDFPlumber fallback)
 This pipeline relies on page layout signals for two key tasks:
-1) Header/footer removal using vertical coordinates (top and bottom strips of each page)
+1) Boilerplate removal using page coordinates
+   - Standard pages: remove top and bottom strips (header and footer)
+   - Rotated or wide table pages: remove left and right strips (side headers)
 2) Heading detection using font size signals (page p95 font size, plus per-line max font size)
 
 PyMuPDF (fitz) provides:
@@ -32,30 +34,31 @@ So we use:
 - PRIMARY: PyMuPDF for speed, coordinates, and fonts
 - FALLBACK: PDFPlumber per-page when PyMuPDF output is suspicious or when PyMuPDF fails
 
-Important note:
+Important notes:
 - The fallback is page-scoped, not document-scoped.
-- We keep the output schema identical, and we record the extractor used per page.
-- This supports QA and reproducibility. You can show which pages required fallback.
+- Output schema stays identical, and we record the extractor used per page.
+- Boilerplate stripping is orientation-aware:
+  - Portrait pages: strip top and bottom
+  - Rotated or wide pages: strip left and right
+  This handles pages with large tables where the repeated header text moves to the sides.
 
 HOW TO RUN
-1) Create/activate your Python environment.
+1) Create or activate your Python environment.
 2) Install dependencies:
    pip install pymupdf pdfplumber pandas pyarrow
    Optional (recommended for exact token chunking):
    pip install tiktoken
-
 3) Set PDF_PATH at the top of this file to point to your PDF.
-
-4) Run from Terminal:
+4) Run:
    python preprocess_pdf_rag.py
 
 EXPECTED OUTPUTS
 OUT_ROOT/<DOC_ID>/
   pages.parquet        Cleaned text per page + metadata + extractor used
   sections.parquet     Section spans inferred from headings + metadata
-  chunks.parquet       Page-accurate chunks + flags + token/word counts
+  chunks.parquet       Page-accurate chunks + flags + token or word counts
   metrics.json         Run summary (counts, params, summaries)
-  qa_report.json       Header/footer removal evidence and samples
+  qa_report.json       Header or footer removal evidence and samples
   sample_chunks.md     Human-readable sample chunks for quick inspection
 
 SCHEMA NOTES (NEW IN THIS VERSION)
@@ -155,7 +158,7 @@ class StepTimer:
 # CONFIG
 # =============================================================================
 PDF_PATH = Path(
-    "/Users/djimra/MSc Data Science Jan 2025/Thesis documents/RAG_Pipeline_Project/Data/Annual Accounts NHS Grampian/oga-annual-report-and-accounts-2023-24-web.pdf"
+    "/Users/djimra/MSc Data Science Jan 2025/Thesis documents/RAG_Pipeline_Project/Data/Annual Accounts NHS Grampian/Preliminary_Test/Grampian-2022-2023.pdf"
 )
 DOC_ID = PDF_PATH.stem
 
@@ -174,6 +177,10 @@ CHUNK_OVERLAP_TOKENS = 90
 # Header/footer removal by page coordinate strips (fractions of page height)
 TOP_STRIP_FRAC = 0.08
 BOTTOM_STRIP_FRAC = 0.08
+
+# NEW: side-strip removal for rotated / landscape pages (fractions of page width)
+LEFT_STRIP_FRAC = 0.08
+RIGHT_STRIP_FRAC = 0.08
 
 # Extra repetition-based removal after coordinate stripping
 HEADER_FOOTER_REPEAT_FRAC = 0.40
@@ -232,7 +239,7 @@ def normalize_line(s: str) -> str:
 
 def normalize_page_text(text: str) -> str:
     """
-    Final page-level text normalization after header/footer removal.
+    Final page-level text normalization after boilerplate removal.
     """
     s = text.replace("\r", "\n")
     s = s.replace("\u00ad", "")
@@ -310,13 +317,6 @@ def _to_int_if_whole(x: Any) -> Optional[int]:
         Page fields may appear as int, float (2.0), or str ("2"). This helper
         normalises such values so downstream logic can treat page numbers as
         plain integers.
-
-    Args:
-        x (Any): A candidate page value.
-
-    Returns:
-        Optional[int]:
-            An integer when conversion is safe and exact, else None.
     """
     if x is None:
         return None
@@ -346,18 +346,6 @@ def _to_int_if_whole(x: Any) -> Optional[int]:
 def build_pages_from_span(page_start: Any, page_end: Any) -> list[int]:
     """
     Build a canonical pages list from page_start and page_end.
-
-    Purpose:
-        Evaluation requires a simple, deterministic page list per chunk. Using
-        page_start and page_end avoids brittle parsing of nested structures.
-
-    Args:
-        page_start (Any): Page start value (int, float, or str).
-        page_end (Any): Page end value (int, float, or str).
-
-    Returns:
-        list[int]:
-            A sorted list of unique page numbers.
     """
     ps = _to_int_if_whole(page_start)
     pe = _to_int_if_whole(page_end)
@@ -371,39 +359,13 @@ def build_pages_from_span(page_start: Any, page_end: Any) -> list[int]:
 def build_page_list_struct(pages: list[int]) -> list[dict]:
     """
     Build the backward-compatible structured page list.
-
-    Purpose:
-        Some parquet viewers and earlier readers display nested lists under a
-        derived label like "page_list.list". Keeping a structured field avoids
-        breaking existing tooling while still providing a plain pages list.
-
-    Args:
-        pages (list[int]): Plain list of page numbers.
-
-    Returns:
-        list[dict]:
-            A list like [{"element": 2}, {"element": 3}].
     """
     return [{"element": int(p)} for p in pages]
 
 
 def make_chunk_id_global(doc_id: str, chunk_id: str) -> str:
     """
-    Create a globally unique chunk identifier.
-
-    Purpose:
-        Local chunk ids such as "p0002_000" repeat across documents. When you
-        ingest multiple documents into one index, you need a key that never
-        collides. This function creates a stable unique id by prefixing the
-        local chunk id with the document id.
-
-    Args:
-        doc_id (str): Document identifier.
-        chunk_id (str): Local chunk identifier.
-
-    Returns:
-        str:
-            A globally unique chunk id in the form "<doc_id>:<chunk_id>".
+    Create a globally unique chunk identifier in the form "<doc_id>:<chunk_id>".
     """
     return f"{doc_id}:{chunk_id}"
 
@@ -561,6 +523,83 @@ def contains_many_numbers(text: str) -> bool:
     return digits / max(1, len(text)) > 0.10
 
 
+
+def is_section_anchor_line(line: str) -> bool:
+    """
+    Decide whether a removed top-strip line is a *semantic section anchor*
+    that should be kept for context.
+
+    Intended positives:
+      - PERFORMANCE REPORT
+      - ACCOUNTABILITY REPORT
+      - CORPORATE GOVERNANCE REPORT
+      - PERFORMANCE ANALYSIS
+
+    Intended negatives (global boilerplate):
+      - NHS GRAMPIAN
+      - ANNUAL REPORT AND ACCOUNTS FOR YEAR ENDED 31 MARCH 2023
+      - Anything containing dates/years or generic annual-report titles
+
+    This predicate is conservative. It aims to keep true report/section bands
+    while leaving global document boilerplate removed.
+    """
+    if not isinstance(line, str):
+        return False
+
+    s = re.sub(r"\s+", " ", line).strip()
+    if not s:
+        return False
+
+    # Reasonable length for a banner label, avoids long global titles.
+    if len(s) < 8 or len(s) > 48:
+        return False
+
+    # Must contain one of the anchor keywords.
+    anchor_kw = {"REPORT", "ANALYSIS", "STATEMENT", "GOVERNANCE"}
+    words = re.findall(r"[A-Za-z]+", s.upper())
+    if not words:
+        return False
+    if not any(w in anchor_kw for w in words):
+        return False
+
+    # Exclude likely global boilerplate tokens.
+    # Keep this list short and generic, it should not be document-specific.
+    hard_exclude = {
+        "ANNUAL",
+        "ACCOUNTS",
+        "YEAR",
+        "ENDED",
+        "NHS",
+        "BOARD",
+        "SCOTLAND",
+        "GRAMPIAN",
+    }
+    if any(w in hard_exclude for w in words):
+        return False
+
+    # Exclude anything that looks like a date/year.
+    if re.search(r"\b(?:19|20)\d{2}\b", s):
+        return False
+    if re.search(r"\b(?:JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|SEPT|OCT|NOV|DEC)\b", s.upper()):
+        return False
+    if re.search(r"\b\d{1,2}\b", s) and re.search(r"\b(?:MARCH|APRIL|MAY|JUNE|JULY)\b", s.upper()):
+        return False
+
+    # Require uppercase style (typical for these banner bars).
+    # Allow some punctuation and a small fraction of lowercase.
+    alpha = [c for c in s if c.isalpha()]
+    if not alpha:
+        return False
+    upper_ratio = sum(c.isupper() for c in alpha) / len(alpha)
+    if upper_ratio < 0.80:
+        return False
+
+    # Avoid lines that are mostly punctuation or very “wide” separators.
+    if re.fullmatch(r"[-–—_= ]+", s):
+        return False
+
+    return True
+
 # =============================================================================
 # TOKENISATION AND CHUNKING
 # =============================================================================
@@ -618,8 +657,16 @@ def chunk_text_by_tokens(text: str, chunk_tokens: int, overlap_tokens: int, enc)
 # PDF EXTRACTION AND CLEANUP
 # =============================================================================
 def extract_page_struct_pymupdf(page: fitz.Page) -> dict:
+    """
+    Extract page text lines from PyMuPDF with layout metadata.
+
+    Returned lines include x0/x1/y0/y1 so the boilerplate remover can strip
+    either top/bottom (portrait pages) or left/right (rotated or wide pages).
+    """
     d = page.get_text("dict")
     page_height = float(page.rect.height)
+    page_width = float(page.rect.width)
+    rotation = int(page.rotation or 0)
 
     lines_all: list[dict] = []
     sizes: list[float] = []
@@ -630,8 +677,7 @@ def extract_page_struct_pymupdf(page: fitz.Page) -> dict:
         for line in block.get("lines", []):
             parts = []
             max_size = 0.0
-            y0s = []
-            y1s = []
+            x0s, x1s, y0s, y1s = [], [], [], []
 
             for span in line.get("spans", []):
                 t = span.get("text", "")
@@ -645,7 +691,9 @@ def extract_page_struct_pymupdf(page: fitz.Page) -> dict:
 
             bbox = line.get("bbox", None)
             if bbox and len(bbox) == 4:
+                x0s.append(float(bbox[0]))
                 y0s.append(float(bbox[1]))
+                x1s.append(float(bbox[2]))
                 y1s.append(float(bbox[3]))
 
             text = normalize_line(" ".join(parts))
@@ -655,13 +703,15 @@ def extract_page_struct_pymupdf(page: fitz.Page) -> dict:
             lines_all.append(
                 {
                     "text": text,
+                    "x0": min(x0s) if x0s else 0.0,
+                    "x1": max(x1s) if x1s else 0.0,
                     "y0": min(y0s) if y0s else 0.0,
                     "y1": max(y1s) if y1s else 0.0,
                     "max_size": max_size,
                 }
             )
 
-    lines_all.sort(key=lambda x: (x["y0"], x["y1"]))
+    lines_all.sort(key=lambda x: (x["y0"], x["x0"]))
 
     texts = [l["text"] for l in lines_all]
     texts = dehyphenate_lines(texts)
@@ -675,11 +725,24 @@ def extract_page_struct_pymupdf(page: fitz.Page) -> dict:
     else:
         p95 = 0.0
 
-    return {"lines_all": lines_all, "page_height": page_height, "p95_font": float(p95)}
+    return {
+        "lines_all": lines_all,
+        "page_height": page_height,
+        "page_width": page_width,
+        "rotation": rotation,
+        "p95_font": float(p95),
+    }
 
 
 def extract_page_struct_pdfplumber(pl_page) -> dict:
+    """
+    Extract page text lines from PDFPlumber.
+
+    Includes x0/x1/y0/y1 so the same orientation-aware boilerplate stripping
+    can be applied even when fallback extraction is used.
+    """
     page_height = float(pl_page.height)
+    page_width = float(pl_page.width)
 
     words = pl_page.extract_words(
         use_text_flow=True,
@@ -687,7 +750,13 @@ def extract_page_struct_pdfplumber(pl_page) -> dict:
     ) or []
 
     if not words:
-        return {"lines_all": [], "page_height": page_height, "p95_font": 0.0}
+        return {
+            "lines_all": [],
+            "page_height": page_height,
+            "page_width": page_width,
+            "rotation": 0,
+            "p95_font": 0.0,
+        }
 
     y_tol = 3.0
     words_sorted = sorted(words, key=lambda w: (float(w.get("top", 0.0)), float(w.get("x0", 0.0))))
@@ -724,10 +793,12 @@ def extract_page_struct_pdfplumber(pl_page) -> dict:
 
         y0 = min(float(w.get("top", 0.0)) for w in ws)
         y1 = max(float(w.get("bottom", 0.0)) for w in ws)
+        x0 = min(float(w.get("x0", 0.0)) for w in ws)
+        x1 = max(float(w.get("x1", 0.0)) for w in ws)
 
-        lines_all.append({"text": txt, "y0": y0, "y1": y1, "max_size": 0.0})
+        lines_all.append({"text": txt, "x0": x0, "x1": x1, "y0": y0, "y1": y1, "max_size": 0.0})
 
-    lines_all.sort(key=lambda x: (x["y0"], x["y1"]))
+    lines_all.sort(key=lambda x: (x["y0"], x["x0"]))
 
     texts = [l["text"] for l in lines_all]
     texts = dehyphenate_lines(texts)
@@ -735,7 +806,13 @@ def extract_page_struct_pdfplumber(pl_page) -> dict:
         for i in range(len(lines_all)):
             lines_all[i]["text"] = texts[i]
 
-    return {"lines_all": lines_all, "page_height": page_height, "p95_font": 0.0}
+    return {
+        "lines_all": lines_all,
+        "page_height": page_height,
+        "page_width": page_width,
+        "rotation": 0,
+        "p95_font": 0.0,
+    }
 
 
 def extract_page_struct_hybrid(doc: fitz.Document, pdf_plumber, page_index: int) -> tuple[dict, str, str]:
@@ -791,26 +868,68 @@ def extract_page_struct_hybrid(doc: fitz.Document, pdf_plumber, page_index: int)
         return s2, used2, f"primary_failed:{type(e1).__name__}"
 
 
-def strip_by_coordinates(lines_all: list[dict], page_height: float) -> tuple[list[str], list[str], list[str]]:
-    top_y = page_height * TOP_STRIP_FRAC
-    bot_y = page_height * (1.0 - BOTTOM_STRIP_FRAC)
+def strip_by_coordinates(
+    lines_all: list[dict],
+    *,
+    page_height: float,
+    page_width: float,
+    rotation: int,
+) -> tuple[list[str], list[str], list[str]]:
+    """
+    Strip boilerplate using page coordinates.
+
+    Portrait pages:
+        - Strip top and bottom using y coordinates.
+
+    Rotated or wide pages (common for long tables):
+        - Strip left and right using x coordinates.
+
+    Returns:
+        kept_lines,
+        removed_primary (top or left),
+        removed_secondary (bottom or right)
+    """
+    rot = rotation % 360
+    is_rotated = rot in (90, 270)
+    is_landscape = page_width / max(page_height, 1.0) > 1.2
+    use_side_strips = is_rotated or is_landscape
 
     kept: list[str] = []
-    removed_top: list[str] = []
-    removed_bottom: list[str] = []
+    removed_a: list[str] = []
+    removed_b: list[str] = []
+
+    if use_side_strips:
+        left_x = page_width * LEFT_STRIP_FRAC
+        right_x = page_width * (1.0 - RIGHT_STRIP_FRAC)
+
+        for ln in lines_all:
+            x_mid = (ln["x0"] + ln["x1"]) / 2.0
+            txt = ln["text"]
+            if x_mid <= left_x:
+                removed_a.append(txt)
+                continue
+            if x_mid >= right_x:
+                removed_b.append(txt)
+                continue
+            kept.append(txt)
+
+        return kept, removed_a, removed_b
+
+    top_y = page_height * TOP_STRIP_FRAC
+    bot_y = page_height * (1.0 - BOTTOM_STRIP_FRAC)
 
     for ln in lines_all:
         y_mid = (ln["y0"] + ln["y1"]) / 2.0
         txt = ln["text"]
         if y_mid <= top_y:
-            removed_top.append(txt)
+            removed_a.append(txt)
             continue
         if y_mid >= bot_y:
-            removed_bottom.append(txt)
+            removed_b.append(txt)
             continue
         kept.append(txt)
 
-    return kept, removed_top, removed_bottom
+    return kept, removed_a, removed_b
 
 
 def remove_repeated_header_footer_lines(
@@ -948,6 +1067,10 @@ def main():
     """
     Executes the full document preprocessing pipeline for a single digital PDF
     as preparation for retrieval-augmented generation (RAG).
+
+    Includes orientation-aware boilerplate stripping:
+    - portrait pages use top/bottom strips
+    - rotated or wide pages use left/right strips
     """
     timer = StepTimer()
 
@@ -957,7 +1080,6 @@ def main():
     run_date_utc = now_utc_iso()
     enc = get_encoder()
 
-    # Stable run identifier for grouping multi-doc experiments.
     corpus_id = CORPUS_ID or DOC_ID
 
     doc = fitz.open(PDF_PATH)
@@ -991,15 +1113,18 @@ def main():
             page_extractor_used[page_no] = used
             page_extractor_notes[page_no] = note
 
-            kept, top, bottom = strip_by_coordinates(s["lines_all"], s["page_height"])
-
-            pages_text_lines[page_no] = kept
-            page_heading_candidates[page_no] = select_heading_candidates(
-                s["lines_all"], s["p95_font"]
+            kept, rem_a, rem_b = strip_by_coordinates(
+                s["lines_all"],
+                page_height=s["page_height"],
+                page_width=s["page_width"],
+                rotation=s["rotation"],
             )
 
-            qa_removed_top[page_no] = top
-            qa_removed_bottom[page_no] = bottom
+            pages_text_lines[page_no] = kept
+            page_heading_candidates[page_no] = select_heading_candidates(s["lines_all"], s["p95_font"])
+
+            qa_removed_top[page_no] = rem_a
+            qa_removed_bottom[page_no] = rem_b
 
         timer.mark("Step 1: page extraction + coord strip")
 
@@ -1091,9 +1216,6 @@ def main():
 
         chunks_df = pd.DataFrame(chunks)
 
-        # Baseline safety check: chunks should not span pages.
-        # Keep it as a hard check for now because your evaluation relies on
-        # page-accurate grounding.
         if len(chunks_df) > 0:
             bad_span = chunks_df[chunks_df["page_start"] != chunks_df["page_end"]]
             if len(bad_span) > 0:
@@ -1127,6 +1249,8 @@ def main():
                 "chunk_overlap_tokens": CHUNK_OVERLAP_TOKENS,
                 "top_strip_frac": TOP_STRIP_FRAC,
                 "bottom_strip_frac": BOTTOM_STRIP_FRAC,
+                "left_strip_frac": LEFT_STRIP_FRAC,
+                "right_strip_frac": RIGHT_STRIP_FRAC,
                 "header_footer_repeat_frac": HEADER_FOOTER_REPEAT_FRAC,
                 "min_chunk_words": MIN_CHUNK_WORDS,
                 "primary_extractor": PRIMARY_EXTRACTOR,

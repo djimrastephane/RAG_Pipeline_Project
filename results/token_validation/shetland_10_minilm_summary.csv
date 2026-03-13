@@ -1,0 +1,2 @@
+scope,documents,total_chunks,max_token_length,mean_length,p95_length,chunks_exceeding_256,truncation_rate
+"data_processed/Shetland-* (10 docs, 2015-2025)",10,2351,5559,510.1127179923437,2059.0,1044,0.4440663547426627

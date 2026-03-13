@@ -1,0 +1,43 @@
+{
+  "cohort": "Grampian-2021-2022",
+  "inputs": {
+    "hybrid_file": "/Users/djimra/MSc Data Science Jan 2025/Thesis documents/RAG_Pipeline_Project/archive/2026-02-28_ablation_cleanup/data_processed_ablation_thesis_5docs_q50/thesis_Grampian-2021-2022_chunk_280_90_seg_off_dense_rerank_on/Grampian-2021-2022/retrieval_results_hybrid.json",
+    "dense_file": "/Users/djimra/MSc Data Science Jan 2025/Thesis documents/RAG_Pipeline_Project/archive/2026-02-28_ablation_cleanup/data_processed_ablation_thesis_5docs_q50/thesis_Grampian-2021-2022_chunk_280_90_seg_off_dense_rerank_on/Grampian-2021-2022/retrieval_results.json",
+    "alpha": 0.05,
+    "allow_partial_overlap": false
+  },
+  "counts": {
+    "n_hybrid_queries": 50,
+    "n_dense_queries": 50,
+    "n_paired_queries": 50,
+    "n_missing_in_dense": 0,
+    "n_missing_in_hybrid": 0,
+    "n_discordant": 5
+  },
+  "contingency_table": {
+    "layout": "[[both_correct, hybrid_correct_dense_wrong], [hybrid_wrong_dense_correct, both_wrong]]",
+    "both_correct": 33,
+    "both_wrong": 12,
+    "hybrid_correct_dense_wrong": 1,
+    "hybrid_wrong_dense_correct": 4,
+    "table_2x2": [
+      [
+        33,
+        1
+      ],
+      [
+        4,
+        12
+      ]
+    ]
+  },
+  "mcnemar": {
+    "method": "statsmodels_mcnemar_exact",
+    "exact_used": true,
+    "statistic": 1.0,
+    "p_value": 0.375,
+    "alpha": 0.05,
+    "significant": false
+  },
+  "interpretation": "At alpha=0.05, the paired McNemar test does not indicate a statistically significant difference in Hit@1 between Hybrid and Dense retrieval for this cohort."
+}

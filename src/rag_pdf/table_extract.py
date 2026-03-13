@@ -84,6 +84,42 @@ def _best_camelot_table(tables) -> Optional[object]:
     return candidates[0][3]
 
 
+def _table_signature(df: pd.DataFrame) -> tuple[int, int, tuple[str, ...]]:
+    if df is None or not isinstance(df, pd.DataFrame):
+        return (0, 0, tuple())
+    rows, cols = df.shape
+    probes: list[str] = []
+    for ridx in range(min(2, rows)):
+        row = []
+        for cidx in range(min(3, cols)):
+            row.append(str(df.iat[ridx, cidx]).strip().lower())
+        probes.append("|".join(row))
+    return (rows, cols, tuple(probes))
+
+
+def _clean_valid_tables_from_camelot_list(tables) -> list[pd.DataFrame]:
+    out: list[pd.DataFrame] = []
+    seen: set[tuple[int, int, tuple[str, ...]]] = set()
+    if not tables:
+        return out
+    for t in tables:
+        try:
+            df = getattr(t, "df", None)
+            if df is None or not isinstance(df, pd.DataFrame) or len(df) == 0:
+                continue
+            cleaned = clean_table_dataframe(df, table_type=None)
+            if cleaned is None or len(cleaned) == 0:
+                continue
+            sig = _table_signature(cleaned)
+            if sig in seen:
+                continue
+            seen.add(sig)
+            out.append(cleaned)
+        except Exception:
+            continue
+    return out
+
+
 def extract_tables_for_page(pdf_path: Path, page_no: int, config: Optional[dict] = None) -> list[TableResult]:
     """
     Extract table(s) for one page with Camelot passes:
@@ -100,6 +136,8 @@ def extract_tables_for_page(pdf_path: Path, page_no: int, config: Optional[dict]
     resolution = int(cfg.get("resolution", CAMELOT_RESOLUTION))
     row_tol = int(cfg.get("row_tol", CAMELOT_STREAM_ROW_TOL))
     edge_tol = int(cfg.get("edge_tol", CAMELOT_STREAM_EDGE_TOL))
+    return_all_tables = bool(cfg.get("return_all_tables", False))
+    secondary_bottom_area = cfg.get("secondary_bottom_area")
     logs: list[str] = []
 
     if camelot is None:
@@ -197,6 +235,64 @@ def extract_tables_for_page(pdf_path: Path, page_no: int, config: Optional[dict]
                 f"page {page_no}: {pname} accepted (accuracy={acc:.2f}, whitespace={ws:.2f})"
             )
             print(logs[-1])
+
+        if return_all_tables:
+            cleaned_tables = _clean_valid_tables_from_camelot_list(tables)
+            if not cleaned_tables:
+                logs.append(f"page {page_no}: {pname} failed (no valid cleaned tables)")
+                print(logs[-1])
+                continue
+            logs.append(
+                f"page {page_no}: {pname} succeeded (accuracy={acc:.2f}, whitespace={ws:.2f}, tables={len(cleaned_tables)})"
+            )
+            print(logs[-1])
+            out = [
+                TableResult(
+                    page_no=page_no,
+                    flavor=pname,
+                    dataframe=tbl,
+                    parsing_report=report,
+                    logs=logs.copy(),
+                )
+                for tbl in cleaned_tables
+            ]
+            if secondary_bottom_area and pname == "stream":
+                try:
+                    extra = camelot.read_pdf(
+                        str(pdf_path),
+                        pages=str(page_no),
+                        flavor="stream",
+                        strip_text=" .\n",
+                        split_text=True,
+                        row_tol=row_tol,
+                        edge_tol=edge_tol,
+                        table_areas=[str(secondary_bottom_area)],
+                    )
+                    extra_tables = _clean_valid_tables_from_camelot_list(extra)
+                    seen = {_table_signature(r.dataframe) for r in out}
+                    add_n = 0
+                    for tbl in extra_tables:
+                        sig = _table_signature(tbl)
+                        if sig in seen:
+                            continue
+                        seen.add(sig)
+                        out.append(
+                            TableResult(
+                                page_no=page_no,
+                                flavor="stream_bottom",
+                                dataframe=tbl,
+                                parsing_report={"accuracy": 0.0, "whitespace": 0.0, "order": 0, "page": str(page_no)},
+                                logs=logs.copy(),
+                            )
+                        )
+                        add_n += 1
+                    if add_n:
+                        logs.append(f"page {page_no}: stream_bottom added {add_n} table(s)")
+                        print(logs[-1])
+                except Exception as e:
+                    logs.append(f"page {page_no}: stream_bottom exception: {type(e).__name__}: {e}")
+                    print(logs[-1])
+            return out
 
         df = getattr(best_table, "df", None)
         if df is None or not isinstance(df, pd.DataFrame) or len(df) == 0:
@@ -956,8 +1052,10 @@ def process_table_pages(
     report_year_source: Optional[str],
     run_date_utc: str,
     enc,
-    chunk_size_tokens: int = 280,
+    chunk_size_tokens: int = 224,
     table_chunking_strategy: str = "baseline",
+    return_all_tables: bool = False,
+    enable_secondary_bottom_pass: bool = False,
 ) -> tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame, list[dict]]:
     """
     Extract tables and create dual representation.
@@ -1006,6 +1104,12 @@ def process_table_pages(
                 "resolution": CAMELOT_RESOLUTION,
                 "row_tol": CAMELOT_STREAM_ROW_TOL,
                 "edge_tol": CAMELOT_STREAM_EDGE_TOL,
+                "return_all_tables": bool(return_all_tables),
+                "secondary_bottom_area": (
+                    f"0,0,{float(tpage.get('page_width', 0.0) or 0.0):.1f},{max(1.0, float(tpage.get('page_height', 0.0) or 0.0) * 0.45):.1f}"
+                    if enable_secondary_bottom_pass and float(tpage.get("page_width", 0.0) or 0.0) > 0.0 and float(tpage.get("page_height", 0.0) or 0.0) > 0.0
+                    else None
+                ),
             },
         )
 
@@ -1121,7 +1225,7 @@ def process_table_pages(
                 "table_type": table_type or "unknown",
                 "rows": len(raw_table),
                 "cols": len(raw_table.columns),
-                "extraction_method": "camelot" if tresult.flavor in {"lattice", "hybrid", "stream"} else "pdfplumber",
+                "extraction_method": "camelot" if tresult.flavor in {"lattice", "hybrid", "stream", "stream_bottom"} else "pdfplumber",
                 "flavor": tresult.flavor,
                 "parsing_report_accuracy": float(tresult.parsing_report.get("accuracy", 0.0)),
                 "parsing_report_whitespace": float(tresult.parsing_report.get("whitespace", 0.0)),

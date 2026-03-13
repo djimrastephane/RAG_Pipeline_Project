@@ -1,0 +1,3 @@
+mean_drift_fp2=0.025883317389770403
+mean_drift_not_fp2=0.012611434700469801
+n_rows=55

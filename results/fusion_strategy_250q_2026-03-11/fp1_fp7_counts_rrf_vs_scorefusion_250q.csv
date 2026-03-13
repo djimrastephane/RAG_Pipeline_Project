@@ -1,0 +1,15 @@
+row_label,fp,count,pct,n_queries
+After (Score Fusion),FP1,0,0.0,250
+After (Score Fusion),FP2,34,13.6,250
+After (Score Fusion),FP3,0,0.0,250
+After (Score Fusion),FP4,0,0.0,250
+After (Score Fusion),FP5,0,0.0,250
+After (Score Fusion),FP6,0,0.0,250
+After (Score Fusion),FP7,0,0.0,250
+Before (RRF),FP1,0,0.0,250
+Before (RRF),FP2,39,15.6,250
+Before (RRF),FP3,0,0.0,250
+Before (RRF),FP4,0,0.0,250
+Before (RRF),FP5,0,0.0,250
+Before (RRF),FP6,0,0.0,250
+Before (RRF),FP7,0,0.0,250

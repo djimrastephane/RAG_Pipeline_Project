@@ -1,0 +1,54 @@
+{
+  "all": {
+    "baseline_vs_row_preserving": {
+      "delta_strict_accuracy": {
+        "mean": -0.01952,
+        "ci95_low": -0.06,
+        "ci95_high": 0.0
+      },
+      "delta_p_strict_given_hit3": {
+        "mean": -0.023773062631906653,
+        "ci95_low": -0.07900071123755337,
+        "ci95_high": 0.0
+      }
+    },
+    "baseline_vs_two_stage": {
+      "delta_strict_accuracy": {
+        "mean": -0.01952,
+        "ci95_low": -0.06,
+        "ci95_high": 0.0
+      },
+      "delta_p_strict_given_hit3": {
+        "mean": -0.023773062631906653,
+        "ci95_low": -0.07900071123755337,
+        "ci95_high": 0.0
+      }
+    }
+  },
+  "table_query": {
+    "baseline_vs_row_preserving": {
+      "delta_strict_accuracy": {
+        "mean": 0.0,
+        "ci95_low": 0.0,
+        "ci95_high": 0.0
+      },
+      "delta_p_strict_given_hit3": {
+        "mean": 0.0,
+        "ci95_low": 0.0,
+        "ci95_high": 0.0
+      }
+    },
+    "baseline_vs_two_stage": {
+      "delta_strict_accuracy": {
+        "mean": 0.0,
+        "ci95_low": 0.0,
+        "ci95_high": 0.0
+      },
+      "delta_p_strict_given_hit3": {
+        "mean": 0.0,
+        "ci95_low": 0.0,
+        "ci95_high": 0.0
+      }
+    }
+  }
+}

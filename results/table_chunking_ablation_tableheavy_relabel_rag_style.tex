@@ -1,0 +1,23 @@
+\begin{table*}[t]
+\centering
+\small
+\setlength{\tabcolsep}{6pt}
+\caption{Table-chunking ablations on the table-heavy dev subset (43 queries), relabeled evidence-layout evaluation. Best values are bold; ties are all bolded.}
+\label{tab:table_chunking_ablation_tableheavy_relabel_rag_style}
+\begin{tabular}{lcccc}
+\toprule
+\textbf{Model} &
+\textbf{Hit@3} &
+\textbf{Strict Accuracy} &
+\textbf{Quote Support Rate} &
+$\mathbf{P(\text{Strict} \mid \text{Hit@3})}$ \\
+\midrule
+Baseline (fixed chunking)                & \textbf{93.02} & \textbf{58.14} & \textbf{60.47} & \textbf{62.50} \\
+Row-preserving table chunking            & \textbf{93.02} & 55.81          & 58.14          & 60.00          \\
+Two-stage table-aware chunking           & \textbf{93.02} & 55.81          & 58.14          & 60.00          \\
+\bottomrule
+\end{tabular}
+\end{table*}
+
+% Source:
+% runs/table_chunking_ablation_tableheavy_2026-03-03/combined_relabel_evidence_layout/summary_by_arm.csv (scope = "all")

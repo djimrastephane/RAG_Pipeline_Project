@@ -1,0 +1,54 @@
+{
+  "run_info": {
+    "run_utc": "2026-02-25T19:26:08+00:00",
+    "data_dir": "/Users/djimra/MSc Data Science Jan 2025/Thesis documents/RAG_Pipeline_Project/data_processed_ablation_thesis_5docs_q50/thesis_Grampian-2022-2023_chunk_280_90_seg_off_rewrite_rerank_on/Grampian-2022-2023",
+    "index_path": "/Users/djimra/MSc Data Science Jan 2025/Thesis documents/RAG_Pipeline_Project/data_processed_ablation_thesis_5docs_q50/thesis_Grampian-2022-2023_chunk_280_90_seg_off_rewrite_rerank_on/Grampian-2022-2023/faiss.index",
+    "meta_path": "/Users/djimra/MSc Data Science Jan 2025/Thesis documents/RAG_Pipeline_Project/data_processed_ablation_thesis_5docs_q50/thesis_Grampian-2022-2023_chunk_280_90_seg_off_rewrite_rerank_on/Grampian-2022-2023/chunk_meta.parquet",
+    "eval_set_path": "/Users/djimra/MSc Data Science Jan 2025/Thesis documents/RAG_Pipeline_Project/data_processed_ablation_thesis_5docs_q50/thesis_Grampian-2022-2023_chunk_280_90_seg_off_rewrite_rerank_on/Grampian-2022-2023/eval_set_rewrites.json",
+    "embedding_model": "models/all-MiniLM-L6-v2",
+    "k_list": [
+      1,
+      3,
+      5,
+      10
+    ],
+    "max_k_per_variant": 20,
+    "num_queries": 50,
+    "num_chunks_indexed": 296,
+    "merge_strategy": "max_score_per_chunk_across_variants"
+  },
+  "metrics_by_k": {
+    "1": {
+      "num_queries": 50,
+      "mean_recall_at_k": 0.6,
+      "mean_precision_at_k": 0.6,
+      "mean_mrr_at_k": 0.6,
+      "hit_rate_at_k": 0.6,
+      "mean_num_variants": 1.2
+    },
+    "3": {
+      "num_queries": 50,
+      "mean_recall_at_k": 0.8,
+      "mean_precision_at_k": 0.31666666666666665,
+      "mean_mrr_at_k": 0.6933333333333335,
+      "hit_rate_at_k": 0.8,
+      "mean_num_variants": 1.2
+    },
+    "5": {
+      "num_queries": 50,
+      "mean_recall_at_k": 0.9,
+      "mean_precision_at_k": 0.22899999999999995,
+      "mean_mrr_at_k": 0.7213333333333333,
+      "hit_rate_at_k": 0.9,
+      "mean_num_variants": 1.2
+    },
+    "10": {
+      "num_queries": 50,
+      "mean_recall_at_k": 0.96,
+      "mean_precision_at_k": 0.12350793650793648,
+      "mean_mrr_at_k": 0.7299047619047618,
+      "hit_rate_at_k": 0.96,
+      "mean_num_variants": 1.2
+    }
+  }
+}

@@ -1,0 +1,15 @@
+level,title_raw,title_norm,start_printed_page,start_pdf_page,confidence
+2,Contents Page,contents page,1,1,0.6
+2,Directors’ Report,directors' report,7,1,0.6
+2,Remuneration Report,remuneration report,11,1,0.6
+2,Strategic Report,strategic report,20,9,0.6
+2,Statement of the Chief Executive’s Responsibilities as the Accountable Officer of the Health Board,statement of the chief executive's responsibilities as the accountable officer of the health board,21,10,0.6
+2,Statement of Health Board Members’ Responsibilities in Respect of the Accounts,statement of health board members' responsibilities in respect of the accounts,22,11,0.6
+2,Governance Statement,governance statement,26,15,0.6
+1,Independent auditor’s report,independent auditor's report,28,17,0.6
+2,Statement Of Comprehensive Net Expenditure,statement of comprehensive net expenditure,28,17,0.6
+2,Summary of Resource Outturn,summary of resource outturn,29,18,0.6
+2,Balance Sheet,balance sheet,30,19,0.6
+2,Cash Flow Statement,cash flow statement,31,20,0.6
+2,Statement Of Changes in Taxpayers Equity,statement of changes in taxpayers equity,32,21,0.6
+2,Notes to the Accounts,notes to the accounts,74,63,0.6

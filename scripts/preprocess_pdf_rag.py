@@ -171,8 +171,8 @@ OUT_ROOT = Path(
 CORPUS_ID: Optional[str] = None
 
 # Chunking settings (tokens if tiktoken is available)
-CHUNK_SIZE_TOKENS = 280
-CHUNK_OVERLAP_TOKENS = 90
+CHUNK_SIZE_TOKENS = 224
+CHUNK_OVERLAP_TOKENS = 56
 
 # Header/footer removal by page coordinate strips (fractions of page height)
 TOP_STRIP_FRAC = 0.08

@@ -1,0 +1,4 @@
+Config,Hit@3,Strict,P(strict | hit3)
+Free A,0.78,0.0,0.0
+Constrained A,0.82,0.4,0.48780487804878053
+Constrained B,0.82,0.42,0.5121951219512195

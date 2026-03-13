@@ -11,13 +11,16 @@ class PreprocessConfig:
     OUT_ROOT: Path = Path(".")
     CORPUS_ID: Optional[str] = None
 
-    CHUNK_SIZE_TOKENS: int = 280
-    CHUNK_OVERLAP_TOKENS: int = 90
+    CHUNK_SIZE_TOKENS: int = 224
+    CHUNK_OVERLAP_TOKENS: int = 56
     SEGMENT_AWARE_CHUNKING: bool = True
     WHOLE_DOC_MARKDOWN_MODE: bool = False
     MARKDOWN_HEADER_CARRY_FORWARD: bool = True
     MARKDOWN_TABLE_INJECTION: bool = True
     TABLE_CHUNKING_STRATEGY: str = "baseline"
+    TABLE_PAGE_BACKUP_TEXT_CHUNKS: bool = False
+    TABLE_EXTRACT_RETURN_ALL_TABLES: bool = False
+    TABLE_EXTRACT_SECONDARY_BOTTOM_PASS: bool = False
 
     TOP_STRIP_FRAC: float = 0.08
     BOTTOM_STRIP_FRAC: float = 0.08

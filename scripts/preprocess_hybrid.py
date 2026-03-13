@@ -36,6 +36,7 @@ from rag_pdf.chunking import (
     chunk_text_by_tokens,
     count_tokens,
     get_encoder,
+    require_encoder,
     split_text_for_segment_aware_chunking,
 )
 from rag_pdf.config import PreprocessConfig
@@ -141,13 +142,13 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument(
         "--chunk-size-tokens",
         type=int,
-        default=int(_env_or_default("CHUNK_SIZE_TOKENS", "280")),
+        default=int(_env_or_default("CHUNK_SIZE_TOKENS", "224")),
         help="Target chunk size in tokens for text chunking.",
     )
     parser.add_argument(
         "--chunk-overlap-tokens",
         type=int,
-        default=int(_env_or_default("CHUNK_OVERLAP_TOKENS", "90")),
+        default=int(_env_or_default("CHUNK_OVERLAP_TOKENS", "56")),
         help="Chunk overlap in tokens for text chunking.",
     )
     parser.add_argument(
@@ -185,6 +186,30 @@ def parse_args() -> argparse.Namespace:
         default=_env_or_default("TABLE_CHUNKING", "baseline"),
         choices=["baseline", "row_preserving", "two_stage"],
         help="Table chunk construction strategy (affects only table chunks).",
+    )
+    parser.add_argument(
+        "--table-page-backup-text-chunks",
+        action="store_true",
+        default=_env_flag("TABLE_PAGE_BACKUP_TEXT_CHUNKS", "0"),
+        help="Also chunk clean page text for pages classified as table (fallback safety net).",
+    )
+    parser.add_argument(
+        "--table-extract-return-all-tables",
+        action="store_true",
+        default=_env_flag("TABLE_EXTRACT_RETURN_ALL_TABLES", "0"),
+        help="Keep all valid tables found on a page instead of only the single best table.",
+    )
+    parser.add_argument(
+        "--table-extract-secondary-bottom-pass",
+        action="store_true",
+        default=_env_flag("TABLE_EXTRACT_SECONDARY_BOTTOM_PASS", "0"),
+        help="Run an additional bottom-region stream pass for likely multi-table pages.",
+    )
+    parser.add_argument(
+        "--require-tiktoken",
+        action="store_true",
+        default=_env_flag("REQUIRE_TIKTOKEN", "1"),
+        help="Fail fast if tiktoken is unavailable instead of falling back to word-based estimation.",
     )
     return parser.parse_args()
 
@@ -516,6 +541,9 @@ def main() -> None:
         MARKDOWN_HEADER_CARRY_FORWARD=bool(args.markdown_header_carry_forward),
         MARKDOWN_TABLE_INJECTION=bool(args.markdown_table_injection),
         TABLE_CHUNKING_STRATEGY=str(args.table_chunking),
+        TABLE_PAGE_BACKUP_TEXT_CHUNKS=bool(args.table_page_backup_text_chunks),
+        TABLE_EXTRACT_RETURN_ALL_TABLES=bool(args.table_extract_return_all_tables),
+        TABLE_EXTRACT_SECONDARY_BOTTOM_PASS=bool(args.table_extract_secondary_bottom_pass),
         TOP_STRIP_FRAC=0.08,
         BOTTOM_STRIP_FRAC=0.08,
         LEFT_STRIP_FRAC=0.08,
@@ -558,7 +586,7 @@ def main() -> None:
     doc_id = cfg.PDF_PATH.stem
     run_date_utc = now_utc_iso()
     run_utc = run_date_utc
-    enc = get_encoder()
+    enc = require_encoder() if bool(args.require_tiktoken) else get_encoder()
     corpus_id = cfg.CORPUS_ID or doc_id
 
     print(f"\n{'=' * 60}")
@@ -868,6 +896,8 @@ def main() -> None:
                     "table_type": classification["table_type"],
                     "extractor": page_extractor_used.get(page_no, "unknown"),
                     "rotation": int(s.get("rotation", 0) or 0),
+                    "page_width": float(s.get("page_width", 0.0) or 0.0),
+                    "page_height": float(s.get("page_height", 0.0) or 0.0),
                     "is_table": True,
                 })
             else:
@@ -901,6 +931,7 @@ def main() -> None:
         structured_tables_df = pd.DataFrame()
         table_facts_df = pd.DataFrame()
         _rejected_ocr_table_pages: list[dict] = []
+        rejected_ocr_table_pages: list[dict] = []
         table_processed_early = False
 
         # Markdown mode needs table markdown/summary available before text chunking.
@@ -919,6 +950,8 @@ def main() -> None:
                 enc,
                 chunk_size_tokens=cfg.CHUNK_SIZE_TOKENS,
                 table_chunking_strategy=cfg.TABLE_CHUNKING_STRATEGY,
+                return_all_tables=bool(cfg.TABLE_EXTRACT_RETURN_ALL_TABLES),
+                enable_secondary_bottom_pass=bool(cfg.TABLE_EXTRACT_SECONDARY_BOTTOM_PASS),
             )
             _attach_section_columns(table_chunks_df, sections_df)
             table_processed_early = True
@@ -1011,6 +1044,8 @@ def main() -> None:
                 enc,
                 chunk_size_tokens=cfg.CHUNK_SIZE_TOKENS,
                 table_chunking_strategy=cfg.TABLE_CHUNKING_STRATEGY,
+                return_all_tables=bool(cfg.TABLE_EXTRACT_RETURN_ALL_TABLES),
+                enable_secondary_bottom_pass=bool(cfg.TABLE_EXTRACT_SECONDARY_BOTTOM_PASS),
             )
 
             # OCR-table pages that failed fallback acceptance should be handled as normal text.
@@ -1040,6 +1075,49 @@ def main() -> None:
                         enc=enc,
                     )
                 text_chunks_df = pd.DataFrame(text_chunks)
+
+        if cfg.TABLE_PAGE_BACKUP_TEXT_CHUNKS and not cfg.WHOLE_DOC_MARKDOWN_MODE:
+            rejected_pages: set[int] = set()
+            for rec in (_rejected_ocr_table_pages or []):
+                try:
+                    rejected_pages.add(int(rec.get("page")))
+                except Exception:
+                    continue
+            for rec in (rejected_ocr_table_pages or []):
+                try:
+                    rejected_pages.add(int(rec.get("page")))
+                except Exception:
+                    continue
+
+            table_backup_pages = 0
+            for tpage in table_pages:
+                page_no = int(tpage.get("page", 0) or 0)
+                if page_no <= 0 or page_no in rejected_pages:
+                    continue
+                text = str(tpage.get("text") or "").strip()
+                if not text:
+                    continue
+                part, section, subsection = find_section_for_page(sections_df, page_no)
+                _append_text_chunks_for_page(
+                    text_chunks=text_chunks,
+                    doc_id=doc_id,
+                    corpus_id=corpus_id,
+                    report_year=report_year,
+                    report_year_source=report_year_source,
+                    period_end_date=period_end_date,
+                    run_date_utc=run_date_utc,
+                    page_no=page_no,
+                    text=text,
+                    part=part,
+                    section=section,
+                    subsection=subsection,
+                    cfg=cfg,
+                    enc=enc,
+                )
+                table_backup_pages += 1
+            if table_backup_pages:
+                print(f"  Added backup text chunks for {table_backup_pages} table page(s)")
+            text_chunks_df = pd.DataFrame(text_chunks)
 
         _attach_section_columns(table_chunks_df, sections_df)
 
@@ -1216,6 +1294,9 @@ def main() -> None:
                 "markdown_header_carry_forward": bool(cfg.MARKDOWN_HEADER_CARRY_FORWARD),
                 "markdown_table_injection": bool(cfg.MARKDOWN_TABLE_INJECTION),
                 "table_chunking": str(cfg.TABLE_CHUNKING_STRATEGY),
+                "table_page_backup_text_chunks": bool(cfg.TABLE_PAGE_BACKUP_TEXT_CHUNKS),
+                "table_extract_return_all_tables": bool(cfg.TABLE_EXTRACT_RETURN_ALL_TABLES),
+                "table_extract_secondary_bottom_pass": bool(cfg.TABLE_EXTRACT_SECONDARY_BOTTOM_PASS),
                 "toc_confidence_threshold": 0.6,
                 "toc_allow_cross_major_override": False,
                 "toc_subsection_token_overlap_threshold": 0.6,

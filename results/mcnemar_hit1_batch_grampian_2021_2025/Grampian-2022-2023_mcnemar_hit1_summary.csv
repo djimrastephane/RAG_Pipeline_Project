@@ -1,0 +1,2 @@
+cohort,n_paired_queries,both_correct,both_wrong,hybrid_correct_dense_wrong,hybrid_wrong_dense_correct,n_discordant,exact_used,statistic,p_value,alpha,significant,method
+Grampian-2022-2023,50,25,12,6,7,13,True,6.0,1.0,0.05,False,statsmodels_mcnemar_exact

@@ -1,0 +1,5 @@
+run,path,answer_relevancy,answer_relevancy_non_null,faithfulness,faithfulness_non_null,context_precision,context_precision_non_null,context_recall,context_recall_non_null
+280_90_baseline,results/ragas/run75/ragas_summary.json,0.2716090656119045,75,0.37380952380952376,70,0.762265258165063,71,0.8888888888888888,72
+280_90_generated,results/ragas/run75_generated/ragas_summary.json,0.496314658655801,75,0.6689814814814814,72,0.7667245369858802,72,0.8888888888888888,72
+224_56_baseline,results/ragas/run75_224_baseline/ragas_summary.json,0.29073155515814725,75,0.4337899543378995,73,0.7439189188668488,74,0.8648648648648649,74
+224_56_generated,results/ragas/run75_224_generated/ragas_summary.json,0.3489438386506413,75,0.550228310502283,73,0.7391891891381888,74,0.8648648648648649,74

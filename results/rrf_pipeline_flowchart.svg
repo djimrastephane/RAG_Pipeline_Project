@@ -1,0 +1,69 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="780" viewBox="0 0 1400 780">
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto">
+      <polygon points="0,0 10,4 0,8" fill="#2d2d2d"/>
+    </marker>
+    <style>
+      .bg { fill: #ffffff; }
+      .panel { fill: #fbfbfb; stroke: #2b2b2b; stroke-width: 2.5; rx: 24; ry: 24; }
+      .inner { fill: #ffffff; stroke: #5a5a5a; stroke-width: 1.8; rx: 20; ry: 20; }
+      .diamond { fill: #f6f6f6; stroke: #2b2b2b; stroke-width: 2.5; }
+      .title { fill: #111111; font-family: "Avenir Next", "Trebuchet MS", sans-serif; font-size: 30px; font-weight: 700; }
+      .hdr { fill: #1a1a1a; font-family: "Avenir Next", "Trebuchet MS", sans-serif; font-size: 34px; font-weight: 700; }
+      .txt { fill: #222222; font-family: "Avenir Next", "Trebuchet MS", sans-serif; font-size: 28px; }
+      .sub { fill: #444444; font-family: "Avenir Next", "Trebuchet MS", sans-serif; font-size: 23px; }
+      .eq { fill: #8a5600; font-family: "Avenir Next", "Trebuchet MS", sans-serif; font-size: 24px; font-weight: 700; }
+      .wire { stroke: #2d2d2d; stroke-width: 3; fill: none; marker-end: url(#arrow); }
+      .wire2 { stroke: #666666; stroke-width: 2.2; fill: none; stroke-dasharray: 7 7; marker-end: url(#arrow); }
+    </style>
+  </defs>
+
+  <rect class="bg" x="0" y="0" width="1400" height="780"/>
+  <text class="title" x="700" y="56" text-anchor="middle">RRF Fusion in This Pipeline (Dense + BM25)</text>
+
+  <!-- Left: BM25 -->
+  <rect class="panel" x="70" y="110" width="360" height="260" rx="26" ry="26"/>
+  <text class="hdr" x="250" y="158" text-anchor="middle">BM25 Ranker</text>
+  <text class="sub" x="250" y="188" text-anchor="middle">Lexical over chunk text</text>
+  <rect class="inner" x="110" y="210" width="280" height="135" rx="20" ry="20"/>
+  <text class="txt" x="130" y="250">1. p0024_000</text>
+  <text class="txt" x="130" y="287">2. p0151_000</text>
+  <text class="txt" x="130" y="324">3. p0023_000</text>
+
+  <!-- Left: Dense -->
+  <rect class="panel" x="70" y="430" width="360" height="260" rx="26" ry="26"/>
+  <text class="hdr" x="250" y="478" text-anchor="middle">Dense Ranker</text>
+  <text class="sub" x="250" y="508" text-anchor="middle">all-MiniLM-L6-v2 + FAISS</text>
+  <rect class="inner" x="110" y="530" width="280" height="135" rx="20" ry="20"/>
+  <text class="txt" x="130" y="570">1. p0023_001</text>
+  <text class="txt" x="130" y="607">2. p0024_000</text>
+  <text class="txt" x="130" y="644">3. p0023_000</text>
+
+  <!-- Center: RRF -->
+  <polygon class="diamond" points="700,180 870,350 700,520 530,350"/>
+  <text class="hdr" x="700" y="320" text-anchor="middle">Weighted RRF</text>
+  <text class="sub" x="700" y="354" text-anchor="middle">k = 20</text>
+  <text class="eq" x="700" y="392" text-anchor="middle">score(c) = 0.5/(20+r_dense) + 2.0/(20+r_bm25)</text>
+  <text class="sub" x="700" y="430" text-anchor="middle">Fuse ranks, then sort by score</text>
+
+  <!-- Right: Output -->
+  <rect class="panel" x="980" y="220" width="350" height="320" rx="26" ry="26"/>
+  <text class="hdr" x="1155" y="268" text-anchor="middle">Fused Ranking</text>
+  <text class="sub" x="1155" y="298" text-anchor="middle">Top-k chunks for generation</text>
+  <rect class="inner" x="1020" y="330" width="270" height="185" rx="20" ry="20"/>
+  <text class="txt" x="1040" y="372">1. p0024_000</text>
+  <text class="txt" x="1040" y="409">2. p0023_000</text>
+  <text class="txt" x="1040" y="446">3. p0023_001</text>
+  <text class="sub" x="1155" y="488" text-anchor="middle">(then optional cross-encoder rerank)</text>
+
+  <!-- Wires -->
+  <path class="wire" d="M430,240 L505,240 L505,300 L545,330"/>
+  <path class="wire" d="M430,560 L500,560 L500,405 L545,370"/>
+  <path class="wire" d="M870,350 L980,350"/>
+  <path class="wire2" d="M1110,540 L1110,590"/>
+
+  <!-- Footer -->
+  <text class="sub" x="700" y="748" text-anchor="middle">
+    Architecture defaults from this repo: RRF_K=20, dense_weight=0.5, bm25_weight=2.0, model=models/all-MiniLM-L6-v2
+  </text>
+</svg>

@@ -1,0 +1,3 @@
+dataset_root,max_minilm_token_length,total_chunks,truncated_chunks,truncated_percent
+data_processed,256,5740,2411,42.0
+data_processed_toc_upgrade_5docs,256,1648,613,37.2

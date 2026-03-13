@@ -1,0 +1,113 @@
+ARM: baseline
+DOC: Grampian-2024-2025
+PAGE: 91
+CHUNKS: 1
+
+====================================================================================================
+chunk_id: table_p0091
+chunk_id_global: Grampian-2024-2025:table_p0091
+length_chars: 6380
+----------------------------------------------------------------------------------------------------
+Financial table on page 91 (Staff Costs) Contains 8 line items across 9 columns. Column headers: STAFF COSTS | Notes | Executive
+Board
+Members
+£000's | Non
+Executive
+Board
+Members
+£000's | Permanent
+Staff
+£000's | Inward
+Secondees
+£000's. Row labels: Salaries and wages; Taxation & Social Security costs; NHS scheme employers' costs; Secondees; Agency staff. Key items: Salaries and wages | 816 | 588 | 830,267; Taxation & Social Security costs | 106 | 62 | 87,477; NHS scheme employers' costs | 130 | 43 | 153,404; Secondees | 0 | 0 | 0; Agency staff | 0 | 0 | 0.
+
+Table (header-injected facts):
+
+- Salaries and wages > Executive Board Members £000's : 816
+- Salaries and wages > Non Executive Board Members £000's : 588
+- Salaries and wages > Permanent Staff £000's : 830,267
+- Salaries and wages > Inward Secondees £000's : 0
+- Salaries and wages > Other Staff £000's : 0
+- Salaries and wages > Outward Secondees £000's : 0
+- Salaries and wages > 2024/25 Total £000's : 831,671
+- Taxation & Social Security costs > Executive Board Members £000's : 106
+- Taxation & Social Security costs > Non Executive Board Members £000's : 62
+- Taxation & Social Security costs > Permanent Staff £000's : 87,477
+- Taxation & Social Security costs > Inward Secondees £000's : 0
+- Taxation & Social Security costs > Other Staff £000's : 0
+- Taxation & Social Security costs > Outward Secondees £000's : 0
+- Taxation & Social Security costs > 2024/25 Total £000's : 87,645
+- NHS scheme employers' costs > Executive Board Members £000's : 130
+- NHS scheme employers' costs > Non Executive Board Members £000's : 43
+- NHS scheme employers' costs > Permanent Staff £000's : 153,404
+- NHS scheme employers' costs > Inward Secondees £000's : 0
+- NHS scheme employers' costs > Other Staff £000's : 0
+- NHS scheme employers' costs > Outward Secondees £000's : 0
+- NHS scheme employers' costs > 2024/25 Total £000's : 153,577
+- Secondees > Executive Board Members £000's : 0
+- Secondees > Non Executive Board Members £000's : 0
+- Secondees > Permanent Staff £000's : 0
+- Secondees > Inward Secondees £000's : 890
+- Secondees > Other Staff £000's : 0
+- Secondees > Outward Secondees £000's : (63,965)
+- Secondees > 2024/25 Total £000's : (63,075)
+- Agency staff > Executive Board Members £000's : 0
+- Agency staff > Non Executive Board Members £000's : 0
+- Agency staff > Permanent Staff £000's : 0
+- Agency staff > Inward Secondees £000's : 0
+- Agency staff > Other Staff £000's : 28,827
+- Agency staff > Outward Secondees £000's : 0
+- Agency staff > 2024/25 Total £000's : 28,827
+- TOTAL > Executive Board Members £000's : 1,052
+- TOTAL > Non Executive Board Members £000's : 693
+- TOTAL > Permanent Staff £000's : 1,071,148
+- TOTAL > Inward Secondees £000's : 890
+- TOTAL > Other Staff £000's : 28,827
+- TOTAL > Outward Secondees £000's : (63,965)
+- TOTAL > 2024/25 Total £000's : 1,038,645
+- Compensation for loss of office > Executive Board Members £000's : 0
+- Compensation for loss of office > Non Executive Board Members £000's : 0
+- Compensation for loss of office > Permanent Staff £000's : 80
+- Compensation for loss of office > Inward Secondees £000's : 0
+- Compensation for loss of office > Other Staff £000's : 0
+- Compensation for loss of office > Outward Secondees £000's : 0
+- Compensation for loss of office > 2024/25 Total £000's : 80
+- TOTAL STAFF COSTS > Notes : b
+- TOTAL STAFF COSTS > Executive Board Members £000's : 1,052
+- TOTAL STAFF COSTS > Non Executive Board Members £000's : 693
+- TOTAL STAFF COSTS > Permanent Staff £000's : 1,071,228
+- TOTAL STAFF COSTS > Inward Secondees £000's : 890
+- TOTAL STAFF COSTS > Other Staff £000's : 28,827
+- TOTAL STAFF COSTS > Outward Secondees £000's : (63,965)
+- TOTAL STAFF COSTS > 2024/25 Total £000's : 1,038,725
+- Column headers: Row label > Notes : Notes
+- Column headers: Row label > Executive Board Members £000's : Executive Board Members £000's
+- Column headers: Row label > Non Executive Board Members £000's : Non Executive Board Members £000's
+- Column headers: Row label > Permanent Staff £000's : Permanent Staff £000's
+- Column headers: Row label > Inward Secondees £000's : Inward Secondees £000's
+- Column headers: Row label > Other Staff £000's : Other Staff £000's
+- Column headers: Row label > Outward Secondees £000's : Outward Secondees £000's
+- Column headers: Row label > 2024/25 Total £000's : 2024/25 Total £000's
+
+Table (markdown):
+
+| STAFF COSTS | Notes | Executive Board Members £000's | Non Executive Board Members £000's | Permanent Staff £000's | Inward Secondees £000's | Other Staff £000's | Outward Secondees £000's | 2024/25 Total £000's |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| Salaries and wages |  | 816 | 588 | 830,267 | 0 | 0 | 0 | 831,671 |
+| Taxation & Social Security costs |  | 106 | 62 | 87,477 | 0 | 0 | 0 | 87,645 |
+| NHS scheme employers' costs |  | 130 | 43 | 153,404 | 0 | 0 | 0 | 153,577 |
+| Secondees |  | 0 | 0 | 0 | 890 | 0 | (63,965) | (63,075) |
+| Agency staff |  | 0 | 0 | 0 | 0 | 28,827 | 0 | 28,827 |
+| TOTAL |  | 1,052 | 693 | 1,071,148 | 890 | 28,827 | (63,965) | 1,038,645 |
+| Compensation for loss of office |  | 0 | 0 | 80 | 0 | 0 | 0 | 80 |
+| TOTAL STAFF COSTS | b | 1,052 | 693 | 1,071,228 | 890 | 28,827 | (63,965) | 1,038,725 |
+Column headers: Row label | Notes | Executive Board Members £000's | Non Executive Board Members £000's | Permanent Staff £000's | Inward Secondees £000's | Other Staff £000's | Outward Secondees £000's | 2024/25 Total £000's
+Row map:
+- Salaries and wages -> col_2=816 ; col_3=588 ; col_4=830,267 ; col_5=0 ; col_6=0 ; col_7=0 ; col_8=831,671
+- Taxation & Social Security costs -> col_2=106 ; col_3=62 ; col_4=87,477 ; col_5=0 ; col_6=0 ; col_7=0 ; col_8=87,645
+- NHS scheme employers' costs -> col_2=130 ; col_3=43 ; col_4=153,404 ; col_5=0 ; col_6=0 ; col_7=0 ; col_8=153,577
+- Secondees -> col_2=0 ; col_3=0 ; col_4=0 ; col_5=890 ; col_6=0 ; col_7=(63,965) ; col_8=(63,075)
+- Agency staff -> col_2=0 ; col_3=0 ; col_4=0 ; col_5=0 ; col_6=28,827 ; col_7=0 ; col_8=28,827
+- TOTAL -> col_2=1,052 ; col_3=693 ; col_4=1,071,148 ; col_5=890 ; col_6=28,827 ; col_7=(63,965) ; col_8=1,038,645
+- Compensation for loss of office -> col_2=0 ; col_3=0 ; col_4=80 ; col_5=0 ; col_6=0 ; col_7=0 ; col_8=80
+- TOTAL STAFF COSTS -> col_2=1,052 ; col_3=693 ; col_4=1,071,228 ; col_5=890 ; col_6=28,827 ; col_7=(63,965) ; col_8=1,038,725

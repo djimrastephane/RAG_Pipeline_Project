@@ -1,0 +1,51 @@
+{
+  "schema_version": "3.0_hybrid",
+  "doc_id": "Grampian-2014-2015",
+  "corpus_id": "Grampian-2014-2015",
+  "report_year": "2014-2015",
+  "period_end_date": null,
+  "run_utc": "2026-02-18T12:09:33+00:00",
+  "git_commit_short": "5212b0e",
+  "embedding_model": "sentence-transformers/all-MiniLM-L6-v2",
+  "counts": {
+    "pages_total": 77,
+    "pages_text": 47,
+    "pages_table": 30,
+    "sections_detected": 61,
+    "chunks_total": 218,
+    "chunks_text": 218,
+    "chunks_table": 0,
+    "tables_extracted": 0,
+    "table_facts": 0,
+    "ocr_raw_pages_detected": 77,
+    "ocr_raw_pages_accepted": 77,
+    "ocr_short_pages_triggered": 1,
+    "ocr_short_pages_accepted": 1
+  },
+  "derived": {
+    "chunks_per_page": 2.831168831168831,
+    "tables_per_100_pages": 0.0,
+    "ocr_raw_acceptance_rate": 1.0,
+    "ocr_short_acceptance_rate": 1.0
+  },
+  "timing": {
+    "time_unit": "seconds",
+    "time_text_extract_total": 210.17066,
+    "time_coord_strip_total": 0.00137,
+    "time_ocr_raw_total": 210.171547,
+    "time_total_wall": 213.132621
+  },
+  "params": {
+    "chunk_size_tokens": 320,
+    "chunk_overlap_tokens": 90,
+    "top_strip_frac": 0.08,
+    "bottom_strip_frac": 0.08,
+    "left_strip_frac": 0.08,
+    "right_strip_frac": 0.08,
+    "header_footer_repeat_frac": 0.4,
+    "min_chunk_words": 20,
+    "primary_extractor": "pymupdf",
+    "segment_aware_chunking": false
+  },
+  "table_types_detected": {}
+}

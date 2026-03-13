@@ -1,0 +1,6 @@
+doc_id,n_queries,hit3_baseline,hit3_fix12,failures_baseline,failures_fix12,improved,regressed
+Grampian-2020-2021,50,0.8,0.82,10,9,2,1
+Grampian-2021-2022,50,0.8,0.8,10,10,0,0
+Grampian-2022-2023,50,0.86,0.82,7,9,0,2
+Grampian-2023-2024,50,0.88,0.88,6,6,1,1
+Grampian-2024-2025,50,0.88,0.84,6,8,0,2

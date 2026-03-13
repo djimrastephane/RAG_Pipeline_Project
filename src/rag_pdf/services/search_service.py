@@ -1,9 +1,6 @@
 from __future__ import annotations
 
-from collections import Counter
-from dataclasses import dataclass
 import json
-import math
 import os
 import time
 import logging
@@ -17,6 +14,23 @@ import numpy as np
 import pandas as pd
 from sentence_transformers import CrossEncoder, SentenceTransformer
 
+from rag_pdf.retrieval.hybrid_utils import (
+    BM25Index,
+    LoadedDoc,
+    LoadedGlobal,
+    l2_normalize,
+    rrf_fuse,
+    score_fuse,
+    to_pages_list,
+    tokenize,
+)
+from rag_pdf.services.search_helpers import (
+    apply_filters,
+    doc_artifact_signature,
+    global_artifact_signature,
+    read_eval_items,
+    trust_from_doc_id,
+)
 from rag_pdf.services.local_llm_service import LocalLLMService
 
 MAX_K_SEARCH = 100
@@ -25,6 +39,7 @@ MAX_K_SEARCH = 100
 RRF_K = 20
 RRF_DENSE_WEIGHT = 0.5
 RRF_BM25_WEIGHT = 2.0
+FUSION_STRATEGY = os.getenv("FUSION_STRATEGY", "rrf").strip().lower()
 ENABLE_CROSS_ENCODER_RERANK = os.getenv("ENABLE_CROSS_ENCODER_RERANK", "0").strip().lower() in {
     "1", "true", "yes", "y", "on"
 }
@@ -49,139 +64,6 @@ GEN_MAX_CHUNK_CHARS = int(os.getenv("GEN_MAX_CHUNK_CHARS", "2200"))
 GEN_TIMEOUT_SECONDS = float(os.getenv("GEN_TIMEOUT_SECONDS", "20"))
 
 logger = logging.getLogger(__name__)
-
-TRUST_CANONICAL_MAP: dict[str, str] = {
-    "ayrshire and arran": "NHS Ayrshire & Arran",
-    "borders": "NHS Borders",
-    "dumfries & galloway": "NHS Dumfries & Galloway",
-    "dumfries and galloway": "NHS Dumfries & Galloway",
-    "fife": "NHS Fife",
-    "forth valley": "NHS Forth Valley",
-    "grampian": "NHS Grampian",
-    "greater glasgow & clyde": "NHS Greater Glasgow & Clyde",
-    "greater glasgow and clyde": "NHS Greater Glasgow & Clyde",
-    "highland": "NHS Highland",
-    "lanarkshire": "NHS Lanarkshire",
-    "lothian": "NHS Lothian",
-    "orkney": "NHS Orkney",
-    "shetland": "NHS Shetland",
-    "tayside": "NHS Tayside",
-    "western isles": "NHS Western Isles",
-}
-
-
-def l2_normalize(x: np.ndarray, eps: float = 1e-12) -> np.ndarray:
-    """Row-wise L2 normalization for cosine similarity with IndexFlatIP."""
-    norms = np.linalg.norm(x, axis=1, keepdims=True)
-    return x / (norms + eps)
-
-
-def to_pages_list(v: Any) -> list[int]:
-    """Normalize pages-like value into list[int]."""
-    if v is None:
-        return []
-    if isinstance(v, list):
-        out: list[int] = []
-        for x in v:
-            if isinstance(x, dict) and "element" in x:
-                try:
-                    out.append(int(x["element"]))
-                except Exception:
-                    continue
-            else:
-                try:
-                    out.append(int(x))
-                except Exception:
-                    continue
-        return out
-    try:
-        return [int(v)]
-    except Exception:
-        return []
-
-
-def tokenize(text: str) -> list[str]:
-    """Tokenize text for lightweight BM25 lexical scoring."""
-    return re.findall(r"[a-z0-9][a-z0-9\-]{1,}", str(text or "").lower())
-
-
-class BM25Index:
-    """Simple BM25 implementation for lexical retrieval over chunk text."""
-
-    def __init__(self, docs_tokens: list[list[str]], k1: float = 1.5, b: float = 0.75) -> None:
-        self.k1 = float(k1)
-        self.b = float(b)
-        self.n_docs = len(docs_tokens)
-        self.doc_len = [len(toks) for toks in docs_tokens]
-        self.avgdl = float(sum(self.doc_len)) / max(1.0, float(self.n_docs))
-        self.term_freqs: list[Counter[str]] = [Counter(toks) for toks in docs_tokens]
-        self.doc_freq: Counter[str] = Counter()
-        for tf in self.term_freqs:
-            for term in tf.keys():
-                self.doc_freq[term] += 1
-        self.idf: dict[str, float] = {}
-        for term, df in self.doc_freq.items():
-            self.idf[term] = math.log(1.0 + ((self.n_docs - df + 0.5) / (df + 0.5)))
-
-    def score_query(self, query_tokens: list[str]) -> list[float]:
-        if self.n_docs == 0:
-            return []
-        q_terms = Counter(query_tokens)
-        scores = [0.0] * self.n_docs
-        for term in q_terms.keys():
-            if term not in self.idf:
-                continue
-            idf = self.idf[term]
-            for i, tf in enumerate(self.term_freqs):
-                f = tf.get(term, 0)
-                if f <= 0:
-                    continue
-                dl = self.doc_len[i]
-                denom = f + self.k1 * (1.0 - self.b + self.b * (dl / max(self.avgdl, 1e-9)))
-                scores[i] += idf * (f * (self.k1 + 1.0) / max(denom, 1e-12))
-        return scores
-
-
-def rrf_fuse(
-    dense_ranked: list[int],
-    bm25_ranked: list[int],
-    rrf_k: int = RRF_K,
-    dense_weight: float = RRF_DENSE_WEIGHT,
-    bm25_weight: float = RRF_BM25_WEIGHT,
-) -> tuple[list[int], dict[int, float]]:
-    """Fuse ranked lists with Reciprocal Rank Fusion and return fused rank + scores."""
-    scores: dict[int, float] = {}
-    for rank, idx in enumerate(dense_ranked, start=1):
-        scores[idx] = scores.get(idx, 0.0) + (dense_weight / float(rrf_k + rank))
-    for rank, idx in enumerate(bm25_ranked, start=1):
-        scores[idx] = scores.get(idx, 0.0) + (bm25_weight / float(rrf_k + rank))
-    ranked = [idx for idx, _ in sorted(scores.items(), key=lambda kv: kv[1], reverse=True)]
-    return ranked, scores
-
-
-@dataclass
-class LoadedDoc:
-    """In-memory retrieval resources for one document."""
-
-    index: faiss.Index
-    meta: pd.DataFrame
-    eval_items: list[dict[str, Any]]
-    bm25: BM25Index
-    chunk_text_by_id: dict[str, str]
-    chunk_section_by_id: dict[str, str]
-    chunk_subsection_by_id: dict[str, str]
-
-
-@dataclass
-class LoadedGlobal:
-    """In-memory retrieval resources for multi-document retrieval scopes."""
-
-    index: faiss.Index
-    meta: pd.DataFrame
-    chunk_text_by_id: dict[str, str]
-    chunk_section_by_id: dict[str, str]
-    chunk_subsection_by_id: dict[str, str]
-
 
 class SearchService:
     """Run top-k vector retrieval over processed artifacts."""
@@ -219,43 +101,14 @@ class SearchService:
             "generation_latency_ms_sum": 0.0,
         }
 
-    @staticmethod
-    def _file_signature(path: Path) -> tuple[bool, int, int]:
-        """Small signature for cache invalidation when artifacts change."""
-        if not path.exists():
-            return (False, 0, 0)
-        try:
-            stat = path.stat()
-            return (True, int(stat.st_mtime_ns), int(stat.st_size))
-        except Exception:
-            return (True, 0, 0)
-
-    def _doc_artifact_signature(self, data_dir: Path) -> tuple[Any, ...]:
-        return (
-            self._file_signature(data_dir / "faiss.index"),
-            self._file_signature(data_dir / "chunk_meta.parquet"),
-            self._file_signature(data_dir / "chunks.parquet"),
-            self._file_signature(data_dir / "eval_set.json"),
-        )
-
-    def _global_artifact_signature(self, data_root: Path) -> tuple[Any, ...]:
-        per_doc: list[tuple[str, tuple[bool, int, int], tuple[bool, int, int], tuple[bool, int, int]]] = []
-        try:
-            docs = sorted([d for d in data_root.iterdir() if d.is_dir()], key=lambda p: p.name)
-        except Exception:
-            docs = []
-        for d in docs:
-            per_doc.append(
-                (
-                    d.name,
-                    self._file_signature(d / "embeddings.npy"),
-                    self._file_signature(d / "chunk_meta.parquet"),
-                    self._file_signature(d / "chunks.parquet"),
-                )
-            )
-        return tuple(per_doc)
-
-    def _build_local_generation_prompt(self, question: str, results: list[dict[str, Any]]) -> tuple[str, dict[str, Any]]:
+    def _build_local_generation_prompt(
+        self,
+        question: str,
+        results: list[dict[str, Any]],
+        max_context_chunks: int,
+        max_context_chars: int,
+        max_chunk_chars: int,
+    ) -> tuple[str, dict[str, Any]]:
         """
         Build a strict grounded prompt:
         - Use only supplied context
@@ -267,7 +120,7 @@ class SearchService:
         truncated_chunks = 0
         context_truncated = False
         for r in results:
-            if used_chunks >= self.gen_max_context_chunks:
+            if used_chunks >= int(max_context_chunks):
                 context_truncated = True
                 break
             chunk_id = str(r.get("chunk_id") or "").strip()
@@ -276,11 +129,11 @@ class SearchService:
             text = str(r.get("chunk_text") or "").strip()
             if not text:
                 continue
-            if len(text) > self.gen_max_chunk_chars:
-                text = text[: self.gen_max_chunk_chars].rstrip() + " ..."
+            if len(text) > int(max_chunk_chars):
+                text = text[: int(max_chunk_chars)].rstrip() + " ..."
                 truncated_chunks += 1
             candidate_block = f"[chunk_id={chunk_id} pages={page_label}]\n{text}"
-            if total_chars + len(candidate_block) > self.gen_max_context_chars:
+            if total_chars + len(candidate_block) > int(max_context_chars):
                 context_truncated = True
                 break
             blocks.append(
@@ -310,17 +163,31 @@ class SearchService:
         return prompt, {
             "context_chunks_used": int(used_chunks),
             "context_chars_used": int(total_chars),
-            "context_chunk_char_limit": int(self.gen_max_chunk_chars),
-            "context_max_chunks": int(self.gen_max_context_chunks),
-            "context_max_chars": int(self.gen_max_context_chars),
+            "context_chunk_char_limit": int(max_chunk_chars),
+            "context_max_chunks": int(max_context_chunks),
+            "context_max_chars": int(max_context_chars),
             "context_truncated": bool(context_truncated),
             "chunk_text_truncations": int(truncated_chunks),
         }
 
-    def _generate_local_answer(self, question: str, results: list[dict[str, Any]]) -> tuple[Optional[str], dict[str, Any]]:
-        prompt, ctx_stats = self._build_local_generation_prompt(question=question, results=results)
+    def _generate_local_answer(
+        self,
+        question: str,
+        results: list[dict[str, Any]],
+        max_context_chunks: int,
+        max_context_chars: int,
+        max_chunk_chars: int,
+        timeout_seconds: float,
+    ) -> tuple[Optional[str], dict[str, Any]]:
+        prompt, ctx_stats = self._build_local_generation_prompt(
+            question=question,
+            results=results,
+            max_context_chunks=max_context_chunks,
+            max_context_chars=max_context_chars,
+            max_chunk_chars=max_chunk_chars,
+        )
         t0 = time.perf_counter()
-        out = self.local_llm.generate(prompt, timeout_seconds=self.gen_timeout_seconds)
+        out = self.local_llm.generate(prompt, timeout_seconds=float(timeout_seconds))
         latency_ms = (time.perf_counter() - t0) * 1000.0
         return out.answer, {
             "provider": "local_ollama",
@@ -329,7 +196,7 @@ class SearchService:
             "error": out.error,
             "prompt_chars": int(out.prompt_chars),
             "latency_ms": float(round(latency_ms, 3)),
-            "timeout_seconds": float(self.gen_timeout_seconds),
+            "timeout_seconds": float(timeout_seconds),
             **ctx_stats,
         }
 
@@ -522,97 +389,9 @@ class SearchService:
             },
         }
 
-    @staticmethod
-    def _trust_from_doc_id(doc_id: str) -> str:
-        """
-        Derive canonical trust id from document id.
-
-        Examples:
-        - 'Grampian-2023-2024' -> 'NHS Grampian'
-        - 'NHS Shetland-2022-2023' -> 'NHS Shetland'
-        """
-        d = str(doc_id or "").strip()
-        if not d:
-            return ""
-        base = d.split("-", 1)[0].strip()
-        norm = base.lower().replace("nhs ", "").replace("_", " ")
-        norm = re.sub(r"\s+", " ", norm).strip()
-        return TRUST_CANONICAL_MAP.get(norm, f"NHS {base.replace('_', ' ').strip()}")
-
-    @staticmethod
-    def _read_eval_items(eval_path: Path) -> list[dict[str, Any]]:
-        if not eval_path.exists():
-            return []
-        raw_eval = json.loads(eval_path.read_text(encoding="utf-8"))
-        if isinstance(raw_eval, list):
-            return [x for x in raw_eval if isinstance(x, dict)]
-        if isinstance(raw_eval, dict):
-            queries = raw_eval.get("queries")
-            if isinstance(queries, list):
-                return [x for x in queries if isinstance(x, dict)]
-        return []
-
-    @staticmethod
-    def _apply_filters(meta: pd.DataFrame, filters: Optional[dict[str, Any]]) -> np.ndarray:
-        """
-        Build a boolean mask from metadata filters.
-
-        Supported filter keys:
-        - doc_id (str)
-        - trust_id (str)
-        - year (int)
-        - is_table (bool)
-        - section_contains (str)
-        - subsection_contains (str)
-        """
-        if meta.empty:
-            return np.zeros((0,), dtype=bool)
-        mask = np.ones((len(meta),), dtype=bool)
-        if not filters:
-            return mask
-
-        doc_id = str(filters.get("doc_id") or "").strip()
-        if doc_id and "doc_id" in meta.columns:
-            mask &= (meta["doc_id"].astype(str).values == doc_id)
-
-        trust_id = str(filters.get("trust_id") or "").strip().lower()
-        if trust_id and "trust_id" in meta.columns:
-            mask &= (meta["trust_id"].astype(str).str.lower().values == trust_id)
-
-        year_val = filters.get("year")
-        if year_val is not None:
-            if "year" in meta.columns:
-                try:
-                    y = int(year_val)
-                    mask &= (pd.to_numeric(meta["year"], errors="coerce").fillna(-1).astype(int).values == y)
-                except Exception:
-                    pass
-            elif "report_year" in meta.columns:
-                try:
-                    y = int(year_val)
-                    mask &= (pd.to_numeric(meta["report_year"], errors="coerce").fillna(-1).astype(int).values == y)
-                except Exception:
-                    pass
-
-        is_table = filters.get("is_table")
-        if is_table is not None and "is_table" in meta.columns:
-            want = bool(is_table)
-            cur = meta["is_table"].fillna(False).astype(bool).values
-            mask &= (cur == want)
-
-        sec = str(filters.get("section_contains") or "").strip()
-        if sec and "section_title" in meta.columns:
-            mask &= meta["section_title"].fillna("").astype(str).str.contains(sec, case=False, regex=False).values
-
-        sub = str(filters.get("subsection_contains") or "").strip()
-        if sub and "subsection_title" in meta.columns:
-            mask &= meta["subsection_title"].fillna("").astype(str).str.contains(sub, case=False, regex=False).values
-
-        return mask
-
     def _load_doc(self, data_dir: Path) -> LoadedDoc:
         key = str(data_dir.resolve())
-        sig = self._doc_artifact_signature(data_dir)
+        sig = doc_artifact_signature(data_dir)
         if key in self._cache and self._cache_sig.get(key) == sig:
             return self._cache[key]
 
@@ -626,13 +405,13 @@ class SearchService:
         index = faiss.read_index(str(index_path))
         meta = pd.read_parquet(meta_path)
         chunks = pd.read_parquet(chunks_path)
-        eval_items = self._read_eval_items(eval_path)
+        eval_items = read_eval_items(eval_path)
 
         if "doc_id" not in meta.columns:
             meta["doc_id"] = data_dir.name
         meta["doc_id"] = meta["doc_id"].fillna(data_dir.name).astype(str)
         if "trust_id" not in meta.columns:
-            meta["trust_id"] = meta["doc_id"].map(self._trust_from_doc_id)
+            meta["trust_id"] = meta["doc_id"].map(trust_from_doc_id)
         if "year" not in meta.columns:
             if "report_year" in meta.columns:
                 meta["year"] = pd.to_numeric(meta["report_year"], errors="coerce").astype("Int64")
@@ -686,7 +465,7 @@ class SearchService:
         - chunks.parquet
         """
         key = str(data_root.resolve())
-        sig = self._global_artifact_signature(data_root)
+        sig = global_artifact_signature(data_root)
         if key in self._global_cache and self._global_cache_sig.get(key) == sig:
             return self._global_cache[key]
 
@@ -719,7 +498,7 @@ class SearchService:
                 meta["doc_id"] = d.name
             meta["doc_id"] = meta["doc_id"].fillna(d.name).astype(str)
             if "trust_id" not in meta.columns:
-                meta["trust_id"] = meta["doc_id"].map(self._trust_from_doc_id)
+                meta["trust_id"] = meta["doc_id"].map(trust_from_doc_id)
             if "year" not in meta.columns:
                 if "report_year" in meta.columns:
                     meta["year"] = pd.to_numeric(meta["report_year"], errors="coerce").astype("Int64")
@@ -776,6 +555,7 @@ class SearchService:
         retrieval_scope: str = "doc",
         lexical_scope: str = "doc",
         filters: Optional[dict[str, Any]] = None,
+        generation_overrides: Optional[dict[str, Any]] = None,
     ) -> dict[str, Any]:
         """
         Return top-k chunks with pages/scores and expected-page highlight metadata.
@@ -788,6 +568,15 @@ class SearchService:
         lexical_scope:
         - doc/trust/global: BM25 corpus scope used for fusion
         """
+        generation_overrides = generation_overrides or {}
+        req_max_context_chunks = generation_overrides.get("max_context_chunks")
+        req_max_context_chars = generation_overrides.get("max_context_chars")
+        req_max_chunk_chars = generation_overrides.get("max_chunk_chars")
+        req_timeout_seconds = generation_overrides.get("timeout_seconds")
+        max_context_chunks = int(req_max_context_chunks) if req_max_context_chunks is not None else int(self.gen_max_context_chunks)
+        max_context_chars = int(req_max_context_chars) if req_max_context_chars is not None else int(self.gen_max_context_chars)
+        max_chunk_chars = int(req_max_chunk_chars) if req_max_chunk_chars is not None else int(self.gen_max_chunk_chars)
+        timeout_seconds = float(req_timeout_seconds) if req_timeout_seconds is not None else float(self.gen_timeout_seconds)
         loaded_doc = self._load_doc(data_dir)
         scope = str(retrieval_scope or "doc").strip().lower()
         lex_scope = str(lexical_scope or "doc").strip().lower()
@@ -797,7 +586,7 @@ class SearchService:
             lex_scope = "doc"
 
         selected_doc_id = str(data_dir.name)
-        selected_trust_id = self._trust_from_doc_id(selected_doc_id)
+        selected_trust_id = trust_from_doc_id(selected_doc_id)
 
         if scope == "doc":
             scope_meta = loaded_doc.meta.reset_index(drop=True)
@@ -820,7 +609,7 @@ class SearchService:
                     == str(selected_trust_id).lower()
                 )
 
-        user_mask = self._apply_filters(scope_meta, filters)
+        user_mask = apply_filters(scope_meta, filters)
         candidate_mask = base_mask & user_mask
         if not np.any(candidate_mask):
             candidate_mask = base_mask
@@ -893,13 +682,22 @@ class SearchService:
         bm25_rank_map: dict[int, int] = {idx: r for r, idx in enumerate(bm25_ranked, start=1)}
         bm25_score_map: dict[int, float] = {idx: float(score) for idx, score in bm25_ranked_pairs}
 
-        fused_ranked, fused_scores = rrf_fuse(
-            dense_ranked=dense_ranked,
-            bm25_ranked=bm25_ranked,
-            rrf_k=RRF_K,
-            dense_weight=RRF_DENSE_WEIGHT,
-            bm25_weight=RRF_BM25_WEIGHT,
-        )
+        fusion_strategy = FUSION_STRATEGY if FUSION_STRATEGY in {"rrf", "score_fusion"} else "rrf"
+        if fusion_strategy == "score_fusion":
+            fused_ranked, fused_scores = score_fuse(
+                dense_score_map=dense_score_map,
+                bm25_score_map=bm25_score_map,
+                dense_weight=RRF_DENSE_WEIGHT,
+                bm25_weight=RRF_BM25_WEIGHT,
+            )
+        else:
+            fused_ranked, fused_scores = rrf_fuse(
+                dense_ranked=dense_ranked,
+                bm25_ranked=bm25_ranked,
+                rrf_k=RRF_K,
+                dense_weight=RRF_DENSE_WEIGHT,
+                bm25_weight=RRF_BM25_WEIGHT,
+            )
         scores_map: dict[int, float] = dict(fused_scores)
         if self.cross_encoder is not None and fused_ranked:
             ce_topn = min(len(fused_ranked), self.cross_encoder_topn)
@@ -972,7 +770,8 @@ class SearchService:
                     "chunk_id": chunk_id,
                     "pages": pages,
                     "score": float(scores_map.get(idx, 0.0)),
-                    "rrf_score": float(scores_map.get(idx, 0.0)),
+                    "fusion_score": float(scores_map.get(idx, 0.0)),
+                    "rrf_score": (float(scores_map.get(idx, 0.0)) if fusion_strategy == "rrf" else None),
                     "dense_rank": int(dense_rank_map.get(idx, 0)),
                     "bm25_rank": int(bm25_rank_map.get(idx, 0)),
                     "dense_raw_score": float(dense_score_map.get(idx, 0.0)),
@@ -997,6 +796,10 @@ class SearchService:
             raw_generated_answer, generation_debug = self._generate_local_answer(
                 question=question,
                 results=results,
+                max_context_chunks=max_context_chunks,
+                max_context_chars=max_context_chars,
+                max_chunk_chars=max_chunk_chars,
+                timeout_seconds=timeout_seconds,
             )
             parsed_answer, raw_citations_from_json, parse_mode = self._parse_generation_json_payload(
                 str(raw_generated_answer or "")
@@ -1040,6 +843,10 @@ class SearchService:
                 "error": None,
                 "prompt_chars": 0,
                 "reason": "include_generated_answer=false",
+                "context_max_chunks": int(max_context_chunks),
+                "context_max_chars": int(max_context_chars),
+                "context_chunk_char_limit": int(max_chunk_chars),
+                "timeout_seconds": float(timeout_seconds),
             }
             generated_citations = []
             generation_status = "skipped"
@@ -1065,8 +872,9 @@ class SearchService:
         return {
             "question": question,
             "k": k,
-            "retrieval_mode": "hybrid_rrf_dense_bm25",
+            "retrieval_mode": ("hybrid_score_fusion_dense_bm25" if fusion_strategy == "score_fusion" else "hybrid_rrf_dense_bm25"),
             "retrieval_config": {
+                "fusion_strategy": fusion_strategy,
                 "rrf_k": int(RRF_K),
                 "dense_weight": float(RRF_DENSE_WEIGHT),
                 "bm25_weight": float(RRF_BM25_WEIGHT),

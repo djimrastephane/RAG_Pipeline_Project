@@ -1,0 +1,7 @@
+dataset_root,doc_id,chunk_id,tiktoken_tokens,minilm_tokens,result
+data_processed,Grampian-2014-2015,p0014_000,260,246,OK
+data_processed,Grampian-2005-2006,p0004_001,260,259,truncated to 256
+data_processed,Grampian-2004-2005,p0045_002,260,261,truncated to 256
+data_processed_toc_upgrade_5docs,Grampian-2020-2021,p0037_001,260,249,OK
+data_processed_toc_upgrade_5docs,Grampian-2020-2021,p0011_000,260,268,truncated to 256
+data_processed_toc_upgrade_5docs,Grampian-2020-2021,p0094_000,260,272,truncated to 256

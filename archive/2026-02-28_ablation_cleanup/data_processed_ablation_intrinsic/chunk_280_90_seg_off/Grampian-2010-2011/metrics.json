@@ -1,0 +1,122 @@
+{
+  "schema_version": "3.0_hybrid",
+  "doc_id": "Grampian-2010-2011",
+  "corpus_id": "Grampian-2010-2011",
+  "report_year": "2010-2011",
+  "period_end_date": null,
+  "run_utc": "2026-02-25T10:16:05+00:00",
+  "git_commit_short": "1da05af",
+  "embedding_model": "sentence-transformers/all-MiniLM-L6-v2",
+  "counts": {
+    "pages_total": 78,
+    "pages_text": 51,
+    "pages_table": 27,
+    "sections_detected": 57,
+    "chunks_total": 161,
+    "chunks_text": 134,
+    "chunks_table": 27,
+    "tables_extracted": 0,
+    "table_facts": 0,
+    "ocr_raw_pages_detected": 78,
+    "ocr_raw_pages_accepted": 77,
+    "ocr_short_pages_triggered": 1,
+    "ocr_short_pages_accepted": 0,
+    "ocr_rejected_quality": 1
+  },
+  "derived": {
+    "chunks_per_page": 2.0641025641025643,
+    "tables_per_100_pages": 0.0,
+    "ocr_raw_acceptance_rate": 0.9871794871794872,
+    "ocr_short_acceptance_rate": 0.0,
+    "ocr_quality_reject_rate": 1.0
+  },
+  "timing": {
+    "time_unit": "seconds",
+    "time_text_extract_total": 193.083833,
+    "time_coord_strip_total": 0.001115,
+    "time_ocr_raw_total": 191.462546,
+    "time_total_wall": 195.276778
+  },
+  "params": {
+    "chunk_size_tokens": 280,
+    "chunk_overlap_tokens": 90,
+    "tokenizer_backend": "tiktoken",
+    "tokenizer_exact_counting": true,
+    "top_strip_frac": 0.08,
+    "bottom_strip_frac": 0.08,
+    "left_strip_frac": 0.08,
+    "right_strip_frac": 0.08,
+    "header_footer_repeat_frac": 0.4,
+    "min_chunk_words": 20,
+    "primary_extractor": "pymupdf",
+    "segment_aware_chunking": false,
+    "whole_doc_markdown_mode": false,
+    "markdown_header_carry_forward": true,
+    "markdown_table_injection": true
+  },
+  "table_types_detected": {},
+  "embedding": {
+    "created_utc": "2026-02-25T10:54:50+00:00",
+    "model": "models/all-MiniLM-L6-v2",
+    "chunks_embedded": 161,
+    "embedding_dim": 384,
+    "faiss_index_type": "IndexFlatIP",
+    "normalised_for_cosine": true,
+    "topk_default": 5,
+    "embedding_summary": {
+      "shape": [
+        161,
+        384
+      ],
+      "dtype": "float32",
+      "mean": -0.0012429340276867151,
+      "std": 0.05101589858531952,
+      "min": -0.22405783832073212,
+      "max": 0.2122587263584137
+    },
+    "chunk_meta_schema": {
+      "columns": [
+        "chunk_id",
+        "chunk_id_global",
+        "doc_id",
+        "corpus_id",
+        "report_year",
+        "report_year_source",
+        "period_end_date",
+        "run_date_utc",
+        "part",
+        "section_title",
+        "subsection_title",
+        "is_table",
+        "page_start",
+        "page_end",
+        "pages",
+        "page_list"
+      ],
+      "has_chunk_id_global": true,
+      "has_pages": true,
+      "sample_chunk_id": "p0002_000",
+      "sample_chunk_id_global": "Grampian-2010-2011:p0002_000",
+      "sample_pages": [
+        2
+      ]
+    },
+    "artifacts": {
+      "faiss_index": "/Users/djimra/MSc Data Science Jan 2025/Thesis documents/RAG_Pipeline_Project/data_processed_ablation_intrinsic/chunk_280_90_seg_off/Grampian-2010-2011/faiss.index",
+      "embeddings_npy": "/Users/djimra/MSc Data Science Jan 2025/Thesis documents/RAG_Pipeline_Project/data_processed_ablation_intrinsic/chunk_280_90_seg_off/Grampian-2010-2011/embeddings.npy",
+      "chunk_meta_parquet": "/Users/djimra/MSc Data Science Jan 2025/Thesis documents/RAG_Pipeline_Project/data_processed_ablation_intrinsic/chunk_280_90_seg_off/Grampian-2010-2011/chunk_meta.parquet"
+    },
+    "preprocess_trace": {
+      "schema_version": "3.0_hybrid",
+      "final_text_normalization": {},
+      "artifact_counts_sample": {
+        "soft_hyphen_u00ad": 0,
+        "artifact_fff0": 0,
+        "zero_width_total": 0,
+        "ligature_total": 0
+      },
+      "artifact_scan_max_chunks": 2000,
+      "fail_on_artifacts": true
+    }
+  }
+}

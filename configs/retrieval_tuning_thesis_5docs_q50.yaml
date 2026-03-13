@@ -1,0 +1,406 @@
+python_bin: .venv/bin/python
+data_root: data_processed
+ablation_root: data_processed_ablation_thesis_5docs_q50
+output_dir: data_processed/ablation_thesis_5docs_q50
+embed_model: models/all-MiniLM-L6-v2
+k_list:
+- 1
+- 3
+- 5
+- 10
+experiments:
+- name: thesis_Grampian-2020-2021_chunk_280_90_seg_off_dense_rerank_on
+  doc_id: Grampian-2020-2021
+  data_mode: rebuild
+  pdf_path: Data/Annual Accounts NHS Grampian/Preliminary_Test/Grampian-2020-2021.pdf
+  source_eval_set: data_processed/Grampian-2020-2021/eval_set.json
+  mode: baseline
+  chunking: &id001
+    size_tokens: 280
+    overlap_tokens: 90
+    segment_aware: false
+  rerank: &id002
+    enabled: true
+    table_chunk_boost: 0.08
+    milestone_text_boost: 0.08
+    entity_match_boost: 0.04
+    numeric_density_boost: 0.03
+    subsection_boost: 0.05
+- name: thesis_Grampian-2020-2021_chunk_320_90_seg_off_dense_rerank_on
+  doc_id: Grampian-2020-2021
+  data_mode: rebuild
+  pdf_path: Data/Annual Accounts NHS Grampian/Preliminary_Test/Grampian-2020-2021.pdf
+  source_eval_set: data_processed/Grampian-2020-2021/eval_set.json
+  mode: baseline
+  chunking: &id003
+    size_tokens: 320
+    overlap_tokens: 90
+    segment_aware: false
+  rerank: &id004
+    enabled: true
+    table_chunk_boost: 0.08
+    milestone_text_boost: 0.08
+    entity_match_boost: 0.04
+    numeric_density_boost: 0.03
+    subsection_boost: 0.05
+- name: thesis_Grampian-2020-2021_chunk_500_100_seg_off_dense_rerank_on
+  doc_id: Grampian-2020-2021
+  data_mode: rebuild
+  pdf_path: Data/Annual Accounts NHS Grampian/Preliminary_Test/Grampian-2020-2021.pdf
+  source_eval_set: data_processed/Grampian-2020-2021/eval_set.json
+  mode: baseline
+  chunking: &id005
+    size_tokens: 500
+    overlap_tokens: 100
+    segment_aware: false
+  rerank: &id006
+    enabled: true
+    table_chunk_boost: 0.08
+    milestone_text_boost: 0.08
+    entity_match_boost: 0.04
+    numeric_density_boost: 0.03
+    subsection_boost: 0.05
+- name: thesis_Grampian-2020-2021_chunk_700_120_seg_off_dense_rerank_on
+  doc_id: Grampian-2020-2021
+  data_mode: rebuild
+  pdf_path: Data/Annual Accounts NHS Grampian/Preliminary_Test/Grampian-2020-2021.pdf
+  source_eval_set: data_processed/Grampian-2020-2021/eval_set.json
+  mode: baseline
+  chunking: &id007
+    size_tokens: 700
+    overlap_tokens: 120
+    segment_aware: false
+  rerank: &id008
+    enabled: true
+    table_chunk_boost: 0.08
+    milestone_text_boost: 0.08
+    entity_match_boost: 0.04
+    numeric_density_boost: 0.03
+    subsection_boost: 0.05
+- name: thesis_Grampian-2020-2021_chunk_280_90_seg_on_dense_rerank_on
+  doc_id: Grampian-2020-2021
+  data_mode: rebuild
+  pdf_path: Data/Annual Accounts NHS Grampian/Preliminary_Test/Grampian-2020-2021.pdf
+  source_eval_set: data_processed/Grampian-2020-2021/eval_set.json
+  mode: baseline
+  chunking: &id009
+    size_tokens: 280
+    overlap_tokens: 90
+    segment_aware: true
+  rerank: &id010
+    enabled: true
+    table_chunk_boost: 0.08
+    milestone_text_boost: 0.08
+    entity_match_boost: 0.04
+    numeric_density_boost: 0.03
+    subsection_boost: 0.05
+- name: thesis_Grampian-2020-2021_chunk_280_90_seg_on_wholemd_dense_rerank_on
+  doc_id: Grampian-2020-2021
+  data_mode: rebuild
+  pdf_path: Data/Annual Accounts NHS Grampian/Preliminary_Test/Grampian-2020-2021.pdf
+  source_eval_set: data_processed/Grampian-2020-2021/eval_set.json
+  mode: baseline
+  chunking: &id011
+    size_tokens: 280
+    overlap_tokens: 90
+    segment_aware: true
+    whole_doc_markdown_mode: true
+    markdown_header_carry_forward: true
+    markdown_table_injection: true
+  rerank: &id012
+    enabled: true
+    table_chunk_boost: 0.08
+    milestone_text_boost: 0.08
+    entity_match_boost: 0.04
+    numeric_density_boost: 0.03
+    subsection_boost: 0.05
+- name: thesis_Grampian-2020-2021_chunk_280_90_seg_off_dense_rerank_off
+  doc_id: Grampian-2020-2021
+  data_mode: rebuild
+  pdf_path: Data/Annual Accounts NHS Grampian/Preliminary_Test/Grampian-2020-2021.pdf
+  source_eval_set: data_processed/Grampian-2020-2021/eval_set.json
+  mode: baseline
+  chunking: &id013
+    size_tokens: 280
+    overlap_tokens: 90
+    segment_aware: false
+  rerank: &id014
+    enabled: false
+- name: thesis_Grampian-2020-2021_chunk_280_90_seg_off_rewrite_rerank_on
+  doc_id: Grampian-2020-2021
+  data_mode: rebuild
+  pdf_path: Data/Annual Accounts NHS Grampian/Preliminary_Test/Grampian-2020-2021.pdf
+  source_eval_set: data_processed/Grampian-2020-2021/eval_set.json
+  mode: rewrite
+  chunking: &id015
+    size_tokens: 280
+    overlap_tokens: 90
+    segment_aware: false
+  rerank: &id016
+    enabled: true
+    table_chunk_boost: 0.08
+    milestone_text_boost: 0.08
+    entity_match_boost: 0.04
+    numeric_density_boost: 0.03
+    subsection_boost: 0.05
+  max_k_per_variant: 20
+- name: thesis_Grampian-2021-2022_chunk_280_90_seg_off_dense_rerank_on
+  doc_id: Grampian-2021-2022
+  data_mode: rebuild
+  pdf_path: Data/Annual Accounts NHS Grampian/Preliminary_Test/Grampian-2021-2022.pdf
+  source_eval_set: data_processed/Grampian-2021-2022/eval_set.json
+  mode: baseline
+  chunking: *id001
+  rerank: *id002
+- name: thesis_Grampian-2021-2022_chunk_320_90_seg_off_dense_rerank_on
+  doc_id: Grampian-2021-2022
+  data_mode: rebuild
+  pdf_path: Data/Annual Accounts NHS Grampian/Preliminary_Test/Grampian-2021-2022.pdf
+  source_eval_set: data_processed/Grampian-2021-2022/eval_set.json
+  mode: baseline
+  chunking: *id003
+  rerank: *id004
+- name: thesis_Grampian-2021-2022_chunk_500_100_seg_off_dense_rerank_on
+  doc_id: Grampian-2021-2022
+  data_mode: rebuild
+  pdf_path: Data/Annual Accounts NHS Grampian/Preliminary_Test/Grampian-2021-2022.pdf
+  source_eval_set: data_processed/Grampian-2021-2022/eval_set.json
+  mode: baseline
+  chunking: *id005
+  rerank: *id006
+- name: thesis_Grampian-2021-2022_chunk_700_120_seg_off_dense_rerank_on
+  doc_id: Grampian-2021-2022
+  data_mode: rebuild
+  pdf_path: Data/Annual Accounts NHS Grampian/Preliminary_Test/Grampian-2021-2022.pdf
+  source_eval_set: data_processed/Grampian-2021-2022/eval_set.json
+  mode: baseline
+  chunking: *id007
+  rerank: *id008
+- name: thesis_Grampian-2021-2022_chunk_280_90_seg_on_dense_rerank_on
+  doc_id: Grampian-2021-2022
+  data_mode: rebuild
+  pdf_path: Data/Annual Accounts NHS Grampian/Preliminary_Test/Grampian-2021-2022.pdf
+  source_eval_set: data_processed/Grampian-2021-2022/eval_set.json
+  mode: baseline
+  chunking: *id009
+  rerank: *id010
+- name: thesis_Grampian-2021-2022_chunk_280_90_seg_on_wholemd_dense_rerank_on
+  doc_id: Grampian-2021-2022
+  data_mode: rebuild
+  pdf_path: Data/Annual Accounts NHS Grampian/Preliminary_Test/Grampian-2021-2022.pdf
+  source_eval_set: data_processed/Grampian-2021-2022/eval_set.json
+  mode: baseline
+  chunking: *id011
+  rerank: *id012
+- name: thesis_Grampian-2021-2022_chunk_280_90_seg_off_dense_rerank_off
+  doc_id: Grampian-2021-2022
+  data_mode: rebuild
+  pdf_path: Data/Annual Accounts NHS Grampian/Preliminary_Test/Grampian-2021-2022.pdf
+  source_eval_set: data_processed/Grampian-2021-2022/eval_set.json
+  mode: baseline
+  chunking: *id013
+  rerank: *id014
+- name: thesis_Grampian-2021-2022_chunk_280_90_seg_off_rewrite_rerank_on
+  doc_id: Grampian-2021-2022
+  data_mode: rebuild
+  pdf_path: Data/Annual Accounts NHS Grampian/Preliminary_Test/Grampian-2021-2022.pdf
+  source_eval_set: data_processed/Grampian-2021-2022/eval_set.json
+  mode: rewrite
+  chunking: *id015
+  rerank: *id016
+  max_k_per_variant: 20
+- name: thesis_Grampian-2022-2023_chunk_280_90_seg_off_dense_rerank_on
+  doc_id: Grampian-2022-2023
+  data_mode: rebuild
+  pdf_path: Data/Annual Accounts NHS Grampian/Preliminary_Test/Grampian-2022-2023.pdf
+  source_eval_set: data_processed/Grampian-2022-2023/eval_set.json
+  mode: baseline
+  chunking: *id001
+  rerank: *id002
+- name: thesis_Grampian-2022-2023_chunk_320_90_seg_off_dense_rerank_on
+  doc_id: Grampian-2022-2023
+  data_mode: rebuild
+  pdf_path: Data/Annual Accounts NHS Grampian/Preliminary_Test/Grampian-2022-2023.pdf
+  source_eval_set: data_processed/Grampian-2022-2023/eval_set.json
+  mode: baseline
+  chunking: *id003
+  rerank: *id004
+- name: thesis_Grampian-2022-2023_chunk_500_100_seg_off_dense_rerank_on
+  doc_id: Grampian-2022-2023
+  data_mode: rebuild
+  pdf_path: Data/Annual Accounts NHS Grampian/Preliminary_Test/Grampian-2022-2023.pdf
+  source_eval_set: data_processed/Grampian-2022-2023/eval_set.json
+  mode: baseline
+  chunking: *id005
+  rerank: *id006
+- name: thesis_Grampian-2022-2023_chunk_700_120_seg_off_dense_rerank_on
+  doc_id: Grampian-2022-2023
+  data_mode: rebuild
+  pdf_path: Data/Annual Accounts NHS Grampian/Preliminary_Test/Grampian-2022-2023.pdf
+  source_eval_set: data_processed/Grampian-2022-2023/eval_set.json
+  mode: baseline
+  chunking: *id007
+  rerank: *id008
+- name: thesis_Grampian-2022-2023_chunk_280_90_seg_on_dense_rerank_on
+  doc_id: Grampian-2022-2023
+  data_mode: rebuild
+  pdf_path: Data/Annual Accounts NHS Grampian/Preliminary_Test/Grampian-2022-2023.pdf
+  source_eval_set: data_processed/Grampian-2022-2023/eval_set.json
+  mode: baseline
+  chunking: *id009
+  rerank: *id010
+- name: thesis_Grampian-2022-2023_chunk_280_90_seg_on_wholemd_dense_rerank_on
+  doc_id: Grampian-2022-2023
+  data_mode: rebuild
+  pdf_path: Data/Annual Accounts NHS Grampian/Preliminary_Test/Grampian-2022-2023.pdf
+  source_eval_set: data_processed/Grampian-2022-2023/eval_set.json
+  mode: baseline
+  chunking: *id011
+  rerank: *id012
+- name: thesis_Grampian-2022-2023_chunk_280_90_seg_off_dense_rerank_off
+  doc_id: Grampian-2022-2023
+  data_mode: rebuild
+  pdf_path: Data/Annual Accounts NHS Grampian/Preliminary_Test/Grampian-2022-2023.pdf
+  source_eval_set: data_processed/Grampian-2022-2023/eval_set.json
+  mode: baseline
+  chunking: *id013
+  rerank: *id014
+- name: thesis_Grampian-2022-2023_chunk_280_90_seg_off_rewrite_rerank_on
+  doc_id: Grampian-2022-2023
+  data_mode: rebuild
+  pdf_path: Data/Annual Accounts NHS Grampian/Preliminary_Test/Grampian-2022-2023.pdf
+  source_eval_set: data_processed/Grampian-2022-2023/eval_set.json
+  mode: rewrite
+  chunking: *id015
+  rerank: *id016
+  max_k_per_variant: 20
+- name: thesis_Grampian-2023-2024_chunk_280_90_seg_off_dense_rerank_on
+  doc_id: Grampian-2023-2024
+  data_mode: rebuild
+  pdf_path: Data/Annual Accounts NHS Grampian/Preliminary_Test/Grampian-2023-2024.pdf
+  source_eval_set: data_processed/Grampian-2023-2024/eval_set.json
+  mode: baseline
+  chunking: *id001
+  rerank: *id002
+- name: thesis_Grampian-2023-2024_chunk_320_90_seg_off_dense_rerank_on
+  doc_id: Grampian-2023-2024
+  data_mode: rebuild
+  pdf_path: Data/Annual Accounts NHS Grampian/Preliminary_Test/Grampian-2023-2024.pdf
+  source_eval_set: data_processed/Grampian-2023-2024/eval_set.json
+  mode: baseline
+  chunking: *id003
+  rerank: *id004
+- name: thesis_Grampian-2023-2024_chunk_500_100_seg_off_dense_rerank_on
+  doc_id: Grampian-2023-2024
+  data_mode: rebuild
+  pdf_path: Data/Annual Accounts NHS Grampian/Preliminary_Test/Grampian-2023-2024.pdf
+  source_eval_set: data_processed/Grampian-2023-2024/eval_set.json
+  mode: baseline
+  chunking: *id005
+  rerank: *id006
+- name: thesis_Grampian-2023-2024_chunk_700_120_seg_off_dense_rerank_on
+  doc_id: Grampian-2023-2024
+  data_mode: rebuild
+  pdf_path: Data/Annual Accounts NHS Grampian/Preliminary_Test/Grampian-2023-2024.pdf
+  source_eval_set: data_processed/Grampian-2023-2024/eval_set.json
+  mode: baseline
+  chunking: *id007
+  rerank: *id008
+- name: thesis_Grampian-2023-2024_chunk_280_90_seg_on_dense_rerank_on
+  doc_id: Grampian-2023-2024
+  data_mode: rebuild
+  pdf_path: Data/Annual Accounts NHS Grampian/Preliminary_Test/Grampian-2023-2024.pdf
+  source_eval_set: data_processed/Grampian-2023-2024/eval_set.json
+  mode: baseline
+  chunking: *id009
+  rerank: *id010
+- name: thesis_Grampian-2023-2024_chunk_280_90_seg_on_wholemd_dense_rerank_on
+  doc_id: Grampian-2023-2024
+  data_mode: rebuild
+  pdf_path: Data/Annual Accounts NHS Grampian/Preliminary_Test/Grampian-2023-2024.pdf
+  source_eval_set: data_processed/Grampian-2023-2024/eval_set.json
+  mode: baseline
+  chunking: *id011
+  rerank: *id012
+- name: thesis_Grampian-2023-2024_chunk_280_90_seg_off_dense_rerank_off
+  doc_id: Grampian-2023-2024
+  data_mode: rebuild
+  pdf_path: Data/Annual Accounts NHS Grampian/Preliminary_Test/Grampian-2023-2024.pdf
+  source_eval_set: data_processed/Grampian-2023-2024/eval_set.json
+  mode: baseline
+  chunking: *id013
+  rerank: *id014
+- name: thesis_Grampian-2023-2024_chunk_280_90_seg_off_rewrite_rerank_on
+  doc_id: Grampian-2023-2024
+  data_mode: rebuild
+  pdf_path: Data/Annual Accounts NHS Grampian/Preliminary_Test/Grampian-2023-2024.pdf
+  source_eval_set: data_processed/Grampian-2023-2024/eval_set.json
+  mode: rewrite
+  chunking: *id015
+  rerank: *id016
+  max_k_per_variant: 20
+- name: thesis_Grampian-2024-2025_chunk_280_90_seg_off_dense_rerank_on
+  doc_id: Grampian-2024-2025
+  data_mode: rebuild
+  pdf_path: Data/Annual Accounts NHS Grampian/Preliminary_Test/Grampian-2024-2025.pdf
+  source_eval_set: data_processed/Grampian-2024-2025/eval_set.json
+  mode: baseline
+  chunking: *id001
+  rerank: *id002
+- name: thesis_Grampian-2024-2025_chunk_320_90_seg_off_dense_rerank_on
+  doc_id: Grampian-2024-2025
+  data_mode: rebuild
+  pdf_path: Data/Annual Accounts NHS Grampian/Preliminary_Test/Grampian-2024-2025.pdf
+  source_eval_set: data_processed/Grampian-2024-2025/eval_set.json
+  mode: baseline
+  chunking: *id003
+  rerank: *id004
+- name: thesis_Grampian-2024-2025_chunk_500_100_seg_off_dense_rerank_on
+  doc_id: Grampian-2024-2025
+  data_mode: rebuild
+  pdf_path: Data/Annual Accounts NHS Grampian/Preliminary_Test/Grampian-2024-2025.pdf
+  source_eval_set: data_processed/Grampian-2024-2025/eval_set.json
+  mode: baseline
+  chunking: *id005
+  rerank: *id006
+- name: thesis_Grampian-2024-2025_chunk_700_120_seg_off_dense_rerank_on
+  doc_id: Grampian-2024-2025
+  data_mode: rebuild
+  pdf_path: Data/Annual Accounts NHS Grampian/Preliminary_Test/Grampian-2024-2025.pdf
+  source_eval_set: data_processed/Grampian-2024-2025/eval_set.json
+  mode: baseline
+  chunking: *id007
+  rerank: *id008
+- name: thesis_Grampian-2024-2025_chunk_280_90_seg_on_dense_rerank_on
+  doc_id: Grampian-2024-2025
+  data_mode: rebuild
+  pdf_path: Data/Annual Accounts NHS Grampian/Preliminary_Test/Grampian-2024-2025.pdf
+  source_eval_set: data_processed/Grampian-2024-2025/eval_set.json
+  mode: baseline
+  chunking: *id009
+  rerank: *id010
+- name: thesis_Grampian-2024-2025_chunk_280_90_seg_on_wholemd_dense_rerank_on
+  doc_id: Grampian-2024-2025
+  data_mode: rebuild
+  pdf_path: Data/Annual Accounts NHS Grampian/Preliminary_Test/Grampian-2024-2025.pdf
+  source_eval_set: data_processed/Grampian-2024-2025/eval_set.json
+  mode: baseline
+  chunking: *id011
+  rerank: *id012
+- name: thesis_Grampian-2024-2025_chunk_280_90_seg_off_dense_rerank_off
+  doc_id: Grampian-2024-2025
+  data_mode: rebuild
+  pdf_path: Data/Annual Accounts NHS Grampian/Preliminary_Test/Grampian-2024-2025.pdf
+  source_eval_set: data_processed/Grampian-2024-2025/eval_set.json
+  mode: baseline
+  chunking: *id013
+  rerank: *id014
+- name: thesis_Grampian-2024-2025_chunk_280_90_seg_off_rewrite_rerank_on
+  doc_id: Grampian-2024-2025
+  data_mode: rebuild
+  pdf_path: Data/Annual Accounts NHS Grampian/Preliminary_Test/Grampian-2024-2025.pdf
+  source_eval_set: data_processed/Grampian-2024-2025/eval_set.json
+  mode: rewrite
+  chunking: *id015
+  rerank: *id016
+  max_k_per_variant: 20

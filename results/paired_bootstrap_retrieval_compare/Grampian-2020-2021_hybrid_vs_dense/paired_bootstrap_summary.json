@@ -1,0 +1,30 @@
+{
+  "inputs": {
+    "system_a": "/Users/djimra/MSc Data Science Jan 2025/Thesis documents/RAG_Pipeline_Project/archive/2026-02-28_ablation_cleanup/data_processed_ablation_thesis_5docs_q50/thesis_Grampian-2020-2021_chunk_280_90_seg_off_dense_rerank_on/Grampian-2020-2021/retrieval_results_hybrid.json",
+    "system_b": "/Users/djimra/MSc Data Science Jan 2025/Thesis documents/RAG_Pipeline_Project/archive/2026-02-28_ablation_cleanup/data_processed_ablation_thesis_5docs_q50/thesis_Grampian-2020-2021_chunk_280_90_seg_off_dense_rerank_on/Grampian-2020-2021/retrieval_results.json",
+    "n_common_queries": 50,
+    "mrr_k": 10,
+    "n_bootstrap": 5000,
+    "seed": 42
+  },
+  "metrics": {
+    "hit_at_1": {
+      "observed_delta": 0.07999999999999996,
+      "mean_delta": 0.07786399999999999,
+      "ci95_low": -0.08000000000000007,
+      "ci95_high": 0.23999999999999994
+    },
+    "hit_at_3": {
+      "observed_delta": 0.020000000000000018,
+      "mean_delta": 0.01994,
+      "ci95_low": -0.08000000000000007,
+      "ci95_high": 0.12
+    },
+    "mrr_at_10": {
+      "observed_delta": 0.04499999999999993,
+      "mean_delta": 0.04448366666666667,
+      "ci95_low": -0.05833333333333324,
+      "ci95_high": 0.14500000000000002
+    }
+  }
+}

@@ -1,0 +1,2457 @@
+{
+  "run_info": {
+    "run_utc": "2026-02-25T08:46:17+00:00",
+    "data_dir": "/Users/djimra/MSc Data Science Jan 2025/Thesis documents/RAG_Pipeline_Project/data_processed_ablation_thesis_all_docs/thesis_Grampian-2022-2023_chunk_280_90_seg_on_wholemd_dense_rerank_on/Grampian-2022-2023",
+    "index_path": "/Users/djimra/MSc Data Science Jan 2025/Thesis documents/RAG_Pipeline_Project/data_processed_ablation_thesis_all_docs/thesis_Grampian-2022-2023_chunk_280_90_seg_on_wholemd_dense_rerank_on/Grampian-2022-2023/faiss.index",
+    "meta_path": "/Users/djimra/MSc Data Science Jan 2025/Thesis documents/RAG_Pipeline_Project/data_processed_ablation_thesis_all_docs/thesis_Grampian-2022-2023_chunk_280_90_seg_on_wholemd_dense_rerank_on/Grampian-2022-2023/chunk_meta.parquet",
+    "table_facts_path": "/Users/djimra/MSc Data Science Jan 2025/Thesis documents/RAG_Pipeline_Project/data_processed_ablation_thesis_all_docs/thesis_Grampian-2022-2023_chunk_280_90_seg_on_wholemd_dense_rerank_on/Grampian-2022-2023/table_facts.parquet",
+    "eval_set_path": "/Users/djimra/MSc Data Science Jan 2025/Thesis documents/RAG_Pipeline_Project/data_processed_ablation_thesis_all_docs/thesis_Grampian-2022-2023_chunk_280_90_seg_on_wholemd_dense_rerank_on/Grampian-2022-2023/eval_set.json",
+    "embedding_model": "models/all-MiniLM-L6-v2",
+    "k_list": [
+      1,
+      3,
+      5,
+      10
+    ],
+    "subsection_boost": 0.05,
+    "table_chunk_boost": 0.08,
+    "milestone_text_boost": 0.08,
+    "entity_match_boost": 0.04,
+    "numeric_density_boost": 0.03,
+    "max_entity_matches": 4,
+    "enable_lexical_rerank": true,
+    "enable_subsection_boost": true,
+    "max_k_search": 100,
+    "num_queries": 11,
+    "num_chunks_indexed": 725,
+    "num_table_facts": 848,
+    "meta_doc_ids": [
+      "Grampian-2022-2023"
+    ],
+    "query_id_nomenclature": "Q_<TOPIC>_<YEAR>_<NN> with TOPIC in [REV,EFF,DEF,STAFF,ACC,GOV,TABLE]",
+    "failure_attribution": {
+      "retrieval_stages": [
+        "hit",
+        "missed_top_ranked",
+        "missing_content"
+      ],
+      "failure_types": [
+        "FP1_MISSING_CONTENT",
+        "FP2_MISSED_TOP_RANK",
+        "FP3_NOT_IN_CONTEXT",
+        "FP4_NOT_EXTRACTED",
+        "FP5_WRONG_FORMAT",
+        "FP6_INCORRECT_SPECIFICITY",
+        "FP7_INCOMPLETE",
+        "HIT"
+      ],
+      "scope": "retrieval_and_generation"
+    },
+    "leakage_detection": {
+      "enabled": true,
+      "requires_expected_doc_id": true,
+      "fields": [
+        "retrieved_doc_ids_top_k",
+        "leakage_count_top_k",
+        "leakage_doc_ids_top_k",
+        "leakage_rate_top_k"
+      ]
+    },
+    "pipeline_settings": {
+      "source_metrics_path": "/Users/djimra/MSc Data Science Jan 2025/Thesis documents/RAG_Pipeline_Project/data_processed_ablation_thesis_all_docs/thesis_Grampian-2022-2023_chunk_280_90_seg_on_wholemd_dense_rerank_on/Grampian-2022-2023/metrics.json",
+      "source_metrics_exists": true,
+      "doc_id": "Grampian-2022-2023",
+      "corpus_id": "Grampian-2022-2023",
+      "report_year": "2022-2023",
+      "preprocess_run_utc": "2026-02-25T08:43:56+00:00",
+      "preprocess_git_commit_short": "1da05af",
+      "embedding_model_preprocess": "sentence-transformers/all-MiniLM-L6-v2",
+      "chunk_size_tokens": 280,
+      "chunk_overlap_tokens": 90,
+      "segment_aware_chunking": true,
+      "whole_doc_markdown_mode": true,
+      "markdown_header_carry_forward": true,
+      "markdown_table_injection": true,
+      "primary_extractor": "pymupdf",
+      "min_chunk_words": 20
+    },
+    "eval_set": {
+      "path": "/Users/djimra/MSc Data Science Jan 2025/Thesis documents/RAG_Pipeline_Project/data_processed_ablation_thesis_all_docs/thesis_Grampian-2022-2023_chunk_280_90_seg_on_wholemd_dense_rerank_on/Grampian-2022-2023/eval_set.json",
+      "sha1": "84bb82333c00761bcfaf0a074232c08d57f6c9db",
+      "size_bytes": 7728,
+      "modified_utc": "2026-02-25T08:23:32+00:00",
+      "query_count": 11,
+      "meta_dataset_name": null,
+      "meta_doc_id": null,
+      "meta_version": null
+    }
+  },
+  "results": [
+    {
+      "query_id": "Q_DEF_2023_01",
+      "topic": "DEF",
+      "year": 2023,
+      "sequence": 1,
+      "question": "What deficit did Aberdeenshire IJB report for the year?",
+      "answer_type": "number",
+      "doc_id": "Grampian-2022-2023",
+      "expected_section": "3.1.2.2 Aberdeenshire Integration Joint Board (IJB)",
+      "expected_pages": [
+        21
+      ],
+      "route_intent": "unknown",
+      "route_confidence": 0.5,
+      "page_hit": 1,
+      "failure_type": "HIT",
+      "failure_stage": "none",
+      "expected_answer": "£27.934",
+      "extracted_answer": "## PERFORMANCE REPORT\n### B PERFORMANCE ANALYSIS\n\nAberdeenshire IJB reported a deficit for the year of £27.934 million ( 2021/22 surplus £28.496 million) decreasing the retained reserves carried forwa",
+      "extracted_answer_label": "Snippet",
+      "answer_correct": true,
+      "answer_status": "correct",
+      "extracted_answer_chunk_id": "Grampian-2022-2023:p0021_009",
+      "gold_presence": {
+        "gold_exists": true,
+        "gold_chunk_count": 7,
+        "gold_pages_found": [
+          21
+        ]
+      },
+      "per_k": {
+        "1": {
+          "retrieved_chunk_ids": [
+            "Grampian-2022-2023:p0021_009"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2022-2023"
+          ],
+          "retrieved_pages_ranked": [
+            21
+          ],
+          "retrieved_scores": [
+            0.8598878288269044
+          ],
+          "expected_subsection": "B PERFORMANCE ANALYSIS",
+          "page_recall_at_k": 1.0,
+          "page_precision_at_k": 1.0,
+          "page_mrr_at_k": 1.0,
+          "chunk_hit_at_k": 1.0,
+          "chunk_precision_at_k": 1.0,
+          "chunk_mrr_at_k": 1.0,
+          "chunk_hit_flags": [
+            1
+          ],
+          "failure_stage": "hit",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        },
+        "3": {
+          "retrieved_chunk_ids": [
+            "Grampian-2022-2023:p0021_009",
+            "Grampian-2022-2023:p0022_002",
+            "Grampian-2022-2023:p0021_005"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023"
+          ],
+          "retrieved_pages_ranked": [
+            21,
+            22
+          ],
+          "retrieved_scores": [
+            0.8598878288269044,
+            0.8233901977539063,
+            0.7872596502304078
+          ],
+          "expected_subsection": "B PERFORMANCE ANALYSIS",
+          "page_recall_at_k": 1.0,
+          "page_precision_at_k": 0.5,
+          "page_mrr_at_k": 1.0,
+          "chunk_hit_at_k": 1.0,
+          "chunk_precision_at_k": 0.6666666666666666,
+          "chunk_mrr_at_k": 1.0,
+          "chunk_hit_flags": [
+            1,
+            0,
+            1
+          ],
+          "failure_stage": "hit",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        },
+        "5": {
+          "retrieved_chunk_ids": [
+            "Grampian-2022-2023:p0021_009",
+            "Grampian-2022-2023:p0022_002",
+            "Grampian-2022-2023:p0021_005",
+            "Grampian-2022-2023:p0022_005",
+            "Grampian-2022-2023:p0022_003"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023"
+          ],
+          "retrieved_pages_ranked": [
+            21,
+            22
+          ],
+          "retrieved_scores": [
+            0.8598878288269044,
+            0.8233901977539063,
+            0.7872596502304078,
+            0.7729207992553712,
+            0.7534230184555054
+          ],
+          "expected_subsection": "B PERFORMANCE ANALYSIS",
+          "page_recall_at_k": 1.0,
+          "page_precision_at_k": 0.5,
+          "page_mrr_at_k": 1.0,
+          "chunk_hit_at_k": 1.0,
+          "chunk_precision_at_k": 0.4,
+          "chunk_mrr_at_k": 1.0,
+          "chunk_hit_flags": [
+            1,
+            0,
+            1,
+            0,
+            0
+          ],
+          "failure_stage": "hit",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        },
+        "10": {
+          "retrieved_chunk_ids": [
+            "Grampian-2022-2023:p0021_009",
+            "Grampian-2022-2023:p0022_002",
+            "Grampian-2022-2023:p0021_005",
+            "Grampian-2022-2023:p0022_005",
+            "Grampian-2022-2023:p0022_003",
+            "Grampian-2022-2023:p0026_000",
+            "Grampian-2022-2023:p0035_001",
+            "Grampian-2022-2023:p0021_001",
+            "Grampian-2022-2023:p0021_006",
+            "Grampian-2022-2023:p0022_006"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023"
+          ],
+          "retrieved_pages_ranked": [
+            21,
+            22,
+            26,
+            35
+          ],
+          "retrieved_scores": [
+            0.8598878288269044,
+            0.8233901977539063,
+            0.7872596502304078,
+            0.7729207992553712,
+            0.7534230184555054,
+            0.7251294684410096,
+            0.7204993104934693,
+            0.6960284757614136,
+            0.6833080101013184,
+            0.6782205152511597
+          ],
+          "expected_subsection": "B PERFORMANCE ANALYSIS",
+          "page_recall_at_k": 1.0,
+          "page_precision_at_k": 0.25,
+          "page_mrr_at_k": 1.0,
+          "chunk_hit_at_k": 1.0,
+          "chunk_precision_at_k": 0.4,
+          "chunk_mrr_at_k": 1.0,
+          "chunk_hit_flags": [
+            1,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            1,
+            1,
+            0
+          ],
+          "failure_stage": "hit",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        }
+      }
+    },
+    {
+      "query_id": "Q_REV_2023_01",
+      "topic": "REV",
+      "year": 2023,
+      "sequence": 1,
+      "question": "How much was allocated to purchase equipment for replacement of the NHS Grampian Wireless network across all sites?",
+      "answer_type": "number",
+      "doc_id": "Grampian-2022-2023",
+      "expected_section": "Performance Report, Performance Analysis",
+      "expected_pages": [
+        28
+      ],
+      "route_intent": "unknown",
+      "route_confidence": 0.5,
+      "page_hit": 1,
+      "failure_type": "FP6_INCORRECT_SPECIFICITY",
+      "failure_stage": "generation",
+      "expected_answer": "£1.6 million",
+      "extracted_answer": "## PERFORMANCE REPORT ### B PERFORMANCE ANALYSIS #### Page 28 PERFORMANCE REPORT B PERFORMANCE ANALYSIS replacement, Electrical System upgrades, Fire Detection modernisation and Building Management Sy",
+      "extracted_answer_label": "Snippet",
+      "answer_correct": false,
+      "answer_status": "incorrect",
+      "extracted_answer_chunk_id": "Grampian-2022-2023:p0028_000",
+      "gold_presence": {
+        "gold_exists": true,
+        "gold_chunk_count": 2,
+        "gold_pages_found": [
+          28
+        ]
+      },
+      "per_k": {
+        "1": {
+          "retrieved_chunk_ids": [
+            "Grampian-2022-2023:p0028_000"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2022-2023"
+          ],
+          "retrieved_pages_ranked": [
+            28
+          ],
+          "retrieved_scores": [
+            0.8311547255516053
+          ],
+          "expected_subsection": "B PERFORMANCE ANALYSIS",
+          "page_recall_at_k": 1.0,
+          "page_precision_at_k": 1.0,
+          "page_mrr_at_k": 1.0,
+          "chunk_hit_at_k": 1.0,
+          "chunk_precision_at_k": 1.0,
+          "chunk_mrr_at_k": 1.0,
+          "chunk_hit_flags": [
+            1
+          ],
+          "failure_stage": "hit",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        },
+        "3": {
+          "retrieved_chunk_ids": [
+            "Grampian-2022-2023:p0028_000",
+            "Grampian-2022-2023:p0025_000",
+            "Grampian-2022-2023:p0132_000"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023"
+          ],
+          "retrieved_pages_ranked": [
+            28,
+            25,
+            132
+          ],
+          "retrieved_scores": [
+            0.8311547255516053,
+            0.6888939857482911,
+            0.6467873179912568
+          ],
+          "expected_subsection": "B PERFORMANCE ANALYSIS",
+          "page_recall_at_k": 1.0,
+          "page_precision_at_k": 0.3333333333333333,
+          "page_mrr_at_k": 1.0,
+          "chunk_hit_at_k": 1.0,
+          "chunk_precision_at_k": 0.3333333333333333,
+          "chunk_mrr_at_k": 1.0,
+          "chunk_hit_flags": [
+            1,
+            0,
+            0
+          ],
+          "failure_stage": "hit",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        },
+        "5": {
+          "retrieved_chunk_ids": [
+            "Grampian-2022-2023:p0028_000",
+            "Grampian-2022-2023:p0025_000",
+            "Grampian-2022-2023:p0132_000",
+            "Grampian-2022-2023:p0029_001",
+            "Grampian-2022-2023:p0078_001"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023"
+          ],
+          "retrieved_pages_ranked": [
+            28,
+            25,
+            132,
+            29,
+            78
+          ],
+          "retrieved_scores": [
+            0.8311547255516053,
+            0.6888939857482911,
+            0.6467873179912568,
+            0.6426809632778169,
+            0.6361566126346588
+          ],
+          "expected_subsection": "B PERFORMANCE ANALYSIS",
+          "page_recall_at_k": 1.0,
+          "page_precision_at_k": 0.2,
+          "page_mrr_at_k": 1.0,
+          "chunk_hit_at_k": 1.0,
+          "chunk_precision_at_k": 0.2,
+          "chunk_mrr_at_k": 1.0,
+          "chunk_hit_flags": [
+            1,
+            0,
+            0,
+            0,
+            0
+          ],
+          "failure_stage": "hit",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        },
+        "10": {
+          "retrieved_chunk_ids": [
+            "Grampian-2022-2023:p0028_000",
+            "Grampian-2022-2023:p0025_000",
+            "Grampian-2022-2023:p0132_000",
+            "Grampian-2022-2023:p0029_001",
+            "Grampian-2022-2023:p0078_001",
+            "Grampian-2022-2023:p0148_005",
+            "Grampian-2022-2023:p0115_003",
+            "Grampian-2022-2023:p0024_001",
+            "Grampian-2022-2023:p0115_000",
+            "Grampian-2022-2023:p0117_000"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023"
+          ],
+          "retrieved_pages_ranked": [
+            28,
+            25,
+            132,
+            29,
+            78,
+            148,
+            115,
+            24,
+            117
+          ],
+          "retrieved_scores": [
+            0.8311547255516053,
+            0.6888939857482911,
+            0.6467873179912568,
+            0.6426809632778169,
+            0.6361566126346588,
+            0.6235511839389801,
+            0.5989737844467163,
+            0.5894819629192353,
+            0.5803583598136902,
+            0.579193526506424
+          ],
+          "expected_subsection": "B PERFORMANCE ANALYSIS",
+          "page_recall_at_k": 1.0,
+          "page_precision_at_k": 0.1111111111111111,
+          "page_mrr_at_k": 1.0,
+          "chunk_hit_at_k": 1.0,
+          "chunk_precision_at_k": 0.1,
+          "chunk_mrr_at_k": 1.0,
+          "chunk_hit_flags": [
+            1,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "failure_stage": "hit",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        }
+      }
+    },
+    {
+      "query_id": "Q_DEF_2023_02",
+      "topic": "DEF",
+      "year": 2023,
+      "sequence": 2,
+      "question": "What does the independent auditor’s separate Annual Audit Report cover regarding risks of material misstatement?",
+      "answer_type": "text",
+      "doc_id": "Grampian-2022-2023",
+      "expected_section": "Independent auditor’s report, Risks of material misstatement",
+      "expected_pages": [
+        82
+      ],
+      "route_intent": "unknown",
+      "route_confidence": 0.5,
+      "page_hit": 0,
+      "failure_type": "FP2_MISSED_TOP_RANK",
+      "failure_stage": "retrieval",
+      "expected_answer": "The most significant assessed risks of material misstatement that we identified and our judgements thereon.",
+      "extracted_answer": "## ACCOUNTABILITY REPORT ### C PARLIAMENTARY ACCOUNTABILITY REPORT #### Page 84 General for Scotland and the Scottish Parliament Other information The Accountable Officer is responsible for the other",
+      "extracted_answer_label": "Snippet",
+      "answer_correct": false,
+      "answer_status": "incorrect",
+      "extracted_answer_chunk_id": "Grampian-2022-2023:p0084_000",
+      "gold_presence": {
+        "gold_exists": true,
+        "gold_chunk_count": 2,
+        "gold_pages_found": [
+          82
+        ]
+      },
+      "per_k": {
+        "1": {
+          "retrieved_chunk_ids": [
+            "Grampian-2022-2023:p0084_000"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2022-2023"
+          ],
+          "retrieved_pages_ranked": [
+            84
+          ],
+          "retrieved_scores": [
+            0.7478375053405762
+          ],
+          "expected_subsection": "C PARLIAMENTARY ACCOUNTABILITY REPORT",
+          "page_recall_at_k": 0.0,
+          "page_precision_at_k": 0.0,
+          "page_mrr_at_k": 0.0,
+          "chunk_hit_at_k": 0.0,
+          "chunk_precision_at_k": 0.0,
+          "chunk_mrr_at_k": 0.0,
+          "chunk_hit_flags": [
+            0
+          ],
+          "failure_stage": "missed_top_ranked",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        },
+        "3": {
+          "retrieved_chunk_ids": [
+            "Grampian-2022-2023:p0084_000",
+            "Grampian-2022-2023:p0082_000",
+            "Grampian-2022-2023:p0084_001"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023"
+          ],
+          "retrieved_pages_ranked": [
+            84,
+            82
+          ],
+          "retrieved_scores": [
+            0.7478375053405762,
+            0.7264221525192261,
+            0.7043230152130128
+          ],
+          "expected_subsection": "C PARLIAMENTARY ACCOUNTABILITY REPORT",
+          "page_recall_at_k": 1.0,
+          "page_precision_at_k": 0.5,
+          "page_mrr_at_k": 0.5,
+          "chunk_hit_at_k": 1.0,
+          "chunk_precision_at_k": 0.3333333333333333,
+          "chunk_mrr_at_k": 0.5,
+          "chunk_hit_flags": [
+            0,
+            1,
+            0
+          ],
+          "failure_stage": "hit",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        },
+        "5": {
+          "retrieved_chunk_ids": [
+            "Grampian-2022-2023:p0084_000",
+            "Grampian-2022-2023:p0082_000",
+            "Grampian-2022-2023:p0084_001",
+            "Grampian-2022-2023:p0083_001",
+            "Grampian-2022-2023:p0083_000"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023"
+          ],
+          "retrieved_pages_ranked": [
+            84,
+            82,
+            83
+          ],
+          "retrieved_scores": [
+            0.7478375053405762,
+            0.7264221525192261,
+            0.7043230152130128,
+            0.6826009964942933,
+            0.6771245217323304
+          ],
+          "expected_subsection": "C PARLIAMENTARY ACCOUNTABILITY REPORT",
+          "page_recall_at_k": 1.0,
+          "page_precision_at_k": 0.3333333333333333,
+          "page_mrr_at_k": 0.5,
+          "chunk_hit_at_k": 1.0,
+          "chunk_precision_at_k": 0.2,
+          "chunk_mrr_at_k": 0.5,
+          "chunk_hit_flags": [
+            0,
+            1,
+            0,
+            0,
+            0
+          ],
+          "failure_stage": "hit",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        },
+        "10": {
+          "retrieved_chunk_ids": [
+            "Grampian-2022-2023:p0084_000",
+            "Grampian-2022-2023:p0082_000",
+            "Grampian-2022-2023:p0084_001",
+            "Grampian-2022-2023:p0083_001",
+            "Grampian-2022-2023:p0083_000",
+            "Grampian-2022-2023:p0081_001",
+            "Grampian-2022-2023:p0082_001",
+            "Grampian-2022-2023:p0055_002",
+            "Grampian-2022-2023:p0038_002",
+            "Grampian-2022-2023:p0081_002"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023"
+          ],
+          "retrieved_pages_ranked": [
+            84,
+            82,
+            83,
+            81,
+            55,
+            38
+          ],
+          "retrieved_scores": [
+            0.7478375053405762,
+            0.7264221525192261,
+            0.7043230152130128,
+            0.6826009964942933,
+            0.6771245217323304,
+            0.6734982943534852,
+            0.6706442451477052,
+            0.668348822593689,
+            0.6453940904140473,
+            0.6422329378128052
+          ],
+          "expected_subsection": "C PARLIAMENTARY ACCOUNTABILITY REPORT",
+          "page_recall_at_k": 1.0,
+          "page_precision_at_k": 0.16666666666666666,
+          "page_mrr_at_k": 0.5,
+          "chunk_hit_at_k": 1.0,
+          "chunk_precision_at_k": 0.2,
+          "chunk_mrr_at_k": 0.5,
+          "chunk_hit_flags": [
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            1,
+            0,
+            0,
+            0
+          ],
+          "failure_stage": "hit",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        }
+      }
+    },
+    {
+      "query_id": "Q_ACC_2023_01",
+      "topic": "ACC",
+      "year": 2023,
+      "sequence": 1,
+      "question": "Which report section covers staff wellbeing initiatives such as the We Care programme and occupational health enhancements?",
+      "answer_type": "text",
+      "doc_id": "Grampian-2022-2023",
+      "expected_section": "ACCOUNTABILITY REPORT | B REMUNERATION AND STAFF REPORT",
+      "expected_pages": [
+        73
+      ],
+      "route_intent": "unknown",
+      "route_confidence": 0.5,
+      "page_hit": 1,
+      "failure_type": "HIT",
+      "failure_stage": "none",
+      "expected_answer": "B Remuneration and Staff Report",
+      "extracted_answer": "## ACCOUNTABILITY REPORT ### B REMUNERATION AND STAFF REPORT #### Page 73 B REMUNERATION AND STAFF REPORT Staff Wellbeing The Board continue to support staff health and wellbeing through the We Care p",
+      "extracted_answer_label": "Snippet",
+      "answer_correct": true,
+      "answer_status": "correct",
+      "extracted_answer_chunk_id": "Grampian-2022-2023:p0073_000",
+      "gold_presence": {
+        "gold_exists": true,
+        "gold_chunk_count": 3,
+        "gold_pages_found": [
+          73
+        ]
+      },
+      "per_k": {
+        "1": {
+          "retrieved_chunk_ids": [
+            "Grampian-2022-2023:p0073_000"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2022-2023"
+          ],
+          "retrieved_pages_ranked": [
+            73
+          ],
+          "retrieved_scores": [
+            0.8222039556503297
+          ],
+          "expected_subsection": "B REMUNERATION AND STAFF REPORT",
+          "page_recall_at_k": 1.0,
+          "page_precision_at_k": 1.0,
+          "page_mrr_at_k": 1.0,
+          "chunk_hit_at_k": 1.0,
+          "chunk_precision_at_k": 1.0,
+          "chunk_mrr_at_k": 1.0,
+          "chunk_hit_flags": [
+            1
+          ],
+          "failure_stage": "hit",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        },
+        "3": {
+          "retrieved_chunk_ids": [
+            "Grampian-2022-2023:p0073_000",
+            "Grampian-2022-2023:p0076_002",
+            "Grampian-2022-2023:p0006_002"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023"
+          ],
+          "retrieved_pages_ranked": [
+            73,
+            76,
+            6
+          ],
+          "retrieved_scores": [
+            0.8222039556503297,
+            0.8034750723838807,
+            0.7656886315345764
+          ],
+          "expected_subsection": "B REMUNERATION AND STAFF REPORT",
+          "page_recall_at_k": 1.0,
+          "page_precision_at_k": 0.3333333333333333,
+          "page_mrr_at_k": 1.0,
+          "chunk_hit_at_k": 1.0,
+          "chunk_precision_at_k": 0.3333333333333333,
+          "chunk_mrr_at_k": 1.0,
+          "chunk_hit_flags": [
+            1,
+            0,
+            0
+          ],
+          "failure_stage": "hit",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        },
+        "5": {
+          "retrieved_chunk_ids": [
+            "Grampian-2022-2023:p0073_000",
+            "Grampian-2022-2023:p0076_002",
+            "Grampian-2022-2023:p0006_002",
+            "Grampian-2022-2023:p0072_001",
+            "Grampian-2022-2023:p0073_001"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023"
+          ],
+          "retrieved_pages_ranked": [
+            73,
+            76,
+            6,
+            72
+          ],
+          "retrieved_scores": [
+            0.8222039556503297,
+            0.8034750723838807,
+            0.7656886315345764,
+            0.759836277961731,
+            0.7563489890098573
+          ],
+          "expected_subsection": "B REMUNERATION AND STAFF REPORT",
+          "page_recall_at_k": 1.0,
+          "page_precision_at_k": 0.25,
+          "page_mrr_at_k": 1.0,
+          "chunk_hit_at_k": 1.0,
+          "chunk_precision_at_k": 0.4,
+          "chunk_mrr_at_k": 1.0,
+          "chunk_hit_flags": [
+            1,
+            0,
+            0,
+            0,
+            1
+          ],
+          "failure_stage": "hit",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        },
+        "10": {
+          "retrieved_chunk_ids": [
+            "Grampian-2022-2023:p0073_000",
+            "Grampian-2022-2023:p0076_002",
+            "Grampian-2022-2023:p0006_002",
+            "Grampian-2022-2023:p0072_001",
+            "Grampian-2022-2023:p0073_001",
+            "Grampian-2022-2023:p0068_007",
+            "Grampian-2022-2023:p0077_000",
+            "Grampian-2022-2023:p0071_006",
+            "Grampian-2022-2023:p0078_000",
+            "Grampian-2022-2023:p0070_006"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023"
+          ],
+          "retrieved_pages_ranked": [
+            73,
+            76,
+            6,
+            72,
+            68,
+            77,
+            71,
+            78,
+            70
+          ],
+          "retrieved_scores": [
+            0.8222039556503297,
+            0.8034750723838807,
+            0.7656886315345764,
+            0.759836277961731,
+            0.7563489890098573,
+            0.7521362209320069,
+            0.7435546135902406,
+            0.7427913451194764,
+            0.7406745767593385,
+            0.740292718410492
+          ],
+          "expected_subsection": "B REMUNERATION AND STAFF REPORT",
+          "page_recall_at_k": 1.0,
+          "page_precision_at_k": 0.1111111111111111,
+          "page_mrr_at_k": 1.0,
+          "chunk_hit_at_k": 1.0,
+          "chunk_precision_at_k": 0.2,
+          "chunk_mrr_at_k": 1.0,
+          "chunk_hit_flags": [
+            1,
+            0,
+            0,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "failure_stage": "hit",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        }
+      }
+    },
+    {
+      "query_id": "Q_ACC_2023_02",
+      "topic": "ACC",
+      "year": 2023,
+      "sequence": 2,
+      "question": "How many staff attended the Brew and Blether sessions held between February and April?",
+      "answer_type": "number",
+      "doc_id": "Grampian-2022-2023",
+      "expected_section": "ACCOUNTABILITY REPORT | B REMUNERATION AND STAFF REPORT",
+      "expected_pages": [
+        73
+      ],
+      "route_intent": "unknown",
+      "route_confidence": 0.5,
+      "page_hit": 0,
+      "failure_type": "FP2_MISSED_TOP_RANK",
+      "failure_stage": "retrieval",
+      "expected_answer": "over 250",
+      "extracted_answer": "## ACCOUNTABILITY REPORT\n### B REMUNERATION AND STAFF REPORT\n\nto 31 December 2021) b 30-35 0 0 30-35 N/A 30-35 Interim Chair - Dr John Tomlinson (from 7 June 2021) b/e 30-35 0 0 30-35 N/A 30-35 Mrs Am",
+      "extracted_answer_label": "Snippet",
+      "answer_correct": false,
+      "answer_status": "incorrect",
+      "extracted_answer_chunk_id": "Grampian-2022-2023:p0070_002",
+      "gold_presence": {
+        "gold_exists": true,
+        "gold_chunk_count": 3,
+        "gold_pages_found": [
+          73
+        ]
+      },
+      "per_k": {
+        "1": {
+          "retrieved_chunk_ids": [
+            "Grampian-2022-2023:p0070_002"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2022-2023"
+          ],
+          "retrieved_pages_ranked": [
+            70
+          ],
+          "retrieved_scores": [
+            0.5056026017665863
+          ],
+          "expected_subsection": "B REMUNERATION AND STAFF REPORT",
+          "page_recall_at_k": 0.0,
+          "page_precision_at_k": 0.0,
+          "page_mrr_at_k": 0.0,
+          "chunk_hit_at_k": 0.0,
+          "chunk_precision_at_k": 0.0,
+          "chunk_mrr_at_k": 0.0,
+          "chunk_hit_flags": [
+            0
+          ],
+          "failure_stage": "missed_top_ranked",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        },
+        "3": {
+          "retrieved_chunk_ids": [
+            "Grampian-2022-2023:p0070_002",
+            "Grampian-2022-2023:p0070_037",
+            "Grampian-2022-2023:p0073_001"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023"
+          ],
+          "retrieved_pages_ranked": [
+            70,
+            73
+          ],
+          "retrieved_scores": [
+            0.5056026017665863,
+            0.4780255591869354,
+            0.46782787799835207
+          ],
+          "expected_subsection": "B REMUNERATION AND STAFF REPORT",
+          "page_recall_at_k": 1.0,
+          "page_precision_at_k": 0.5,
+          "page_mrr_at_k": 0.5,
+          "chunk_hit_at_k": 1.0,
+          "chunk_precision_at_k": 0.3333333333333333,
+          "chunk_mrr_at_k": 0.3333333333333333,
+          "chunk_hit_flags": [
+            0,
+            0,
+            1
+          ],
+          "failure_stage": "hit",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        },
+        "5": {
+          "retrieved_chunk_ids": [
+            "Grampian-2022-2023:p0070_002",
+            "Grampian-2022-2023:p0070_037",
+            "Grampian-2022-2023:p0073_001",
+            "Grampian-2022-2023:p0070_038",
+            "Grampian-2022-2023:p0070_003"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023"
+          ],
+          "retrieved_pages_ranked": [
+            70,
+            73
+          ],
+          "retrieved_scores": [
+            0.5056026017665863,
+            0.4780255591869354,
+            0.46782787799835207,
+            0.4627295172214508,
+            0.4558027720451355
+          ],
+          "expected_subsection": "B REMUNERATION AND STAFF REPORT",
+          "page_recall_at_k": 1.0,
+          "page_precision_at_k": 0.5,
+          "page_mrr_at_k": 0.5,
+          "chunk_hit_at_k": 1.0,
+          "chunk_precision_at_k": 0.2,
+          "chunk_mrr_at_k": 0.3333333333333333,
+          "chunk_hit_flags": [
+            0,
+            0,
+            1,
+            0,
+            0
+          ],
+          "failure_stage": "hit",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        },
+        "10": {
+          "retrieved_chunk_ids": [
+            "Grampian-2022-2023:p0070_002",
+            "Grampian-2022-2023:p0070_037",
+            "Grampian-2022-2023:p0073_001",
+            "Grampian-2022-2023:p0070_038",
+            "Grampian-2022-2023:p0070_003",
+            "Grampian-2022-2023:p0049_000",
+            "Grampian-2022-2023:p0068_003",
+            "Grampian-2022-2023:p0071_003",
+            "Grampian-2022-2023:p0069_019",
+            "Grampian-2022-2023:p0071_019"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023"
+          ],
+          "retrieved_pages_ranked": [
+            70,
+            73,
+            49,
+            68,
+            71,
+            69
+          ],
+          "retrieved_scores": [
+            0.5056026017665863,
+            0.4780255591869354,
+            0.46782787799835207,
+            0.4627295172214508,
+            0.4558027720451355,
+            0.45144495725631717,
+            0.4454938507080078,
+            0.44255146741867063,
+            0.4412763452529907,
+            0.440971348285675
+          ],
+          "expected_subsection": "B REMUNERATION AND STAFF REPORT",
+          "page_recall_at_k": 1.0,
+          "page_precision_at_k": 0.16666666666666666,
+          "page_mrr_at_k": 0.5,
+          "chunk_hit_at_k": 1.0,
+          "chunk_precision_at_k": 0.1,
+          "chunk_mrr_at_k": 0.3333333333333333,
+          "chunk_hit_flags": [
+            0,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "failure_stage": "hit",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        }
+      }
+    },
+    {
+      "query_id": "Q_ACC_2023_03",
+      "topic": "ACC",
+      "year": 2023,
+      "sequence": 3,
+      "question": "What was the national benchmark time to hire that NHS Grampian remained below during the year?",
+      "answer_type": "number",
+      "doc_id": "Grampian-2022-2023",
+      "expected_section": "ACCOUNTABILITY REPORT | B REMUNERATION AND STAFF REPORT",
+      "expected_pages": [
+        73
+      ],
+      "route_intent": "unknown",
+      "route_confidence": 0.5,
+      "page_hit": 1,
+      "failure_type": "FP5_WRONG_FORMAT",
+      "failure_stage": "generation",
+      "expected_answer": "116 days",
+      "extracted_answer": "## ACCOUNTABILITY REPORT\n### B REMUNERATION AND STAFF REPORT\n\nmanaging some tasks on behalf of managers allowing them to focus on their clinical priorities.",
+      "extracted_answer_label": "Snippet",
+      "answer_correct": false,
+      "answer_status": "incorrect",
+      "extracted_answer_chunk_id": "Grampian-2022-2023:p0073_002",
+      "gold_presence": {
+        "gold_exists": true,
+        "gold_chunk_count": 3,
+        "gold_pages_found": [
+          73
+        ]
+      },
+      "per_k": {
+        "1": {
+          "retrieved_chunk_ids": [
+            "Grampian-2022-2023:p0073_002"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2022-2023"
+          ],
+          "retrieved_pages_ranked": [
+            73
+          ],
+          "retrieved_scores": [
+            0.7866867399215699
+          ],
+          "expected_subsection": "B REMUNERATION AND STAFF REPORT",
+          "page_recall_at_k": 1.0,
+          "page_precision_at_k": 1.0,
+          "page_mrr_at_k": 1.0,
+          "chunk_hit_at_k": 1.0,
+          "chunk_precision_at_k": 1.0,
+          "chunk_mrr_at_k": 1.0,
+          "chunk_hit_flags": [
+            1
+          ],
+          "failure_stage": "hit",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        },
+        "3": {
+          "retrieved_chunk_ids": [
+            "Grampian-2022-2023:p0073_002",
+            "Grampian-2022-2023:p0073_001",
+            "Grampian-2022-2023:p0077_001"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023"
+          ],
+          "retrieved_pages_ranked": [
+            73,
+            77
+          ],
+          "retrieved_scores": [
+            0.7866867399215699,
+            0.7850368833541871,
+            0.7703326177597046
+          ],
+          "expected_subsection": "B REMUNERATION AND STAFF REPORT",
+          "page_recall_at_k": 1.0,
+          "page_precision_at_k": 0.5,
+          "page_mrr_at_k": 1.0,
+          "chunk_hit_at_k": 1.0,
+          "chunk_precision_at_k": 0.6666666666666666,
+          "chunk_mrr_at_k": 1.0,
+          "chunk_hit_flags": [
+            1,
+            1,
+            0
+          ],
+          "failure_stage": "hit",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        },
+        "5": {
+          "retrieved_chunk_ids": [
+            "Grampian-2022-2023:p0073_002",
+            "Grampian-2022-2023:p0073_001",
+            "Grampian-2022-2023:p0077_001",
+            "Grampian-2022-2023:p0029_001",
+            "Grampian-2022-2023:p0010_000"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023"
+          ],
+          "retrieved_pages_ranked": [
+            73,
+            77,
+            29,
+            10
+          ],
+          "retrieved_scores": [
+            0.7866867399215699,
+            0.7850368833541871,
+            0.7703326177597046,
+            0.762909824848175,
+            0.735382947921753
+          ],
+          "expected_subsection": "B REMUNERATION AND STAFF REPORT",
+          "page_recall_at_k": 1.0,
+          "page_precision_at_k": 0.25,
+          "page_mrr_at_k": 1.0,
+          "chunk_hit_at_k": 1.0,
+          "chunk_precision_at_k": 0.4,
+          "chunk_mrr_at_k": 1.0,
+          "chunk_hit_flags": [
+            1,
+            1,
+            0,
+            0,
+            0
+          ],
+          "failure_stage": "hit",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        },
+        "10": {
+          "retrieved_chunk_ids": [
+            "Grampian-2022-2023:p0073_002",
+            "Grampian-2022-2023:p0073_001",
+            "Grampian-2022-2023:p0077_001",
+            "Grampian-2022-2023:p0029_001",
+            "Grampian-2022-2023:p0010_000",
+            "Grampian-2022-2023:p0072_001",
+            "Grampian-2022-2023:p0078_000",
+            "Grampian-2022-2023:p0072_000",
+            "Grampian-2022-2023:p0079_000",
+            "Grampian-2022-2023:p0003_000"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023"
+          ],
+          "retrieved_pages_ranked": [
+            73,
+            77,
+            29,
+            10,
+            72,
+            78,
+            79,
+            3
+          ],
+          "retrieved_scores": [
+            0.7866867399215699,
+            0.7850368833541871,
+            0.7703326177597046,
+            0.762909824848175,
+            0.735382947921753,
+            0.7331052041053773,
+            0.7316298913955689,
+            0.7128919792175293,
+            0.7087712502479554,
+            0.6992366647720337
+          ],
+          "expected_subsection": "B REMUNERATION AND STAFF REPORT",
+          "page_recall_at_k": 1.0,
+          "page_precision_at_k": 0.125,
+          "page_mrr_at_k": 1.0,
+          "chunk_hit_at_k": 1.0,
+          "chunk_precision_at_k": 0.2,
+          "chunk_mrr_at_k": 1.0,
+          "chunk_hit_flags": [
+            1,
+            1,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "failure_stage": "hit",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        }
+      }
+    },
+    {
+      "query_id": "Q_ACC_2023_04",
+      "topic": "ACC",
+      "year": 2023,
+      "sequence": 4,
+      "question": "How many international nurses were supported for recruitment to NHS Grampian during 2022/23?",
+      "answer_type": "number",
+      "doc_id": "Grampian-2022-2023",
+      "expected_section": "ACCOUNTABILITY REPORT | B REMUNERATION AND STAFF REPORT",
+      "expected_pages": [
+        73
+      ],
+      "route_intent": "unknown",
+      "route_confidence": 0.5,
+      "page_hit": 1,
+      "failure_type": "FP5_WRONG_FORMAT",
+      "failure_stage": "generation",
+      "expected_answer": "93",
+      "extracted_answer": "## ACCOUNTABILITY REPORT\n### B REMUNERATION AND STAFF REPORT\n\nmanaging some tasks on behalf of managers allowing them to focus on their clinical priorities.",
+      "extracted_answer_label": "Snippet",
+      "answer_correct": false,
+      "answer_status": "incorrect",
+      "extracted_answer_chunk_id": "Grampian-2022-2023:p0073_002",
+      "gold_presence": {
+        "gold_exists": true,
+        "gold_chunk_count": 3,
+        "gold_pages_found": [
+          73
+        ]
+      },
+      "per_k": {
+        "1": {
+          "retrieved_chunk_ids": [
+            "Grampian-2022-2023:p0073_002"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2022-2023"
+          ],
+          "retrieved_pages_ranked": [
+            73
+          ],
+          "retrieved_scores": [
+            0.9328226065635682
+          ],
+          "expected_subsection": "B REMUNERATION AND STAFF REPORT",
+          "page_recall_at_k": 1.0,
+          "page_precision_at_k": 1.0,
+          "page_mrr_at_k": 1.0,
+          "chunk_hit_at_k": 1.0,
+          "chunk_precision_at_k": 1.0,
+          "chunk_mrr_at_k": 1.0,
+          "chunk_hit_flags": [
+            1
+          ],
+          "failure_stage": "hit",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        },
+        "3": {
+          "retrieved_chunk_ids": [
+            "Grampian-2022-2023:p0073_002",
+            "Grampian-2022-2023:p0077_001",
+            "Grampian-2022-2023:p0078_001"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023"
+          ],
+          "retrieved_pages_ranked": [
+            73,
+            77,
+            78
+          ],
+          "retrieved_scores": [
+            0.9328226065635682,
+            0.7312863683700562,
+            0.7281889820098878
+          ],
+          "expected_subsection": "B REMUNERATION AND STAFF REPORT",
+          "page_recall_at_k": 1.0,
+          "page_precision_at_k": 0.3333333333333333,
+          "page_mrr_at_k": 1.0,
+          "chunk_hit_at_k": 1.0,
+          "chunk_precision_at_k": 0.3333333333333333,
+          "chunk_mrr_at_k": 1.0,
+          "chunk_hit_flags": [
+            1,
+            0,
+            0
+          ],
+          "failure_stage": "hit",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        },
+        "5": {
+          "retrieved_chunk_ids": [
+            "Grampian-2022-2023:p0073_002",
+            "Grampian-2022-2023:p0077_001",
+            "Grampian-2022-2023:p0078_001",
+            "Grampian-2022-2023:p0072_001",
+            "Grampian-2022-2023:p0030_000"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023"
+          ],
+          "retrieved_pages_ranked": [
+            73,
+            77,
+            78,
+            72,
+            30
+          ],
+          "retrieved_scores": [
+            0.9328226065635682,
+            0.7312863683700562,
+            0.7281889820098878,
+            0.726780972480774,
+            0.7184081411361695
+          ],
+          "expected_subsection": "B REMUNERATION AND STAFF REPORT",
+          "page_recall_at_k": 1.0,
+          "page_precision_at_k": 0.2,
+          "page_mrr_at_k": 1.0,
+          "chunk_hit_at_k": 1.0,
+          "chunk_precision_at_k": 0.2,
+          "chunk_mrr_at_k": 1.0,
+          "chunk_hit_flags": [
+            1,
+            0,
+            0,
+            0,
+            0
+          ],
+          "failure_stage": "hit",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        },
+        "10": {
+          "retrieved_chunk_ids": [
+            "Grampian-2022-2023:p0073_002",
+            "Grampian-2022-2023:p0077_001",
+            "Grampian-2022-2023:p0078_001",
+            "Grampian-2022-2023:p0072_001",
+            "Grampian-2022-2023:p0030_000",
+            "Grampian-2022-2023:p0078_000",
+            "Grampian-2022-2023:p0060_002",
+            "Grampian-2022-2023:p0073_001",
+            "Grampian-2022-2023:p0077_002",
+            "Grampian-2022-2023:p0148_005"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023"
+          ],
+          "retrieved_pages_ranked": [
+            73,
+            77,
+            78,
+            72,
+            30,
+            60,
+            148
+          ],
+          "retrieved_scores": [
+            0.9328226065635682,
+            0.7312863683700562,
+            0.7281889820098878,
+            0.726780972480774,
+            0.7184081411361695,
+            0.7118526315689088,
+            0.701399359703064,
+            0.6983734583854676,
+            0.6747827148437501,
+            0.6735508167743683
+          ],
+          "expected_subsection": "B REMUNERATION AND STAFF REPORT",
+          "page_recall_at_k": 1.0,
+          "page_precision_at_k": 0.14285714285714285,
+          "page_mrr_at_k": 1.0,
+          "chunk_hit_at_k": 1.0,
+          "chunk_precision_at_k": 0.2,
+          "chunk_mrr_at_k": 1.0,
+          "chunk_hit_flags": [
+            1,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            1,
+            0,
+            0
+          ],
+          "failure_stage": "hit",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        }
+      }
+    },
+    {
+      "query_id": "Q_ACC_2023_05",
+      "topic": "ACC",
+      "year": 2023,
+      "sequence": 5,
+      "question": "Which section introduces the workforce overview within the Remuneration and Staff Report?",
+      "answer_type": "text",
+      "doc_id": "Grampian-2022-2023",
+      "expected_section": "ACCOUNTABILITY REPORT | B REMUNERATION AND STAFF REPORT",
+      "expected_pages": [
+        72
+      ],
+      "route_intent": "table_metric_staff_costs",
+      "route_confidence": 0.85,
+      "page_hit": 0,
+      "failure_type": "FP2_MISSED_TOP_RANK",
+      "failure_stage": "retrieval",
+      "expected_answer": "The Workforce",
+      "extracted_answer": "## ACCOUNTABILITY REPORT ### B REMUNERATION AND STAFF REPORT #### Page 76 B REMUNERATION AND STAFF REPORT 4.",
+      "extracted_answer_label": "Snippet",
+      "answer_correct": false,
+      "answer_status": "incorrect",
+      "extracted_answer_chunk_id": "Grampian-2022-2023:p0076_000",
+      "gold_presence": {
+        "gold_exists": true,
+        "gold_chunk_count": 2,
+        "gold_pages_found": [
+          72
+        ]
+      },
+      "per_k": {
+        "1": {
+          "retrieved_chunk_ids": [
+            "Grampian-2022-2023:p0076_000"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2022-2023"
+          ],
+          "retrieved_pages_ranked": [
+            76
+          ],
+          "retrieved_scores": [
+            0.9693454551696778
+          ],
+          "expected_subsection": "B REMUNERATION AND STAFF REPORT",
+          "page_recall_at_k": 0.0,
+          "page_precision_at_k": 0.0,
+          "page_mrr_at_k": 0.0,
+          "chunk_hit_at_k": 0.0,
+          "chunk_precision_at_k": 0.0,
+          "chunk_mrr_at_k": 0.0,
+          "chunk_hit_flags": [
+            0
+          ],
+          "failure_stage": "missed_top_ranked",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        },
+        "3": {
+          "retrieved_chunk_ids": [
+            "Grampian-2022-2023:p0076_000",
+            "Grampian-2022-2023:p0066_002",
+            "Grampian-2022-2023:p0068_036"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023"
+          ],
+          "retrieved_pages_ranked": [
+            76,
+            66,
+            68
+          ],
+          "retrieved_scores": [
+            0.9693454551696778,
+            0.9148780965805055,
+            0.8987667226791383
+          ],
+          "expected_subsection": "B REMUNERATION AND STAFF REPORT",
+          "page_recall_at_k": 0.0,
+          "page_precision_at_k": 0.0,
+          "page_mrr_at_k": 0.0,
+          "chunk_hit_at_k": 0.0,
+          "chunk_precision_at_k": 0.0,
+          "chunk_mrr_at_k": 0.0,
+          "chunk_hit_flags": [
+            0,
+            0,
+            0
+          ],
+          "failure_stage": "missed_top_ranked",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        },
+        "5": {
+          "retrieved_chunk_ids": [
+            "Grampian-2022-2023:p0076_000",
+            "Grampian-2022-2023:p0066_002",
+            "Grampian-2022-2023:p0068_036",
+            "Grampian-2022-2023:p0068_034",
+            "Grampian-2022-2023:p0066_001"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023"
+          ],
+          "retrieved_pages_ranked": [
+            76,
+            66,
+            68
+          ],
+          "retrieved_scores": [
+            0.9693454551696778,
+            0.9148780965805055,
+            0.8987667226791383,
+            0.889464762210846,
+            0.8875877618789674
+          ],
+          "expected_subsection": "B REMUNERATION AND STAFF REPORT",
+          "page_recall_at_k": 0.0,
+          "page_precision_at_k": 0.0,
+          "page_mrr_at_k": 0.0,
+          "chunk_hit_at_k": 0.0,
+          "chunk_precision_at_k": 0.0,
+          "chunk_mrr_at_k": 0.0,
+          "chunk_hit_flags": [
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "failure_stage": "missed_top_ranked",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        },
+        "10": {
+          "retrieved_chunk_ids": [
+            "Grampian-2022-2023:p0076_000",
+            "Grampian-2022-2023:p0066_002",
+            "Grampian-2022-2023:p0068_036",
+            "Grampian-2022-2023:p0068_034",
+            "Grampian-2022-2023:p0066_001",
+            "Grampian-2022-2023:p0068_040",
+            "Grampian-2022-2023:p0075_012",
+            "Grampian-2022-2023:p0075_002",
+            "Grampian-2022-2023:p0070_039",
+            "Grampian-2022-2023:p0070_035"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023"
+          ],
+          "retrieved_pages_ranked": [
+            76,
+            66,
+            68,
+            75,
+            70
+          ],
+          "retrieved_scores": [
+            0.9693454551696778,
+            0.9148780965805055,
+            0.8987667226791383,
+            0.889464762210846,
+            0.8875877618789674,
+            0.8856842184066773,
+            0.884608235359192,
+            0.8842293882369996,
+            0.8810819053649903,
+            0.8774584197998048
+          ],
+          "expected_subsection": "B REMUNERATION AND STAFF REPORT",
+          "page_recall_at_k": 0.0,
+          "page_precision_at_k": 0.0,
+          "page_mrr_at_k": 0.0,
+          "chunk_hit_at_k": 0.0,
+          "chunk_precision_at_k": 0.0,
+          "chunk_mrr_at_k": 0.0,
+          "chunk_hit_flags": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "failure_stage": "missed_top_ranked",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        }
+      }
+    },
+    {
+      "query_id": "Q_ACC_2023_06",
+      "topic": "ACC",
+      "year": 2023,
+      "sequence": 6,
+      "question": "What standard does NHS Grampian work towards to ensure good staff governance?",
+      "answer_type": "text",
+      "doc_id": "Grampian-2022-2023",
+      "expected_section": "ACCOUNTABILITY REPORT | B REMUNERATION AND STAFF REPORT",
+      "expected_pages": [
+        72
+      ],
+      "route_intent": "unknown",
+      "route_confidence": 0.5,
+      "page_hit": 1,
+      "failure_type": "FP7_INCOMPLETE",
+      "failure_stage": "generation",
+      "expected_answer": "NHS Scotland Staff Governance Standard",
+      "extracted_answer": "## ACCOUNTABILITY REPORT ### B REMUNERATION AND STAFF REPORT #### Page 72 B REMUNERATION AND STAFF REPORT 2) STAFF REPORT 2.",
+      "extracted_answer_label": "Snippet",
+      "answer_correct": false,
+      "answer_status": "partial",
+      "extracted_answer_chunk_id": "Grampian-2022-2023:p0072_000",
+      "gold_presence": {
+        "gold_exists": true,
+        "gold_chunk_count": 2,
+        "gold_pages_found": [
+          72
+        ]
+      },
+      "per_k": {
+        "1": {
+          "retrieved_chunk_ids": [
+            "Grampian-2022-2023:p0072_000"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2022-2023"
+          ],
+          "retrieved_pages_ranked": [
+            72
+          ],
+          "retrieved_scores": [
+            0.9960075235366822
+          ],
+          "expected_subsection": "B REMUNERATION AND STAFF REPORT",
+          "page_recall_at_k": 1.0,
+          "page_precision_at_k": 1.0,
+          "page_mrr_at_k": 1.0,
+          "chunk_hit_at_k": 1.0,
+          "chunk_precision_at_k": 1.0,
+          "chunk_mrr_at_k": 1.0,
+          "chunk_hit_flags": [
+            1
+          ],
+          "failure_stage": "hit",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        },
+        "3": {
+          "retrieved_chunk_ids": [
+            "Grampian-2022-2023:p0072_000",
+            "Grampian-2022-2023:p0072_001",
+            "Grampian-2022-2023:p0043_004"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023"
+          ],
+          "retrieved_pages_ranked": [
+            72,
+            43
+          ],
+          "retrieved_scores": [
+            0.9960075235366822,
+            0.899669966697693,
+            0.8970527982711792
+          ],
+          "expected_subsection": "B REMUNERATION AND STAFF REPORT",
+          "page_recall_at_k": 1.0,
+          "page_precision_at_k": 0.5,
+          "page_mrr_at_k": 1.0,
+          "chunk_hit_at_k": 1.0,
+          "chunk_precision_at_k": 0.6666666666666666,
+          "chunk_mrr_at_k": 1.0,
+          "chunk_hit_flags": [
+            1,
+            1,
+            0
+          ],
+          "failure_stage": "hit",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        },
+        "5": {
+          "retrieved_chunk_ids": [
+            "Grampian-2022-2023:p0072_000",
+            "Grampian-2022-2023:p0072_001",
+            "Grampian-2022-2023:p0043_004",
+            "Grampian-2022-2023:p0043_003",
+            "Grampian-2022-2023:p0036_002"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023"
+          ],
+          "retrieved_pages_ranked": [
+            72,
+            43,
+            36
+          ],
+          "retrieved_scores": [
+            0.9960075235366822,
+            0.899669966697693,
+            0.8970527982711792,
+            0.8858725166320801,
+            0.8798895812034607
+          ],
+          "expected_subsection": "B REMUNERATION AND STAFF REPORT",
+          "page_recall_at_k": 1.0,
+          "page_precision_at_k": 0.3333333333333333,
+          "page_mrr_at_k": 1.0,
+          "chunk_hit_at_k": 1.0,
+          "chunk_precision_at_k": 0.4,
+          "chunk_mrr_at_k": 1.0,
+          "chunk_hit_flags": [
+            1,
+            1,
+            0,
+            0,
+            0
+          ],
+          "failure_stage": "hit",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        },
+        "10": {
+          "retrieved_chunk_ids": [
+            "Grampian-2022-2023:p0072_000",
+            "Grampian-2022-2023:p0072_001",
+            "Grampian-2022-2023:p0043_004",
+            "Grampian-2022-2023:p0043_003",
+            "Grampian-2022-2023:p0036_002",
+            "Grampian-2022-2023:p0060_000",
+            "Grampian-2022-2023:p0044_000",
+            "Grampian-2022-2023:p0036_001",
+            "Grampian-2022-2023:p0074_000",
+            "Grampian-2022-2023:p0078_000"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023"
+          ],
+          "retrieved_pages_ranked": [
+            72,
+            43,
+            36,
+            60,
+            44,
+            74,
+            78
+          ],
+          "retrieved_scores": [
+            0.9960075235366822,
+            0.899669966697693,
+            0.8970527982711792,
+            0.8858725166320801,
+            0.8798895812034607,
+            0.8621414637565613,
+            0.8482281303405762,
+            0.8323971962928772,
+            0.8256079173088074,
+            0.8228357648849488
+          ],
+          "expected_subsection": "B REMUNERATION AND STAFF REPORT",
+          "page_recall_at_k": 1.0,
+          "page_precision_at_k": 0.14285714285714285,
+          "page_mrr_at_k": 1.0,
+          "chunk_hit_at_k": 1.0,
+          "chunk_precision_at_k": 0.2,
+          "chunk_mrr_at_k": 1.0,
+          "chunk_hit_flags": [
+            1,
+            1,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "failure_stage": "hit",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        }
+      }
+    },
+    {
+      "query_id": "Q_ACC_2023_07",
+      "topic": "ACC",
+      "year": 2023,
+      "sequence": 7,
+      "question": "Which three workforce priorities are referenced as agreed priorities for 2022/23?",
+      "answer_type": "list",
+      "doc_id": "Grampian-2022-2023",
+      "expected_section": "ACCOUNTABILITY REPORT | B REMUNERATION AND STAFF REPORT",
+      "expected_pages": [
+        72
+      ],
+      "route_intent": "unknown",
+      "route_confidence": 0.5,
+      "page_hit": 1,
+      "failure_type": "FP6_INCORRECT_SPECIFICITY",
+      "failure_stage": "generation",
+      "expected_answer": [
+        "Reducing delays to accessing care",
+        "Supporting colleagues to be safe and well at work",
+        "Creating the conditions for sustainable change"
+      ],
+      "extracted_answer": "## ACCOUNTABILITY REPORT\n### B REMUNERATION AND STAFF REPORT\n\nNHS Grampian works in Partnership with staff side colleagues to achieve the NHS Scotland Staff Governance Standard.",
+      "extracted_answer_label": "Snippet",
+      "answer_correct": false,
+      "answer_status": "incorrect",
+      "extracted_answer_chunk_id": "Grampian-2022-2023:p0072_001",
+      "gold_presence": {
+        "gold_exists": true,
+        "gold_chunk_count": 2,
+        "gold_pages_found": [
+          72
+        ]
+      },
+      "per_k": {
+        "1": {
+          "retrieved_chunk_ids": [
+            "Grampian-2022-2023:p0072_001"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2022-2023"
+          ],
+          "retrieved_pages_ranked": [
+            72
+          ],
+          "retrieved_scores": [
+            0.6467451071739198
+          ],
+          "expected_subsection": "B REMUNERATION AND STAFF REPORT",
+          "page_recall_at_k": 1.0,
+          "page_precision_at_k": 1.0,
+          "page_mrr_at_k": 1.0,
+          "chunk_hit_at_k": 1.0,
+          "chunk_precision_at_k": 1.0,
+          "chunk_mrr_at_k": 1.0,
+          "chunk_hit_flags": [
+            1
+          ],
+          "failure_stage": "hit",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        },
+        "3": {
+          "retrieved_chunk_ids": [
+            "Grampian-2022-2023:p0072_001",
+            "Grampian-2022-2023:p0006_001",
+            "Grampian-2022-2023:p0051_000"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023"
+          ],
+          "retrieved_pages_ranked": [
+            72,
+            6,
+            51
+          ],
+          "retrieved_scores": [
+            0.6467451071739198,
+            0.6122050619125367,
+            0.5721035850048065
+          ],
+          "expected_subsection": "B REMUNERATION AND STAFF REPORT",
+          "page_recall_at_k": 1.0,
+          "page_precision_at_k": 0.3333333333333333,
+          "page_mrr_at_k": 1.0,
+          "chunk_hit_at_k": 1.0,
+          "chunk_precision_at_k": 0.3333333333333333,
+          "chunk_mrr_at_k": 1.0,
+          "chunk_hit_flags": [
+            1,
+            0,
+            0
+          ],
+          "failure_stage": "hit",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        },
+        "5": {
+          "retrieved_chunk_ids": [
+            "Grampian-2022-2023:p0072_001",
+            "Grampian-2022-2023:p0006_001",
+            "Grampian-2022-2023:p0051_000",
+            "Grampian-2022-2023:p0006_000",
+            "Grampian-2022-2023:p0008_000"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023"
+          ],
+          "retrieved_pages_ranked": [
+            72,
+            6,
+            51,
+            8
+          ],
+          "retrieved_scores": [
+            0.6467451071739198,
+            0.6122050619125367,
+            0.5721035850048065,
+            0.5670594525337219,
+            0.5587268805503846
+          ],
+          "expected_subsection": "B REMUNERATION AND STAFF REPORT",
+          "page_recall_at_k": 1.0,
+          "page_precision_at_k": 0.25,
+          "page_mrr_at_k": 1.0,
+          "chunk_hit_at_k": 1.0,
+          "chunk_precision_at_k": 0.2,
+          "chunk_mrr_at_k": 1.0,
+          "chunk_hit_flags": [
+            1,
+            0,
+            0,
+            0,
+            0
+          ],
+          "failure_stage": "hit",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        },
+        "10": {
+          "retrieved_chunk_ids": [
+            "Grampian-2022-2023:p0072_001",
+            "Grampian-2022-2023:p0006_001",
+            "Grampian-2022-2023:p0051_000",
+            "Grampian-2022-2023:p0006_000",
+            "Grampian-2022-2023:p0008_000",
+            "Grampian-2022-2023:p0073_002",
+            "Grampian-2022-2023:p0078_000",
+            "Grampian-2022-2023:p0006_002",
+            "Grampian-2022-2023:p0073_001",
+            "Grampian-2022-2023:p0076_000"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023"
+          ],
+          "retrieved_pages_ranked": [
+            72,
+            6,
+            51,
+            8,
+            73,
+            78,
+            76
+          ],
+          "retrieved_scores": [
+            0.6467451071739198,
+            0.6122050619125367,
+            0.5721035850048065,
+            0.5670594525337219,
+            0.5587268805503846,
+            0.5484012794494629,
+            0.5459356737136841,
+            0.5457076597213745,
+            0.5378255891799927,
+            0.5215951466560363
+          ],
+          "expected_subsection": "B REMUNERATION AND STAFF REPORT",
+          "page_recall_at_k": 1.0,
+          "page_precision_at_k": 0.14285714285714285,
+          "page_mrr_at_k": 1.0,
+          "chunk_hit_at_k": 1.0,
+          "chunk_precision_at_k": 0.1,
+          "chunk_mrr_at_k": 1.0,
+          "chunk_hit_flags": [
+            1,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "failure_stage": "hit",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        }
+      }
+    },
+    {
+      "query_id": "Q_ACC_2023_08",
+      "topic": "ACC",
+      "year": 2023,
+      "sequence": 8,
+      "question": "What staffing approach was used to support service demand and workforce gaps during 2022/23?",
+      "answer_type": "text",
+      "doc_id": "Grampian-2022-2023",
+      "expected_section": "ACCOUNTABILITY REPORT | B REMUNERATION AND STAFF REPORT",
+      "expected_pages": [
+        72
+      ],
+      "route_intent": "unknown",
+      "route_confidence": 0.5,
+      "page_hit": 0,
+      "failure_type": "FP2_MISSED_TOP_RANK",
+      "failure_stage": "retrieval",
+      "expected_answer": "The use of supplementary staff to provide support across the organisation",
+      "extracted_answer": "## ACCOUNTABILITY REPORT\n### B REMUNERATION AND STAFF REPORT\n\n-19 pandemic.",
+      "extracted_answer_label": "Snippet",
+      "answer_correct": false,
+      "answer_status": "partial",
+      "extracted_answer_chunk_id": "Grampian-2022-2023:p0073_001",
+      "gold_presence": {
+        "gold_exists": true,
+        "gold_chunk_count": 2,
+        "gold_pages_found": [
+          72
+        ]
+      },
+      "per_k": {
+        "1": {
+          "retrieved_chunk_ids": [
+            "Grampian-2022-2023:p0073_001"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2022-2023"
+          ],
+          "retrieved_pages_ranked": [
+            73
+          ],
+          "retrieved_scores": [
+            0.724113485813141
+          ],
+          "expected_subsection": "B REMUNERATION AND STAFF REPORT",
+          "page_recall_at_k": 0.0,
+          "page_precision_at_k": 0.0,
+          "page_mrr_at_k": 0.0,
+          "chunk_hit_at_k": 0.0,
+          "chunk_precision_at_k": 0.0,
+          "chunk_mrr_at_k": 0.0,
+          "chunk_hit_flags": [
+            0
+          ],
+          "failure_stage": "missed_top_ranked",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        },
+        "3": {
+          "retrieved_chunk_ids": [
+            "Grampian-2022-2023:p0073_001",
+            "Grampian-2022-2023:p0072_001",
+            "Grampian-2022-2023:p0072_000"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023"
+          ],
+          "retrieved_pages_ranked": [
+            73,
+            72
+          ],
+          "retrieved_scores": [
+            0.724113485813141,
+            0.6924079275131226,
+            0.654167971611023
+          ],
+          "expected_subsection": "B REMUNERATION AND STAFF REPORT",
+          "page_recall_at_k": 1.0,
+          "page_precision_at_k": 0.5,
+          "page_mrr_at_k": 0.5,
+          "chunk_hit_at_k": 1.0,
+          "chunk_precision_at_k": 0.6666666666666666,
+          "chunk_mrr_at_k": 0.5,
+          "chunk_hit_flags": [
+            0,
+            1,
+            1
+          ],
+          "failure_stage": "hit",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        },
+        "5": {
+          "retrieved_chunk_ids": [
+            "Grampian-2022-2023:p0073_001",
+            "Grampian-2022-2023:p0072_001",
+            "Grampian-2022-2023:p0072_000",
+            "Grampian-2022-2023:p0078_001",
+            "Grampian-2022-2023:p0074_000"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023"
+          ],
+          "retrieved_pages_ranked": [
+            73,
+            72,
+            78,
+            74
+          ],
+          "retrieved_scores": [
+            0.724113485813141,
+            0.6924079275131226,
+            0.654167971611023,
+            0.6528506779670716,
+            0.6503699338436127
+          ],
+          "expected_subsection": "B REMUNERATION AND STAFF REPORT",
+          "page_recall_at_k": 1.0,
+          "page_precision_at_k": 0.25,
+          "page_mrr_at_k": 0.5,
+          "chunk_hit_at_k": 1.0,
+          "chunk_precision_at_k": 0.4,
+          "chunk_mrr_at_k": 0.5,
+          "chunk_hit_flags": [
+            0,
+            1,
+            1,
+            0,
+            0
+          ],
+          "failure_stage": "hit",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        },
+        "10": {
+          "retrieved_chunk_ids": [
+            "Grampian-2022-2023:p0073_001",
+            "Grampian-2022-2023:p0072_001",
+            "Grampian-2022-2023:p0072_000",
+            "Grampian-2022-2023:p0078_001",
+            "Grampian-2022-2023:p0074_000",
+            "Grampian-2022-2023:p0078_000",
+            "Grampian-2022-2023:p0073_002",
+            "Grampian-2022-2023:p0073_000",
+            "Grampian-2022-2023:p0077_000",
+            "Grampian-2022-2023:p0060_000"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023"
+          ],
+          "retrieved_pages_ranked": [
+            73,
+            72,
+            78,
+            74,
+            77,
+            60
+          ],
+          "retrieved_scores": [
+            0.724113485813141,
+            0.6924079275131226,
+            0.654167971611023,
+            0.6528506779670716,
+            0.6503699338436127,
+            0.6385126924514771,
+            0.6166488146781922,
+            0.6098733162879945,
+            0.6026877975463868,
+            0.5906801557540894
+          ],
+          "expected_subsection": "B REMUNERATION AND STAFF REPORT",
+          "page_recall_at_k": 1.0,
+          "page_precision_at_k": 0.16666666666666666,
+          "page_mrr_at_k": 0.5,
+          "chunk_hit_at_k": 1.0,
+          "chunk_precision_at_k": 0.2,
+          "chunk_mrr_at_k": 0.5,
+          "chunk_hit_flags": [
+            0,
+            1,
+            1,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "failure_stage": "hit",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        }
+      }
+    }
+  ]
+}

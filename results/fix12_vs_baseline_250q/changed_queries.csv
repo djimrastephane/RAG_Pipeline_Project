@@ -1,0 +1,10 @@
+variant_base,doc_id,query_id,hit3_base,gold_pages_base,pred_pages_base,variant_fix12,hit3_fix12,gold_pages_fix12,pred_pages_fix12,delta_hit
+baseline,Grampian-2020-2021,Q_2021_COV_P1,1,[28],"[7, 24, 28]",fix12,0,[28],"[7, 14, 24]",-1
+baseline,Grampian-2022-2023,Q_2023_FIN_08,1,[25],"[20, 25, 149]",fix12,0,[25],"[86, 149]",-1
+baseline,Grampian-2022-2023,Q_2023_FIN_14,1,[25],"[24, 25]",fix12,0,[25],"[24, 78]",-1
+baseline,Grampian-2023-2024,Q_2024_FIN_13,1,[5],"[5, 35, 84]",fix12,0,[5],"[35, 82, 84]",-1
+baseline,Grampian-2024-2025,Q_2025_FIN_10,1,[28],"[28, 33]",fix12,0,[28],"[33, 133, 168]",-1
+baseline,Grampian-2024-2025,Q_2025_IJB_03,1,[26],"[26, 32]",fix12,0,[26],"[106, 166, 168]",-1
+baseline,Grampian-2020-2021,Q_2021_FIN_P3,0,[30],"[28, 29]",fix12,1,[30],"[29, 30]",1
+baseline,Grampian-2020-2021,Q_2021_GOV_P1,0,[23],"[37, 89, 132]",fix12,1,[23],"[23, 89, 132]",1
+baseline,Grampian-2023-2024,Q_2024_FIN_14,0,[118],"[26, 27, 31]",fix12,1,[118],"[27, 118]",1

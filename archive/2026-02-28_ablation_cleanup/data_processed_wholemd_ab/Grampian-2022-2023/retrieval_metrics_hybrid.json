@@ -1,0 +1,137 @@
+{
+  "run_info": {
+    "run_utc": "2026-02-21T13:21:51+00:00",
+    "data_dir": "/Users/djimra/MSc Data Science Jan 2025/Thesis documents/RAG_Pipeline_Project/data_processed_wholemd_ab/Grampian-2022-2023",
+    "method": "hybrid_rrf_dense_bm25",
+    "embedding_model": "models/all-MiniLM-L6-v2",
+    "bm25_k1": 1.5,
+    "bm25_b": 0.75,
+    "rrf_k": 60,
+    "dense_weight": 1.0,
+    "bm25_weight": 1.0,
+    "k_list": [
+      1,
+      3,
+      5,
+      10
+    ],
+    "num_queries": 17,
+    "num_chunks_indexed": 707,
+    "pipeline_settings": {
+      "source_metrics_path": "/Users/djimra/MSc Data Science Jan 2025/Thesis documents/RAG_Pipeline_Project/data_processed_wholemd_ab/Grampian-2022-2023/metrics.json",
+      "source_metrics_exists": true,
+      "doc_id": "Grampian-2022-2023",
+      "corpus_id": "Grampian-2022-2023",
+      "report_year": "2022-2023",
+      "preprocess_run_utc": "2026-02-21T13:17:58+00:00",
+      "preprocess_git_commit_short": "1da05af",
+      "embedding_model_preprocess": "sentence-transformers/all-MiniLM-L6-v2",
+      "chunk_size_tokens": 280,
+      "chunk_overlap_tokens": 90,
+      "segment_aware_chunking": true,
+      "whole_doc_markdown_mode": true,
+      "markdown_header_carry_forward": true,
+      "markdown_table_injection": true,
+      "primary_extractor": "pymupdf",
+      "min_chunk_words": 20
+    },
+    "eval_set": {
+      "path": "/Users/djimra/MSc Data Science Jan 2025/Thesis documents/RAG_Pipeline_Project/data_processed_wholemd_ab/Grampian-2022-2023/eval_set.json",
+      "sha1": "d52f05a18d6c2561b37a914502989c204c594d6b",
+      "size_bytes": 12077,
+      "modified_utc": "2026-02-21T13:21:34+00:00",
+      "query_count": 17,
+      "meta_dataset_name": null,
+      "meta_doc_id": null,
+      "meta_version": null
+    }
+  },
+  "metrics_by_k": {
+    "1": {
+      "num_queries": 17,
+      "page_hit_rate_at_k": 0.4117647058823529,
+      "mean_page_recall_at_k": 0.4117647058823529,
+      "mean_page_precision_at_k": 0.4117647058823529,
+      "mean_page_mrr_at_k": 0.4117647058823529,
+      "chunk_hit_rate_at_k": 0.4117647058823529,
+      "mean_chunk_precision_at_k": 0.4117647058823529,
+      "mean_chunk_mrr_at_k": 0.4117647058823529
+    },
+    "3": {
+      "num_queries": 17,
+      "page_hit_rate_at_k": 0.7058823529411765,
+      "mean_page_recall_at_k": 0.7058823529411765,
+      "mean_page_precision_at_k": 0.2745098039215686,
+      "mean_page_mrr_at_k": 0.5490196078431372,
+      "chunk_hit_rate_at_k": 0.7058823529411765,
+      "mean_chunk_precision_at_k": 0.2745098039215686,
+      "mean_chunk_mrr_at_k": 0.5392156862745098
+    },
+    "5": {
+      "num_queries": 17,
+      "page_hit_rate_at_k": 0.7058823529411765,
+      "mean_page_recall_at_k": 0.7058823529411765,
+      "mean_page_precision_at_k": 0.19509803921568628,
+      "mean_page_mrr_at_k": 0.5490196078431372,
+      "chunk_hit_rate_at_k": 0.7058823529411765,
+      "mean_chunk_precision_at_k": 0.21176470588235297,
+      "mean_chunk_mrr_at_k": 0.5392156862745098
+    },
+    "10": {
+      "num_queries": 17,
+      "page_hit_rate_at_k": 0.7647058823529411,
+      "mean_page_recall_at_k": 0.7647058823529411,
+      "mean_page_precision_at_k": 0.11325863678804855,
+      "mean_page_mrr_at_k": 0.5574229691876751,
+      "chunk_hit_rate_at_k": 0.7647058823529411,
+      "mean_chunk_precision_at_k": 0.12941176470588237,
+      "mean_chunk_mrr_at_k": 0.5465686274509803
+    }
+  },
+  "failure_counts_by_k": {
+    "1": {
+      "missed_top_ranked": 10,
+      "hit": 7
+    },
+    "3": {
+      "hit": 12,
+      "missed_top_ranked": 5
+    },
+    "5": {
+      "hit": 12,
+      "missed_top_ranked": 5
+    },
+    "10": {
+      "hit": 13,
+      "missed_top_ranked": 4
+    }
+  },
+  "leakage_counts_by_k": {
+    "1": {
+      "num_queries": 17,
+      "any_leakage_rate_at_k": 0.0,
+      "mean_leakage_rate_at_k": 0.0
+    },
+    "3": {
+      "num_queries": 17,
+      "any_leakage_rate_at_k": 0.0,
+      "mean_leakage_rate_at_k": 0.0
+    },
+    "5": {
+      "num_queries": 17,
+      "any_leakage_rate_at_k": 0.0,
+      "mean_leakage_rate_at_k": 0.0
+    },
+    "10": {
+      "num_queries": 17,
+      "any_leakage_rate_at_k": 0.0,
+      "mean_leakage_rate_at_k": 0.0
+    }
+  },
+  "answer_scoring": {
+    "num_queries_total": 17,
+    "num_queries_scored": 0,
+    "answer_accuracy": null,
+    "answer_status_counts": {}
+  }
+}

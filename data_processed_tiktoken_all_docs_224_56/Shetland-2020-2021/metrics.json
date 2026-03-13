@@ -1,0 +1,161 @@
+{
+  "schema_version": "3.0_hybrid",
+  "doc_id": "Shetland-2020-2021",
+  "corpus_id": "Shetland-2020-2021",
+  "report_year": "2020-21",
+  "period_end_date": null,
+  "run_utc": "2026-03-13T09:09:14+00:00",
+  "git_commit_short": "d9ec796",
+  "embedding_model": "sentence-transformers/all-MiniLM-L6-v2",
+  "counts": {
+    "pages_total": 157,
+    "pages_text": 84,
+    "pages_table": 73,
+    "sections_detected": 156,
+    "chunks_total": 288,
+    "chunks_text": 215,
+    "chunks_table": 73,
+    "tables_extracted": 73,
+    "table_facts": 1808,
+    "ocr_raw_pages_detected": 0,
+    "ocr_raw_pages_accepted": 0,
+    "ocr_short_pages_triggered": 2,
+    "ocr_short_pages_accepted": 2,
+    "ocr_rejected_quality": 0,
+    "toc_detected": true,
+    "toc_pages_count": 1,
+    "toc_items_count": 7,
+    "toc_offset_support_count": 1,
+    "subsection_reject_count": 0
+  },
+  "derived": {
+    "chunks_per_page": 1.8343949044585988,
+    "tables_per_100_pages": 46.496815286624205,
+    "ocr_raw_acceptance_rate": 0.0,
+    "ocr_short_acceptance_rate": 1.0,
+    "ocr_quality_reject_rate": 0.0,
+    "toc_coverage_pct": 0.0,
+    "toc_override_rate": 0.0,
+    "subsection_unknown_pct_before": 0.7707006369426752,
+    "subsection_unknown_pct_after": 0.7707006369426752
+  },
+  "timing": {
+    "time_unit": "seconds",
+    "time_text_extract_total": 0.59342,
+    "time_coord_strip_total": 0.000771,
+    "time_ocr_raw_total": 0.0,
+    "time_total_wall": 27.216824
+  },
+  "params": {
+    "chunk_size_tokens": 224,
+    "chunk_overlap_tokens": 56,
+    "tokenizer_backend": "tiktoken",
+    "tokenizer_exact_counting": true,
+    "top_strip_frac": 0.08,
+    "bottom_strip_frac": 0.08,
+    "left_strip_frac": 0.08,
+    "right_strip_frac": 0.08,
+    "header_footer_repeat_frac": 0.4,
+    "min_chunk_words": 20,
+    "primary_extractor": "pymupdf",
+    "segment_aware_chunking": true,
+    "whole_doc_markdown_mode": false,
+    "markdown_header_carry_forward": true,
+    "markdown_table_injection": true,
+    "table_chunking": "baseline",
+    "table_page_backup_text_chunks": false,
+    "table_extract_return_all_tables": false,
+    "table_extract_secondary_bottom_pass": false,
+    "toc_confidence_threshold": 0.6,
+    "toc_allow_cross_major_override": false,
+    "toc_subsection_token_overlap_threshold": 0.6,
+    "toc_subsection_sequence_threshold": 0.75
+  },
+  "toc": {
+    "toc_detected": true,
+    "toc_pages_count": 1,
+    "toc_items_count": 7,
+    "toc_offset": 110,
+    "toc_offset_support_count": 1,
+    "toc_offset_confidence": 0.3916666666666667,
+    "toc_coverage_pct": 0.0,
+    "toc_override_rate": 0.0,
+    "subsection_reject_count": 0,
+    "subsection_unknown_pct_before": 0.7707006369426752,
+    "subsection_unknown_pct_after": 0.7707006369426752
+  },
+  "table_types_detected": {
+    "unknown": 30,
+    "balance_sheet": 9,
+    "property": 8,
+    "cash_flow": 8,
+    "staff_costs": 6,
+    "provisions": 6,
+    "income_statement": 4,
+    "financial_instruments": 2
+  },
+  "embedding": {
+    "created_utc": "2026-03-13T09:12:50+00:00",
+    "model": "models/all-MiniLM-L6-v2",
+    "chunks_embedded": 288,
+    "embedding_dim": 384,
+    "faiss_index_type": "IndexFlatIP",
+    "normalised_for_cosine": true,
+    "topk_default": 5,
+    "embedding_summary": {
+      "shape": [
+        288,
+        384
+      ],
+      "dtype": "float32",
+      "mean": -0.0014216724084690213,
+      "std": 0.051011230796575546,
+      "min": -0.2300393283367157,
+      "max": 0.20973508059978485
+    },
+    "chunk_meta_schema": {
+      "columns": [
+        "chunk_id",
+        "chunk_id_global",
+        "doc_id",
+        "corpus_id",
+        "report_year",
+        "report_year_source",
+        "period_end_date",
+        "run_date_utc",
+        "part",
+        "section_title",
+        "subsection_title",
+        "is_table",
+        "page_start",
+        "page_end",
+        "pages",
+        "page_list"
+      ],
+      "has_chunk_id_global": true,
+      "has_pages": true,
+      "sample_chunk_id": "p0002_000",
+      "sample_chunk_id_global": "Shetland-2020-2021:p0002_000",
+      "sample_pages": [
+        2
+      ]
+    },
+    "artifacts": {
+      "faiss_index": "data_processed_tiktoken_all_docs_224_56/Shetland-2020-2021/faiss.index",
+      "embeddings_npy": "data_processed_tiktoken_all_docs_224_56/Shetland-2020-2021/embeddings.npy",
+      "chunk_meta_parquet": "data_processed_tiktoken_all_docs_224_56/Shetland-2020-2021/chunk_meta.parquet"
+    },
+    "preprocess_trace": {
+      "schema_version": "3.0_hybrid",
+      "final_text_normalization": {},
+      "artifact_counts_sample": {
+        "soft_hyphen_u00ad": 0,
+        "artifact_fff0": 0,
+        "zero_width_total": 0,
+        "ligature_total": 0
+      },
+      "artifact_scan_max_chunks": 2000,
+      "fail_on_artifacts": true
+    }
+  }
+}

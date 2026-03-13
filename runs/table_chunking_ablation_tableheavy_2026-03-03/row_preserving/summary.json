@@ -1,0 +1,30 @@
+{
+  "arm": "row_preserving",
+  "retrieval_settings_hash": "df2c82b48cb7a2ae",
+  "metrics_all": {
+    "n": 43,
+    "hit_at_3": 0.9302325581395349,
+    "strict_accuracy": 0.5581395348837209,
+    "quote_support_rate": 0.5813953488372093,
+    "p_strict_given_hit3": 0.6,
+    "failure_mode_counts": {
+      "strict_correct": 24,
+      "did_not_identify_gold": 18,
+      "saw_gold_but_answer_incorrect": 1
+    }
+  },
+  "metrics_table_query": {
+    "n": 43,
+    "hit_at_3": 0.9302325581395349,
+    "strict_accuracy": 0.5581395348837209,
+    "quote_support_rate": 0.5813953488372093,
+    "p_strict_given_hit3": 0.6,
+    "failure_mode_counts": {
+      "strict_correct": 24,
+      "did_not_identify_gold": 18,
+      "saw_gold_but_answer_incorrect": 1
+    }
+  },
+  "n_table_query": 43,
+  "n_financial_table_query": 2
+}

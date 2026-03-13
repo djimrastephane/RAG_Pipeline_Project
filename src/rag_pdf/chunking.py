@@ -17,6 +17,17 @@ def get_encoder():
         return None
 
 
+def require_encoder():
+    """Return a tiktoken encoder or raise a clear error for preprocessing paths."""
+    enc = get_encoder()
+    if enc is None:
+        raise RuntimeError(
+            "tiktoken with cl100k_base is required for preprocessing. "
+            "Install and verify tiktoken instead of using the word-based fallback."
+        )
+    return enc
+
+
 def count_tokens(text: str, enc) -> int:
     """
     Count tokens in text.

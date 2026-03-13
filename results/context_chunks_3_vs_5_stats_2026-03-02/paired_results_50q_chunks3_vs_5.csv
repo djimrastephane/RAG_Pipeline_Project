@@ -1,0 +1,101 @@
+config,max_context_chunks,max_context_chars,doc_id,query_id,difficulty,generation_status,generated_answer,answer_correct,answer_status,latency_ms,context_chunks_used,context_chars_used,context_truncated
+chunks3,3,9000,Grampian-2020-2021,Q_2021_GOV_03,LEX,ok,"32,340",False,partial,7724.518,3,5150,True
+chunks3,3,9000,Grampian-2020-2021,Q_2021_CAP_02,LEX,insufficient_evidence,,False,incorrect,2655.305,3,3809,True
+chunks3,3,9000,Grampian-2020-2021,Q_2021_IJB_07,LEX,insufficient_evidence,,False,incorrect,1879.412,3,2887,True
+chunks3,3,9000,Grampian-2020-2021,Q_2021_IJB_03,LEX,ok,Aberdeenshire IJB reported a surplus for the year of £20.449 million (2019/20: deficit of £1.288m) increasing the retained reserves carried forward to £20.566 million (2019/20 £0.117 million).,True,correct,6106.469,3,4428,True
+chunks3,3,9000,Grampian-2020-2021,Q_2021_IJB_01,MOD,insufficient_evidence,,False,incorrect,5660.231,3,5049,True
+chunks3,3,9000,Grampian-2020-2021,Q_2021_SAV_P2,MOD,ok,"Efficiency savings of £6.7 million were achieved against a target of £12.2 million for NHS Grampian services, mainly from the reduction in the use of agency medical and nursing staff compared to 2019/20.",False,partial,4229.035,3,4109,True
+chunks3,3,9000,Grampian-2020-2021,Q_2021_GOV_01,STR,ok,The three statutory financial targets NHS Boards must meet according to the 2020/21 annual report are: Revenue Resource Limit (RRL) – a resource budget for ongoing activity; Capital Resource Limit (CRL) – a resource budget for net capital investment; and Cash Requirement – a financing requirement to fund the cash consequences of ongoing activity and net capital investment.,False,partial,5159.644,3,4314,True
+chunks3,3,9000,Grampian-2020-2021,Q_2021_IJB_06,LEX,insufficient_evidence,,False,incorrect,1892.391,3,2160,True
+chunks3,3,9000,Grampian-2020-2021,Q_2021_IJB_P1,STR,insufficient_evidence,,False,incorrect,2496.562,3,3117,True
+chunks3,3,9000,Grampian-2020-2021,Q_2021_COV_03,LEX,ok,"Independent Primary care service costs increased by £8.6 million mainly due to the additional support available to General Medical, Pharmaceutical, General Dental and General Ophthalmic practitioners, to ensure accessibility and sustainability of critical primary care services throughout the COVID-19 pandemic.",True,correct,4240.694,3,4253,True
+chunks3,3,9000,Grampian-2021-2022,Q_2022_GOV_P1,STR,ok,"Operation Rainbow (April to May 2020), Operation Snowdrop (January to March 2021) and Operation Iris (December to March 2022).",False,partial,4079.299,3,4023,True
+chunks3,3,9000,Grampian-2021-2022,Q_2022_SAV_P2,MOD,ok,"Efficiency savings of £2.2 million were achieved against a target of £2.6 million for NHS Grampian services, mainly from the successful recruitment into medical and nursing vacancies that were previously filled using temporary agency staff in the first half of the year, the transfer of some agency staff on to a direct engagement contractual model, the increased use of biosimilar drugs and savings across a number of non-clinical areas.",False,partial,5222.144,3,4240,True
+chunks3,3,9000,Grampian-2021-2022,Q_2022_IJB_05,LEX,insufficient_evidence,,False,incorrect,2768.102,3,2937,True
+chunks3,3,9000,Grampian-2021-2022,Q_2022_FIN_01,STR,insufficient_evidence,,False,incorrect,3135.241,3,4250,True
+chunks3,3,9000,Grampian-2021-2022,Q_2022_STR_04,STR,insufficient_evidence,,False,incorrect,2667.997,3,4034,True
+chunks3,3,9000,Grampian-2021-2022,Q_2022_AE_P1,MOD,ok,37%,False,partial,3363.932,3,3625,True
+chunks3,3,9000,Grampian-2021-2022,Q_2022_IJB_02,LEX,insufficient_evidence,,False,incorrect,3850.044,3,3338,True
+chunks3,3,9000,Grampian-2021-2022,Q_2022_GOPES_01,STR,ok,"The Grampian Operational Pressure Escalation System (G-OPES) is a whole system escalation response model developed by NHS Grampian to manage expected service pressures during the 2021/22 winter period, including surges in unscheduled care activity and specific surges like COVID-19 or RSV. It includes system pressure levels defined by key objective metrics, with an overall system status set out into four levels for each operational portfolio and critical services. G-OPES was coproduced with the involvement of key partners such as Scottish Ambulance Service (SAS) and has three main components supported by established system visualization tools.",False,partial,5970.51,3,4047,True
+chunks3,3,9000,Grampian-2021-2022,Q_2022_FIN_08,LEX,insufficient_evidence,,False,incorrect,3083.828,3,4291,True
+chunks3,3,9000,Grampian-2021-2022,Q_2022_FIN_P2,MOD,ok,"The principal cause of the increase in staff costs in 2021/22 was mainly due to the annual pay uplift (£33.4 million), an increase in the level of untaken annual leave (£2.2 million), and expenditure on temporary agency staff increased by £4.8 million.",False,partial,4561.333,3,4303,True
+chunks3,3,9000,Grampian-2022-2023,Q_2023_FIN_15,LEX,insufficient_evidence,,False,incorrect,2902.894,3,3535,True
+chunks3,3,9000,Grampian-2022-2023,Q_2023_FIN_14,LEX,insufficient_evidence,,False,incorrect,2787.948,3,3791,True
+chunks3,3,9000,Grampian-2022-2023,Q_2023_FIN_P2,MOD,ok,Drugs and medical supplies increased by £21 million mainly due to volume and price increases across both primary and secondary care sector.,False,partial,3888.645,3,3506,True
+chunks3,3,9000,Grampian-2022-2023,Q_2023_FIN_02,LEX,ok,"The Core Revenue Resource outturn for 2022/23 was £1,291,879.",False,partial,3972.008,3,3628,True
+chunks3,3,9000,Grampian-2022-2023,Q_2023_FIN_16,LEX,insufficient_evidence,,False,incorrect,2489.25,3,3574,True
+chunks3,3,9000,Grampian-2022-2023,Q_2023_FIN_07,STR,insufficient_evidence,,False,incorrect,3702.773,3,3798,True
+chunks3,3,9000,Grampian-2022-2023,Q_2023_FIN_10,LEX,insufficient_evidence,,False,incorrect,2503.01,3,3626,True
+chunks3,3,9000,Grampian-2022-2023,Q_2023_IJB_07,LEX,insufficient_evidence,,False,incorrect,1805.684,3,1986,True
+chunks3,3,9000,Grampian-2022-2023,Q_2023_FIN_09,LEX,insufficient_evidence,,False,incorrect,2821.048,3,3535,True
+chunks3,3,9000,Grampian-2022-2023,Q_2023_FIN_04,MOD,ok,"The approved cash financing requirement for NHS Grampian in 2022/23 was 1,546,903.",False,partial,5636.405,3,4502,True
+chunks3,3,9000,Grampian-2023-2024,Q_2024_DEL_01,LEX,ok,The Delivery Plan 2023-2026 was adopted by the NHS Grampian Board in August 2023.,False,partial,3685.039,3,3542,True
+chunks3,3,9000,Grampian-2023-2024,Q_2024_ESC_03,MOD,ok,"The Chief Executive Team implemented a risk-based approach to managing the financial challenge which involves achieving an appropriate balance between their financial position, clinical governance matters, staff wellbeing and prevention. This approach also includes developing and implementing a local value and sustainability programme to deliver short term efficiency savings and transform services for long-term sustainability.",False,partial,4105.567,3,3585,True
+chunks3,3,9000,Grampian-2023-2024,Q_2024_FIN_12,MOD,ok,Total income for NHS Grampian Charity in 2023/24 was £3.905 million and total expenditure was £3.359 million.,True,correct,4813.197,3,3901,True
+chunks3,3,9000,Grampian-2023-2024,Q_2024_FIN_14,STR,insufficient_evidence,,False,incorrect,2875.841,3,3724,True
+chunks3,3,9000,Grampian-2023-2024,Q_2024_DEL_03,LEX,ok,"Strengthen colleague and citizen engagement to improve health (People), Create the conditions for sustainable change (Places), Improve preventative and timely access to care (Pathways)",False,partial,3597.434,3,3542,True
+chunks3,3,9000,Grampian-2023-2024,Q_2024_GOV_04,LEX,insufficient_evidence,,False,incorrect,3243.838,3,3722,True
+chunks3,3,9000,Grampian-2023-2024,Q_2024_FIN_06,STR,insufficient_evidence,,False,incorrect,2773.072,3,3724,True
+chunks3,3,9000,Grampian-2023-2024,Q_2024_IJB_03,LEX,ok,Moray IJB reported a deficit for the year of £2.659 million and its retained reserves were £2.024 million.,True,correct,2668.201,3,1163,True
+chunks3,3,9000,Grampian-2023-2024,Q_2024_FIN_01,LEX,ok,"48,416",False,incorrect,3270.122,3,3122,True
+chunks3,3,9000,Grampian-2023-2024,Q_2024_FIN_02,STR,insufficient_evidence,,False,incorrect,2620.188,3,3078,True
+chunks3,3,9000,Grampian-2024-2025,Q_2025_FIN_02,MOD,insufficient_evidence,,False,incorrect,2566.463,3,3130,True
+chunks3,3,9000,Grampian-2024-2025,Q_2025_FIN_P3,STR,ok,"Additional cost pressures in 2024/25 beyond the financial plan included costs associated with non-standard bed spaces, increased demand due to demographic change, inflationary pressures, and drug spend beyond what was included in the financial plan. These pressures contributed to an underlying deficit of £64.9 million.",False,partial,4324.858,3,3677,True
+chunks3,3,9000,Grampian-2024-2025,Q_2025_FIN_06,STR,insufficient_evidence,,False,incorrect,2745.621,3,3130,True
+chunks3,3,9000,Grampian-2024-2025,Q_2025_FIN_09,LEX,ok,£116 million,False,partial,3475.752,3,3583,True
+chunks3,3,9000,Grampian-2024-2025,Q_2025_FIN_10,STR,insufficient_evidence,,False,incorrect,2672.123,3,3144,True
+chunks3,3,9000,Grampian-2024-2025,Q_2025_AE_P1,MOD,ok,Attendance at Accident & Emergency in 2024/25 decreased by 1.8% compared to 2023/24.,False,partial,3920.721,3,3054,True
+chunks3,3,9000,Grampian-2024-2025,Q_2025_PLAN_01,STR,ok,"The 2025/26 financial plan does not present a break-even position, recognising the significant work to be undertaken to bring the Board back into sustainable financial balance.",False,partial,4239.893,3,4315,True
+chunks3,3,9000,Grampian-2024-2025,Q_2025_STR_01,LEX,ok,The period covered by the NHS Grampian Delivery Plan adopted in June 2024 is April 2024 – March 2027.,False,partial,4155.758,3,3934,True
+chunks3,3,9000,Grampian-2024-2025,Q_2025_IJB_04,LEX,insufficient_evidence,,False,incorrect,2347.466,3,2955,True
+chunks3,3,9000,Grampian-2024-2025,Q_2025_DEL_03,LEX,insufficient_evidence,,False,incorrect,2657.788,3,3391,True
+chunks5,5,9000,Grampian-2020-2021,Q_2021_GOV_03,LEX,ok,"32,340",False,partial,7242.296,5,7950,False
+chunks5,5,9000,Grampian-2020-2021,Q_2021_CAP_02,LEX,insufficient_evidence,,False,incorrect,5059.872,5,6522,False
+chunks5,5,9000,Grampian-2020-2021,Q_2021_IJB_07,LEX,insufficient_evidence,,False,incorrect,3679.792,5,5700,False
+chunks5,5,9000,Grampian-2020-2021,Q_2021_IJB_03,LEX,ok,£20.449 million,True,correct,9576.265,5,8154,False
+chunks5,5,9000,Grampian-2020-2021,Q_2021_IJB_01,MOD,insufficient_evidence,,False,incorrect,8795.923,5,7751,False
+chunks5,5,9000,Grampian-2020-2021,Q_2021_SAV_P2,MOD,ok,"Efficiency savings of £6.7 million were achieved against a target of £12.2 million for NHS Grampian services, mainly from the reduction in the use of agency medical and nursing staff compared to 2019/20.",False,partial,6294.766,5,6868,False
+chunks5,5,9000,Grampian-2020-2021,Q_2021_GOV_01,STR,ok,The three statutory financial targets NHS Boards must meet according to the 2020/21 annual report are: Revenue Resource Limit (RRL) – a resource budget for ongoing activity; Capital Resource Limit (CRL) – a resource budget for net capital investment; and Cash Requirement – a financing requirement to fund the cash consequences of ongoing activity and net capital investment.,False,partial,7457.599,5,7160,False
+chunks5,5,9000,Grampian-2020-2021,Q_2021_IJB_06,LEX,insufficient_evidence,,False,incorrect,5371.616,5,4778,False
+chunks5,5,9000,Grampian-2020-2021,Q_2021_IJB_P1,STR,insufficient_evidence,,False,incorrect,3916.345,5,4877,False
+chunks5,5,9000,Grampian-2020-2021,Q_2021_COV_03,LEX,ok,"Independent Primary care service costs increased by £8.6 million mainly due to the additional support available to General Medical, Pharmaceutical, General Dental and General Ophthalmic practitioners, to ensure accessibility and sustainability of critical primary care services throughout the COVID-19 pandemic.",True,correct,6146.171,5,6188,False
+chunks5,5,9000,Grampian-2021-2022,Q_2022_GOV_P1,STR,ok,"Operation Rainbow (April to May 2020), Operation Snowdrop (January to March 2021) and Operation Iris (December to March 2022).",False,partial,6917.287,5,6850,False
+chunks5,5,9000,Grampian-2021-2022,Q_2022_SAV_P2,MOD,ok,"Efficiency savings of £2.2 million were achieved against a target of £2.6 million for NHS Grampian services, mainly from the successful recruitment into medical and nursing vacancies that were previously filled using temporary agency staff in the first half of the year, the transfer of some agency staff on to a direct engagement contractual model, the increased use of biosimilar drugs and savings across a number of non-clinical areas.",False,partial,7186.231,5,6140,False
+chunks5,5,9000,Grampian-2021-2022,Q_2022_IJB_05,LEX,insufficient_evidence,,False,incorrect,6914.133,5,6551,False
+chunks5,5,9000,Grampian-2021-2022,Q_2022_FIN_01,STR,insufficient_evidence,,False,incorrect,5116.393,5,6855,False
+chunks5,5,9000,Grampian-2021-2022,Q_2022_STR_04,STR,insufficient_evidence,,False,incorrect,4849.295,5,6591,False
+chunks5,5,9000,Grampian-2021-2022,Q_2022_AE_P1,MOD,ok,An increase of 37%,False,partial,5689.912,5,5556,False
+chunks5,5,9000,Grampian-2021-2022,Q_2022_IJB_02,LEX,insufficient_evidence,,False,incorrect,7628.205,5,5834,False
+chunks5,5,9000,Grampian-2021-2022,Q_2022_GOPES_01,STR,ok,"The Grampian Operational Pressure Escalation System (G-OPES) is a system-wide plan to manage winter pressures and surges, developed to address predicted unscheduled care activity and specific surges in diseases such as COVID-19. It includes a four-level pressure measure for operational portfolios and critical services, with actions defined at each level to maintain service delivery. G-OPES also provides options to increase capacity through risk-based derogations of some standards and offers a whole system approach to share risk and offer internal mutual aid.",False,partial,8563.951,5,6875,False
+chunks5,5,9000,Grampian-2021-2022,Q_2022_FIN_08,LEX,insufficient_evidence,,False,incorrect,5505.642,5,6549,False
+chunks5,5,9000,Grampian-2021-2022,Q_2022_FIN_P2,MOD,ok,"The principal cause of the increase in staff costs in 2021/22 was mainly due to the annual pay uplift (£33.4 million), an increase in the level of untaken annual leave (£2.2 million), and expenditure on temporary agency staff increased by £4.8 million.",False,partial,6433.804,5,6294,False
+chunks5,5,9000,Grampian-2022-2023,Q_2023_FIN_15,LEX,insufficient_evidence,,False,incorrect,4692.861,5,5270,False
+chunks5,5,9000,Grampian-2022-2023,Q_2023_FIN_14,LEX,insufficient_evidence,,False,incorrect,5835.242,5,6519,False
+chunks5,5,9000,Grampian-2022-2023,Q_2023_FIN_P2,MOD,ok,Drugs and Medical supplies increased by £21 million mainly due to volume and price increases across both primary and secondary care sector.,False,partial,7662.591,5,6494,False
+chunks5,5,9000,Grampian-2022-2023,Q_2023_FIN_02,LEX,ok,"1,291,879",False,partial,5798.186,5,6130,False
+chunks5,5,9000,Grampian-2022-2023,Q_2023_FIN_16,LEX,insufficient_evidence,,False,incorrect,4082.764,5,5435,False
+chunks5,5,9000,Grampian-2022-2023,Q_2023_FIN_07,STR,insufficient_evidence,,False,incorrect,8386.531,5,6609,False
+chunks5,5,9000,Grampian-2022-2023,Q_2023_FIN_10,LEX,insufficient_evidence,,False,incorrect,4560.162,5,5440,False
+chunks5,5,9000,Grampian-2022-2023,Q_2023_IJB_07,LEX,insufficient_evidence,,False,incorrect,3421.373,5,3315,False
+chunks5,5,9000,Grampian-2022-2023,Q_2023_FIN_09,LEX,insufficient_evidence,,False,incorrect,5112.411,5,5526,False
+chunks5,5,9000,Grampian-2022-2023,Q_2023_FIN_04,MOD,ok,"1,546,903",False,partial,10422.264,5,7464,False
+chunks5,5,9000,Grampian-2023-2024,Q_2024_DEL_01,LEX,ok,The Delivery Plan 2023-2026 was endorsed by the Board in August 2023.,False,partial,6435.499,5,6478,False
+chunks5,5,9000,Grampian-2023-2024,Q_2024_ESC_03,MOD,ok,"The Chief Executive Team implemented a risk-based approach to managing the financial challenge which involves achieving an appropriate balance between their financial position, clinical governance matters, staff wellbeing and prevention.",False,partial,6291.02,5,6185,False
+chunks5,5,9000,Grampian-2023-2024,Q_2024_FIN_12,MOD,ok,Total income for NHS Grampian Charity in 2023/24 was £3.905 million and total expenditure was £3.359 million.,True,correct,7877.391,5,5635,False
+chunks5,5,9000,Grampian-2023-2024,Q_2024_FIN_14,STR,insufficient_evidence,,False,incorrect,5375.834,5,6033,False
+chunks5,5,9000,Grampian-2023-2024,Q_2024_DEL_03,LEX,insufficient_evidence,,False,incorrect,4467.779,5,6524,False
+chunks5,5,9000,Grampian-2023-2024,Q_2024_GOV_04,LEX,insufficient_evidence,,False,incorrect,4646.555,5,5492,False
+chunks5,5,9000,Grampian-2023-2024,Q_2024_FIN_06,STR,insufficient_evidence,,False,incorrect,6935.368,5,7295,False
+chunks5,5,9000,Grampian-2023-2024,Q_2024_IJB_03,LEX,ok,Moray IJB reported a deficit for the year of £2.659 million (2022/23 deficit £12.338 million) and its retained reserves carried forward were £2.024 million (2022/23 £4.683 million).,True,correct,5253.468,5,2827,False
+chunks5,5,9000,Grampian-2023-2024,Q_2024_FIN_01,LEX,ok,"The Core Revenue Resource Limit for NHS Grampian in 2023/24 was 48,416 £000’s.",False,incorrect,6209.259,5,5992,False
+chunks5,5,9000,Grampian-2023-2024,Q_2024_FIN_02,STR,insufficient_evidence,,False,incorrect,4752.106,5,5992,False
+chunks5,5,9000,Grampian-2024-2025,Q_2025_FIN_02,MOD,insufficient_evidence,,False,incorrect,4714.807,5,5828,False
+chunks5,5,9000,Grampian-2024-2025,Q_2025_FIN_P3,STR,ok,"Additional cost pressures in 2024/25 beyond the financial plan included costs associated with non-standard bed spaces, increased demand due to demographic change within NHS Grampian, inflationary pressures, and drug spend beyond that included in the financial plan. These pressures required £25.2 million of savings beyond the financial plan to offset them.",False,partial,6655.738,5,6436,False
+chunks5,5,9000,Grampian-2024-2025,Q_2025_FIN_06,STR,insufficient_evidence,,False,incorrect,4644.653,5,5543,False
+chunks5,5,9000,Grampian-2024-2025,Q_2025_FIN_09,LEX,ok,Net expenditure increased by £116 million compared to 2023/24.,False,partial,8257.9,5,6627,False
+chunks5,5,9000,Grampian-2024-2025,Q_2025_FIN_10,STR,insufficient_evidence,,False,incorrect,5161.3,5,5953,False
+chunks5,5,9000,Grampian-2024-2025,Q_2025_AE_P1,MOD,ok,Attendance at Accident & Emergency decreased by 1.8% in 2024/25 compared to 2023/24.,False,partial,5048.849,5,4267,False
+chunks5,5,9000,Grampian-2024-2025,Q_2025_PLAN_01,STR,ok,"The 2025/26 financial plan does not present a break-even position, recognising the significant work to be undertaken to bring the Board back into sustainable financial balance.",False,partial,6271.531,5,7076,False
+chunks5,5,9000,Grampian-2024-2025,Q_2025_STR_01,LEX,ok,The NHS Grampian Delivery Plan adopted in June 2024 covers the period April 2024 – March 2027.,False,partial,6102.513,5,6777,False
+chunks5,5,9000,Grampian-2024-2025,Q_2025_IJB_04,LEX,insufficient_evidence,,False,incorrect,6352.742,5,5900,False
+chunks5,5,9000,Grampian-2024-2025,Q_2025_DEL_03,LEX,insufficient_evidence,,False,incorrect,5176.76,5,5813,False

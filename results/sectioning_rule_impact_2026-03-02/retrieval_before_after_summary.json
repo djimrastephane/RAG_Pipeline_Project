@@ -1,0 +1,71 @@
+{
+  "retrieval_aggregate": [
+    {
+      "k": 1,
+      "macro_hit_before": 0.72,
+      "macro_hit_after": 0.6799999999999999,
+      "macro_delta_hit": -0.040000000000000015,
+      "weighted_hit_before": 0.72,
+      "weighted_hit_after": 0.68,
+      "weighted_delta_hit": -0.040000000000000015,
+      "macro_mrr_before": 0.72,
+      "macro_mrr_after": 0.6799999999999999,
+      "macro_delta_mrr": -0.040000000000000015,
+      "weighted_mrr_before": 0.72,
+      "weighted_mrr_after": 0.68,
+      "weighted_delta_mrr": -0.040000000000000015
+    },
+    {
+      "k": 3,
+      "macro_hit_before": 0.86,
+      "macro_hit_after": 0.8320000000000001,
+      "macro_delta_hit": -0.028000000000000004,
+      "weighted_hit_before": 0.86,
+      "weighted_hit_after": 0.832,
+      "weighted_delta_hit": -0.028000000000000004,
+      "macro_mrr_before": 0.7813333333333333,
+      "macro_mrr_after": 0.7453333333333333,
+      "macro_delta_mrr": -0.03600000000000005,
+      "weighted_mrr_before": 0.7813333333333333,
+      "weighted_mrr_after": 0.7453333333333333,
+      "weighted_delta_mrr": -0.03600000000000006
+    },
+    {
+      "k": 5,
+      "macro_hit_before": 0.9120000000000001,
+      "macro_hit_after": 0.876,
+      "macro_delta_hit": -0.03599999999999999,
+      "weighted_hit_before": 0.912,
+      "weighted_hit_after": 0.876,
+      "weighted_delta_hit": -0.03599999999999998,
+      "macro_mrr_before": 0.7956,
+      "macro_mrr_after": 0.7564,
+      "macro_delta_mrr": -0.03919999999999999,
+      "weighted_mrr_before": 0.7955999999999999,
+      "weighted_mrr_after": 0.7564000000000001,
+      "weighted_delta_mrr": -0.03919999999999999
+    },
+    {
+      "k": 10,
+      "macro_hit_before": 0.9480000000000001,
+      "macro_hit_after": 0.916,
+      "macro_delta_hit": -0.03199999999999999,
+      "weighted_hit_before": 0.948,
+      "weighted_hit_after": 0.916,
+      "weighted_delta_hit": -0.03199999999999999,
+      "macro_mrr_before": 0.8009492063492063,
+      "macro_mrr_after": 0.7629809523809523,
+      "macro_delta_mrr": -0.037968253968254026,
+      "weighted_mrr_before": 0.8009492063492064,
+      "weighted_mrr_after": 0.7629809523809523,
+      "weighted_delta_mrr": -0.037968253968254026
+    }
+  ],
+  "fp2_summary": {
+    "FP2_before_total": 0,
+    "FP2_after_total": 0,
+    "FP2_delta_total": 0,
+    "FP2_before_rate_weighted": 0.0,
+    "FP2_after_rate_weighted": 0.0
+  }
+}

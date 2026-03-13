@@ -1,0 +1,181 @@
+{
+  "run_info": {
+    "run_utc": "2026-02-25T08:54:09+00:00",
+    "data_dir": "/Users/djimra/MSc Data Science Jan 2025/Thesis documents/RAG_Pipeline_Project/data_processed_ablation_thesis_all_docs/thesis_Grampian-2023-2024_chunk_280_90_seg_on_dense_rerank_on/Grampian-2023-2024",
+    "index_path": "/Users/djimra/MSc Data Science Jan 2025/Thesis documents/RAG_Pipeline_Project/data_processed_ablation_thesis_all_docs/thesis_Grampian-2023-2024_chunk_280_90_seg_on_dense_rerank_on/Grampian-2023-2024/faiss.index",
+    "meta_path": "/Users/djimra/MSc Data Science Jan 2025/Thesis documents/RAG_Pipeline_Project/data_processed_ablation_thesis_all_docs/thesis_Grampian-2023-2024_chunk_280_90_seg_on_dense_rerank_on/Grampian-2023-2024/chunk_meta.parquet",
+    "table_facts_path": "/Users/djimra/MSc Data Science Jan 2025/Thesis documents/RAG_Pipeline_Project/data_processed_ablation_thesis_all_docs/thesis_Grampian-2023-2024_chunk_280_90_seg_on_dense_rerank_on/Grampian-2023-2024/table_facts.parquet",
+    "eval_set_path": "/Users/djimra/MSc Data Science Jan 2025/Thesis documents/RAG_Pipeline_Project/data_processed_ablation_thesis_all_docs/thesis_Grampian-2023-2024_chunk_280_90_seg_on_dense_rerank_on/Grampian-2023-2024/eval_set.json",
+    "embedding_model": "models/all-MiniLM-L6-v2",
+    "k_list": [
+      1,
+      3,
+      5,
+      10
+    ],
+    "subsection_boost": 0.05,
+    "table_chunk_boost": 0.08,
+    "milestone_text_boost": 0.08,
+    "entity_match_boost": 0.04,
+    "numeric_density_boost": 0.03,
+    "max_entity_matches": 4,
+    "enable_lexical_rerank": true,
+    "enable_subsection_boost": true,
+    "max_k_search": 100,
+    "num_queries": 30,
+    "num_chunks_indexed": 323,
+    "num_table_facts": 3834,
+    "meta_doc_ids": [
+      "Grampian-2023-2024"
+    ],
+    "query_id_nomenclature": "Q_<TOPIC>_<YEAR>_<NN> with TOPIC in [REV,EFF,DEF,STAFF,ACC,GOV,TABLE]",
+    "failure_attribution": {
+      "retrieval_stages": [
+        "hit",
+        "missed_top_ranked",
+        "missing_content"
+      ],
+      "failure_types": [
+        "FP1_MISSING_CONTENT",
+        "FP2_MISSED_TOP_RANK",
+        "FP3_NOT_IN_CONTEXT",
+        "FP4_NOT_EXTRACTED",
+        "FP5_WRONG_FORMAT",
+        "FP6_INCORRECT_SPECIFICITY",
+        "FP7_INCOMPLETE",
+        "HIT"
+      ],
+      "scope": "retrieval_and_generation"
+    },
+    "leakage_detection": {
+      "enabled": true,
+      "requires_expected_doc_id": true,
+      "fields": [
+        "retrieved_doc_ids_top_k",
+        "leakage_count_top_k",
+        "leakage_doc_ids_top_k",
+        "leakage_rate_top_k"
+      ]
+    },
+    "pipeline_settings": {
+      "source_metrics_path": "/Users/djimra/MSc Data Science Jan 2025/Thesis documents/RAG_Pipeline_Project/data_processed_ablation_thesis_all_docs/thesis_Grampian-2023-2024_chunk_280_90_seg_on_dense_rerank_on/Grampian-2023-2024/metrics.json",
+      "source_metrics_exists": true,
+      "doc_id": "Grampian-2023-2024",
+      "corpus_id": "Grampian-2023-2024",
+      "report_year": "2023-2024",
+      "preprocess_run_utc": "2026-02-25T08:53:33+00:00",
+      "preprocess_git_commit_short": "1da05af",
+      "embedding_model_preprocess": "sentence-transformers/all-MiniLM-L6-v2",
+      "chunk_size_tokens": 280,
+      "chunk_overlap_tokens": 90,
+      "segment_aware_chunking": true,
+      "whole_doc_markdown_mode": false,
+      "markdown_header_carry_forward": true,
+      "markdown_table_injection": true,
+      "primary_extractor": "pymupdf",
+      "min_chunk_words": 20
+    },
+    "eval_set": {
+      "path": "/Users/djimra/MSc Data Science Jan 2025/Thesis documents/RAG_Pipeline_Project/data_processed_ablation_thesis_all_docs/thesis_Grampian-2023-2024_chunk_280_90_seg_on_dense_rerank_on/Grampian-2023-2024/eval_set.json",
+      "sha1": "e68f88a632a564ca6daa8c2df5c8d973c498e15a",
+      "size_bytes": 18521,
+      "modified_utc": "2026-02-25T08:23:32+00:00",
+      "query_count": 30,
+      "meta_dataset_name": null,
+      "meta_doc_id": null,
+      "meta_version": null
+    }
+  },
+  "metrics_by_k": {
+    "1": {
+      "num_queries": 30,
+      "page_hit_rate_at_k": 0.5333333333333333,
+      "mean_page_recall_at_k": 0.5333333333333333,
+      "mean_page_precision_at_k": 0.5333333333333333,
+      "mean_page_mrr_at_k": 0.5333333333333333,
+      "chunk_hit_rate_at_k": 0.5333333333333333,
+      "mean_chunk_precision_at_k": 0.5333333333333333,
+      "mean_chunk_mrr_at_k": 0.5333333333333333
+    },
+    "3": {
+      "num_queries": 30,
+      "page_hit_rate_at_k": 0.7666666666666667,
+      "mean_page_recall_at_k": 0.7666666666666667,
+      "mean_page_precision_at_k": 0.3111111111111111,
+      "mean_page_mrr_at_k": 0.6444444444444444,
+      "chunk_hit_rate_at_k": 0.7666666666666667,
+      "mean_chunk_precision_at_k": 0.33333333333333337,
+      "mean_chunk_mrr_at_k": 0.6444444444444444
+    },
+    "5": {
+      "num_queries": 30,
+      "page_hit_rate_at_k": 0.7666666666666667,
+      "mean_page_recall_at_k": 0.7666666666666667,
+      "mean_page_precision_at_k": 0.20944444444444443,
+      "mean_page_mrr_at_k": 0.6444444444444444,
+      "chunk_hit_rate_at_k": 0.7666666666666667,
+      "mean_chunk_precision_at_k": 0.25333333333333335,
+      "mean_chunk_mrr_at_k": 0.6444444444444444
+    },
+    "10": {
+      "num_queries": 30,
+      "page_hit_rate_at_k": 0.9,
+      "mean_page_recall_at_k": 0.9,
+      "mean_page_precision_at_k": 0.123994708994709,
+      "mean_page_mrr_at_k": 0.6652777777777777,
+      "chunk_hit_rate_at_k": 0.9,
+      "mean_chunk_precision_at_k": 0.16999999999999996,
+      "mean_chunk_mrr_at_k": 0.6640211640211641
+    }
+  },
+  "failure_counts_by_k": {
+    "1": {
+      "hit": 16,
+      "missed_top_ranked": 14
+    },
+    "3": {
+      "hit": 23,
+      "missed_top_ranked": 7
+    },
+    "5": {
+      "hit": 23,
+      "missed_top_ranked": 7
+    },
+    "10": {
+      "hit": 27,
+      "missed_top_ranked": 3
+    }
+  },
+  "leakage_counts_by_k": {
+    "1": {
+      "num_queries": 30,
+      "any_leakage_rate_at_k": 0.0,
+      "mean_leakage_rate_at_k": 0.0
+    },
+    "3": {
+      "num_queries": 30,
+      "any_leakage_rate_at_k": 0.0,
+      "mean_leakage_rate_at_k": 0.0
+    },
+    "5": {
+      "num_queries": 30,
+      "any_leakage_rate_at_k": 0.0,
+      "mean_leakage_rate_at_k": 0.0
+    },
+    "10": {
+      "num_queries": 30,
+      "any_leakage_rate_at_k": 0.0,
+      "mean_leakage_rate_at_k": 0.0
+    }
+  },
+  "answer_scoring": {
+    "num_queries_total": 30,
+    "num_queries_scored": 30,
+    "answer_accuracy": 0.13333333333333333,
+    "answer_status_counts": {
+      "incorrect": 25,
+      "correct": 4,
+      "partial": 1
+    }
+  }
+}

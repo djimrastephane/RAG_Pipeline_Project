@@ -1,0 +1,66 @@
+{
+  "schema_version": "3.0_hybrid",
+  "doc_id": "Grampian-2022-2023",
+  "corpus_id": "Grampian-2022-2023",
+  "report_year": "2022-2023",
+  "period_end_date": null,
+  "run_utc": "2026-02-26T07:29:53+00:00",
+  "git_commit_short": "1da05af",
+  "embedding_model": "sentence-transformers/all-MiniLM-L6-v2",
+  "counts": {
+    "pages_total": 154,
+    "pages_text": 118,
+    "pages_table": 36,
+    "sections_detected": 149,
+    "chunks_total": 262,
+    "chunks_text": 226,
+    "chunks_table": 36,
+    "tables_extracted": 18,
+    "table_facts": 848,
+    "ocr_raw_pages_detected": 19,
+    "ocr_raw_pages_accepted": 19,
+    "ocr_short_pages_triggered": 4,
+    "ocr_short_pages_accepted": 4,
+    "ocr_rejected_quality": 0
+  },
+  "derived": {
+    "chunks_per_page": 1.7012987012987013,
+    "tables_per_100_pages": 11.688311688311687,
+    "ocr_raw_acceptance_rate": 1.0,
+    "ocr_short_acceptance_rate": 1.0,
+    "ocr_quality_reject_rate": 0.0
+  },
+  "timing": {
+    "time_unit": "seconds",
+    "time_text_extract_total": 67.615386,
+    "time_coord_strip_total": 0.002019,
+    "time_ocr_raw_total": 66.879602,
+    "time_total_wall": 134.493722
+  },
+  "params": {
+    "chunk_size_tokens": 320,
+    "chunk_overlap_tokens": 90,
+    "tokenizer_backend": "tiktoken",
+    "tokenizer_exact_counting": true,
+    "top_strip_frac": 0.08,
+    "bottom_strip_frac": 0.08,
+    "left_strip_frac": 0.08,
+    "right_strip_frac": 0.08,
+    "header_footer_repeat_frac": 0.4,
+    "min_chunk_words": 20,
+    "primary_extractor": "pymupdf",
+    "segment_aware_chunking": false,
+    "whole_doc_markdown_mode": false,
+    "markdown_header_carry_forward": true,
+    "markdown_table_injection": true
+  },
+  "table_types_detected": {
+    "staff_costs": 6,
+    "balance_sheet": 3,
+    "cash_flow": 3,
+    "unknown": 3,
+    "income_statement": 1,
+    "property": 1,
+    "financial_instruments": 1
+  }
+}

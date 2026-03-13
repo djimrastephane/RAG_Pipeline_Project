@@ -1,0 +1,3 @@
+variant,improved_fail_to_hit,regressed_hit_to_fail,unchanged,net_hit3_delta
+fix1_only,2,6,242,-0.016000000000000014
+fix2_only,1,0,249,0.0040000000000000036

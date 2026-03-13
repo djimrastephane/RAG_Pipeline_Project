@@ -1,0 +1,57 @@
+python_bin: .venv/bin/python
+data_root: data_processed
+ablation_root: data_processed_ablation
+output_dir: data_processed/ablation
+embed_model: models/all-MiniLM-L6-v2
+default_doc_id: Grampian-2024-2025
+pdf_path: Data/Annual Accounts NHS Grampian/Preliminary_Test/Grampian-2024-2025.pdf
+source_eval_set: data_processed/Grampian-2024-2025/eval_set.json
+k_list: [1, 3, 5, 10]
+
+experiments:
+  - name: baseline_current
+    doc_id: Grampian-2024-2025
+    data_mode: existing
+    mode: baseline
+    rerank:
+      enabled: false
+
+  - name: baseline_rerank
+    doc_id: Grampian-2024-2025
+    data_mode: existing
+    mode: baseline
+    rerank:
+      enabled: true
+      table_chunk_boost: 0.08
+      milestone_text_boost: 0.08
+      entity_match_boost: 0.04
+      numeric_density_boost: 0.03
+      subsection_boost: 0.05
+
+  - name: rewrite_rerank
+    doc_id: Grampian-2024-2025
+    data_mode: existing
+    mode: rewrite
+    max_k_per_variant: 20
+    rerank:
+      enabled: true
+      table_chunk_boost: 0.08
+      milestone_text_boost: 0.08
+      entity_match_boost: 0.04
+      numeric_density_boost: 0.03
+      subsection_boost: 0.05
+
+  - name: chunk_700_120_rerank
+    doc_id: Grampian-2024-2025
+    data_mode: rebuild
+    mode: baseline
+    chunking:
+      size_tokens: 700
+      overlap_tokens: 120
+    rerank:
+      enabled: true
+      table_chunk_boost: 0.08
+      milestone_text_boost: 0.08
+      entity_match_boost: 0.04
+      numeric_density_boost: 0.03
+      subsection_boost: 0.05

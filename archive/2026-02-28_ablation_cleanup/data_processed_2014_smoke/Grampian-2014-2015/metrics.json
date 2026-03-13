@@ -1,0 +1,115 @@
+{
+  "schema_version": "3.0_hybrid",
+  "doc_id": "Grampian-2014-2015",
+  "corpus_id": "Grampian-2014-2015",
+  "report_year": "2014-2015",
+  "period_end_date": null,
+  "run_utc": "2026-02-18T11:17:50+00:00",
+  "git_commit_short": "5212b0e",
+  "embedding_model": "sentence-transformers/all-MiniLM-L6-v2",
+  "counts": {
+    "pages_total": 77,
+    "pages_text": 58,
+    "pages_table": 19,
+    "sections_detected": 58,
+    "chunks_total": 184,
+    "chunks_text": 184,
+    "chunks_table": 0,
+    "tables_extracted": 0,
+    "table_facts": 0,
+    "ocr_raw_pages_detected": 77,
+    "ocr_raw_pages_accepted": 77,
+    "ocr_short_pages_triggered": 1,
+    "ocr_short_pages_accepted": 1
+  },
+  "derived": {
+    "chunks_per_page": 2.3896103896103895,
+    "tables_per_100_pages": 0.0,
+    "ocr_raw_acceptance_rate": 1.0,
+    "ocr_short_acceptance_rate": 1.0
+  },
+  "timing": {
+    "time_unit": "seconds",
+    "time_text_extract_total": 206.528106,
+    "time_coord_strip_total": 0.00123,
+    "time_ocr_raw_total": 206.528392,
+    "time_total_wall": 208.780917
+  },
+  "params": {
+    "chunk_size_tokens": 320,
+    "chunk_overlap_tokens": 90,
+    "top_strip_frac": 0.08,
+    "bottom_strip_frac": 0.08,
+    "left_strip_frac": 0.08,
+    "right_strip_frac": 0.08,
+    "header_footer_repeat_frac": 0.4,
+    "min_chunk_words": 20,
+    "primary_extractor": "pymupdf",
+    "segment_aware_chunking": false
+  },
+  "table_types_detected": {},
+  "embedding": {
+    "created_utc": "2026-02-18T11:22:01+00:00",
+    "model": "models/all-MiniLM-L6-v2",
+    "chunks_embedded": 184,
+    "embedding_dim": 384,
+    "faiss_index_type": "IndexFlatIP",
+    "normalised_for_cosine": true,
+    "topk_default": 5,
+    "embedding_summary": {
+      "shape": [
+        184,
+        384
+      ],
+      "dtype": "float32",
+      "mean": -0.001285995589569211,
+      "std": 0.05101483315229416,
+      "min": -0.2036667913198471,
+      "max": 0.20178303122520447
+    },
+    "chunk_meta_schema": {
+      "columns": [
+        "chunk_id",
+        "chunk_id_global",
+        "doc_id",
+        "corpus_id",
+        "report_year",
+        "report_year_source",
+        "period_end_date",
+        "run_date_utc",
+        "part",
+        "section_title",
+        "subsection_title",
+        "is_table",
+        "page_start",
+        "page_end",
+        "pages",
+        "page_list"
+      ],
+      "has_chunk_id_global": true,
+      "has_pages": true,
+      "sample_chunk_id": "p0003_000",
+      "sample_chunk_id_global": "Grampian-2014-2015:p0003_000",
+      "sample_pages": [
+        3
+      ]
+    },
+    "artifacts": {
+      "faiss_index": "data_processed_2014_smoke/Grampian-2014-2015/faiss.index",
+      "embeddings_npy": "data_processed_2014_smoke/Grampian-2014-2015/embeddings.npy",
+      "chunk_meta_parquet": "data_processed_2014_smoke/Grampian-2014-2015/chunk_meta.parquet"
+    },
+    "preprocess_trace": {
+      "schema_version": "3.0_hybrid",
+      "final_text_normalization": {},
+      "artifact_counts_sample": {
+        "soft_hyphen_u00ad": 0,
+        "artifact_fff0": 0,
+        "zero_width_total": 0,
+        "ligature_total": 0
+      },
+      "artifact_scan_max_chunks": 2000,
+      "fail_on_artifacts": true
+    }
+  }
+}

@@ -1,0 +1,69 @@
+# Template: SPLADE vs baseline hybrid retrieval ablation
+# Copy and adjust doc_id/data_root/output_dir/model paths for your environment.
+
+python_bin: .venv/bin/python
+data_root: data_processed
+output_dir: data_processed/ablation_splade
+
+# Dense embedding model (already used by your FAISS index)
+embed_model: models/all-MiniLM-L6-v2
+
+# SPLADE model path/name (prefer local model directory for reproducibility)
+splade_model: models/naver-splade-cocondenser-ensembledistil
+splade_device: auto
+splade_local_only: true
+splade_max_length: 256
+splade_doc_batch_size: 16
+splade_query_batch_size: 16
+splade_doc_top_terms: 128
+splade_query_top_terms: 64
+splade_min_weight: 0.01
+
+# Default hybrid RRF settings (selected by repeated CV on complete GT set)
+rrf_k: 20
+dense_weight: 0.5
+bm25_weight: 2.0
+splade_weight: 1.0
+
+# Optional local cross-encoder reranker (applies after RRF fusion)
+cross_encoder:
+  enabled: false
+  model: models/bge-reranker-v2-m3
+  topn: 50
+  weight: 0.2
+
+k_list: [1, 3, 5, 10]
+default_doc_id: Grampian-2024-2025
+
+experiments:
+  - name: baseline_dense_rerank_on
+    data_mode: existing
+    doc_id: Grampian-2024-2025
+    mode: baseline
+    rerank:
+      enabled: true
+      enable_subsection_boost: true
+
+  - name: hybrid_dense_bm25_rrf
+    data_mode: existing
+    doc_id: Grampian-2024-2025
+    mode: hybrid
+    rrf_k: 20
+    dense_weight: 0.5
+    bm25_weight: 2.0
+    rerank:
+      enabled: true
+      enable_subsection_boost: true
+
+  - name: hybrid_dense_splade_rrf
+    data_mode: existing
+    doc_id: Grampian-2024-2025
+    mode: splade_hybrid
+    rrf_k: 20
+    dense_weight: 0.5
+    splade_weight: 1.0
+    splade_model: models/naver-splade-cocondenser-ensembledistil
+    splade_local_only: true
+    rerank:
+      enabled: true
+      enable_subsection_boost: true

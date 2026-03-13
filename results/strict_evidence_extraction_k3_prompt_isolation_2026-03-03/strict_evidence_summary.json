@@ -1,0 +1,17 @@
+{
+  "n_queries": 50,
+  "answer_accuracy": 0.4,
+  "quote_support_rate": 0.4,
+  "strict_accuracy": 0.4,
+  "json_parse_ok_rate": 0.96,
+  "evidence_verbatim_rate": 0.54,
+  "retrieval_hit_at_k_rate": 0.82,
+  "failure_mode_counts": {
+    "did_not_identify_gold": 30,
+    "strict_correct": 20
+  },
+  "chart_paths": [
+    "results/strict_evidence_extraction_k3_prompt_isolation_2026-03-03/charts/chart_failure_mode_by_difficulty_stacked.png",
+    "results/strict_evidence_extraction_k3_prompt_isolation_2026-03-03/charts/chart_strict_evidence_summary_rates.png"
+  ]
+}

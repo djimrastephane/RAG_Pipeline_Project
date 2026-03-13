@@ -1,0 +1,131 @@
+{
+  "schema_version": "3.0_hybrid",
+  "doc_id": "Grampian-2024-2025",
+  "corpus_id": "Grampian-2024-2025",
+  "report_year": "2024-2025",
+  "period_end_date": null,
+  "run_utc": "2026-02-25T08:57:29+00:00",
+  "git_commit_short": "1da05af",
+  "embedding_model": "sentence-transformers/all-MiniLM-L6-v2",
+  "counts": {
+    "pages_total": 172,
+    "pages_text": 133,
+    "pages_table": 39,
+    "sections_detected": 169,
+    "chunks_total": 215,
+    "chunks_text": 176,
+    "chunks_table": 39,
+    "tables_extracted": 39,
+    "table_facts": 3865,
+    "ocr_raw_pages_detected": 0,
+    "ocr_raw_pages_accepted": 0,
+    "ocr_short_pages_triggered": 3,
+    "ocr_short_pages_accepted": 3,
+    "ocr_rejected_quality": 0
+  },
+  "derived": {
+    "chunks_per_page": 1.25,
+    "tables_per_100_pages": 22.674418604651162,
+    "ocr_raw_acceptance_rate": 0.0,
+    "ocr_short_acceptance_rate": 1.0,
+    "ocr_quality_reject_rate": 0.0
+  },
+  "timing": {
+    "time_unit": "seconds",
+    "time_text_extract_total": 0.982356,
+    "time_coord_strip_total": 0.001056,
+    "time_ocr_raw_total": 0.0,
+    "time_total_wall": 33.690866
+  },
+  "params": {
+    "chunk_size_tokens": 500,
+    "chunk_overlap_tokens": 100,
+    "tokenizer_backend": "tiktoken",
+    "tokenizer_exact_counting": true,
+    "top_strip_frac": 0.08,
+    "bottom_strip_frac": 0.08,
+    "left_strip_frac": 0.08,
+    "right_strip_frac": 0.08,
+    "header_footer_repeat_frac": 0.4,
+    "min_chunk_words": 20,
+    "primary_extractor": "pymupdf",
+    "segment_aware_chunking": false,
+    "whole_doc_markdown_mode": false,
+    "markdown_header_carry_forward": true,
+    "markdown_table_injection": true
+  },
+  "table_types_detected": {
+    "unknown": 8,
+    "balance_sheet": 8,
+    "staff_costs": 7,
+    "income_statement": 4,
+    "cash_flow": 4,
+    "provisions": 4,
+    "property": 3,
+    "financial_instruments": 1
+  },
+  "embedding": {
+    "created_utc": "2026-02-25T08:58:07+00:00",
+    "model": "models/all-MiniLM-L6-v2",
+    "chunks_embedded": 215,
+    "embedding_dim": 384,
+    "faiss_index_type": "IndexFlatIP",
+    "normalised_for_cosine": true,
+    "topk_default": 5,
+    "embedding_summary": {
+      "shape": [
+        215,
+        384
+      ],
+      "dtype": "float32",
+      "mean": -0.0013280370039865375,
+      "std": 0.051013752818107605,
+      "min": -0.24823278188705444,
+      "max": 0.2023513913154602
+    },
+    "chunk_meta_schema": {
+      "columns": [
+        "chunk_id",
+        "chunk_id_global",
+        "doc_id",
+        "corpus_id",
+        "report_year",
+        "report_year_source",
+        "period_end_date",
+        "run_date_utc",
+        "part",
+        "section_title",
+        "subsection_title",
+        "is_table",
+        "page_start",
+        "page_end",
+        "pages",
+        "page_list"
+      ],
+      "has_chunk_id_global": true,
+      "has_pages": true,
+      "sample_chunk_id": "p0002_000",
+      "sample_chunk_id_global": "Grampian-2024-2025:p0002_000",
+      "sample_pages": [
+        2
+      ]
+    },
+    "artifacts": {
+      "faiss_index": "/Users/djimra/MSc Data Science Jan 2025/Thesis documents/RAG_Pipeline_Project/data_processed_ablation_thesis_all_docs/thesis_Grampian-2024-2025_chunk_500_100_seg_off_dense_rerank_on/Grampian-2024-2025/faiss.index",
+      "embeddings_npy": "/Users/djimra/MSc Data Science Jan 2025/Thesis documents/RAG_Pipeline_Project/data_processed_ablation_thesis_all_docs/thesis_Grampian-2024-2025_chunk_500_100_seg_off_dense_rerank_on/Grampian-2024-2025/embeddings.npy",
+      "chunk_meta_parquet": "/Users/djimra/MSc Data Science Jan 2025/Thesis documents/RAG_Pipeline_Project/data_processed_ablation_thesis_all_docs/thesis_Grampian-2024-2025_chunk_500_100_seg_off_dense_rerank_on/Grampian-2024-2025/chunk_meta.parquet"
+    },
+    "preprocess_trace": {
+      "schema_version": "3.0_hybrid",
+      "final_text_normalization": {},
+      "artifact_counts_sample": {
+        "soft_hyphen_u00ad": 0,
+        "artifact_fff0": 0,
+        "zero_width_total": 0,
+        "ligature_total": 0
+      },
+      "artifact_scan_max_chunks": 2000,
+      "fail_on_artifacts": true
+    }
+  }
+}

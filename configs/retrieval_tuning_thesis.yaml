@@ -1,0 +1,138 @@
+python_bin: .venv/bin/python
+data_root: data_processed
+ablation_root: data_processed_ablation
+output_dir: data_processed/ablation_thesis
+embed_model: models/all-MiniLM-L6-v2
+default_doc_id: Grampian-2024-2025
+pdf_path: Data/Annual Accounts NHS Grampian/Preliminary_Test/Grampian-2024-2025.pdf
+source_eval_set: data_processed_ablation/segment_aware_first21/eval_set_first21.json
+k_list: [1, 3, 5, 10]
+
+experiments:
+  - name: thesis_chunk_280_90_seg_off_dense_rerank_on
+    doc_id: Grampian-2024-2025
+    data_mode: rebuild
+    mode: baseline
+    chunking:
+      size_tokens: 280
+      overlap_tokens: 90
+      segment_aware: false
+    rerank:
+      enabled: true
+      table_chunk_boost: 0.08
+      milestone_text_boost: 0.08
+      entity_match_boost: 0.04
+      numeric_density_boost: 0.03
+      subsection_boost: 0.05
+
+  - name: thesis_chunk_320_90_seg_off_dense_rerank_on
+    doc_id: Grampian-2024-2025
+    data_mode: rebuild
+    mode: baseline
+    chunking:
+      size_tokens: 320
+      overlap_tokens: 90
+      segment_aware: false
+    rerank:
+      enabled: true
+      table_chunk_boost: 0.08
+      milestone_text_boost: 0.08
+      entity_match_boost: 0.04
+      numeric_density_boost: 0.03
+      subsection_boost: 0.05
+
+  - name: thesis_chunk_500_100_seg_off_dense_rerank_on
+    doc_id: Grampian-2024-2025
+    data_mode: rebuild
+    mode: baseline
+    chunking:
+      size_tokens: 500
+      overlap_tokens: 100
+      segment_aware: false
+    rerank:
+      enabled: true
+      table_chunk_boost: 0.08
+      milestone_text_boost: 0.08
+      entity_match_boost: 0.04
+      numeric_density_boost: 0.03
+      subsection_boost: 0.05
+
+  - name: thesis_chunk_700_120_seg_off_dense_rerank_on
+    doc_id: Grampian-2024-2025
+    data_mode: rebuild
+    mode: baseline
+    chunking:
+      size_tokens: 700
+      overlap_tokens: 120
+      segment_aware: false
+    rerank:
+      enabled: true
+      table_chunk_boost: 0.08
+      milestone_text_boost: 0.08
+      entity_match_boost: 0.04
+      numeric_density_boost: 0.03
+      subsection_boost: 0.05
+
+  - name: thesis_chunk_280_90_seg_on_dense_rerank_on
+    doc_id: Grampian-2024-2025
+    data_mode: rebuild
+    mode: baseline
+    chunking:
+      size_tokens: 280
+      overlap_tokens: 90
+      segment_aware: true
+    rerank:
+      enabled: true
+      table_chunk_boost: 0.08
+      milestone_text_boost: 0.08
+      entity_match_boost: 0.04
+      numeric_density_boost: 0.03
+      subsection_boost: 0.05
+
+  - name: thesis_chunk_280_90_seg_on_wholemd_dense_rerank_on
+    doc_id: Grampian-2024-2025
+    data_mode: rebuild
+    mode: baseline
+    chunking:
+      size_tokens: 280
+      overlap_tokens: 90
+      segment_aware: true
+      whole_doc_markdown_mode: true
+      markdown_header_carry_forward: true
+      markdown_table_injection: true
+    rerank:
+      enabled: true
+      table_chunk_boost: 0.08
+      milestone_text_boost: 0.08
+      entity_match_boost: 0.04
+      numeric_density_boost: 0.03
+      subsection_boost: 0.05
+
+  - name: thesis_chunk_280_90_seg_off_dense_rerank_off
+    doc_id: Grampian-2024-2025
+    data_mode: rebuild
+    mode: baseline
+    chunking:
+      size_tokens: 280
+      overlap_tokens: 90
+      segment_aware: false
+    rerank:
+      enabled: false
+
+  - name: thesis_chunk_280_90_seg_off_rewrite_rerank_on
+    doc_id: Grampian-2024-2025
+    data_mode: rebuild
+    mode: rewrite
+    max_k_per_variant: 20
+    chunking:
+      size_tokens: 280
+      overlap_tokens: 90
+      segment_aware: false
+    rerank:
+      enabled: true
+      table_chunk_boost: 0.08
+      milestone_text_boost: 0.08
+      entity_match_boost: 0.04
+      numeric_density_boost: 0.03
+      subsection_boost: 0.05
+

@@ -1,0 +1,13 @@
+{
+  "n_queries": 50,
+  "pearson_r": -0.07290287958392087,
+  "spearman_rho": -0.07290287958392086,
+  "contingency": {
+    "hit1_and_correct": 2,
+    "hit1_and_incorrect": 29,
+    "miss1_and_correct": 2,
+    "miss1_and_incorrect": 17
+  },
+  "accuracy_given_hit1": 0.06451612903225806,
+  "accuracy_given_miss1": 0.10526315789473684
+}

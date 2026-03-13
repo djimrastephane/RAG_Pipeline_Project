@@ -1,0 +1,17 @@
+run,run_label,metric,metric_label,score,non_null
+280_90_baseline,280/90 LLM off,answer_relevancy,Answer Relevancy,0.2716090656119045,75
+280_90_baseline,280/90 LLM off,faithfulness,Faithfulness,0.3738095238095237,70
+280_90_baseline,280/90 LLM off,context_precision,Context Precision,0.762265258165063,71
+280_90_baseline,280/90 LLM off,context_recall,Context Recall,0.8888888888888888,72
+280_90_generated,280/90 LLM on,answer_relevancy,Answer Relevancy,0.496314658655801,75
+280_90_generated,280/90 LLM on,faithfulness,Faithfulness,0.6689814814814814,72
+280_90_generated,280/90 LLM on,context_precision,Context Precision,0.7667245369858802,72
+280_90_generated,280/90 LLM on,context_recall,Context Recall,0.8888888888888888,72
+224_56_baseline,224/56 LLM off,answer_relevancy,Answer Relevancy,0.2907315551581472,75
+224_56_baseline,224/56 LLM off,faithfulness,Faithfulness,0.4337899543378995,73
+224_56_baseline,224/56 LLM off,context_precision,Context Precision,0.7439189188668488,74
+224_56_baseline,224/56 LLM off,context_recall,Context Recall,0.8648648648648649,74
+224_56_generated,224/56 LLM on,answer_relevancy,Answer Relevancy,0.3489438386506413,75
+224_56_generated,224/56 LLM on,faithfulness,Faithfulness,0.550228310502283,73
+224_56_generated,224/56 LLM on,context_precision,Context Precision,0.7391891891381888,74
+224_56_generated,224/56 LLM on,context_recall,Context Recall,0.8648648648648649,74

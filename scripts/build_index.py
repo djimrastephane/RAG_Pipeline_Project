@@ -527,7 +527,6 @@ def build_index_for_doc(doc_dir: Path, model: SentenceTransformer) -> None:
         convert_to_numpy=True,
         normalize_embeddings=False,
     ).astype("float32")
-
     emb = l2_normalize(emb).astype("float32")
     n, d = emb.shape
 

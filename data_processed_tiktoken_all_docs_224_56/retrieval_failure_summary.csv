@@ -1,0 +1,2 @@
+total_queries,count_stage_none,count_stage_retrieval,count_FP2_MISSED_TOP_RANK,count_HIT
+250,171,79,79,171

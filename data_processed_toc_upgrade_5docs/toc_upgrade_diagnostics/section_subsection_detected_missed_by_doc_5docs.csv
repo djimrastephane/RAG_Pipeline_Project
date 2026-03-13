@@ -1,0 +1,6 @@
+doc_id,pages_total,section_pages_detected,section_pages_missed_unknown,section_unknown_pct,subsection_pages_detected,subsection_pages_missed_unknown,subsection_unknown_pct,unique_sections_detected,unique_subsections_detected
+Grampian-2020-2021,132,131,1,0.007575757575757576,93,39,0.29545454545454547,4,12
+Grampian-2021-2022,145,145,0,0.0,126,19,0.1310344827586207,5,13
+Grampian-2022-2023,153,153,0,0.0,81,72,0.47058823529411764,6,10
+Grampian-2023-2024,161,160,1,0.006211180124223602,77,84,0.5217391304347826,10,6
+Grampian-2024-2025,172,171,1,0.005813953488372093,96,76,0.4418604651162791,7,6

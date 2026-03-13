@@ -1,0 +1,58 @@
+python_bin: .venv/bin/python
+data_root: data_processed
+ablation_root: data_processed_ablation_224_56_5docs
+output_dir: data_processed/ablation_224_56_5docs
+embed_model: models/all-MiniLM-L6-v2
+k_list: [1, 3, 5, 10]
+
+experiments:
+  - name: sanity224_Grampian-2020-2021
+    doc_id: Grampian-2020-2021
+    data_mode: rebuild
+    pdf_path: Data/Annual Accounts NHS Grampian/Preliminary_Test/Grampian-2020-2021.pdf
+    source_eval_set: data_processed/Grampian-2020-2021/eval_set.json
+    mode: baseline
+    chunking: {size_tokens: 224, overlap_tokens: 56, segment_aware: false}
+    rerank: &rerank_on
+      enabled: true
+      table_chunk_boost: 0.08
+      milestone_text_boost: 0.08
+      entity_match_boost: 0.04
+      numeric_density_boost: 0.03
+      subsection_boost: 0.05
+
+  - name: sanity224_Grampian-2021-2022
+    doc_id: Grampian-2021-2022
+    data_mode: rebuild
+    pdf_path: Data/Annual Accounts NHS Grampian/Preliminary_Test/Grampian-2021-2022.pdf
+    source_eval_set: data_processed/Grampian-2021-2022/eval_set.json
+    mode: baseline
+    chunking: {size_tokens: 224, overlap_tokens: 56, segment_aware: false}
+    rerank: *rerank_on
+
+  - name: sanity224_Grampian-2022-2023
+    doc_id: Grampian-2022-2023
+    data_mode: rebuild
+    pdf_path: Data/Annual Accounts NHS Grampian/Preliminary_Test/Grampian-2022-2023.pdf
+    source_eval_set: data_processed/Grampian-2022-2023/eval_set.json
+    mode: baseline
+    chunking: {size_tokens: 224, overlap_tokens: 56, segment_aware: false}
+    rerank: *rerank_on
+
+  - name: sanity224_Grampian-2023-2024
+    doc_id: Grampian-2023-2024
+    data_mode: rebuild
+    pdf_path: Data/Annual Accounts NHS Grampian/Preliminary_Test/Grampian-2023-2024.pdf
+    source_eval_set: data_processed/Grampian-2023-2024/eval_set.json
+    mode: baseline
+    chunking: {size_tokens: 224, overlap_tokens: 56, segment_aware: false}
+    rerank: *rerank_on
+
+  - name: sanity224_Grampian-2024-2025
+    doc_id: Grampian-2024-2025
+    data_mode: rebuild
+    pdf_path: Data/Annual Accounts NHS Grampian/Preliminary_Test/Grampian-2024-2025.pdf
+    source_eval_set: data_processed/Grampian-2024-2025/eval_set.json
+    mode: baseline
+    chunking: {size_tokens: 224, overlap_tokens: 56, segment_aware: false}
+    rerank: *rerank_on

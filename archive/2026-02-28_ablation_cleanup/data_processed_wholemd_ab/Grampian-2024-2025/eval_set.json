@@ -1,0 +1,76 @@
+{
+  "_meta": {
+    "dataset_name": "Grampian-2024-2025 Retrieval Gold Set",
+    "description": "Gold evaluation set for page-level retrieval benchmarking on Grampian-2024-2025.",
+    "doc_id": "Grampian-2024-2025",
+    "query_id_format": "Q_<YEAR>_<CATEGORY>_<INDEX>",
+    "year_note": "2025 refers to financial year ending 2025.",
+    "difficulty_definition": {
+      "LEX": "High lexical overlap with document phrasing. Minimal semantic abstraction required.",
+      "MOD": "Moderate paraphrase. Synonyms or minor phrasing changes require semantic matching.",
+      "STR": "Strong paraphrase or conceptual query. Requires abstraction, aggregation, or non-trivial semantic mapping."
+    }
+  },
+  "queries": [
+    {
+      "query_id": "Q_EFF_2024_01",
+      "question": "How many milestones were significantly delayed in Q4 (March 2025)?",
+      "expected_pages": [11,
+        12
+      ],
+      "expected_subsection": "B PERFORMANCE ANALYSIS",
+      "answer_type": "number",
+      "expected_answer": "12",
+      "doc_id": "Grampian-2024-2025",
+      "year": 2024,
+      "evidence_layout": "table",
+      "expected_section": "PERFORMANCE REPORT",
+      "filter_hints": {
+        "scope_doc_id": true,
+        "scope_year": true,
+        "prefer_evidence_layout": "table",
+        "prefer_table_chunks": true
+      }
+    },
+    {
+      "query_id": "Q_EFF_2024_02",
+      "question": "What proportion of milestones were complete at the end of Q4 (March 2025)?",
+      "expected_pages": [11,
+        12
+      ],
+      "expected_subsection": "B PERFORMANCE ANALYSIS",
+      "answer_type": "number",
+      "expected_answer": "45%",
+      "doc_id": "Grampian-2024-2025",
+      "year": 2024,
+      "evidence_layout": "table",
+      "expected_section": "PERFORMANCE REPORT",
+      "filter_hints": {
+        "scope_doc_id": true,
+        "scope_year": true,
+        "prefer_evidence_layout": "table",
+        "prefer_table_chunks": true
+      }
+    },
+    {
+      "query_id": "Q_EFF_2024_03",
+      "question": "How many milestones were on track in Q1 (June 2024)?",
+      "expected_pages": [11,
+        12
+      ],
+      "expected_subsection": "B PERFORMANCE ANALYSIS",
+      "answer_type": "number",
+      "expected_answer": "67",
+      "doc_id": "Grampian-2024-2025",
+      "year": 2024,
+      "evidence_layout": "table",
+      "expected_section": "PERFORMANCE REPORT",
+      "filter_hints": {
+        "scope_doc_id": true,
+        "scope_year": true,
+        "prefer_evidence_layout": "table",
+        "prefer_table_chunks": true
+      }
+    }
+  ]
+}

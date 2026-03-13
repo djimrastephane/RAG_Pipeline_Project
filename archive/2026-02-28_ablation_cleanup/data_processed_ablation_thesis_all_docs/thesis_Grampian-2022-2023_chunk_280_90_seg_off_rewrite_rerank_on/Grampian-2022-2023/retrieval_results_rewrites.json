@@ -1,0 +1,1677 @@
+{
+  "run_info": {
+    "run_utc": "2026-02-25T08:51:02+00:00",
+    "data_dir": "/Users/djimra/MSc Data Science Jan 2025/Thesis documents/RAG_Pipeline_Project/data_processed_ablation_thesis_all_docs/thesis_Grampian-2022-2023_chunk_280_90_seg_off_rewrite_rerank_on/Grampian-2022-2023",
+    "index_path": "/Users/djimra/MSc Data Science Jan 2025/Thesis documents/RAG_Pipeline_Project/data_processed_ablation_thesis_all_docs/thesis_Grampian-2022-2023_chunk_280_90_seg_off_rewrite_rerank_on/Grampian-2022-2023/faiss.index",
+    "meta_path": "/Users/djimra/MSc Data Science Jan 2025/Thesis documents/RAG_Pipeline_Project/data_processed_ablation_thesis_all_docs/thesis_Grampian-2022-2023_chunk_280_90_seg_off_rewrite_rerank_on/Grampian-2022-2023/chunk_meta.parquet",
+    "eval_set_path": "/Users/djimra/MSc Data Science Jan 2025/Thesis documents/RAG_Pipeline_Project/data_processed_ablation_thesis_all_docs/thesis_Grampian-2022-2023_chunk_280_90_seg_off_rewrite_rerank_on/Grampian-2022-2023/eval_set_rewrites.json",
+    "embedding_model": "models/all-MiniLM-L6-v2",
+    "k_list": [
+      1,
+      3,
+      5,
+      10
+    ],
+    "max_k_per_variant": 20,
+    "num_queries": 11,
+    "num_chunks_indexed": 296,
+    "merge_strategy": "max_score_per_chunk_across_variants"
+  },
+  "results": [
+    {
+      "query_id": "Q_DEF_2023_01",
+      "question": "What deficit did Aberdeenshire IJB report for the year?",
+      "answer_type": "number",
+      "expected_pages": [
+        21
+      ],
+      "query_variants": [
+        "What deficit did Aberdeenshire IJB report for the year?",
+        "What deficit did Aberdeenshire IJB report for the year? (overspend / shortfall) (integration joint board)"
+      ],
+      "per_k": {
+        "1": {
+          "query_variants": [
+            "What deficit did Aberdeenshire IJB report for the year?",
+            "What deficit did Aberdeenshire IJB report for the year? (overspend / shortfall) (integration joint board)"
+          ],
+          "retrieved_chunk_ids": [
+            "p0022_001"
+          ],
+          "retrieved_pages_ranked": [
+            22
+          ],
+          "retrieved_scores": [
+            0.7067599296569824
+          ],
+          "best_variant_per_chunk": [
+            "What deficit did Aberdeenshire IJB report for the year? (overspend / shortfall) (integration joint board)"
+          ],
+          "recall_at_k": 0.0,
+          "precision_at_k": 0.0,
+          "mrr_at_k": 0.0
+        },
+        "3": {
+          "query_variants": [
+            "What deficit did Aberdeenshire IJB report for the year?",
+            "What deficit did Aberdeenshire IJB report for the year? (overspend / shortfall) (integration joint board)"
+          ],
+          "retrieved_chunk_ids": [
+            "p0022_001",
+            "p0021_001",
+            "p0021_002"
+          ],
+          "retrieved_pages_ranked": [
+            22,
+            21
+          ],
+          "retrieved_scores": [
+            0.7067599296569824,
+            0.6983192563056946,
+            0.6766113042831421
+          ],
+          "best_variant_per_chunk": [
+            "What deficit did Aberdeenshire IJB report for the year? (overspend / shortfall) (integration joint board)",
+            "What deficit did Aberdeenshire IJB report for the year? (overspend / shortfall) (integration joint board)",
+            "What deficit did Aberdeenshire IJB report for the year? (overspend / shortfall) (integration joint board)"
+          ],
+          "recall_at_k": 1.0,
+          "precision_at_k": 0.5,
+          "mrr_at_k": 0.5
+        },
+        "5": {
+          "query_variants": [
+            "What deficit did Aberdeenshire IJB report for the year?",
+            "What deficit did Aberdeenshire IJB report for the year? (overspend / shortfall) (integration joint board)"
+          ],
+          "retrieved_chunk_ids": [
+            "p0022_001",
+            "p0021_001",
+            "p0021_002",
+            "p0022_000",
+            "p0148_000"
+          ],
+          "retrieved_pages_ranked": [
+            22,
+            21,
+            148
+          ],
+          "retrieved_scores": [
+            0.7067599296569824,
+            0.6983192563056946,
+            0.6766113042831421,
+            0.6691324710845947,
+            0.6516633033752441
+          ],
+          "best_variant_per_chunk": [
+            "What deficit did Aberdeenshire IJB report for the year? (overspend / shortfall) (integration joint board)",
+            "What deficit did Aberdeenshire IJB report for the year? (overspend / shortfall) (integration joint board)",
+            "What deficit did Aberdeenshire IJB report for the year? (overspend / shortfall) (integration joint board)",
+            "What deficit did Aberdeenshire IJB report for the year? (overspend / shortfall) (integration joint board)",
+            "What deficit did Aberdeenshire IJB report for the year? (overspend / shortfall) (integration joint board)"
+          ],
+          "recall_at_k": 1.0,
+          "precision_at_k": 0.3333333333333333,
+          "mrr_at_k": 0.5
+        },
+        "10": {
+          "query_variants": [
+            "What deficit did Aberdeenshire IJB report for the year?",
+            "What deficit did Aberdeenshire IJB report for the year? (overspend / shortfall) (integration joint board)"
+          ],
+          "retrieved_chunk_ids": [
+            "p0022_001",
+            "p0021_001",
+            "p0021_002",
+            "p0022_000",
+            "p0148_000",
+            "p0026_000",
+            "p0092_001",
+            "p0035_001",
+            "p0021_000",
+            "p0026_001"
+          ],
+          "retrieved_pages_ranked": [
+            22,
+            21,
+            148,
+            26,
+            92,
+            35
+          ],
+          "retrieved_scores": [
+            0.7067599296569824,
+            0.6983192563056946,
+            0.6766113042831421,
+            0.6691324710845947,
+            0.6516633033752441,
+            0.6240747570991516,
+            0.6132860779762268,
+            0.6038130521774292,
+            0.5976306796073914,
+            0.5905160903930664
+          ],
+          "best_variant_per_chunk": [
+            "What deficit did Aberdeenshire IJB report for the year? (overspend / shortfall) (integration joint board)",
+            "What deficit did Aberdeenshire IJB report for the year? (overspend / shortfall) (integration joint board)",
+            "What deficit did Aberdeenshire IJB report for the year? (overspend / shortfall) (integration joint board)",
+            "What deficit did Aberdeenshire IJB report for the year? (overspend / shortfall) (integration joint board)",
+            "What deficit did Aberdeenshire IJB report for the year? (overspend / shortfall) (integration joint board)",
+            "What deficit did Aberdeenshire IJB report for the year? (overspend / shortfall) (integration joint board)",
+            "What deficit did Aberdeenshire IJB report for the year? (overspend / shortfall) (integration joint board)",
+            "What deficit did Aberdeenshire IJB report for the year? (overspend / shortfall) (integration joint board)",
+            "What deficit did Aberdeenshire IJB report for the year? (overspend / shortfall) (integration joint board)",
+            "What deficit did Aberdeenshire IJB report for the year? (overspend / shortfall) (integration joint board)"
+          ],
+          "recall_at_k": 1.0,
+          "precision_at_k": 0.16666666666666666,
+          "mrr_at_k": 0.5
+        }
+      }
+    },
+    {
+      "query_id": "Q_REV_2023_01",
+      "question": "How much was allocated to purchase equipment for replacement of the NHS Grampian Wireless network across all sites?",
+      "answer_type": "number",
+      "expected_pages": [
+        28
+      ],
+      "query_variants": [
+        "How much was allocated to purchase equipment for replacement of the NHS Grampian Wireless network across all sites?"
+      ],
+      "per_k": {
+        "1": {
+          "query_variants": [
+            "How much was allocated to purchase equipment for replacement of the NHS Grampian Wireless network across all sites?"
+          ],
+          "retrieved_chunk_ids": [
+            "p0028_000"
+          ],
+          "retrieved_pages_ranked": [
+            28
+          ],
+          "retrieved_scores": [
+            0.6163158416748047
+          ],
+          "best_variant_per_chunk": [
+            "How much was allocated to purchase equipment for replacement of the NHS Grampian Wireless network across all sites?"
+          ],
+          "recall_at_k": 1.0,
+          "precision_at_k": 1.0,
+          "mrr_at_k": 1.0
+        },
+        "3": {
+          "query_variants": [
+            "How much was allocated to purchase equipment for replacement of the NHS Grampian Wireless network across all sites?"
+          ],
+          "retrieved_chunk_ids": [
+            "p0028_000",
+            "p0025_000",
+            "p0078_001"
+          ],
+          "retrieved_pages_ranked": [
+            28,
+            25,
+            78
+          ],
+          "retrieved_scores": [
+            0.6163158416748047,
+            0.503079354763031,
+            0.47393736243247986
+          ],
+          "best_variant_per_chunk": [
+            "How much was allocated to purchase equipment for replacement of the NHS Grampian Wireless network across all sites?",
+            "How much was allocated to purchase equipment for replacement of the NHS Grampian Wireless network across all sites?",
+            "How much was allocated to purchase equipment for replacement of the NHS Grampian Wireless network across all sites?"
+          ],
+          "recall_at_k": 1.0,
+          "precision_at_k": 0.3333333333333333,
+          "mrr_at_k": 1.0
+        },
+        "5": {
+          "query_variants": [
+            "How much was allocated to purchase equipment for replacement of the NHS Grampian Wireless network across all sites?"
+          ],
+          "retrieved_chunk_ids": [
+            "p0028_000",
+            "p0025_000",
+            "p0078_001",
+            "p0027_002",
+            "p0079_000"
+          ],
+          "retrieved_pages_ranked": [
+            28,
+            25,
+            78,
+            27,
+            79
+          ],
+          "retrieved_scores": [
+            0.6163158416748047,
+            0.503079354763031,
+            0.47393736243247986,
+            0.47192537784576416,
+            0.46885359287261963
+          ],
+          "best_variant_per_chunk": [
+            "How much was allocated to purchase equipment for replacement of the NHS Grampian Wireless network across all sites?",
+            "How much was allocated to purchase equipment for replacement of the NHS Grampian Wireless network across all sites?",
+            "How much was allocated to purchase equipment for replacement of the NHS Grampian Wireless network across all sites?",
+            "How much was allocated to purchase equipment for replacement of the NHS Grampian Wireless network across all sites?",
+            "How much was allocated to purchase equipment for replacement of the NHS Grampian Wireless network across all sites?"
+          ],
+          "recall_at_k": 1.0,
+          "precision_at_k": 0.2,
+          "mrr_at_k": 1.0
+        },
+        "10": {
+          "query_variants": [
+            "How much was allocated to purchase equipment for replacement of the NHS Grampian Wireless network across all sites?"
+          ],
+          "retrieved_chunk_ids": [
+            "p0028_000",
+            "p0025_000",
+            "p0078_001",
+            "p0027_002",
+            "p0079_000",
+            "p0078_000",
+            "p0148_002",
+            "p0115_000",
+            "p0005_000",
+            "p0115_003"
+          ],
+          "retrieved_pages_ranked": [
+            28,
+            25,
+            78,
+            27,
+            79,
+            148,
+            115,
+            5
+          ],
+          "retrieved_scores": [
+            0.6163158416748047,
+            0.503079354763031,
+            0.47393736243247986,
+            0.47192537784576416,
+            0.46885359287261963,
+            0.4594132602214813,
+            0.4592995047569275,
+            0.43640783429145813,
+            0.431767076253891,
+            0.42793476581573486
+          ],
+          "best_variant_per_chunk": [
+            "How much was allocated to purchase equipment for replacement of the NHS Grampian Wireless network across all sites?",
+            "How much was allocated to purchase equipment for replacement of the NHS Grampian Wireless network across all sites?",
+            "How much was allocated to purchase equipment for replacement of the NHS Grampian Wireless network across all sites?",
+            "How much was allocated to purchase equipment for replacement of the NHS Grampian Wireless network across all sites?",
+            "How much was allocated to purchase equipment for replacement of the NHS Grampian Wireless network across all sites?",
+            "How much was allocated to purchase equipment for replacement of the NHS Grampian Wireless network across all sites?",
+            "How much was allocated to purchase equipment for replacement of the NHS Grampian Wireless network across all sites?",
+            "How much was allocated to purchase equipment for replacement of the NHS Grampian Wireless network across all sites?",
+            "How much was allocated to purchase equipment for replacement of the NHS Grampian Wireless network across all sites?",
+            "How much was allocated to purchase equipment for replacement of the NHS Grampian Wireless network across all sites?"
+          ],
+          "recall_at_k": 1.0,
+          "precision_at_k": 0.125,
+          "mrr_at_k": 1.0
+        }
+      }
+    },
+    {
+      "query_id": "Q_DEF_2023_02",
+      "question": "What does the independent auditor’s separate Annual Audit Report cover regarding risks of material misstatement?",
+      "answer_type": "text",
+      "expected_pages": [
+        82
+      ],
+      "query_variants": [
+        "What does the independent auditor’s separate Annual Audit Report cover regarding risks of material misstatement?"
+      ],
+      "per_k": {
+        "1": {
+          "query_variants": [
+            "What does the independent auditor’s separate Annual Audit Report cover regarding risks of material misstatement?"
+          ],
+          "retrieved_chunk_ids": [
+            "p0082_000"
+          ],
+          "retrieved_pages_ranked": [
+            82
+          ],
+          "retrieved_scores": [
+            0.5408831834793091
+          ],
+          "best_variant_per_chunk": [
+            "What does the independent auditor’s separate Annual Audit Report cover regarding risks of material misstatement?"
+          ],
+          "recall_at_k": 1.0,
+          "precision_at_k": 1.0,
+          "mrr_at_k": 1.0
+        },
+        "3": {
+          "query_variants": [
+            "What does the independent auditor’s separate Annual Audit Report cover regarding risks of material misstatement?"
+          ],
+          "retrieved_chunk_ids": [
+            "p0082_000",
+            "p0084_000",
+            "p0055_002"
+          ],
+          "retrieved_pages_ranked": [
+            82,
+            84,
+            55
+          ],
+          "retrieved_scores": [
+            0.5408831834793091,
+            0.5405539274215698,
+            0.5167461633682251
+          ],
+          "best_variant_per_chunk": [
+            "What does the independent auditor’s separate Annual Audit Report cover regarding risks of material misstatement?",
+            "What does the independent auditor’s separate Annual Audit Report cover regarding risks of material misstatement?",
+            "What does the independent auditor’s separate Annual Audit Report cover regarding risks of material misstatement?"
+          ],
+          "recall_at_k": 1.0,
+          "precision_at_k": 0.3333333333333333,
+          "mrr_at_k": 1.0
+        },
+        "5": {
+          "query_variants": [
+            "What does the independent auditor’s separate Annual Audit Report cover regarding risks of material misstatement?"
+          ],
+          "retrieved_chunk_ids": [
+            "p0082_000",
+            "p0084_000",
+            "p0055_002",
+            "p0084_001",
+            "p0046_002"
+          ],
+          "retrieved_pages_ranked": [
+            82,
+            84,
+            55,
+            46
+          ],
+          "retrieved_scores": [
+            0.5408831834793091,
+            0.5405539274215698,
+            0.5167461633682251,
+            0.5018070340156555,
+            0.4904118776321411
+          ],
+          "best_variant_per_chunk": [
+            "What does the independent auditor’s separate Annual Audit Report cover regarding risks of material misstatement?",
+            "What does the independent auditor’s separate Annual Audit Report cover regarding risks of material misstatement?",
+            "What does the independent auditor’s separate Annual Audit Report cover regarding risks of material misstatement?",
+            "What does the independent auditor’s separate Annual Audit Report cover regarding risks of material misstatement?",
+            "What does the independent auditor’s separate Annual Audit Report cover regarding risks of material misstatement?"
+          ],
+          "recall_at_k": 1.0,
+          "precision_at_k": 0.25,
+          "mrr_at_k": 1.0
+        },
+        "10": {
+          "query_variants": [
+            "What does the independent auditor’s separate Annual Audit Report cover regarding risks of material misstatement?"
+          ],
+          "retrieved_chunk_ids": [
+            "p0082_000",
+            "p0084_000",
+            "p0055_002",
+            "p0084_001",
+            "p0046_002",
+            "p0115_001",
+            "p0081_001",
+            "p0083_000",
+            "p0038_001",
+            "p0115_003"
+          ],
+          "retrieved_pages_ranked": [
+            82,
+            84,
+            55,
+            46,
+            115,
+            81,
+            83,
+            38
+          ],
+          "retrieved_scores": [
+            0.5408831834793091,
+            0.5405539274215698,
+            0.5167461633682251,
+            0.5018070340156555,
+            0.4904118776321411,
+            0.48894214630126953,
+            0.48881995677948,
+            0.4874339699745178,
+            0.48039960861206055,
+            0.47664687037467957
+          ],
+          "best_variant_per_chunk": [
+            "What does the independent auditor’s separate Annual Audit Report cover regarding risks of material misstatement?",
+            "What does the independent auditor’s separate Annual Audit Report cover regarding risks of material misstatement?",
+            "What does the independent auditor’s separate Annual Audit Report cover regarding risks of material misstatement?",
+            "What does the independent auditor’s separate Annual Audit Report cover regarding risks of material misstatement?",
+            "What does the independent auditor’s separate Annual Audit Report cover regarding risks of material misstatement?",
+            "What does the independent auditor’s separate Annual Audit Report cover regarding risks of material misstatement?",
+            "What does the independent auditor’s separate Annual Audit Report cover regarding risks of material misstatement?",
+            "What does the independent auditor’s separate Annual Audit Report cover regarding risks of material misstatement?",
+            "What does the independent auditor’s separate Annual Audit Report cover regarding risks of material misstatement?",
+            "What does the independent auditor’s separate Annual Audit Report cover regarding risks of material misstatement?"
+          ],
+          "recall_at_k": 1.0,
+          "precision_at_k": 0.125,
+          "mrr_at_k": 1.0
+        }
+      }
+    },
+    {
+      "query_id": "Q_ACC_2023_01",
+      "question": "Which report section covers staff wellbeing initiatives such as the We Care programme and occupational health enhancements?",
+      "answer_type": "text",
+      "expected_pages": [
+        73
+      ],
+      "query_variants": [
+        "Which report section covers staff wellbeing initiatives such as the We Care programme and occupational health enhancements?"
+      ],
+      "per_k": {
+        "1": {
+          "query_variants": [
+            "Which report section covers staff wellbeing initiatives such as the We Care programme and occupational health enhancements?"
+          ],
+          "retrieved_chunk_ids": [
+            "p0006_002"
+          ],
+          "retrieved_pages_ranked": [
+            6
+          ],
+          "retrieved_scores": [
+            0.635764479637146
+          ],
+          "best_variant_per_chunk": [
+            "Which report section covers staff wellbeing initiatives such as the We Care programme and occupational health enhancements?"
+          ],
+          "recall_at_k": 0.0,
+          "precision_at_k": 0.0,
+          "mrr_at_k": 0.0
+        },
+        "3": {
+          "query_variants": [
+            "Which report section covers staff wellbeing initiatives such as the We Care programme and occupational health enhancements?"
+          ],
+          "retrieved_chunk_ids": [
+            "p0006_002",
+            "p0073_000",
+            "p0073_001"
+          ],
+          "retrieved_pages_ranked": [
+            6,
+            73
+          ],
+          "retrieved_scores": [
+            0.635764479637146,
+            0.6152175664901733,
+            0.5660582184791565
+          ],
+          "best_variant_per_chunk": [
+            "Which report section covers staff wellbeing initiatives such as the We Care programme and occupational health enhancements?",
+            "Which report section covers staff wellbeing initiatives such as the We Care programme and occupational health enhancements?",
+            "Which report section covers staff wellbeing initiatives such as the We Care programme and occupational health enhancements?"
+          ],
+          "recall_at_k": 1.0,
+          "precision_at_k": 0.5,
+          "mrr_at_k": 0.5
+        },
+        "5": {
+          "query_variants": [
+            "Which report section covers staff wellbeing initiatives such as the We Care programme and occupational health enhancements?"
+          ],
+          "retrieved_chunk_ids": [
+            "p0006_002",
+            "p0073_000",
+            "p0073_001",
+            "p0072_001",
+            "p0077_001"
+          ],
+          "retrieved_pages_ranked": [
+            6,
+            73,
+            72,
+            77
+          ],
+          "retrieved_scores": [
+            0.635764479637146,
+            0.6152175664901733,
+            0.5660582184791565,
+            0.5552712678909302,
+            0.5394735932350159
+          ],
+          "best_variant_per_chunk": [
+            "Which report section covers staff wellbeing initiatives such as the We Care programme and occupational health enhancements?",
+            "Which report section covers staff wellbeing initiatives such as the We Care programme and occupational health enhancements?",
+            "Which report section covers staff wellbeing initiatives such as the We Care programme and occupational health enhancements?",
+            "Which report section covers staff wellbeing initiatives such as the We Care programme and occupational health enhancements?",
+            "Which report section covers staff wellbeing initiatives such as the We Care programme and occupational health enhancements?"
+          ],
+          "recall_at_k": 1.0,
+          "precision_at_k": 0.25,
+          "mrr_at_k": 0.5
+        },
+        "10": {
+          "query_variants": [
+            "Which report section covers staff wellbeing initiatives such as the We Care programme and occupational health enhancements?"
+          ],
+          "retrieved_chunk_ids": [
+            "p0006_002",
+            "p0073_000",
+            "p0073_001",
+            "p0072_001",
+            "p0077_001",
+            "p0072_000",
+            "p0006_001",
+            "p0062_000",
+            "p0002_000",
+            "p0077_000"
+          ],
+          "retrieved_pages_ranked": [
+            6,
+            73,
+            72,
+            77,
+            62,
+            2
+          ],
+          "retrieved_scores": [
+            0.635764479637146,
+            0.6152175664901733,
+            0.5660582184791565,
+            0.5552712678909302,
+            0.5394735932350159,
+            0.5337866544723511,
+            0.5165168642997742,
+            0.5162431001663208,
+            0.5139002203941345,
+            0.5113310813903809
+          ],
+          "best_variant_per_chunk": [
+            "Which report section covers staff wellbeing initiatives such as the We Care programme and occupational health enhancements?",
+            "Which report section covers staff wellbeing initiatives such as the We Care programme and occupational health enhancements?",
+            "Which report section covers staff wellbeing initiatives such as the We Care programme and occupational health enhancements?",
+            "Which report section covers staff wellbeing initiatives such as the We Care programme and occupational health enhancements?",
+            "Which report section covers staff wellbeing initiatives such as the We Care programme and occupational health enhancements?",
+            "Which report section covers staff wellbeing initiatives such as the We Care programme and occupational health enhancements?",
+            "Which report section covers staff wellbeing initiatives such as the We Care programme and occupational health enhancements?",
+            "Which report section covers staff wellbeing initiatives such as the We Care programme and occupational health enhancements?",
+            "Which report section covers staff wellbeing initiatives such as the We Care programme and occupational health enhancements?",
+            "Which report section covers staff wellbeing initiatives such as the We Care programme and occupational health enhancements?"
+          ],
+          "recall_at_k": 1.0,
+          "precision_at_k": 0.16666666666666666,
+          "mrr_at_k": 0.5
+        }
+      }
+    },
+    {
+      "query_id": "Q_ACC_2023_02",
+      "question": "How many staff attended the Brew and Blether sessions held between February and April?",
+      "answer_type": "number",
+      "expected_pages": [
+        73
+      ],
+      "query_variants": [
+        "How many staff attended the Brew and Blether sessions held between February and April?"
+      ],
+      "per_k": {
+        "1": {
+          "query_variants": [
+            "How many staff attended the Brew and Blether sessions held between February and April?"
+          ],
+          "retrieved_chunk_ids": [
+            "p0010_000"
+          ],
+          "retrieved_pages_ranked": [
+            10
+          ],
+          "retrieved_scores": [
+            0.34782323241233826
+          ],
+          "best_variant_per_chunk": [
+            "How many staff attended the Brew and Blether sessions held between February and April?"
+          ],
+          "recall_at_k": 0.0,
+          "precision_at_k": 0.0,
+          "mrr_at_k": 0.0
+        },
+        "3": {
+          "query_variants": [
+            "How many staff attended the Brew and Blether sessions held between February and April?"
+          ],
+          "retrieved_chunk_ids": [
+            "p0010_000",
+            "p0072_000",
+            "p0005_000"
+          ],
+          "retrieved_pages_ranked": [
+            10,
+            72,
+            5
+          ],
+          "retrieved_scores": [
+            0.34782323241233826,
+            0.3290678858757019,
+            0.3264424800872803
+          ],
+          "best_variant_per_chunk": [
+            "How many staff attended the Brew and Blether sessions held between February and April?",
+            "How many staff attended the Brew and Blether sessions held between February and April?",
+            "How many staff attended the Brew and Blether sessions held between February and April?"
+          ],
+          "recall_at_k": 0.0,
+          "precision_at_k": 0.0,
+          "mrr_at_k": 0.0
+        },
+        "5": {
+          "query_variants": [
+            "How many staff attended the Brew and Blether sessions held between February and April?"
+          ],
+          "retrieved_chunk_ids": [
+            "p0010_000",
+            "p0072_000",
+            "p0005_000",
+            "p0029_002",
+            "p0031_001"
+          ],
+          "retrieved_pages_ranked": [
+            10,
+            72,
+            5,
+            29,
+            31
+          ],
+          "retrieved_scores": [
+            0.34782323241233826,
+            0.3290678858757019,
+            0.3264424800872803,
+            0.3116457760334015,
+            0.3066650629043579
+          ],
+          "best_variant_per_chunk": [
+            "How many staff attended the Brew and Blether sessions held between February and April?",
+            "How many staff attended the Brew and Blether sessions held between February and April?",
+            "How many staff attended the Brew and Blether sessions held between February and April?",
+            "How many staff attended the Brew and Blether sessions held between February and April?",
+            "How many staff attended the Brew and Blether sessions held between February and April?"
+          ],
+          "recall_at_k": 0.0,
+          "precision_at_k": 0.0,
+          "mrr_at_k": 0.0
+        },
+        "10": {
+          "query_variants": [
+            "How many staff attended the Brew and Blether sessions held between February and April?"
+          ],
+          "retrieved_chunk_ids": [
+            "p0010_000",
+            "p0072_000",
+            "p0005_000",
+            "p0029_002",
+            "p0031_001",
+            "p0011_000",
+            "p0078_000",
+            "p0030_000",
+            "p0032_001",
+            "p0003_001"
+          ],
+          "retrieved_pages_ranked": [
+            10,
+            72,
+            5,
+            29,
+            31,
+            11,
+            78,
+            30,
+            32,
+            3
+          ],
+          "retrieved_scores": [
+            0.34782323241233826,
+            0.3290678858757019,
+            0.3264424800872803,
+            0.3116457760334015,
+            0.3066650629043579,
+            0.30380359292030334,
+            0.30281054973602295,
+            0.3015862703323364,
+            0.30093705654144287,
+            0.2990846633911133
+          ],
+          "best_variant_per_chunk": [
+            "How many staff attended the Brew and Blether sessions held between February and April?",
+            "How many staff attended the Brew and Blether sessions held between February and April?",
+            "How many staff attended the Brew and Blether sessions held between February and April?",
+            "How many staff attended the Brew and Blether sessions held between February and April?",
+            "How many staff attended the Brew and Blether sessions held between February and April?",
+            "How many staff attended the Brew and Blether sessions held between February and April?",
+            "How many staff attended the Brew and Blether sessions held between February and April?",
+            "How many staff attended the Brew and Blether sessions held between February and April?",
+            "How many staff attended the Brew and Blether sessions held between February and April?",
+            "How many staff attended the Brew and Blether sessions held between February and April?"
+          ],
+          "recall_at_k": 0.0,
+          "precision_at_k": 0.0,
+          "mrr_at_k": 0.0
+        }
+      }
+    },
+    {
+      "query_id": "Q_ACC_2023_03",
+      "question": "What was the national benchmark time to hire that NHS Grampian remained below during the year?",
+      "answer_type": "number",
+      "expected_pages": [
+        73
+      ],
+      "query_variants": [
+        "What was the national benchmark time to hire that NHS Grampian remained below during the year?"
+      ],
+      "per_k": {
+        "1": {
+          "query_variants": [
+            "What was the national benchmark time to hire that NHS Grampian remained below during the year?"
+          ],
+          "retrieved_chunk_ids": [
+            "p0073_001"
+          ],
+          "retrieved_pages_ranked": [
+            73
+          ],
+          "retrieved_scores": [
+            0.6094765663146973
+          ],
+          "best_variant_per_chunk": [
+            "What was the national benchmark time to hire that NHS Grampian remained below during the year?"
+          ],
+          "recall_at_k": 1.0,
+          "precision_at_k": 1.0,
+          "mrr_at_k": 1.0
+        },
+        "3": {
+          "query_variants": [
+            "What was the national benchmark time to hire that NHS Grampian remained below during the year?"
+          ],
+          "retrieved_chunk_ids": [
+            "p0073_001",
+            "p0029_001",
+            "p0010_000"
+          ],
+          "retrieved_pages_ranked": [
+            73,
+            29,
+            10
+          ],
+          "retrieved_scores": [
+            0.6094765663146973,
+            0.6066615581512451,
+            0.6001003980636597
+          ],
+          "best_variant_per_chunk": [
+            "What was the national benchmark time to hire that NHS Grampian remained below during the year?",
+            "What was the national benchmark time to hire that NHS Grampian remained below during the year?",
+            "What was the national benchmark time to hire that NHS Grampian remained below during the year?"
+          ],
+          "recall_at_k": 1.0,
+          "precision_at_k": 0.3333333333333333,
+          "mrr_at_k": 1.0
+        },
+        "5": {
+          "query_variants": [
+            "What was the national benchmark time to hire that NHS Grampian remained below during the year?"
+          ],
+          "retrieved_chunk_ids": [
+            "p0073_001",
+            "p0029_001",
+            "p0010_000",
+            "p0077_001",
+            "p0078_000"
+          ],
+          "retrieved_pages_ranked": [
+            73,
+            29,
+            10,
+            77,
+            78
+          ],
+          "retrieved_scores": [
+            0.6094765663146973,
+            0.6066615581512451,
+            0.6001003980636597,
+            0.5856024026870728,
+            0.5796149969100952
+          ],
+          "best_variant_per_chunk": [
+            "What was the national benchmark time to hire that NHS Grampian remained below during the year?",
+            "What was the national benchmark time to hire that NHS Grampian remained below during the year?",
+            "What was the national benchmark time to hire that NHS Grampian remained below during the year?",
+            "What was the national benchmark time to hire that NHS Grampian remained below during the year?",
+            "What was the national benchmark time to hire that NHS Grampian remained below during the year?"
+          ],
+          "recall_at_k": 1.0,
+          "precision_at_k": 0.2,
+          "mrr_at_k": 1.0
+        },
+        "10": {
+          "query_variants": [
+            "What was the national benchmark time to hire that NHS Grampian remained below during the year?"
+          ],
+          "retrieved_chunk_ids": [
+            "p0073_001",
+            "p0029_001",
+            "p0010_000",
+            "p0077_001",
+            "p0078_000",
+            "p0025_000",
+            "p0079_000",
+            "p0003_000",
+            "p0030_000",
+            "p0011_000"
+          ],
+          "retrieved_pages_ranked": [
+            73,
+            29,
+            10,
+            77,
+            78,
+            25,
+            79,
+            3,
+            30,
+            11
+          ],
+          "retrieved_scores": [
+            0.6094765663146973,
+            0.6066615581512451,
+            0.6001003980636597,
+            0.5856024026870728,
+            0.5796149969100952,
+            0.5722915530204773,
+            0.5713628530502319,
+            0.5542253255844116,
+            0.552712082862854,
+            0.5502687096595764
+          ],
+          "best_variant_per_chunk": [
+            "What was the national benchmark time to hire that NHS Grampian remained below during the year?",
+            "What was the national benchmark time to hire that NHS Grampian remained below during the year?",
+            "What was the national benchmark time to hire that NHS Grampian remained below during the year?",
+            "What was the national benchmark time to hire that NHS Grampian remained below during the year?",
+            "What was the national benchmark time to hire that NHS Grampian remained below during the year?",
+            "What was the national benchmark time to hire that NHS Grampian remained below during the year?",
+            "What was the national benchmark time to hire that NHS Grampian remained below during the year?",
+            "What was the national benchmark time to hire that NHS Grampian remained below during the year?",
+            "What was the national benchmark time to hire that NHS Grampian remained below during the year?",
+            "What was the national benchmark time to hire that NHS Grampian remained below during the year?"
+          ],
+          "recall_at_k": 1.0,
+          "precision_at_k": 0.1,
+          "mrr_at_k": 1.0
+        }
+      }
+    },
+    {
+      "query_id": "Q_ACC_2023_04",
+      "question": "How many international nurses were supported for recruitment to NHS Grampian during 2022/23?",
+      "answer_type": "number",
+      "expected_pages": [
+        73
+      ],
+      "query_variants": [
+        "How many international nurses were supported for recruitment to NHS Grampian during 2022/23?"
+      ],
+      "per_k": {
+        "1": {
+          "query_variants": [
+            "How many international nurses were supported for recruitment to NHS Grampian during 2022/23?"
+          ],
+          "retrieved_chunk_ids": [
+            "p0073_002"
+          ],
+          "retrieved_pages_ranked": [
+            73
+          ],
+          "retrieved_scores": [
+            0.6764824390411377
+          ],
+          "best_variant_per_chunk": [
+            "How many international nurses were supported for recruitment to NHS Grampian during 2022/23?"
+          ],
+          "recall_at_k": 1.0,
+          "precision_at_k": 1.0,
+          "mrr_at_k": 1.0
+        },
+        "3": {
+          "query_variants": [
+            "How many international nurses were supported for recruitment to NHS Grampian during 2022/23?"
+          ],
+          "retrieved_chunk_ids": [
+            "p0073_002",
+            "p0030_000",
+            "p0060_002"
+          ],
+          "retrieved_pages_ranked": [
+            73,
+            30,
+            60
+          ],
+          "retrieved_scores": [
+            0.6764824390411377,
+            0.5706081986427307,
+            0.5556597709655762
+          ],
+          "best_variant_per_chunk": [
+            "How many international nurses were supported for recruitment to NHS Grampian during 2022/23?",
+            "How many international nurses were supported for recruitment to NHS Grampian during 2022/23?",
+            "How many international nurses were supported for recruitment to NHS Grampian during 2022/23?"
+          ],
+          "recall_at_k": 1.0,
+          "precision_at_k": 0.3333333333333333,
+          "mrr_at_k": 1.0
+        },
+        "5": {
+          "query_variants": [
+            "How many international nurses were supported for recruitment to NHS Grampian during 2022/23?"
+          ],
+          "retrieved_chunk_ids": [
+            "p0073_002",
+            "p0030_000",
+            "p0060_002",
+            "p0078_000",
+            "p0077_001"
+          ],
+          "retrieved_pages_ranked": [
+            73,
+            30,
+            60,
+            78,
+            77
+          ],
+          "retrieved_scores": [
+            0.6764824390411377,
+            0.5706081986427307,
+            0.5556597709655762,
+            0.5188901424407959,
+            0.5173485279083252
+          ],
+          "best_variant_per_chunk": [
+            "How many international nurses were supported for recruitment to NHS Grampian during 2022/23?",
+            "How many international nurses were supported for recruitment to NHS Grampian during 2022/23?",
+            "How many international nurses were supported for recruitment to NHS Grampian during 2022/23?",
+            "How many international nurses were supported for recruitment to NHS Grampian during 2022/23?",
+            "How many international nurses were supported for recruitment to NHS Grampian during 2022/23?"
+          ],
+          "recall_at_k": 1.0,
+          "precision_at_k": 0.2,
+          "mrr_at_k": 1.0
+        },
+        "10": {
+          "query_variants": [
+            "How many international nurses were supported for recruitment to NHS Grampian during 2022/23?"
+          ],
+          "retrieved_chunk_ids": [
+            "p0073_002",
+            "p0030_000",
+            "p0060_002",
+            "p0078_000",
+            "p0077_001",
+            "p0060_001",
+            "p0072_001",
+            "p0073_001",
+            "p0029_002",
+            "p0078_001"
+          ],
+          "retrieved_pages_ranked": [
+            73,
+            30,
+            60,
+            78,
+            77,
+            72,
+            29
+          ],
+          "retrieved_scores": [
+            0.6764824390411377,
+            0.5706081986427307,
+            0.5556597709655762,
+            0.5188901424407959,
+            0.5173485279083252,
+            0.5015292167663574,
+            0.5001569390296936,
+            0.4987596273422241,
+            0.49802911281585693,
+            0.49395427107810974
+          ],
+          "best_variant_per_chunk": [
+            "How many international nurses were supported for recruitment to NHS Grampian during 2022/23?",
+            "How many international nurses were supported for recruitment to NHS Grampian during 2022/23?",
+            "How many international nurses were supported for recruitment to NHS Grampian during 2022/23?",
+            "How many international nurses were supported for recruitment to NHS Grampian during 2022/23?",
+            "How many international nurses were supported for recruitment to NHS Grampian during 2022/23?",
+            "How many international nurses were supported for recruitment to NHS Grampian during 2022/23?",
+            "How many international nurses were supported for recruitment to NHS Grampian during 2022/23?",
+            "How many international nurses were supported for recruitment to NHS Grampian during 2022/23?",
+            "How many international nurses were supported for recruitment to NHS Grampian during 2022/23?",
+            "How many international nurses were supported for recruitment to NHS Grampian during 2022/23?"
+          ],
+          "recall_at_k": 1.0,
+          "precision_at_k": 0.14285714285714285,
+          "mrr_at_k": 1.0
+        }
+      }
+    },
+    {
+      "query_id": "Q_ACC_2023_05",
+      "question": "Which section introduces the workforce overview within the Remuneration and Staff Report?",
+      "answer_type": "text",
+      "expected_pages": [
+        72
+      ],
+      "query_variants": [
+        "Which section introduces the workforce overview within the Remuneration and Staff Report?",
+        "Which section introduces the workforce overview within the Remuneration and Staff Report? in staff cost table (employee benefits, pension, remuneration)"
+      ],
+      "per_k": {
+        "1": {
+          "query_variants": [
+            "Which section introduces the workforce overview within the Remuneration and Staff Report?",
+            "Which section introduces the workforce overview within the Remuneration and Staff Report? in staff cost table (employee benefits, pension, remuneration)"
+          ],
+          "retrieved_chunk_ids": [
+            "table_p0075"
+          ],
+          "retrieved_pages_ranked": [
+            75
+          ],
+          "retrieved_scores": [
+            0.5714513063430786
+          ],
+          "best_variant_per_chunk": [
+            "Which section introduces the workforce overview within the Remuneration and Staff Report? in staff cost table (employee benefits, pension, remuneration)"
+          ],
+          "recall_at_k": 0.0,
+          "precision_at_k": 0.0,
+          "mrr_at_k": 0.0
+        },
+        "3": {
+          "query_variants": [
+            "Which section introduces the workforce overview within the Remuneration and Staff Report?",
+            "Which section introduces the workforce overview within the Remuneration and Staff Report? in staff cost table (employee benefits, pension, remuneration)"
+          ],
+          "retrieved_chunk_ids": [
+            "table_p0075",
+            "p0066_002",
+            "p0066_001"
+          ],
+          "retrieved_pages_ranked": [
+            75,
+            66
+          ],
+          "retrieved_scores": [
+            0.5714513063430786,
+            0.5706152319908142,
+            0.5648740530014038
+          ],
+          "best_variant_per_chunk": [
+            "Which section introduces the workforce overview within the Remuneration and Staff Report? in staff cost table (employee benefits, pension, remuneration)",
+            "Which section introduces the workforce overview within the Remuneration and Staff Report? in staff cost table (employee benefits, pension, remuneration)",
+            "Which section introduces the workforce overview within the Remuneration and Staff Report? in staff cost table (employee benefits, pension, remuneration)"
+          ],
+          "recall_at_k": 0.0,
+          "precision_at_k": 0.0,
+          "mrr_at_k": 0.0
+        },
+        "5": {
+          "query_variants": [
+            "Which section introduces the workforce overview within the Remuneration and Staff Report?",
+            "Which section introduces the workforce overview within the Remuneration and Staff Report? in staff cost table (employee benefits, pension, remuneration)"
+          ],
+          "retrieved_chunk_ids": [
+            "table_p0075",
+            "p0066_002",
+            "p0066_001",
+            "table_p0070",
+            "p0065_000"
+          ],
+          "retrieved_pages_ranked": [
+            75,
+            66,
+            70,
+            65
+          ],
+          "retrieved_scores": [
+            0.5714513063430786,
+            0.5706152319908142,
+            0.5648740530014038,
+            0.5628166198730469,
+            0.5577329397201538
+          ],
+          "best_variant_per_chunk": [
+            "Which section introduces the workforce overview within the Remuneration and Staff Report? in staff cost table (employee benefits, pension, remuneration)",
+            "Which section introduces the workforce overview within the Remuneration and Staff Report? in staff cost table (employee benefits, pension, remuneration)",
+            "Which section introduces the workforce overview within the Remuneration and Staff Report? in staff cost table (employee benefits, pension, remuneration)",
+            "Which section introduces the workforce overview within the Remuneration and Staff Report? in staff cost table (employee benefits, pension, remuneration)",
+            "Which section introduces the workforce overview within the Remuneration and Staff Report? in staff cost table (employee benefits, pension, remuneration)"
+          ],
+          "recall_at_k": 0.0,
+          "precision_at_k": 0.0,
+          "mrr_at_k": 0.0
+        },
+        "10": {
+          "query_variants": [
+            "Which section introduces the workforce overview within the Remuneration and Staff Report?",
+            "Which section introduces the workforce overview within the Remuneration and Staff Report? in staff cost table (employee benefits, pension, remuneration)"
+          ],
+          "retrieved_chunk_ids": [
+            "table_p0075",
+            "p0066_002",
+            "p0066_001",
+            "table_p0070",
+            "p0065_000",
+            "table_p0068",
+            "p0002_000",
+            "p0079_000",
+            "p0044_000",
+            "table_p0071"
+          ],
+          "retrieved_pages_ranked": [
+            75,
+            66,
+            70,
+            65,
+            68,
+            2,
+            79,
+            44,
+            71
+          ],
+          "retrieved_scores": [
+            0.5714513063430786,
+            0.5706152319908142,
+            0.5648740530014038,
+            0.5628166198730469,
+            0.5577329397201538,
+            0.556465744972229,
+            0.5356838703155518,
+            0.5338500738143921,
+            0.5161354541778564,
+            0.5121500492095947
+          ],
+          "best_variant_per_chunk": [
+            "Which section introduces the workforce overview within the Remuneration and Staff Report? in staff cost table (employee benefits, pension, remuneration)",
+            "Which section introduces the workforce overview within the Remuneration and Staff Report? in staff cost table (employee benefits, pension, remuneration)",
+            "Which section introduces the workforce overview within the Remuneration and Staff Report? in staff cost table (employee benefits, pension, remuneration)",
+            "Which section introduces the workforce overview within the Remuneration and Staff Report? in staff cost table (employee benefits, pension, remuneration)",
+            "Which section introduces the workforce overview within the Remuneration and Staff Report? in staff cost table (employee benefits, pension, remuneration)",
+            "Which section introduces the workforce overview within the Remuneration and Staff Report? in staff cost table (employee benefits, pension, remuneration)",
+            "Which section introduces the workforce overview within the Remuneration and Staff Report? in staff cost table (employee benefits, pension, remuneration)",
+            "Which section introduces the workforce overview within the Remuneration and Staff Report? in staff cost table (employee benefits, pension, remuneration)",
+            "Which section introduces the workforce overview within the Remuneration and Staff Report? in staff cost table (employee benefits, pension, remuneration)",
+            "Which section introduces the workforce overview within the Remuneration and Staff Report? in staff cost table (employee benefits, pension, remuneration)"
+          ],
+          "recall_at_k": 0.0,
+          "precision_at_k": 0.0,
+          "mrr_at_k": 0.0
+        }
+      }
+    },
+    {
+      "query_id": "Q_ACC_2023_06",
+      "question": "What standard does NHS Grampian work towards to ensure good staff governance?",
+      "answer_type": "text",
+      "expected_pages": [
+        72
+      ],
+      "query_variants": [
+        "What standard does NHS Grampian work towards to ensure good staff governance?"
+      ],
+      "per_k": {
+        "1": {
+          "query_variants": [
+            "What standard does NHS Grampian work towards to ensure good staff governance?"
+          ],
+          "retrieved_chunk_ids": [
+            "p0072_000"
+          ],
+          "retrieved_pages_ranked": [
+            72
+          ],
+          "retrieved_scores": [
+            0.7731828689575195
+          ],
+          "best_variant_per_chunk": [
+            "What standard does NHS Grampian work towards to ensure good staff governance?"
+          ],
+          "recall_at_k": 1.0,
+          "precision_at_k": 1.0,
+          "mrr_at_k": 1.0
+        },
+        "3": {
+          "query_variants": [
+            "What standard does NHS Grampian work towards to ensure good staff governance?"
+          ],
+          "retrieved_chunk_ids": [
+            "p0072_000",
+            "p0043_001",
+            "p0036_002"
+          ],
+          "retrieved_pages_ranked": [
+            72,
+            43,
+            36
+          ],
+          "retrieved_scores": [
+            0.7731828689575195,
+            0.72884202003479,
+            0.7214870452880859
+          ],
+          "best_variant_per_chunk": [
+            "What standard does NHS Grampian work towards to ensure good staff governance?",
+            "What standard does NHS Grampian work towards to ensure good staff governance?",
+            "What standard does NHS Grampian work towards to ensure good staff governance?"
+          ],
+          "recall_at_k": 1.0,
+          "precision_at_k": 0.3333333333333333,
+          "mrr_at_k": 1.0
+        },
+        "5": {
+          "query_variants": [
+            "What standard does NHS Grampian work towards to ensure good staff governance?"
+          ],
+          "retrieved_chunk_ids": [
+            "p0072_000",
+            "p0043_001",
+            "p0036_002",
+            "p0043_002",
+            "p0060_000"
+          ],
+          "retrieved_pages_ranked": [
+            72,
+            43,
+            36,
+            60
+          ],
+          "retrieved_scores": [
+            0.7731828689575195,
+            0.72884202003479,
+            0.7214870452880859,
+            0.7196992039680481,
+            0.7037110328674316
+          ],
+          "best_variant_per_chunk": [
+            "What standard does NHS Grampian work towards to ensure good staff governance?",
+            "What standard does NHS Grampian work towards to ensure good staff governance?",
+            "What standard does NHS Grampian work towards to ensure good staff governance?",
+            "What standard does NHS Grampian work towards to ensure good staff governance?",
+            "What standard does NHS Grampian work towards to ensure good staff governance?"
+          ],
+          "recall_at_k": 1.0,
+          "precision_at_k": 0.25,
+          "mrr_at_k": 1.0
+        },
+        "10": {
+          "query_variants": [
+            "What standard does NHS Grampian work towards to ensure good staff governance?"
+          ],
+          "retrieved_chunk_ids": [
+            "p0072_000",
+            "p0043_001",
+            "p0036_002",
+            "p0043_002",
+            "p0060_000",
+            "p0044_000",
+            "p0036_001",
+            "p0042_000",
+            "p0048_000",
+            "p0050_000"
+          ],
+          "retrieved_pages_ranked": [
+            72,
+            43,
+            36,
+            60,
+            44,
+            42,
+            48,
+            50
+          ],
+          "retrieved_scores": [
+            0.7731828689575195,
+            0.72884202003479,
+            0.7214870452880859,
+            0.7196992039680481,
+            0.7037110328674316,
+            0.6951795220375061,
+            0.6833691596984863,
+            0.6740989685058594,
+            0.6729497313499451,
+            0.6706510782241821
+          ],
+          "best_variant_per_chunk": [
+            "What standard does NHS Grampian work towards to ensure good staff governance?",
+            "What standard does NHS Grampian work towards to ensure good staff governance?",
+            "What standard does NHS Grampian work towards to ensure good staff governance?",
+            "What standard does NHS Grampian work towards to ensure good staff governance?",
+            "What standard does NHS Grampian work towards to ensure good staff governance?",
+            "What standard does NHS Grampian work towards to ensure good staff governance?",
+            "What standard does NHS Grampian work towards to ensure good staff governance?",
+            "What standard does NHS Grampian work towards to ensure good staff governance?",
+            "What standard does NHS Grampian work towards to ensure good staff governance?",
+            "What standard does NHS Grampian work towards to ensure good staff governance?"
+          ],
+          "recall_at_k": 1.0,
+          "precision_at_k": 0.125,
+          "mrr_at_k": 1.0
+        }
+      }
+    },
+    {
+      "query_id": "Q_ACC_2023_07",
+      "question": "Which three workforce priorities are referenced as agreed priorities for 2022/23?",
+      "answer_type": "list",
+      "expected_pages": [
+        72
+      ],
+      "query_variants": [
+        "Which three workforce priorities are referenced as agreed priorities for 2022/23?"
+      ],
+      "per_k": {
+        "1": {
+          "query_variants": [
+            "Which three workforce priorities are referenced as agreed priorities for 2022/23?"
+          ],
+          "retrieved_chunk_ids": [
+            "p0006_001"
+          ],
+          "retrieved_pages_ranked": [
+            6
+          ],
+          "retrieved_scores": [
+            0.47879165410995483
+          ],
+          "best_variant_per_chunk": [
+            "Which three workforce priorities are referenced as agreed priorities for 2022/23?"
+          ],
+          "recall_at_k": 0.0,
+          "precision_at_k": 0.0,
+          "mrr_at_k": 0.0
+        },
+        "3": {
+          "query_variants": [
+            "Which three workforce priorities are referenced as agreed priorities for 2022/23?"
+          ],
+          "retrieved_chunk_ids": [
+            "p0006_001",
+            "p0006_000",
+            "p0051_000"
+          ],
+          "retrieved_pages_ranked": [
+            6,
+            51
+          ],
+          "retrieved_scores": [
+            0.47879165410995483,
+            0.47645601630210876,
+            0.45167478919029236
+          ],
+          "best_variant_per_chunk": [
+            "Which three workforce priorities are referenced as agreed priorities for 2022/23?",
+            "Which three workforce priorities are referenced as agreed priorities for 2022/23?",
+            "Which three workforce priorities are referenced as agreed priorities for 2022/23?"
+          ],
+          "recall_at_k": 0.0,
+          "precision_at_k": 0.0,
+          "mrr_at_k": 0.0
+        },
+        "5": {
+          "query_variants": [
+            "Which three workforce priorities are referenced as agreed priorities for 2022/23?"
+          ],
+          "retrieved_chunk_ids": [
+            "p0006_001",
+            "p0006_000",
+            "p0051_000",
+            "p0072_001",
+            "p0006_002"
+          ],
+          "retrieved_pages_ranked": [
+            6,
+            51,
+            72
+          ],
+          "retrieved_scores": [
+            0.47879165410995483,
+            0.47645601630210876,
+            0.45167478919029236,
+            0.42322254180908203,
+            0.4207172393798828
+          ],
+          "best_variant_per_chunk": [
+            "Which three workforce priorities are referenced as agreed priorities for 2022/23?",
+            "Which three workforce priorities are referenced as agreed priorities for 2022/23?",
+            "Which three workforce priorities are referenced as agreed priorities for 2022/23?",
+            "Which three workforce priorities are referenced as agreed priorities for 2022/23?",
+            "Which three workforce priorities are referenced as agreed priorities for 2022/23?"
+          ],
+          "recall_at_k": 1.0,
+          "precision_at_k": 0.3333333333333333,
+          "mrr_at_k": 0.3333333333333333
+        },
+        "10": {
+          "query_variants": [
+            "Which three workforce priorities are referenced as agreed priorities for 2022/23?"
+          ],
+          "retrieved_chunk_ids": [
+            "p0006_001",
+            "p0006_000",
+            "p0051_000",
+            "p0072_001",
+            "p0006_002",
+            "p0073_001",
+            "p0067_000",
+            "p0008_000",
+            "p0007_000",
+            "p0049_001"
+          ],
+          "retrieved_pages_ranked": [
+            6,
+            51,
+            72,
+            73,
+            67,
+            8,
+            7,
+            49
+          ],
+          "retrieved_scores": [
+            0.47879165410995483,
+            0.47645601630210876,
+            0.45167478919029236,
+            0.42322254180908203,
+            0.4207172393798828,
+            0.41692519187927246,
+            0.3994429111480713,
+            0.3970634937286377,
+            0.3669712245464325,
+            0.3663056790828705
+          ],
+          "best_variant_per_chunk": [
+            "Which three workforce priorities are referenced as agreed priorities for 2022/23?",
+            "Which three workforce priorities are referenced as agreed priorities for 2022/23?",
+            "Which three workforce priorities are referenced as agreed priorities for 2022/23?",
+            "Which three workforce priorities are referenced as agreed priorities for 2022/23?",
+            "Which three workforce priorities are referenced as agreed priorities for 2022/23?",
+            "Which three workforce priorities are referenced as agreed priorities for 2022/23?",
+            "Which three workforce priorities are referenced as agreed priorities for 2022/23?",
+            "Which three workforce priorities are referenced as agreed priorities for 2022/23?",
+            "Which three workforce priorities are referenced as agreed priorities for 2022/23?",
+            "Which three workforce priorities are referenced as agreed priorities for 2022/23?"
+          ],
+          "recall_at_k": 1.0,
+          "precision_at_k": 0.125,
+          "mrr_at_k": 0.3333333333333333
+        }
+      }
+    },
+    {
+      "query_id": "Q_ACC_2023_08",
+      "question": "What staffing approach was used to support service demand and workforce gaps during 2022/23?",
+      "answer_type": "text",
+      "expected_pages": [
+        72
+      ],
+      "query_variants": [
+        "What staffing approach was used to support service demand and workforce gaps during 2022/23?"
+      ],
+      "per_k": {
+        "1": {
+          "query_variants": [
+            "What staffing approach was used to support service demand and workforce gaps during 2022/23?"
+          ],
+          "retrieved_chunk_ids": [
+            "p0073_001"
+          ],
+          "retrieved_pages_ranked": [
+            73
+          ],
+          "retrieved_scores": [
+            0.5294899940490723
+          ],
+          "best_variant_per_chunk": [
+            "What staffing approach was used to support service demand and workforce gaps during 2022/23?"
+          ],
+          "recall_at_k": 0.0,
+          "precision_at_k": 0.0,
+          "mrr_at_k": 0.0
+        },
+        "3": {
+          "query_variants": [
+            "What staffing approach was used to support service demand and workforce gaps during 2022/23?"
+          ],
+          "retrieved_chunk_ids": [
+            "p0073_001",
+            "p0072_001",
+            "p0072_000"
+          ],
+          "retrieved_pages_ranked": [
+            73,
+            72
+          ],
+          "retrieved_scores": [
+            0.5294899940490723,
+            0.47085630893707275,
+            0.4542444348335266
+          ],
+          "best_variant_per_chunk": [
+            "What staffing approach was used to support service demand and workforce gaps during 2022/23?",
+            "What staffing approach was used to support service demand and workforce gaps during 2022/23?",
+            "What staffing approach was used to support service demand and workforce gaps during 2022/23?"
+          ],
+          "recall_at_k": 1.0,
+          "precision_at_k": 0.5,
+          "mrr_at_k": 0.5
+        },
+        "5": {
+          "query_variants": [
+            "What staffing approach was used to support service demand and workforce gaps during 2022/23?"
+          ],
+          "retrieved_chunk_ids": [
+            "p0073_001",
+            "p0072_001",
+            "p0072_000",
+            "p0006_002",
+            "p0078_001"
+          ],
+          "retrieved_pages_ranked": [
+            73,
+            72,
+            6,
+            78
+          ],
+          "retrieved_scores": [
+            0.5294899940490723,
+            0.47085630893707275,
+            0.4542444348335266,
+            0.43940842151641846,
+            0.4282214939594269
+          ],
+          "best_variant_per_chunk": [
+            "What staffing approach was used to support service demand and workforce gaps during 2022/23?",
+            "What staffing approach was used to support service demand and workforce gaps during 2022/23?",
+            "What staffing approach was used to support service demand and workforce gaps during 2022/23?",
+            "What staffing approach was used to support service demand and workforce gaps during 2022/23?",
+            "What staffing approach was used to support service demand and workforce gaps during 2022/23?"
+          ],
+          "recall_at_k": 1.0,
+          "precision_at_k": 0.25,
+          "mrr_at_k": 0.5
+        },
+        "10": {
+          "query_variants": [
+            "What staffing approach was used to support service demand and workforce gaps during 2022/23?"
+          ],
+          "retrieved_chunk_ids": [
+            "p0073_001",
+            "p0072_001",
+            "p0072_000",
+            "p0006_002",
+            "p0078_001",
+            "p0078_000",
+            "p0073_000",
+            "p0074_000",
+            "p0060_002",
+            "p0060_000"
+          ],
+          "retrieved_pages_ranked": [
+            73,
+            72,
+            6,
+            78,
+            74,
+            60
+          ],
+          "retrieved_scores": [
+            0.5294899940490723,
+            0.47085630893707275,
+            0.4542444348335266,
+            0.43940842151641846,
+            0.4282214939594269,
+            0.42767876386642456,
+            0.42412465810775757,
+            0.42274221777915955,
+            0.4220316410064697,
+            0.4087061285972595
+          ],
+          "best_variant_per_chunk": [
+            "What staffing approach was used to support service demand and workforce gaps during 2022/23?",
+            "What staffing approach was used to support service demand and workforce gaps during 2022/23?",
+            "What staffing approach was used to support service demand and workforce gaps during 2022/23?",
+            "What staffing approach was used to support service demand and workforce gaps during 2022/23?",
+            "What staffing approach was used to support service demand and workforce gaps during 2022/23?",
+            "What staffing approach was used to support service demand and workforce gaps during 2022/23?",
+            "What staffing approach was used to support service demand and workforce gaps during 2022/23?",
+            "What staffing approach was used to support service demand and workforce gaps during 2022/23?",
+            "What staffing approach was used to support service demand and workforce gaps during 2022/23?",
+            "What staffing approach was used to support service demand and workforce gaps during 2022/23?"
+          ],
+          "recall_at_k": 1.0,
+          "precision_at_k": 0.16666666666666666,
+          "mrr_at_k": 0.5
+        }
+      }
+    }
+  ]
+}

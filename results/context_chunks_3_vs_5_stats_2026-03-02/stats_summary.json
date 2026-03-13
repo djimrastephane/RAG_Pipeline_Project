@@ -1,0 +1,14 @@
+{
+  "n_queries_sampled": 50,
+  "n_pairs_scored": 50,
+  "acc_chunks3": 0.08,
+  "acc_chunks5": 0.08,
+  "delta_acc_chunks3_minus_chunks5": 0.0,
+  "bootstrap_B": 1000,
+  "bootstrap_ci95_low": 0.0,
+  "bootstrap_ci95_high": 0.0,
+  "mcnemar_n10_3better": 0,
+  "mcnemar_n01_5better": 0,
+  "mcnemar_pvalue_two_sided": 1.0,
+  "ci_includes_zero": true
+}

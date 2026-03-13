@@ -1,0 +1,2 @@
+doc_id,n_chunks,n_eval_questions,topk,seed,sample_size_random_pairs,random_cos_mean,random_cos_std,retrieved_topk_mean,retrieved_topk_std,retrieved_top1_mean,retrieved_top1_std,delta_retrieved_topk_minus_random_mean
+Grampian-2024-2025,356,50,5,42,20000,0.415740430355072,0.14753668010234833,0.5488961338996887,0.1081530898809433,0.5991097092628479,0.10188906639814377,0.1331557035446167

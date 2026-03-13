@@ -1,0 +1,152 @@
+{
+  "run_info": {
+    "run_utc": "2026-02-20T12:50:10+00:00",
+    "data_dir": "data_processed_280_120/Grampian-2023-2024",
+    "index_path": "data_processed_280_120/Grampian-2023-2024/faiss.index",
+    "meta_path": "data_processed_280_120/Grampian-2023-2024/chunk_meta.parquet",
+    "table_facts_path": "data_processed_280_120/Grampian-2023-2024/table_facts.parquet",
+    "eval_set_path": "data_processed_280_120/Grampian-2023-2024/eval_set.json",
+    "embedding_model": "models/all-MiniLM-L6-v2",
+    "k_list": [
+      1,
+      3,
+      5,
+      10
+    ],
+    "subsection_boost": 0.05,
+    "table_chunk_boost": 0.08,
+    "milestone_text_boost": 0.08,
+    "entity_match_boost": 0.04,
+    "numeric_density_boost": 0.03,
+    "max_entity_matches": 4,
+    "enable_lexical_rerank": true,
+    "enable_subsection_boost": true,
+    "max_k_search": 100,
+    "num_queries": 35,
+    "num_chunks_indexed": 330,
+    "num_table_facts": 3834,
+    "meta_doc_ids": [
+      "Grampian-2023-2024"
+    ],
+    "query_id_nomenclature": "Q_<TOPIC>_<YEAR>_<NN> with TOPIC in [REV,EFF,DEF,STAFF,ACC,GOV,TABLE]",
+    "failure_attribution": {
+      "retrieval_stages": [
+        "hit",
+        "missed_top_ranked",
+        "missing_content"
+      ],
+      "failure_types": [
+        "FP1_MISSING_CONTENT",
+        "FP2_MISSED_TOP_RANK",
+        "FP3_NOT_IN_CONTEXT",
+        "FP4_NOT_EXTRACTED",
+        "FP5_WRONG_FORMAT",
+        "FP6_INCORRECT_SPECIFICITY",
+        "FP7_INCOMPLETE",
+        "HIT"
+      ],
+      "scope": "retrieval_and_generation"
+    },
+    "leakage_detection": {
+      "enabled": true,
+      "requires_expected_doc_id": true,
+      "fields": [
+        "retrieved_doc_ids_top_k",
+        "leakage_count_top_k",
+        "leakage_doc_ids_top_k",
+        "leakage_rate_top_k"
+      ]
+    }
+  },
+  "metrics_by_k": {
+    "1": {
+      "num_queries": 35,
+      "page_hit_rate_at_k": 0.45714285714285713,
+      "mean_page_recall_at_k": 0.45714285714285713,
+      "mean_page_precision_at_k": 0.45714285714285713,
+      "mean_page_mrr_at_k": 0.45714285714285713,
+      "chunk_hit_rate_at_k": 0.45714285714285713,
+      "mean_chunk_precision_at_k": 0.45714285714285713,
+      "mean_chunk_mrr_at_k": 0.45714285714285713
+    },
+    "3": {
+      "num_queries": 35,
+      "page_hit_rate_at_k": 0.8,
+      "mean_page_recall_at_k": 0.8,
+      "mean_page_precision_at_k": 0.3142857142857142,
+      "mean_page_mrr_at_k": 0.6142857142857143,
+      "chunk_hit_rate_at_k": 0.8,
+      "mean_chunk_precision_at_k": 0.34285714285714286,
+      "mean_chunk_mrr_at_k": 0.6142857142857143
+    },
+    "5": {
+      "num_queries": 35,
+      "page_hit_rate_at_k": 0.8285714285714286,
+      "mean_page_recall_at_k": 0.8285714285714286,
+      "mean_page_precision_at_k": 0.20809523809523808,
+      "mean_page_mrr_at_k": 0.62,
+      "chunk_hit_rate_at_k": 0.8285714285714286,
+      "mean_chunk_precision_at_k": 0.2571428571428572,
+      "mean_chunk_mrr_at_k": 0.62
+    },
+    "10": {
+      "num_queries": 35,
+      "page_hit_rate_at_k": 0.9142857142857143,
+      "mean_page_recall_at_k": 0.9142857142857143,
+      "mean_page_precision_at_k": 0.11819727891156462,
+      "mean_page_mrr_at_k": 0.6353061224489797,
+      "chunk_hit_rate_at_k": 0.9142857142857143,
+      "mean_chunk_precision_at_k": 0.14857142857142855,
+      "mean_chunk_mrr_at_k": 0.6315079365079365
+    }
+  },
+  "failure_counts_by_k": {
+    "1": {
+      "missed_top_ranked": 19,
+      "hit": 16
+    },
+    "3": {
+      "hit": 28,
+      "missed_top_ranked": 7
+    },
+    "5": {
+      "hit": 29,
+      "missed_top_ranked": 6
+    },
+    "10": {
+      "hit": 32,
+      "missed_top_ranked": 3
+    }
+  },
+  "leakage_counts_by_k": {
+    "1": {
+      "num_queries": 35,
+      "any_leakage_rate_at_k": 0.0,
+      "mean_leakage_rate_at_k": 0.0
+    },
+    "3": {
+      "num_queries": 35,
+      "any_leakage_rate_at_k": 0.0,
+      "mean_leakage_rate_at_k": 0.0
+    },
+    "5": {
+      "num_queries": 35,
+      "any_leakage_rate_at_k": 0.0,
+      "mean_leakage_rate_at_k": 0.0
+    },
+    "10": {
+      "num_queries": 35,
+      "any_leakage_rate_at_k": 0.0,
+      "mean_leakage_rate_at_k": 0.0
+    }
+  },
+  "answer_scoring": {
+    "num_queries_total": 35,
+    "num_queries_scored": 30,
+    "answer_accuracy": 0.06666666666666667,
+    "answer_status_counts": {
+      "incorrect": 28,
+      "correct": 2
+    }
+  }
+}

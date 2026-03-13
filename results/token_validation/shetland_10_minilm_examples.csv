@@ -1,0 +1,4 @@
+doc_id,chunk_id,tiktoken_tokens,minilm_tokens,result
+Shetland-2019-2020,p0009_002,260,238,OK
+Shetland-2024-2025,p0005_000,260,257,truncated to 256
+Shetland-2017-2018,p0050_001,260,258,truncated to 256

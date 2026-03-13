@@ -1,0 +1,2 @@
+doc_id,n_chunks,n_eval_queries_total,n_eval_queries_used,n_relevant_samples,n_nonrelevant_samples,relevant_mean,relevant_std,nonrelevant_mean,nonrelevant_std,delta_relevant_minus_nonrelevant_mean,negative_sample_ratio,seed
+Grampian-2022-2023,355,50,50,159,159,0.499114990234375,0.1333661675453186,0.29492491483688354,0.13197480142116547,0.20419007539749146,1.0,42

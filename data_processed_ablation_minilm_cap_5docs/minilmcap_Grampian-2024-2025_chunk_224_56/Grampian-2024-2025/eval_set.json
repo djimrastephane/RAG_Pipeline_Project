@@ -1,0 +1,1080 @@
+{
+  "_meta": {
+    "dataset_name": "Grampian-2024-2025 Retrieval Gold Set",
+    "description": "Gold evaluation set for page-level retrieval benchmarking on NHS Grampian Annual Report 2024-2025.",
+    "doc_id": "Grampian-2024-2025",
+    "query_id_format": "Q_<YEAR>_<CATEGORY>_<INDEX>",
+    "year_note": "2025 refers to financial year 2024-2025.",
+    "category_codes": {
+      "FIN": "Core financial performance (deficit, revenue limits, capital limits, expenditure)",
+      "SAV": "Efficiency savings and cost improvement measures",
+      "IJB": "Integration Joint Board financial performance",
+      "AE": "A&E and emergency department performance metrics",
+      "GOV": "Governance and statutory financial controls",
+      "STR": "Strategic framework and long-term planning",
+      "DEL": "Delivery Plan milestones and operational performance metrics",
+      "ESC": "Escalation under NHS Scotland Support and Intervention Framework",
+      "PLAN": "Forward financial planning statements",
+      "GOPES": "Grampian Operational Pressure Escalation System"
+    },
+    "paraphrase_marker": "Queries with suffix _P1, _P2 indicate semantic paraphrase stress tests.",
+    "annotation_guidelines": "Each query includes expected_pages and expected_answer. expected_answer must match the source page exactly.",
+    "difficulty_definition": {
+      "LEX": "High lexical overlap with document phrasing. Minimal semantic abstraction required.",
+      "MOD": "Moderate paraphrase. Synonyms or minor phrasing changes require semantic matching.",
+      "STR": "Strong paraphrase or conceptual query. Requires abstraction, aggregation, or non-trivial semantic mapping."
+    }
+  },
+  "queries": [
+    {
+      "query_id": "Q_2025_FIN_01",
+      "question": "What ceiling did the Scottish Government place on NHS Grampian's core operational spending for 2024/25?",
+      "expected_pages": [
+        28
+      ],
+      "expected_answer": "\u00a31,559,285 (\u00a3000)",
+      "answer_type": "number",
+      "difficulty": "STR",
+      "doc_id": "Grampian-2024-2025",
+      "year": 2025,
+      "evidence_layout": "table",
+      "expected_section": "PERFORMANCE REPORT",
+      "expected_subsection": "B PERFORMANCE ANALYSIS",
+      "filter_hints": {
+        "scope_doc_id": true,
+        "scope_year": true,
+        "prefer_evidence_layout": "table",
+        "prefer_table_chunks": true
+      }
+    },
+    {
+      "query_id": "Q_2025_FIN_02",
+      "question": "How much did NHS Grampian actually spend against its core resource budget in 2024/25?",
+      "expected_pages": [
+        28
+      ],
+      "expected_answer": "\u00a31,559,032 (\u00a3000)",
+      "answer_type": "number",
+      "difficulty": "MOD",
+      "doc_id": "Grampian-2024-2025",
+      "year": 2025,
+      "evidence_layout": "table",
+      "expected_section": "PERFORMANCE REPORT",
+      "expected_subsection": "B PERFORMANCE ANALYSIS",
+      "filter_hints": {
+        "scope_doc_id": true,
+        "scope_year": true,
+        "prefer_evidence_layout": "table",
+        "prefer_table_chunks": true
+      }
+    },
+    {
+      "query_id": "Q_2025_FIN_03",
+      "question": "By how much did NHS Grampian's actual core expenditure differ from its revenue resource limit in 2024/25?",
+      "expected_pages": [
+        28
+      ],
+      "expected_answer": "\u00a3253 (\u00a3000)",
+      "answer_type": "number",
+      "difficulty": "MOD",
+      "doc_id": "Grampian-2024-2025",
+      "year": 2025,
+      "evidence_layout": "table",
+      "expected_section": "PERFORMANCE REPORT",
+      "expected_subsection": "B PERFORMANCE ANALYSIS",
+      "filter_hints": {
+        "scope_doc_id": true,
+        "scope_year": true,
+        "prefer_evidence_layout": "table",
+        "prefer_table_chunks": true
+      }
+    },
+    {
+      "query_id": "Q_2025_FIN_04",
+      "question": "What was the Cash Requirement limit for NHS Grampian in 2024/25?",
+      "expected_pages": [
+        28
+      ],
+      "expected_answer": "\u00a31,706,002 (\u00a3000)",
+      "answer_type": "number",
+      "difficulty": "LEX",
+      "doc_id": "Grampian-2024-2025",
+      "year": 2025,
+      "evidence_layout": "table",
+      "expected_section": "PERFORMANCE REPORT",
+      "expected_subsection": "B PERFORMANCE ANALYSIS",
+      "filter_hints": {
+        "scope_doc_id": true,
+        "scope_year": true,
+        "prefer_evidence_layout": "table",
+        "prefer_table_chunks": true
+      }
+    },
+    {
+      "query_id": "Q_2025_FIN_05",
+      "question": "What was the underlying deficit against the Core Revenue Resource Limit in 2024/25?",
+      "expected_pages": [
+        29
+      ],
+      "expected_answer": "\u00a364,947 (\u00a3000), 4.17%",
+      "answer_type": "number",
+      "difficulty": "LEX",
+      "doc_id": "Grampian-2024-2025",
+      "year": 2025,
+      "evidence_layout": "paragraph",
+      "expected_section": "PERFORMANCE REPORT",
+      "expected_subsection": "B PERFORMANCE ANALYSIS",
+      "filter_hints": {
+        "scope_doc_id": true,
+        "scope_year": true,
+        "prefer_evidence_layout": "paragraph",
+        "prefer_table_chunks": false
+      }
+    },
+    {
+      "query_id": "Q_2025_FIN_06",
+      "question": "What fraction of the core resource allocation did NHS Grampian's structural financial shortfall represent in 2024/25?",
+      "expected_pages": [
+        29
+      ],
+      "expected_answer": "4.17%",
+      "answer_type": "number",
+      "difficulty": "STR",
+      "doc_id": "Grampian-2024-2025",
+      "year": 2025,
+      "evidence_layout": "paragraph",
+      "expected_section": "PERFORMANCE REPORT",
+      "expected_subsection": "B PERFORMANCE ANALYSIS",
+      "filter_hints": {
+        "scope_doc_id": true,
+        "scope_year": true,
+        "prefer_evidence_layout": "paragraph",
+        "prefer_table_chunks": false
+      }
+    },
+    {
+      "query_id": "Q_2025_FIN_07",
+      "question": "How much repayable brokerage was provided by the Scottish Government in 2024/25?",
+      "expected_pages": [
+        29
+      ],
+      "expected_answer": "\u00a365,200 (\u00a3000)",
+      "answer_type": "number",
+      "difficulty": "LEX",
+      "doc_id": "Grampian-2024-2025",
+      "year": 2025,
+      "evidence_layout": "paragraph",
+      "expected_section": "PERFORMANCE REPORT",
+      "expected_subsection": "B PERFORMANCE ANALYSIS",
+      "filter_hints": {
+        "scope_doc_id": true,
+        "scope_year": true,
+        "prefer_evidence_layout": "paragraph",
+        "prefer_table_chunks": false
+      }
+    },
+    {
+      "query_id": "Q_2025_FIN_P1",
+      "question": "What was the projected deficit in the financial plan submitted to the Scottish Government for 2024/25?",
+      "expected_pages": [
+        29
+      ],
+      "expected_answer": "\u00a359.1 million deficit after forecasting savings of \u00a334.9 million",
+      "answer_type": "number",
+      "difficulty": "MOD",
+      "doc_id": "Grampian-2024-2025",
+      "year": 2025,
+      "evidence_layout": "paragraph",
+      "expected_section": "PERFORMANCE REPORT",
+      "expected_subsection": "B PERFORMANCE ANALYSIS",
+      "filter_hints": {
+        "scope_doc_id": true,
+        "scope_year": true,
+        "prefer_evidence_layout": "paragraph",
+        "prefer_table_chunks": false
+      }
+    },
+    {
+      "query_id": "Q_2025_FIN_08",
+      "question": "How much was NHS Grampian's total net expenditure across all services in 2024/25?",
+      "expected_pages": [
+        31
+      ],
+      "expected_answer": "\u00a31,681 million",
+      "answer_type": "number",
+      "difficulty": "MOD",
+      "doc_id": "Grampian-2024-2025",
+      "year": 2025,
+      "evidence_layout": "paragraph",
+      "expected_section": "PERFORMANCE REPORT",
+      "expected_subsection": "B PERFORMANCE ANALYSIS",
+      "filter_hints": {
+        "scope_doc_id": true,
+        "scope_year": true,
+        "prefer_evidence_layout": "paragraph",
+        "prefer_table_chunks": false
+      }
+    },
+    {
+      "query_id": "Q_2025_FIN_09",
+      "question": "By how much did net expenditure increase compared to 2023/24?",
+      "expected_pages": [
+        31
+      ],
+      "expected_answer": "\u00a3116 million (from \u00a31,565 million in 2023/24)",
+      "answer_type": "number",
+      "difficulty": "LEX",
+      "doc_id": "Grampian-2024-2025",
+      "year": 2025,
+      "evidence_layout": "paragraph",
+      "expected_section": "PERFORMANCE REPORT",
+      "expected_subsection": "B PERFORMANCE ANALYSIS",
+      "filter_hints": {
+        "scope_doc_id": true,
+        "scope_year": true,
+        "prefer_evidence_layout": "paragraph",
+        "prefer_table_chunks": false
+      }
+    },
+    {
+      "query_id": "Q_2025_FIN_P2",
+      "question": "What was the Total Revenue Resource Limit for 2024/25?",
+      "expected_pages": [
+        28
+      ],
+      "expected_answer": "\u00a31,599,504 (\u00a3000)",
+      "answer_type": "number",
+      "difficulty": "LEX",
+      "doc_id": "Grampian-2024-2025",
+      "year": 2025,
+      "evidence_layout": "table",
+      "expected_section": "PERFORMANCE REPORT",
+      "expected_subsection": "B PERFORMANCE ANALYSIS",
+      "filter_hints": {
+        "scope_doc_id": true,
+        "scope_year": true,
+        "prefer_evidence_layout": "table",
+        "prefer_table_chunks": true
+      }
+    },
+    {
+      "query_id": "Q_2025_SAV_01",
+      "question": "What cost reduction obligation did NHS Grampian face for 2024/25, and by how much was it exceeded?",
+      "expected_pages": [
+        31
+      ],
+      "expected_answer": "\u00a350.5 million",
+      "answer_type": "number",
+      "difficulty": "STR",
+      "doc_id": "Grampian-2024-2025",
+      "year": 2025,
+      "evidence_layout": "paragraph",
+      "expected_section": "PERFORMANCE REPORT",
+      "expected_subsection": "B PERFORMANCE ANALYSIS",
+      "filter_hints": {
+        "scope_doc_id": true,
+        "scope_year": true,
+        "prefer_evidence_layout": "paragraph",
+        "prefer_table_chunks": false
+      }
+    },
+    {
+      "query_id": "Q_2025_SAV_02",
+      "question": "What was the total cost-saving obligation placed on NHS Grampian for 2024/25?",
+      "expected_pages": [
+        31
+      ],
+      "expected_answer": "\u00a334.9 million",
+      "answer_type": "number",
+      "difficulty": "MOD",
+      "doc_id": "Grampian-2024-2025",
+      "year": 2025,
+      "evidence_layout": "paragraph",
+      "expected_section": "PERFORMANCE REPORT",
+      "expected_subsection": "B PERFORMANCE ANALYSIS",
+      "filter_hints": {
+        "scope_doc_id": true,
+        "scope_year": true,
+        "prefer_evidence_layout": "paragraph",
+        "prefer_table_chunks": false
+      }
+    },
+    {
+      "query_id": "Q_2025_SAV_03",
+      "question": "What proportion of the 2024/25 savings were of a recurring nature?",
+      "expected_pages": [
+        31
+      ],
+      "expected_answer": "\u00a325.2 million",
+      "answer_type": "number",
+      "difficulty": "MOD",
+      "doc_id": "Grampian-2024-2025",
+      "year": 2025,
+      "evidence_layout": "paragraph",
+      "expected_section": "PERFORMANCE REPORT",
+      "expected_subsection": "B PERFORMANCE ANALYSIS",
+      "filter_hints": {
+        "scope_doc_id": true,
+        "scope_year": true,
+        "prefer_evidence_layout": "paragraph",
+        "prefer_table_chunks": false
+      }
+    },
+    {
+      "query_id": "Q_2025_SAV_04",
+      "question": "How much of the 2024/25 efficiency savings were non-recurring?",
+      "expected_pages": [
+        31
+      ],
+      "expected_answer": "\u00a325.3 million",
+      "answer_type": "number",
+      "difficulty": "LEX",
+      "doc_id": "Grampian-2024-2025",
+      "year": 2025,
+      "evidence_layout": "paragraph",
+      "expected_section": "PERFORMANCE REPORT",
+      "expected_subsection": "B PERFORMANCE ANALYSIS",
+      "filter_hints": {
+        "scope_doc_id": true,
+        "scope_year": true,
+        "prefer_evidence_layout": "paragraph",
+        "prefer_table_chunks": false
+      }
+    },
+    {
+      "query_id": "Q_2025_SAV_P1",
+      "question": "What were the main sources of efficiency savings delivered in 2024/25?",
+      "expected_pages": [
+        31
+      ],
+      "expected_answer": "Agency spend including medical locum and nursing costs, hospital drug cost savings from switching to generic medicines, staff cost control including vacancy freeze and overtime reduction, procurement, increased catering charges",
+      "answer_type": "text",
+      "difficulty": "MOD",
+      "doc_id": "Grampian-2024-2025",
+      "year": 2025,
+      "evidence_layout": "paragraph",
+      "expected_section": "PERFORMANCE REPORT",
+      "expected_subsection": "B PERFORMANCE ANALYSIS",
+      "filter_hints": {
+        "scope_doc_id": true,
+        "scope_year": true,
+        "prefer_evidence_layout": "paragraph",
+        "prefer_table_chunks": false
+      }
+    },
+    {
+      "query_id": "Q_2025_SAV_P2",
+      "question": "By how much did NHS Grampian exceed its savings target in 2024/25?",
+      "expected_pages": [
+        31
+      ],
+      "expected_answer": "Exceeded by \u00a315.6 million (delivered \u00a350.5 million against target of \u00a334.9 million)",
+      "answer_type": "number",
+      "difficulty": "MOD",
+      "doc_id": "Grampian-2024-2025",
+      "year": 2025,
+      "evidence_layout": "paragraph",
+      "expected_section": "PERFORMANCE REPORT",
+      "expected_subsection": "B PERFORMANCE ANALYSIS",
+      "filter_hints": {
+        "scope_doc_id": true,
+        "scope_year": true,
+        "prefer_evidence_layout": "paragraph",
+        "prefer_table_chunks": false
+      }
+    },
+    {
+      "query_id": "Q_2025_IJB_01",
+      "question": "What deficit did Aberdeen City IJB report for 2024/25?",
+      "expected_pages": [
+        26
+      ],
+      "expected_answer": "\u00a320.179 million",
+      "answer_type": "number",
+      "difficulty": "LEX",
+      "doc_id": "Grampian-2024-2025",
+      "year": 2025,
+      "evidence_layout": "paragraph",
+      "expected_section": "PERFORMANCE REPORT",
+      "expected_subsection": "B PERFORMANCE ANALYSIS",
+      "filter_hints": {
+        "scope_doc_id": true,
+        "scope_year": true,
+        "prefer_evidence_layout": "paragraph",
+        "prefer_table_chunks": false
+      }
+    },
+    {
+      "query_id": "Q_2025_IJB_02",
+      "question": "What were Aberdeen City IJB's retained reserves at year end 2024/25?",
+      "expected_pages": [
+        26
+      ],
+      "expected_answer": "Nil (\u00a30)",
+      "answer_type": "number",
+      "difficulty": "LEX",
+      "doc_id": "Grampian-2024-2025",
+      "year": 2025,
+      "evidence_layout": "paragraph",
+      "expected_section": "PERFORMANCE REPORT",
+      "expected_subsection": "B PERFORMANCE ANALYSIS",
+      "filter_hints": {
+        "scope_doc_id": true,
+        "scope_year": true,
+        "prefer_evidence_layout": "paragraph",
+        "prefer_table_chunks": false
+      }
+    },
+    {
+      "query_id": "Q_2025_IJB_03",
+      "question": "What financial loss did Aberdeenshire IJB record in 2024/25?",
+      "expected_pages": [
+        26
+      ],
+      "expected_answer": "\u00a324.399 million",
+      "answer_type": "number",
+      "difficulty": "MOD",
+      "doc_id": "Grampian-2024-2025",
+      "year": 2025,
+      "evidence_layout": "paragraph",
+      "expected_section": "PERFORMANCE REPORT",
+      "expected_subsection": "B PERFORMANCE ANALYSIS",
+      "filter_hints": {
+        "scope_doc_id": true,
+        "scope_year": true,
+        "prefer_evidence_layout": "paragraph",
+        "prefer_table_chunks": false
+      }
+    },
+    {
+      "query_id": "Q_2025_IJB_04",
+      "question": "What deficit did Moray IJB report for 2024/25?",
+      "expected_pages": [
+        27
+      ],
+      "expected_answer": "\u00a34.143 million",
+      "answer_type": "number",
+      "difficulty": "LEX",
+      "doc_id": "Grampian-2024-2025",
+      "year": 2025,
+      "evidence_layout": "paragraph",
+      "expected_section": "PERFORMANCE REPORT",
+      "expected_subsection": "B PERFORMANCE ANALYSIS",
+      "filter_hints": {
+        "scope_doc_id": true,
+        "scope_year": true,
+        "prefer_evidence_layout": "paragraph",
+        "prefer_table_chunks": false
+      }
+    },
+    {
+      "query_id": "Q_2025_IJB_05",
+      "question": "How much did NHS Grampian contribute to Aberdeen City IJB to bring the position to breakeven in 2024/25?",
+      "expected_pages": [
+        26
+      ],
+      "expected_answer": "\u00a36.447 million",
+      "answer_type": "number",
+      "difficulty": "LEX",
+      "doc_id": "Grampian-2024-2025",
+      "year": 2025,
+      "evidence_layout": "paragraph",
+      "expected_section": "PERFORMANCE REPORT",
+      "expected_subsection": "B PERFORMANCE ANALYSIS",
+      "filter_hints": {
+        "scope_doc_id": true,
+        "scope_year": true,
+        "prefer_evidence_layout": "paragraph",
+        "prefer_table_chunks": false
+      }
+    },
+    {
+      "query_id": "Q_2025_IJB_06",
+      "question": "What were Moray IJB's earmarked reserves at year end 2024/25?",
+      "expected_pages": [
+        27
+      ],
+      "expected_answer": "\u00a31.45 million",
+      "answer_type": "number",
+      "difficulty": "LEX",
+      "doc_id": "Grampian-2024-2025",
+      "year": 2025,
+      "evidence_layout": "paragraph",
+      "expected_section": "PERFORMANCE REPORT",
+      "expected_subsection": "B PERFORMANCE ANALYSIS",
+      "filter_hints": {
+        "scope_doc_id": true,
+        "scope_year": true,
+        "prefer_evidence_layout": "paragraph",
+        "prefer_table_chunks": false
+      }
+    },
+    {
+      "query_id": "Q_2025_IJB_P1",
+      "question": "How much did NHS Grampian contribute to cover IJB overspends in 2024/25 and what drove the increase?",
+      "expected_pages": [
+        32
+      ],
+      "expected_answer": "\u00a322.45 million total contributions to IJB overspends (up from \u00a37.7 million in 2023/24), driven by full depletion of Aberdeen City, Aberdeenshire and Moray IJB reserves",
+      "answer_type": "text",
+      "difficulty": "STR",
+      "doc_id": "Grampian-2024-2025",
+      "year": 2025,
+      "evidence_layout": "paragraph",
+      "expected_section": "PERFORMANCE REPORT",
+      "expected_subsection": "B PERFORMANCE ANALYSIS",
+      "filter_hints": {
+        "scope_doc_id": true,
+        "scope_year": true,
+        "prefer_evidence_layout": "paragraph",
+        "prefer_table_chunks": false
+      }
+    },
+    {
+      "query_id": "Q_2025_AE_01",
+      "question": "How did the volume of unscheduled emergency care demand compare to the previous year across NHS Grampian in 2024/25?",
+      "expected_pages": [
+        14
+      ],
+      "expected_answer": "122,330",
+      "answer_type": "number",
+      "difficulty": "STR",
+      "doc_id": "Grampian-2024-2025",
+      "year": 2025,
+      "evidence_layout": "paragraph",
+      "expected_section": "PERFORMANCE REPORT",
+      "expected_subsection": "B PERFORMANCE ANALYSIS",
+      "filter_hints": {
+        "scope_doc_id": true,
+        "scope_year": true,
+        "prefer_evidence_layout": "paragraph",
+        "prefer_table_chunks": false
+      }
+    },
+    {
+      "query_id": "Q_2025_AE_02",
+      "question": "What share of Emergency Department attendees in Grampian were treated and discharged within the four-hour standard in March 2025?",
+      "expected_pages": [
+        14
+      ],
+      "expected_answer": "67.2%",
+      "answer_type": "number",
+      "difficulty": "MOD",
+      "doc_id": "Grampian-2024-2025",
+      "year": 2025,
+      "evidence_layout": "paragraph",
+      "expected_section": "PERFORMANCE REPORT",
+      "expected_subsection": "B PERFORMANCE ANALYSIS",
+      "filter_hints": {
+        "scope_doc_id": true,
+        "scope_year": true,
+        "prefer_evidence_layout": "paragraph",
+        "prefer_table_chunks": false
+      }
+    },
+    {
+      "query_id": "Q_2025_AE_03",
+      "question": "How many patients waited over 4 hours in A&E in March 2025?",
+      "expected_pages": [
+        14
+      ],
+      "expected_answer": "3,693",
+      "answer_type": "number",
+      "difficulty": "LEX",
+      "doc_id": "Grampian-2024-2025",
+      "year": 2025,
+      "evidence_layout": "paragraph",
+      "expected_section": "PERFORMANCE REPORT",
+      "expected_subsection": "B PERFORMANCE ANALYSIS",
+      "filter_hints": {
+        "scope_doc_id": true,
+        "scope_year": true,
+        "prefer_evidence_layout": "paragraph",
+        "prefer_table_chunks": false
+      }
+    },
+    {
+      "query_id": "Q_2025_AE_04",
+      "question": "How many patients waited over 12 hours in A&E in March 2025?",
+      "expected_pages": [
+        14
+      ],
+      "expected_answer": "523",
+      "answer_type": "number",
+      "difficulty": "LEX",
+      "doc_id": "Grampian-2024-2025",
+      "year": 2025,
+      "evidence_layout": "paragraph",
+      "expected_section": "PERFORMANCE REPORT",
+      "expected_subsection": "B PERFORMANCE ANALYSIS",
+      "filter_hints": {
+        "scope_doc_id": true,
+        "scope_year": true,
+        "prefer_evidence_layout": "paragraph",
+        "prefer_table_chunks": false
+      }
+    },
+    {
+      "query_id": "Q_2025_AE_P1",
+      "question": "How did A&E attendance volumes change in 2024/25 compared to 2023/24?",
+      "expected_pages": [
+        14
+      ],
+      "expected_answer": "Decreased by 1.8% (from approximately 124,572 in 2023/24 to 122,330 in 2024/25)",
+      "answer_type": "text",
+      "difficulty": "MOD",
+      "doc_id": "Grampian-2024-2025",
+      "year": 2025,
+      "evidence_layout": "paragraph",
+      "expected_section": "PERFORMANCE REPORT",
+      "expected_subsection": "B PERFORMANCE ANALYSIS",
+      "filter_hints": {
+        "scope_doc_id": true,
+        "scope_year": true,
+        "prefer_evidence_layout": "paragraph",
+        "prefer_table_chunks": false
+      }
+    },
+    {
+      "query_id": "Q_2025_DEL_01",
+      "question": "How many deliverables were reported in Q4 milestones of the 2024/25 Delivery Plan?",
+      "expected_pages": [
+        11
+      ],
+      "expected_answer": "100",
+      "answer_type": "number",
+      "difficulty": "LEX",
+      "doc_id": "Grampian-2024-2025",
+      "year": 2025,
+      "evidence_layout": "paragraph",
+      "expected_section": "PERFORMANCE REPORT",
+      "expected_subsection": "B PERFORMANCE ANALYSIS",
+      "filter_hints": {
+        "scope_doc_id": true,
+        "scope_year": true,
+        "prefer_evidence_layout": "paragraph",
+        "prefer_table_chunks": false
+      }
+    },
+    {
+      "query_id": "Q_2025_DEL_02",
+      "question": "What percentage of Delivery Plan deliverables were complete at the end of Q4 2024/25?",
+      "expected_pages": [
+        11
+      ],
+      "expected_answer": "45%",
+      "answer_type": "number",
+      "difficulty": "LEX",
+      "doc_id": "Grampian-2024-2025",
+      "year": 2025,
+      "evidence_layout": "paragraph",
+      "expected_section": "PERFORMANCE REPORT",
+      "expected_subsection": "B PERFORMANCE ANALYSIS",
+      "filter_hints": {
+        "scope_doc_id": true,
+        "scope_year": true,
+        "prefer_evidence_layout": "paragraph",
+        "prefer_table_chunks": false
+      }
+    },
+    {
+      "query_id": "Q_2025_DEL_03",
+      "question": "What percentage of deliverables were subject to minor delay at the end of Q4 2024/25?",
+      "expected_pages": [
+        11
+      ],
+      "expected_answer": "38%",
+      "answer_type": "number",
+      "difficulty": "LEX",
+      "doc_id": "Grampian-2024-2025",
+      "year": 2025,
+      "evidence_layout": "paragraph",
+      "expected_section": "PERFORMANCE REPORT",
+      "expected_subsection": "B PERFORMANCE ANALYSIS",
+      "filter_hints": {
+        "scope_doc_id": true,
+        "scope_year": true,
+        "prefer_evidence_layout": "paragraph",
+        "prefer_table_chunks": false
+      }
+    },
+    {
+      "query_id": "Q_2025_DEL_04",
+      "question": "What percentage of deliverables were subject to significant delay at the end of Q4 2024/25?",
+      "expected_pages": [
+        11
+      ],
+      "expected_answer": "12%",
+      "answer_type": "number",
+      "difficulty": "LEX",
+      "doc_id": "Grampian-2024-2025",
+      "year": 2025,
+      "evidence_layout": "paragraph",
+      "expected_section": "PERFORMANCE REPORT",
+      "expected_subsection": "B PERFORMANCE ANALYSIS",
+      "filter_hints": {
+        "scope_doc_id": true,
+        "scope_year": true,
+        "prefer_evidence_layout": "paragraph",
+        "prefer_table_chunks": false
+      }
+    },
+    {
+      "query_id": "Q_2025_DEL_P1",
+      "question": "What are the three strategic pillars of the NHS Grampian Delivery Plan 2024-2027?",
+      "expected_pages": [
+        7
+      ],
+      "expected_answer": "People, Places and Pathways",
+      "answer_type": "text",
+      "difficulty": "LEX",
+      "doc_id": "Grampian-2024-2025",
+      "year": 2025,
+      "evidence_layout": "paragraph",
+      "expected_section": "PERFORMANCE REPORT",
+      "expected_subsection": "A OVERVIEW",
+      "filter_hints": {
+        "scope_doc_id": true,
+        "scope_year": true,
+        "prefer_evidence_layout": "paragraph",
+        "prefer_table_chunks": false
+      }
+    },
+    {
+      "query_id": "Q_2025_STR_01",
+      "question": "What is the period covered by the NHS Grampian Delivery Plan adopted in June 2024?",
+      "expected_pages": [
+        7
+      ],
+      "expected_answer": "April 2024 to March 2027 (three years)",
+      "answer_type": "text",
+      "difficulty": "LEX",
+      "doc_id": "Grampian-2024-2025",
+      "year": 2025,
+      "evidence_layout": "paragraph",
+      "expected_section": "PERFORMANCE REPORT",
+      "expected_subsection": "A OVERVIEW",
+      "filter_hints": {
+        "scope_doc_id": true,
+        "scope_year": true,
+        "prefer_evidence_layout": "paragraph",
+        "prefer_table_chunks": false
+      }
+    },
+    {
+      "query_id": "Q_2025_ESC_01",
+      "question": "At what point in the Scottish Government's oversight hierarchy was NHS Grampian positioned at the start of 2025, and what triggered the move?",
+      "expected_pages": [
+        30
+      ],
+      "expected_answer": "Stage 3",
+      "answer_type": "text",
+      "difficulty": "STR",
+      "doc_id": "Grampian-2024-2025",
+      "year": 2025,
+      "evidence_layout": "paragraph",
+      "expected_section": "PERFORMANCE REPORT",
+      "expected_subsection": "B PERFORMANCE ANALYSIS",
+      "filter_hints": {
+        "scope_doc_id": true,
+        "scope_year": true,
+        "prefer_evidence_layout": "paragraph",
+        "prefer_table_chunks": false
+      }
+    },
+    {
+      "query_id": "Q_2025_ESC_02",
+      "question": "When was NHS Grampian escalated to Stage 4 of the Support and Intervention Framework?",
+      "expected_pages": [
+        4
+      ],
+      "expected_answer": "12 May 2025",
+      "answer_type": "text",
+      "difficulty": "LEX",
+      "doc_id": "Grampian-2024-2025",
+      "year": 2025,
+      "evidence_layout": "paragraph",
+      "expected_section": "PERFORMANCE REPORT",
+      "expected_subsection": "A OVERVIEW",
+      "filter_hints": {
+        "scope_doc_id": true,
+        "scope_year": true,
+        "prefer_evidence_layout": "paragraph",
+        "prefer_table_chunks": false
+      }
+    },
+    {
+      "query_id": "Q_2025_ESC_P1",
+      "question": "What were the reasons for NHS Grampian's escalation to Stage 4 of the Support and Intervention Framework?",
+      "expected_pages": [
+        4
+      ],
+      "expected_answer": "Financial sustainability and deterioration of the Board's financial position during 2024/25; and Leadership and Governance following rising concerns about local services and performance against national priorities",
+      "answer_type": "text",
+      "difficulty": "MOD",
+      "doc_id": "Grampian-2024-2025",
+      "year": 2025,
+      "evidence_layout": "paragraph",
+      "expected_section": "PERFORMANCE REPORT",
+      "expected_subsection": "A OVERVIEW",
+      "filter_hints": {
+        "scope_doc_id": true,
+        "scope_year": true,
+        "prefer_evidence_layout": "paragraph",
+        "prefer_table_chunks": false
+      }
+    },
+    {
+      "query_id": "Q_2025_ESC_P2",
+      "question": "When was NHS Grampian first escalated under the Support and Intervention Framework and to what stage?",
+      "expected_pages": [
+        30
+      ],
+      "expected_answer": "November 2023, escalated to Stage 2",
+      "answer_type": "text",
+      "difficulty": "MOD",
+      "doc_id": "Grampian-2024-2025",
+      "year": 2025,
+      "evidence_layout": "paragraph",
+      "expected_section": "PERFORMANCE REPORT",
+      "expected_subsection": "B PERFORMANCE ANALYSIS",
+      "filter_hints": {
+        "scope_doc_id": true,
+        "scope_year": true,
+        "prefer_evidence_layout": "paragraph",
+        "prefer_table_chunks": false
+      }
+    },
+    {
+      "query_id": "Q_2025_PLAN_01",
+      "question": "Did the 2025/26 financial plan present a break-even position?",
+      "expected_pages": [
+        30
+      ],
+      "expected_answer": "No; the plan does not present a break-even position, recognising the significant work to be undertaken to bring the Board back into sustainable financial balance",
+      "answer_type": "text",
+      "difficulty": "STR",
+      "doc_id": "Grampian-2024-2025",
+      "year": 2025,
+      "evidence_layout": "paragraph",
+      "expected_section": "PERFORMANCE REPORT",
+      "expected_subsection": "B PERFORMANCE ANALYSIS",
+      "filter_hints": {
+        "scope_doc_id": true,
+        "scope_year": true,
+        "prefer_evidence_layout": "paragraph",
+        "prefer_table_chunks": false
+      }
+    },
+    {
+      "query_id": "Q_2025_GOPES_01",
+      "question": "What does the Grampian Operational Pressure Escalation System (G-OPES) provide?",
+      "expected_pages": [
+        65
+      ],
+      "expected_answer": "A single approach to evaluate pressure across the health and care system; a system view focusing on pathways of care; options to increase capacity through risk/pressure-based derogations; a whole system approach to share risk and offer internal mutual aid; clarity for staff; transparency; specific protection of time-critical planned care",
+      "answer_type": "text",
+      "difficulty": "STR",
+      "doc_id": "Grampian-2024-2025",
+      "year": 2025,
+      "evidence_layout": "paragraph",
+      "expected_section": "ACCOUNTABILITY REPORT",
+      "expected_subsection": "A CORPORATE GOVERNANCE REPORT",
+      "filter_hints": {
+        "scope_doc_id": true,
+        "scope_year": true,
+        "prefer_evidence_layout": "paragraph",
+        "prefer_table_chunks": false
+      }
+    },
+    {
+      "query_id": "Q_2025_FIN_10",
+      "question": "What approved capital expenditure envelope was NHS Grampian operating within for infrastructure and equipment investment in 2024/25?",
+      "expected_pages": [
+        28
+      ],
+      "expected_answer": "\u00a386,909 (\u00a3000)",
+      "answer_type": "number",
+      "difficulty": "STR",
+      "doc_id": "Grampian-2024-2025",
+      "year": 2025,
+      "evidence_layout": "table",
+      "expected_section": "PERFORMANCE REPORT",
+      "expected_subsection": "B PERFORMANCE ANALYSIS",
+      "filter_hints": {
+        "scope_doc_id": true,
+        "scope_year": true,
+        "prefer_evidence_layout": "table",
+        "prefer_table_chunks": true
+      }
+    },
+    {
+      "query_id": "Q_2025_FIN_11",
+      "question": "What was the total infrastructure investment delivered by NHS Grampian in 2024/25?",
+      "expected_pages": [
+        33
+      ],
+      "expected_answer": "\u00a388.9 million",
+      "answer_type": "number",
+      "difficulty": "LEX",
+      "doc_id": "Grampian-2024-2025",
+      "year": 2025,
+      "evidence_layout": "paragraph",
+      "expected_section": "PERFORMANCE REPORT",
+      "expected_subsection": "B PERFORMANCE ANALYSIS",
+      "filter_hints": {
+        "scope_doc_id": true,
+        "scope_year": true,
+        "prefer_evidence_layout": "paragraph",
+        "prefer_table_chunks": false
+      }
+    },
+    {
+      "query_id": "Q_2025_FIN_12",
+      "question": "By how much did Staff Costs increase in 2024/25?",
+      "expected_pages": [
+        31
+      ],
+      "expected_answer": "\u00a397.2 million (average 8.5-10.5% for Medical & Dental staff and 5.5% for Agenda for Change staff)",
+      "answer_type": "number",
+      "difficulty": "LEX",
+      "doc_id": "Grampian-2024-2025",
+      "year": 2025,
+      "evidence_layout": "paragraph",
+      "expected_section": "PERFORMANCE REPORT",
+      "expected_subsection": "B PERFORMANCE ANALYSIS",
+      "filter_hints": {
+        "scope_doc_id": true,
+        "scope_year": true,
+        "prefer_evidence_layout": "paragraph",
+        "prefer_table_chunks": false
+      }
+    },
+    {
+      "query_id": "Q_2025_FIN_13",
+      "question": "What was the provision for legal obligations arising from clinical negligence at year end 2024/25?",
+      "expected_pages": [
+        32
+      ],
+      "expected_answer": "\u00a368.5 million",
+      "answer_type": "number",
+      "difficulty": "LEX",
+      "doc_id": "Grampian-2024-2025",
+      "year": 2025,
+      "evidence_layout": "paragraph",
+      "expected_section": "PERFORMANCE REPORT",
+      "expected_subsection": "B PERFORMANCE ANALYSIS",
+      "filter_hints": {
+        "scope_doc_id": true,
+        "scope_year": true,
+        "prefer_evidence_layout": "paragraph",
+        "prefer_table_chunks": false
+      }
+    },
+    {
+      "query_id": "Q_2025_GOV_01",
+      "question": "Under what financial planning period are NHS Boards permitted to manage under/overspends within 1% of resource in 2024/25?",
+      "expected_pages": [
+        28
+      ],
+      "expected_answer": "Three-year period (2024-27)",
+      "answer_type": "text",
+      "difficulty": "LEX",
+      "doc_id": "Grampian-2024-2025",
+      "year": 2025,
+      "evidence_layout": "paragraph",
+      "expected_section": "PERFORMANCE REPORT",
+      "expected_subsection": "B PERFORMANCE ANALYSIS",
+      "filter_hints": {
+        "scope_doc_id": true,
+        "scope_year": true,
+        "prefer_evidence_layout": "paragraph",
+        "prefer_table_chunks": false
+      }
+    },
+    {
+      "query_id": "Q_2025_FIN_P3",
+      "question": "What additional cost pressures emerged in 2024/25 beyond the financial plan, and how did they affect the underlying deficit?",
+      "expected_pages": [
+        29
+      ],
+      "expected_answer": "\u00a322.8 million in cost pressures (\u00a321.4 million from additional IJB contributions) increased the underlying deficit to \u00a364.9 million, while Scottish Government confirmed additional funding of \u00a317 million",
+      "answer_type": "text",
+      "difficulty": "STR",
+      "doc_id": "Grampian-2024-2025",
+      "year": 2025,
+      "evidence_layout": "paragraph",
+      "expected_section": "PERFORMANCE REPORT",
+      "expected_subsection": "B PERFORMANCE ANALYSIS",
+      "filter_hints": {
+        "scope_doc_id": true,
+        "scope_year": true,
+        "prefer_evidence_layout": "paragraph",
+        "prefer_table_chunks": false
+      }
+    },
+    {
+      "query_id": "Q_2025_FIN_17",
+      "question": "What was the total infrastructure investment delivered by NHS Grampian in 2024/25?",
+      "expected_pages": [
+        33
+      ],
+      "expected_answer": "\u00a388.9 million",
+      "answer_type": "number",
+      "difficulty": "LEX",
+      "doc_id": "Grampian-2024-2025",
+      "year": 2025,
+      "evidence_layout": "paragraph",
+      "expected_section": "PERFORMANCE REPORT",
+      "expected_subsection": "B PERFORMANCE ANALYSIS",
+      "filter_hints": {
+        "scope_doc_id": true,
+        "scope_year": true,
+        "prefer_evidence_layout": "paragraph",
+        "prefer_table_chunks": false
+      }
+    },
+    {
+      "query_id": "Q_2025_FIN_18",
+      "question": "By how much did staff costs increase in 2024/25 and what were the pay uplift ranges?",
+      "expected_pages": [
+        31
+      ],
+      "expected_answer": "Staff costs increased by \u00a397.2 million; uplifts were 8.5-10.5% for Medical & Dental and 5.5% for Agenda for Change",
+      "answer_type": "number",
+      "difficulty": "MOD",
+      "doc_id": "Grampian-2024-2025",
+      "year": 2025,
+      "evidence_layout": "paragraph",
+      "expected_section": "PERFORMANCE REPORT",
+      "expected_subsection": "B PERFORMANCE ANALYSIS",
+      "filter_hints": {
+        "scope_doc_id": true,
+        "scope_year": true,
+        "prefer_evidence_layout": "paragraph",
+        "prefer_table_chunks": false
+      }
+    },
+    {
+      "query_id": "Q_2025_GOV_02",
+      "question": "How many deliverables in the Delivery Plan 2024-2027 were fully complete by Q4 2024/25?",
+      "expected_pages": [
+        11
+      ],
+      "expected_answer": "45% (45 of 100 deliverables)",
+      "answer_type": "number",
+      "difficulty": "MOD",
+      "doc_id": "Grampian-2024-2025",
+      "year": 2025,
+      "evidence_layout": "paragraph",
+      "expected_section": "PERFORMANCE REPORT",
+      "expected_subsection": "B PERFORMANCE ANALYSIS",
+      "filter_hints": {
+        "scope_doc_id": true,
+        "scope_year": true,
+        "prefer_evidence_layout": "paragraph",
+        "prefer_table_chunks": false
+      }
+    }
+  ]
+}

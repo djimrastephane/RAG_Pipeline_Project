@@ -1,0 +1,1079 @@
+{
+  "_meta": {
+    "dataset_name": "Grampian-2020-2021 Retrieval Gold Set",
+    "description": "Gold evaluation set for page-level retrieval benchmarking on NHS Grampian Annual Report 2020-2021.",
+    "doc_id": "Grampian-2020-2021",
+    "query_id_format": "Q_<YEAR>_<CATEGORY>_<INDEX>",
+    "year_note": "2021 refers to financial year 2020-2021.",
+    "category_codes": {
+      "FIN": "Core financial performance (deficit, revenue limits, capital limits, expenditure)",
+      "SAV": "Efficiency savings and cost improvement measures",
+      "IJB": "Integration Joint Board financial performance",
+      "COV": "Financial impact of COVID-19 pandemic",
+      "AE": "A&E and emergency department performance metrics",
+      "GOV": "Governance and statutory financial controls",
+      "STR": "Strategic framework and organisational overview",
+      "CAP": "Capital expenditure and infrastructure investment",
+      "GOPES": "Grampian Operational Pressure Escalation System"
+    },
+    "paraphrase_marker": "Queries with suffix _P1, _P2 indicate semantic paraphrase stress tests.",
+    "annotation_guidelines": "Each query includes expected_pages and expected_answer. expected_answer must match the source page exactly.",
+    "difficulty_definition": {
+      "LEX": "High lexical overlap with document phrasing. Minimal semantic abstraction required.",
+      "MOD": "Moderate paraphrase. Synonyms or minor phrasing changes require semantic matching.",
+      "STR": "Strong paraphrase or conceptual query. Requires abstraction, aggregation, or non-trivial semantic mapping."
+    }
+  },
+  "queries": [
+    {
+      "query_id": "Q_2021_FIN_01",
+      "question": "What resource budget ceiling was set for NHS Grampian's core ongoing activities in 2020/21?",
+      "expected_pages": [
+        28
+      ],
+      "expected_answer": "\u00a31,278,771 (\u00a3000)",
+      "answer_type": "number",
+      "difficulty": "MOD",
+      "doc_id": "Grampian-2020-2021",
+      "year": 2021,
+      "evidence_layout": "table",
+      "expected_section": "PERFORMANCE REPORT",
+      "expected_subsection": "B PERFORMANCE ANALYSIS",
+      "filter_hints": {
+        "scope_doc_id": true,
+        "scope_year": true,
+        "prefer_evidence_layout": "table",
+        "prefer_table_chunks": true
+      }
+    },
+    {
+      "query_id": "Q_2021_FIN_02",
+      "question": "How much did NHS Grampian actually spend against its core resource budget in 2020/21?",
+      "expected_pages": [
+        28
+      ],
+      "expected_answer": "\u00a31,278,002 (\u00a3000)",
+      "answer_type": "number",
+      "difficulty": "MOD",
+      "doc_id": "Grampian-2020-2021",
+      "year": 2021,
+      "evidence_layout": "table",
+      "expected_section": "PERFORMANCE REPORT",
+      "expected_subsection": "B PERFORMANCE ANALYSIS",
+      "filter_hints": {
+        "scope_doc_id": true,
+        "scope_year": true,
+        "prefer_evidence_layout": "table",
+        "prefer_table_chunks": true
+      }
+    },
+    {
+      "query_id": "Q_2021_FIN_03",
+      "question": "By how much did NHS Grampian's actual core expenditure differ from its revenue resource limit in 2020/21?",
+      "expected_pages": [
+        28
+      ],
+      "expected_answer": "\u00a3769 (\u00a3000) surplus",
+      "answer_type": "number",
+      "difficulty": "MOD",
+      "doc_id": "Grampian-2020-2021",
+      "year": 2021,
+      "evidence_layout": "table",
+      "expected_section": "PERFORMANCE REPORT",
+      "expected_subsection": "B PERFORMANCE ANALYSIS",
+      "filter_hints": {
+        "scope_doc_id": true,
+        "scope_year": true,
+        "prefer_evidence_layout": "table",
+        "prefer_table_chunks": true
+      }
+    },
+    {
+      "query_id": "Q_2021_FIN_P1",
+      "question": "Did NHS Grampian overspend or underspend its Core Revenue Resource Limit in 2020/21, and by how much?",
+      "expected_pages": [
+        28
+      ],
+      "expected_answer": "Underspend of \u00a3769,000",
+      "answer_type": "number",
+      "difficulty": "MOD",
+      "doc_id": "Grampian-2020-2021",
+      "year": 2021,
+      "evidence_layout": "table",
+      "expected_section": "PERFORMANCE REPORT",
+      "expected_subsection": "B PERFORMANCE ANALYSIS",
+      "filter_hints": {
+        "scope_doc_id": true,
+        "scope_year": true,
+        "prefer_evidence_layout": "table",
+        "prefer_table_chunks": true
+      }
+    },
+    {
+      "query_id": "Q_2021_FIN_04",
+      "question": "What was the approved cash financing requirement for NHS Grampian in 2020/21?",
+      "expected_pages": [
+        28
+      ],
+      "expected_answer": "\u00a31,298,124 (\u00a3000)",
+      "answer_type": "number",
+      "difficulty": "MOD",
+      "doc_id": "Grampian-2020-2021",
+      "year": 2021,
+      "evidence_layout": "table",
+      "expected_section": "PERFORMANCE REPORT",
+      "expected_subsection": "B PERFORMANCE ANALYSIS",
+      "filter_hints": {
+        "scope_doc_id": true,
+        "scope_year": true,
+        "prefer_evidence_layout": "table",
+        "prefer_table_chunks": true
+      }
+    },
+    {
+      "query_id": "Q_2021_FIN_05",
+      "question": "What was the Total Revenue Resource Limit for 2020/21?",
+      "expected_pages": [
+        28
+      ],
+      "expected_answer": "\u00a31,311,111 (\u00a3000)",
+      "answer_type": "number",
+      "difficulty": "LEX",
+      "doc_id": "Grampian-2020-2021",
+      "year": 2021,
+      "evidence_layout": "table",
+      "expected_section": "PERFORMANCE REPORT",
+      "expected_subsection": "B PERFORMANCE ANALYSIS",
+      "filter_hints": {
+        "scope_doc_id": true,
+        "scope_year": true,
+        "prefer_evidence_layout": "table",
+        "prefer_table_chunks": true
+      }
+    },
+    {
+      "query_id": "Q_2021_FIN_06",
+      "question": "What was the Core Capital Resource Limit for 2020/21?",
+      "expected_pages": [
+        28
+      ],
+      "expected_answer": "\u00a342,246 (\u00a3000)",
+      "answer_type": "number",
+      "difficulty": "LEX",
+      "doc_id": "Grampian-2020-2021",
+      "year": 2021,
+      "evidence_layout": "table",
+      "expected_section": "PERFORMANCE REPORT",
+      "expected_subsection": "B PERFORMANCE ANALYSIS",
+      "filter_hints": {
+        "scope_doc_id": true,
+        "scope_year": true,
+        "prefer_evidence_layout": "table",
+        "prefer_table_chunks": true
+      }
+    },
+    {
+      "query_id": "Q_2021_FIN_07",
+      "question": "What was the underlying surplus against the Core Revenue Resource Limit in 2020/21?",
+      "expected_pages": [
+        28
+      ],
+      "expected_answer": "\u00a3769 (\u00a3000), 0%",
+      "answer_type": "number",
+      "difficulty": "LEX",
+      "doc_id": "Grampian-2020-2021",
+      "year": 2021,
+      "evidence_layout": "paragraph",
+      "expected_section": "PERFORMANCE REPORT",
+      "expected_subsection": "B PERFORMANCE ANALYSIS",
+      "filter_hints": {
+        "scope_doc_id": true,
+        "scope_year": true,
+        "prefer_evidence_layout": "paragraph",
+        "prefer_table_chunks": false
+      }
+    },
+    {
+      "query_id": "Q_2021_FIN_P2",
+      "question": "How did NHS Grampian's total cash financing requirement compare to the limit set by the Scottish Government in 2020/21?",
+      "expected_pages": [
+        28
+      ],
+      "expected_answer": "NHS Grampian met the Cash Requirement exactly at \u00a31,298,124 with no variance",
+      "answer_type": "text",
+      "difficulty": "STR",
+      "doc_id": "Grampian-2020-2021",
+      "year": 2021,
+      "evidence_layout": "table",
+      "expected_section": "PERFORMANCE REPORT",
+      "expected_subsection": "B PERFORMANCE ANALYSIS",
+      "filter_hints": {
+        "scope_doc_id": true,
+        "scope_year": true,
+        "prefer_evidence_layout": "table",
+        "prefer_table_chunks": true
+      }
+    },
+    {
+      "query_id": "Q_2021_SAV_01",
+      "question": "How much in efficiency savings did NHS Grampian deliver during 2020/21?",
+      "expected_pages": [
+        29
+      ],
+      "expected_answer": "\u00a36.7 million",
+      "answer_type": "number",
+      "difficulty": "MOD",
+      "doc_id": "Grampian-2020-2021",
+      "year": 2021,
+      "evidence_layout": "paragraph",
+      "expected_section": "PERFORMANCE REPORT",
+      "expected_subsection": "B PERFORMANCE ANALYSIS",
+      "filter_hints": {
+        "scope_doc_id": true,
+        "scope_year": true,
+        "prefer_evidence_layout": "paragraph",
+        "prefer_table_chunks": false
+      }
+    },
+    {
+      "query_id": "Q_2021_SAV_02",
+      "question": "What cost-saving objective was NHS Grampian required to achieve in 2020/21?",
+      "expected_pages": [
+        29
+      ],
+      "expected_answer": "\u00a312.2 million",
+      "answer_type": "number",
+      "difficulty": "MOD",
+      "doc_id": "Grampian-2020-2021",
+      "year": 2021,
+      "evidence_layout": "paragraph",
+      "expected_section": "PERFORMANCE REPORT",
+      "expected_subsection": "B PERFORMANCE ANALYSIS",
+      "filter_hints": {
+        "scope_doc_id": true,
+        "scope_year": true,
+        "prefer_evidence_layout": "paragraph",
+        "prefer_table_chunks": false
+      }
+    },
+    {
+      "query_id": "Q_2021_SAV_03",
+      "question": "What proportion of 2020/21 savings were recurring in nature?",
+      "expected_pages": [
+        29
+      ],
+      "expected_answer": "\u00a36.05 million",
+      "answer_type": "number",
+      "difficulty": "MOD",
+      "doc_id": "Grampian-2020-2021",
+      "year": 2021,
+      "evidence_layout": "paragraph",
+      "expected_section": "PERFORMANCE REPORT",
+      "expected_subsection": "B PERFORMANCE ANALYSIS",
+      "filter_hints": {
+        "scope_doc_id": true,
+        "scope_year": true,
+        "prefer_evidence_layout": "paragraph",
+        "prefer_table_chunks": false
+      }
+    },
+    {
+      "query_id": "Q_2021_SAV_04",
+      "question": "How much of the 2020/21 efficiency savings were non-recurring?",
+      "expected_pages": [
+        29
+      ],
+      "expected_answer": "\u00a30.65 million",
+      "answer_type": "number",
+      "difficulty": "LEX",
+      "doc_id": "Grampian-2020-2021",
+      "year": 2021,
+      "evidence_layout": "paragraph",
+      "expected_section": "PERFORMANCE REPORT",
+      "expected_subsection": "B PERFORMANCE ANALYSIS",
+      "filter_hints": {
+        "scope_doc_id": true,
+        "scope_year": true,
+        "prefer_evidence_layout": "paragraph",
+        "prefer_table_chunks": false
+      }
+    },
+    {
+      "query_id": "Q_2021_SAV_P1",
+      "question": "How large was the gap between efficiency savings delivered and the target in 2020/21, and how was it covered?",
+      "expected_pages": [
+        29
+      ],
+      "expected_answer": "Gap of \u00a35.5 million covered non-recurringly by Scottish Government COVID-19 supplementary funding",
+      "answer_type": "text",
+      "difficulty": "STR",
+      "doc_id": "Grampian-2020-2021",
+      "year": 2021,
+      "evidence_layout": "paragraph",
+      "expected_section": "PERFORMANCE REPORT",
+      "expected_subsection": "B PERFORMANCE ANALYSIS",
+      "filter_hints": {
+        "scope_doc_id": true,
+        "scope_year": true,
+        "prefer_evidence_layout": "paragraph",
+        "prefer_table_chunks": false
+      }
+    },
+    {
+      "query_id": "Q_2021_COV_01",
+      "question": "How much COVID-19 supplementary resource allocation did NHS Grampian receive from the Scottish Government in 2020/21?",
+      "expected_pages": [
+        29
+      ],
+      "expected_answer": "\u00a348.6 million",
+      "answer_type": "number",
+      "difficulty": "MOD",
+      "doc_id": "Grampian-2020-2021",
+      "year": 2021,
+      "evidence_layout": "paragraph",
+      "expected_section": "PERFORMANCE REPORT",
+      "expected_subsection": "B PERFORMANCE ANALYSIS",
+      "filter_hints": {
+        "scope_doc_id": true,
+        "scope_year": true,
+        "prefer_evidence_layout": "paragraph",
+        "prefer_table_chunks": false
+      }
+    },
+    {
+      "query_id": "Q_2021_COV_02",
+      "question": "How much did Integration Joint Boards receive in COVID-19 related funding in 2020/21?",
+      "expected_pages": [
+        29
+      ],
+      "expected_answer": "\u00a346.3 million",
+      "answer_type": "number",
+      "difficulty": "LEX",
+      "doc_id": "Grampian-2020-2021",
+      "year": 2021,
+      "evidence_layout": "paragraph",
+      "expected_section": "PERFORMANCE REPORT",
+      "expected_subsection": "B PERFORMANCE ANALYSIS",
+      "filter_hints": {
+        "scope_doc_id": true,
+        "scope_year": true,
+        "prefer_evidence_layout": "paragraph",
+        "prefer_table_chunks": false
+      }
+    },
+    {
+      "query_id": "Q_2021_COV_P1",
+      "question": "What non-repayable financial support was given to NHS Grampian to maintain financial balance during the COVID-19 pandemic year 2020/21?",
+      "expected_pages": [
+        28
+      ],
+      "expected_answer": "\u00a347.3 million non-repayable funding from Scottish Government",
+      "answer_type": "number",
+      "difficulty": "MOD",
+      "doc_id": "Grampian-2020-2021",
+      "year": 2021,
+      "evidence_layout": "paragraph",
+      "expected_section": "PERFORMANCE REPORT",
+      "expected_subsection": "B PERFORMANCE ANALYSIS",
+      "filter_hints": {
+        "scope_doc_id": true,
+        "scope_year": true,
+        "prefer_evidence_layout": "paragraph",
+        "prefer_table_chunks": false
+      }
+    },
+    {
+      "query_id": "Q_2021_IJB_01",
+      "question": "What was the net financial position of Aberdeen City IJB at the end of 2020/21?",
+      "expected_pages": [
+        26
+      ],
+      "expected_answer": "\u00a315.634 million",
+      "answer_type": "number",
+      "difficulty": "MOD",
+      "doc_id": "Grampian-2020-2021",
+      "year": 2021,
+      "evidence_layout": "paragraph",
+      "expected_section": "PERFORMANCE REPORT",
+      "expected_subsection": "B PERFORMANCE ANALYSIS",
+      "filter_hints": {
+        "scope_doc_id": true,
+        "scope_year": true,
+        "prefer_evidence_layout": "paragraph",
+        "prefer_table_chunks": false
+      }
+    },
+    {
+      "query_id": "Q_2021_IJB_02",
+      "question": "What were Aberdeen City IJB's retained reserves at year end 2020/21?",
+      "expected_pages": [
+        26
+      ],
+      "expected_answer": "\u00a318.236 million",
+      "answer_type": "number",
+      "difficulty": "LEX",
+      "doc_id": "Grampian-2020-2021",
+      "year": 2021,
+      "evidence_layout": "paragraph",
+      "expected_section": "PERFORMANCE REPORT",
+      "expected_subsection": "B PERFORMANCE ANALYSIS",
+      "filter_hints": {
+        "scope_doc_id": true,
+        "scope_year": true,
+        "prefer_evidence_layout": "paragraph",
+        "prefer_table_chunks": false
+      }
+    },
+    {
+      "query_id": "Q_2021_IJB_03",
+      "question": "What surplus did Aberdeenshire IJB report for 2020/21?",
+      "expected_pages": [
+        27
+      ],
+      "expected_answer": "\u00a320.449 million",
+      "answer_type": "number",
+      "difficulty": "LEX",
+      "doc_id": "Grampian-2020-2021",
+      "year": 2021,
+      "evidence_layout": "paragraph",
+      "expected_section": "PERFORMANCE REPORT",
+      "expected_subsection": "B PERFORMANCE ANALYSIS",
+      "filter_hints": {
+        "scope_doc_id": true,
+        "scope_year": true,
+        "prefer_evidence_layout": "paragraph",
+        "prefer_table_chunks": false
+      }
+    },
+    {
+      "query_id": "Q_2021_IJB_04",
+      "question": "What were Aberdeenshire IJB's retained reserves at year end 2020/21?",
+      "expected_pages": [
+        27
+      ],
+      "expected_answer": "\u00a320.566 million",
+      "answer_type": "number",
+      "difficulty": "LEX",
+      "doc_id": "Grampian-2020-2021",
+      "year": 2021,
+      "evidence_layout": "paragraph",
+      "expected_section": "PERFORMANCE REPORT",
+      "expected_subsection": "B PERFORMANCE ANALYSIS",
+      "filter_hints": {
+        "scope_doc_id": true,
+        "scope_year": true,
+        "prefer_evidence_layout": "paragraph",
+        "prefer_table_chunks": false
+      }
+    },
+    {
+      "query_id": "Q_2021_IJB_05",
+      "question": "What was Moray IJB's year-end surplus for 2020/21?",
+      "expected_pages": [
+        27
+      ],
+      "expected_answer": "\u00a36.155 million",
+      "answer_type": "number",
+      "difficulty": "MOD",
+      "doc_id": "Grampian-2020-2021",
+      "year": 2021,
+      "evidence_layout": "paragraph",
+      "expected_section": "PERFORMANCE REPORT",
+      "expected_subsection": "B PERFORMANCE ANALYSIS",
+      "filter_hints": {
+        "scope_doc_id": true,
+        "scope_year": true,
+        "prefer_evidence_layout": "paragraph",
+        "prefer_table_chunks": false
+      }
+    },
+    {
+      "query_id": "Q_2021_IJB_06",
+      "question": "What were Moray IJB's retained reserves carried forward from 2020/21?",
+      "expected_pages": [
+        27
+      ],
+      "expected_answer": "\u00a36.342 million",
+      "answer_type": "number",
+      "difficulty": "LEX",
+      "doc_id": "Grampian-2020-2021",
+      "year": 2021,
+      "evidence_layout": "paragraph",
+      "expected_section": "PERFORMANCE REPORT",
+      "expected_subsection": "B PERFORMANCE ANALYSIS",
+      "filter_hints": {
+        "scope_doc_id": true,
+        "scope_year": true,
+        "prefer_evidence_layout": "paragraph",
+        "prefer_table_chunks": false
+      }
+    },
+    {
+      "query_id": "Q_2021_IJB_P1",
+      "question": "Which of the three Grampian IJBs reported the largest financial surplus in 2020/21?",
+      "expected_pages": [
+        27
+      ],
+      "expected_answer": "Aberdeenshire IJB with a surplus of \u00a320.449 million",
+      "answer_type": "text",
+      "difficulty": "STR",
+      "doc_id": "Grampian-2020-2021",
+      "year": 2021,
+      "evidence_layout": "paragraph",
+      "expected_section": "PERFORMANCE REPORT",
+      "expected_subsection": "B PERFORMANCE ANALYSIS",
+      "filter_hints": {
+        "scope_doc_id": true,
+        "scope_year": true,
+        "prefer_evidence_layout": "paragraph",
+        "prefer_table_chunks": false
+      }
+    },
+    {
+      "query_id": "Q_2021_GOV_01",
+      "question": "What are the three statutory financial targets NHS Boards must meet according to the 2020/21 annual report?",
+      "expected_pages": [
+        28
+      ],
+      "expected_answer": "Revenue Resource Limit; Capital Resource Limit; Cash Requirement",
+      "answer_type": "text",
+      "difficulty": "STR",
+      "doc_id": "Grampian-2020-2021",
+      "year": 2021,
+      "evidence_layout": "paragraph",
+      "expected_section": "PERFORMANCE REPORT",
+      "expected_subsection": "B PERFORMANCE ANALYSIS",
+      "filter_hints": {
+        "scope_doc_id": true,
+        "scope_year": true,
+        "prefer_evidence_layout": "paragraph",
+        "prefer_table_chunks": false
+      }
+    },
+    {
+      "query_id": "Q_2021_GOV_02",
+      "question": "Did NHS Grampian achieve all three statutory financial targets in 2020/21?",
+      "expected_pages": [
+        28
+      ],
+      "expected_answer": "Yes, NHS Grampian successfully achieved all three financial targets",
+      "answer_type": "text",
+      "difficulty": "LEX",
+      "doc_id": "Grampian-2020-2021",
+      "year": 2021,
+      "evidence_layout": "paragraph",
+      "expected_section": "PERFORMANCE REPORT",
+      "expected_subsection": "B PERFORMANCE ANALYSIS",
+      "filter_hints": {
+        "scope_doc_id": true,
+        "scope_year": true,
+        "prefer_evidence_layout": "paragraph",
+        "prefer_table_chunks": false
+      }
+    },
+    {
+      "query_id": "Q_2021_STR_01",
+      "question": "What was the headcount of people directly on NHS Grampian's payroll?",
+      "expected_pages": [
+        6
+      ],
+      "expected_answer": "17,700 directly employed staff",
+      "answer_type": "number",
+      "difficulty": "STR",
+      "doc_id": "Grampian-2020-2021",
+      "year": 2021,
+      "evidence_layout": "paragraph",
+      "expected_section": "PERFORMANCE REPORT",
+      "expected_subsection": "A OVERVIEW",
+      "filter_hints": {
+        "scope_doc_id": true,
+        "scope_year": true,
+        "prefer_evidence_layout": "paragraph",
+        "prefer_table_chunks": false
+      }
+    },
+    {
+      "query_id": "Q_2021_STR_02",
+      "question": "What is NHS Grampian's ranking among Scottish health boards by general funding allocation?",
+      "expected_pages": [
+        6
+      ],
+      "expected_answer": "Fourth largest health board in Scotland by general funding allocation",
+      "answer_type": "text",
+      "difficulty": "LEX",
+      "doc_id": "Grampian-2020-2021",
+      "year": 2021,
+      "evidence_layout": "paragraph",
+      "expected_section": "PERFORMANCE REPORT",
+      "expected_subsection": "A OVERVIEW",
+      "filter_hints": {
+        "scope_doc_id": true,
+        "scope_year": true,
+        "prefer_evidence_layout": "paragraph",
+        "prefer_table_chunks": false
+      }
+    },
+    {
+      "query_id": "Q_2021_STR_03",
+      "question": "Over how large an area in square miles does NHS Grampian provide services?",
+      "expected_pages": [
+        6
+      ],
+      "expected_answer": "3,000 square miles",
+      "answer_type": "number",
+      "difficulty": "LEX",
+      "doc_id": "Grampian-2020-2021",
+      "year": 2021,
+      "evidence_layout": "paragraph",
+      "expected_section": "PERFORMANCE REPORT",
+      "expected_subsection": "A OVERVIEW",
+      "filter_hints": {
+        "scope_doc_id": true,
+        "scope_year": true,
+        "prefer_evidence_layout": "paragraph",
+        "prefer_table_chunks": false
+      }
+    },
+    {
+      "query_id": "Q_2021_STR_P1",
+      "question": "How large is the resident population that NHS Grampian is responsible for serving?",
+      "expected_pages": [
+        6
+      ],
+      "expected_answer": "Over half a million people (approximately 500,000)",
+      "answer_type": "text",
+      "difficulty": "STR",
+      "doc_id": "Grampian-2020-2021",
+      "year": 2021,
+      "evidence_layout": "paragraph",
+      "expected_section": "PERFORMANCE REPORT",
+      "expected_subsection": "A OVERVIEW",
+      "filter_hints": {
+        "scope_doc_id": true,
+        "scope_year": true,
+        "prefer_evidence_layout": "paragraph",
+        "prefer_table_chunks": false
+      }
+    },
+    {
+      "query_id": "Q_2021_CAP_01",
+      "question": "What was the total infrastructure investment delivered by NHS Grampian in 2020/21?",
+      "expected_pages": [
+        32
+      ],
+      "expected_answer": "\u00a362.283 million",
+      "answer_type": "number",
+      "difficulty": "LEX",
+      "doc_id": "Grampian-2020-2021",
+      "year": 2021,
+      "evidence_layout": "paragraph",
+      "expected_section": "PERFORMANCE REPORT",
+      "expected_subsection": "B PERFORMANCE ANALYSIS",
+      "filter_hints": {
+        "scope_doc_id": true,
+        "scope_year": true,
+        "prefer_evidence_layout": "paragraph",
+        "prefer_table_chunks": false
+      }
+    },
+    {
+      "query_id": "Q_2021_CAP_02",
+      "question": "How much capital funding from SGHSCD was used for infrastructure investment in 2020/21?",
+      "expected_pages": [
+        32
+      ],
+      "expected_answer": "\u00a343.316 million",
+      "answer_type": "number",
+      "difficulty": "LEX",
+      "doc_id": "Grampian-2020-2021",
+      "year": 2021,
+      "evidence_layout": "paragraph",
+      "expected_section": "PERFORMANCE REPORT",
+      "expected_subsection": "B PERFORMANCE ANALYSIS",
+      "filter_hints": {
+        "scope_doc_id": true,
+        "scope_year": true,
+        "prefer_evidence_layout": "paragraph",
+        "prefer_table_chunks": false
+      }
+    },
+    {
+      "query_id": "Q_2021_CAP_P1",
+      "question": "What was the combined capital funding allocation for core and non-core purposes in 2020/21?",
+      "expected_pages": [
+        28
+      ],
+      "expected_answer": "\u00a343,316 (\u00a3000) total capital resource limit",
+      "answer_type": "number",
+      "difficulty": "MOD",
+      "doc_id": "Grampian-2020-2021",
+      "year": 2021,
+      "evidence_layout": "table",
+      "expected_section": "PERFORMANCE REPORT",
+      "expected_subsection": "B PERFORMANCE ANALYSIS",
+      "filter_hints": {
+        "scope_doc_id": true,
+        "scope_year": true,
+        "prefer_evidence_layout": "table",
+        "prefer_table_chunks": true
+      }
+    },
+    {
+      "query_id": "Q_2021_COV_03",
+      "question": "How much did Independent Primary Care Services costs increase in 2020/21 due to COVID-19?",
+      "expected_pages": [
+        30
+      ],
+      "expected_answer": "\u00a38.6 million",
+      "answer_type": "number",
+      "difficulty": "LEX",
+      "doc_id": "Grampian-2020-2021",
+      "year": 2021,
+      "evidence_layout": "paragraph",
+      "expected_section": "PERFORMANCE REPORT",
+      "expected_subsection": "B PERFORMANCE ANALYSIS",
+      "filter_hints": {
+        "scope_doc_id": true,
+        "scope_year": true,
+        "prefer_evidence_layout": "paragraph",
+        "prefer_table_chunks": false
+      }
+    },
+    {
+      "query_id": "Q_2021_COV_04",
+      "question": "By how much did Drugs and Medical Supplies increase in 2020/21?",
+      "expected_pages": [
+        30
+      ],
+      "expected_answer": "\u00a313.2 million",
+      "answer_type": "number",
+      "difficulty": "LEX",
+      "doc_id": "Grampian-2020-2021",
+      "year": 2021,
+      "evidence_layout": "paragraph",
+      "expected_section": "PERFORMANCE REPORT",
+      "expected_subsection": "B PERFORMANCE ANALYSIS",
+      "filter_hints": {
+        "scope_doc_id": true,
+        "scope_year": true,
+        "prefer_evidence_layout": "paragraph",
+        "prefer_table_chunks": false
+      }
+    },
+    {
+      "query_id": "Q_2021_GOV_03",
+      "question": "What was the Non-Core Revenue Resource Limit for 2020/21?",
+      "expected_pages": [
+        28
+      ],
+      "expected_answer": "\u00a332,340 (\u00a3000)",
+      "answer_type": "number",
+      "difficulty": "LEX",
+      "doc_id": "Grampian-2020-2021",
+      "year": 2021,
+      "evidence_layout": "table",
+      "expected_section": "PERFORMANCE REPORT",
+      "expected_subsection": "B PERFORMANCE ANALYSIS",
+      "filter_hints": {
+        "scope_doc_id": true,
+        "scope_year": true,
+        "prefer_evidence_layout": "table",
+        "prefer_table_chunks": true
+      }
+    },
+    {
+      "query_id": "Q_2021_IJB_07",
+      "question": "How much did NHS Grampian contribute to Integration Joint Board expenditure in 2020/21?",
+      "expected_pages": [
+        31
+      ],
+      "expected_answer": "Expenditure of \u00a3637.088 million passed to IJBs",
+      "answer_type": "number",
+      "difficulty": "LEX",
+      "doc_id": "Grampian-2020-2021",
+      "year": 2021,
+      "evidence_layout": "paragraph",
+      "expected_section": "PERFORMANCE REPORT",
+      "expected_subsection": "B PERFORMANCE ANALYSIS",
+      "filter_hints": {
+        "scope_doc_id": true,
+        "scope_year": true,
+        "prefer_evidence_layout": "paragraph",
+        "prefer_table_chunks": false
+      }
+    },
+    {
+      "query_id": "Q_2021_IJB_P2",
+      "question": "What was the increase in net funding passed to Integration Joint Boards during 2020/21?",
+      "expected_pages": [
+        30
+      ],
+      "expected_answer": "Net increase of \u00a384 million passed to IJBs",
+      "answer_type": "number",
+      "difficulty": "MOD",
+      "doc_id": "Grampian-2020-2021",
+      "year": 2021,
+      "evidence_layout": "paragraph",
+      "expected_section": "PERFORMANCE REPORT",
+      "expected_subsection": "B PERFORMANCE ANALYSIS",
+      "filter_hints": {
+        "scope_doc_id": true,
+        "scope_year": true,
+        "prefer_evidence_layout": "paragraph",
+        "prefer_table_chunks": false
+      }
+    },
+    {
+      "query_id": "Q_2021_FIN_08",
+      "question": "What provision was made for legal obligations arising from clinical negligence at year end 2020/21?",
+      "expected_pages": [
+        30
+      ],
+      "expected_answer": "\u00a354 million",
+      "answer_type": "number",
+      "difficulty": "LEX",
+      "doc_id": "Grampian-2020-2021",
+      "year": 2021,
+      "evidence_layout": "paragraph",
+      "expected_section": "PERFORMANCE REPORT",
+      "expected_subsection": "B PERFORMANCE ANALYSIS",
+      "filter_hints": {
+        "scope_doc_id": true,
+        "scope_year": true,
+        "prefer_evidence_layout": "paragraph",
+        "prefer_table_chunks": false
+      }
+    },
+    {
+      "query_id": "Q_2021_CAP_03",
+      "question": "How much was invested in the Baird Family Hospital and Anchor Centre in 2020/21?",
+      "expected_pages": [
+        32
+      ],
+      "expected_answer": "\u00a38.1 million (design fees and ongoing construction)",
+      "answer_type": "number",
+      "difficulty": "LEX",
+      "doc_id": "Grampian-2020-2021",
+      "year": 2021,
+      "evidence_layout": "paragraph",
+      "expected_section": "PERFORMANCE REPORT",
+      "expected_subsection": "B PERFORMANCE ANALYSIS",
+      "filter_hints": {
+        "scope_doc_id": true,
+        "scope_year": true,
+        "prefer_evidence_layout": "paragraph",
+        "prefer_table_chunks": false
+      }
+    },
+    {
+      "query_id": "Q_2021_COV_P2",
+      "question": "Which specific types of additional staff costs drove expenditure increases under the COVID-19 response in 2020/21?",
+      "expected_pages": [
+        29
+      ],
+      "expected_answer": "Additional temporary staffing (student nurses, junior medical staff, Domestics, Porters, additional overtime), additional bed capacity (ITU and Medical beds)",
+      "answer_type": "text",
+      "difficulty": "STR",
+      "doc_id": "Grampian-2020-2021",
+      "year": 2021,
+      "evidence_layout": "paragraph",
+      "expected_section": "PERFORMANCE REPORT",
+      "expected_subsection": "B PERFORMANCE ANALYSIS",
+      "filter_hints": {
+        "scope_doc_id": true,
+        "scope_year": true,
+        "prefer_evidence_layout": "paragraph",
+        "prefer_table_chunks": false
+      }
+    },
+    {
+      "query_id": "Q_2021_STR_04",
+      "question": "How many remobilisation plans did NHS Grampian develop in response to COVID-19?",
+      "expected_pages": [
+        17
+      ],
+      "expected_answer": "Three separate remobilisation plans (May 2020, July 2020 and February 2021)",
+      "answer_type": "text",
+      "difficulty": "LEX",
+      "doc_id": "Grampian-2020-2021",
+      "year": 2021,
+      "evidence_layout": "paragraph",
+      "expected_section": "PERFORMANCE REPORT",
+      "expected_subsection": "A OVERVIEW",
+      "filter_hints": {
+        "scope_doc_id": true,
+        "scope_year": true,
+        "prefer_evidence_layout": "paragraph",
+        "prefer_table_chunks": false
+      }
+    },
+    {
+      "query_id": "Q_2021_GOV_04",
+      "question": "What were the total consolidated net assets of NHS Grampian group at 31 March 2021?",
+      "expected_pages": [
+        23
+      ],
+      "expected_answer": "\u00a3418,000 (\u00a3000)",
+      "answer_type": "number",
+      "difficulty": "LEX",
+      "doc_id": "Grampian-2020-2021",
+      "year": 2021,
+      "evidence_layout": "table",
+      "expected_section": "PERFORMANCE REPORT",
+      "expected_subsection": "B PERFORMANCE ANALYSIS",
+      "filter_hints": {
+        "scope_doc_id": true,
+        "scope_year": true,
+        "prefer_evidence_layout": "table",
+        "prefer_table_chunks": true
+      }
+    },
+    {
+      "query_id": "Q_2021_STR_05",
+      "question": "What overarching organisational priorities underpinned NHS Grampian's performance measurement framework in 2020/21?",
+      "expected_pages": [
+        7
+      ],
+      "expected_answer": "Improving health and reducing inequalities; Delivering high quality care in the right place; Involving our patients, public, staff and partners; Developing and empowering our staff",
+      "answer_type": "text",
+      "difficulty": "STR",
+      "doc_id": "Grampian-2020-2021",
+      "year": 2021,
+      "evidence_layout": "paragraph",
+      "expected_section": "PERFORMANCE REPORT",
+      "expected_subsection": "A OVERVIEW",
+      "filter_hints": {
+        "scope_doc_id": true,
+        "scope_year": true,
+        "prefer_evidence_layout": "paragraph",
+        "prefer_table_chunks": false
+      }
+    },
+    {
+      "query_id": "Q_2021_STR_P2",
+      "question": "What are the core values of NHS Grampian as stated in the 2020/21 annual report?",
+      "expected_pages": [
+        7
+      ],
+      "expected_answer": "Caring, listening and improving",
+      "answer_type": "text",
+      "difficulty": "LEX",
+      "doc_id": "Grampian-2020-2021",
+      "year": 2021,
+      "evidence_layout": "paragraph",
+      "expected_section": "PERFORMANCE REPORT",
+      "expected_subsection": "A OVERVIEW",
+      "filter_hints": {
+        "scope_doc_id": true,
+        "scope_year": true,
+        "prefer_evidence_layout": "paragraph",
+        "prefer_table_chunks": false
+      }
+    },
+    {
+      "query_id": "Q_2021_CAP_04",
+      "question": "How much was spent on backlog maintenance and COVID-19 related building improvements in 2020/21?",
+      "expected_pages": [
+        32
+      ],
+      "expected_answer": "\u00a38.6 million (\u00a33.2m on COVID-19 related improvements, \u00a30.4m on other COVID-19 building improvements, \u00a35m on essential backlog maintenance)",
+      "answer_type": "number",
+      "difficulty": "LEX",
+      "doc_id": "Grampian-2020-2021",
+      "year": 2021,
+      "evidence_layout": "paragraph",
+      "expected_section": "PERFORMANCE REPORT",
+      "expected_subsection": "B PERFORMANCE ANALYSIS",
+      "filter_hints": {
+        "scope_doc_id": true,
+        "scope_year": true,
+        "prefer_evidence_layout": "paragraph",
+        "prefer_table_chunks": false
+      }
+    },
+    {
+      "query_id": "Q_2021_FIN_P3",
+      "question": "What was the net increase in funding from the Scottish Government passed to IJBs during 2020/21, and what was it for?",
+      "expected_pages": [
+        30
+      ],
+      "expected_answer": "Net increase of \u00a384 million: \u00a346.3 million for COVID-19 expenditure, \u00a341.8 million for specific government initiatives, and funding for pay award and supplementary pay agreement",
+      "answer_type": "text",
+      "difficulty": "STR",
+      "doc_id": "Grampian-2020-2021",
+      "year": 2021,
+      "evidence_layout": "paragraph",
+      "expected_section": "PERFORMANCE REPORT",
+      "expected_subsection": "B PERFORMANCE ANALYSIS",
+      "filter_hints": {
+        "scope_doc_id": true,
+        "scope_year": true,
+        "prefer_evidence_layout": "paragraph",
+        "prefer_table_chunks": false
+      }
+    },
+    {
+      "query_id": "Q_2021_GOV_P1",
+      "question": "What accounting standard governs how NHS Grampian consolidates the IJB Joint Ventures into its accounts?",
+      "expected_pages": [
+        23
+      ],
+      "expected_answer": "IAS 28 \u2013 Investments in Associates and Joint Arrangements (under IFRS 11 \u2013 Joint Arrangements)",
+      "answer_type": "text",
+      "difficulty": "STR",
+      "doc_id": "Grampian-2020-2021",
+      "year": 2021,
+      "evidence_layout": "paragraph",
+      "expected_section": "PERFORMANCE REPORT",
+      "expected_subsection": "B PERFORMANCE ANALYSIS",
+      "filter_hints": {
+        "scope_doc_id": true,
+        "scope_year": true,
+        "prefer_evidence_layout": "paragraph",
+        "prefer_table_chunks": false
+      }
+    },
+    {
+      "query_id": "Q_2021_SAV_P2",
+      "question": "What were the primary sources of efficiency savings achieved in 2020/21?",
+      "expected_pages": [
+        29
+      ],
+      "expected_answer": "Mainly from reduction in the use of agency medical and nursing staff compared to 2019/20",
+      "answer_type": "text",
+      "difficulty": "MOD",
+      "doc_id": "Grampian-2020-2021",
+      "year": 2021,
+      "evidence_layout": "paragraph",
+      "expected_section": "PERFORMANCE REPORT",
+      "expected_subsection": "B PERFORMANCE ANALYSIS",
+      "filter_hints": {
+        "scope_doc_id": true,
+        "scope_year": true,
+        "prefer_evidence_layout": "paragraph",
+        "prefer_table_chunks": false
+      }
+    },
+    {
+      "query_id": "Q_2021_IJB_08",
+      "question": "What was Aberdeen City IJB's earmarked reserves balance at year end 2020/21?",
+      "expected_pages": [
+        26
+      ],
+      "expected_answer": "\u00a315.735 million",
+      "answer_type": "number",
+      "difficulty": "LEX",
+      "doc_id": "Grampian-2020-2021",
+      "year": 2021,
+      "evidence_layout": "paragraph",
+      "expected_section": "PERFORMANCE REPORT",
+      "expected_subsection": "B PERFORMANCE ANALYSIS",
+      "filter_hints": {
+        "scope_doc_id": true,
+        "scope_year": true,
+        "prefer_evidence_layout": "paragraph",
+        "prefer_table_chunks": false
+      }
+    }
+  ]
+}

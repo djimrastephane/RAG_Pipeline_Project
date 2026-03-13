@@ -1,0 +1,23 @@
+\begin{table*}[t]
+\centering
+\small
+\setlength{\tabcolsep}{6pt}
+\caption{Table chunking ablations on the thesis dev set (50 sampled queries, $k=3$). Best values are bold; ties are all bolded.}
+\label{tab:table_chunking_ablation_rag_style}
+\begin{tabular}{lcccc}
+\toprule
+\textbf{Model} &
+\textbf{Hit@3} &
+\textbf{Strict Accuracy} &
+\textbf{Quote Support Rate} &
+$\mathbf{P(\text{Strict} \mid \text{Hit@3})}$ \\
+\midrule
+Baseline (fixed chunking)                & \textbf{82.0} & \textbf{34.0} & \textbf{36.0} & \textbf{41.46} \\
+Row-preserving table chunking            & \textbf{82.0} & 32.0          & 34.0          & 39.02          \\
+Two-stage table-aware chunking           & \textbf{82.0} & 32.0          & 34.0          & 39.02          \\
+\bottomrule
+\end{tabular}
+\end{table*}
+
+% Source:
+% runs/table_chunking_ablation/combined/summary_by_arm.csv (scope = "all")

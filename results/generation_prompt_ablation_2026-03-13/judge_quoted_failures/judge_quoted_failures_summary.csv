@@ -1,0 +1,4 @@
+arm,judge_label,count,pct_within_arm
+quote_then_answer,quote_supports_gold_but_answer_misread,7,1.0
+constrained_extraction,quote_supports_gold_but_answer_misread,6,0.8571428571428571
+constrained_extraction,quote_irrelevant,1,0.14285714285714285

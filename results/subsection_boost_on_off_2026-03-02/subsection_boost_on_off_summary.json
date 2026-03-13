@@ -1,0 +1,69 @@
+{
+  "runs": [
+    {
+      "mode": "on",
+      "doc_id": "Grampian-2020-2021",
+      "ok": true,
+      "rc": 0
+    },
+    {
+      "mode": "on",
+      "doc_id": "Grampian-2021-2022",
+      "ok": true,
+      "rc": 0
+    },
+    {
+      "mode": "on",
+      "doc_id": "Grampian-2022-2023",
+      "ok": true,
+      "rc": 0
+    },
+    {
+      "mode": "on",
+      "doc_id": "Grampian-2023-2024",
+      "ok": true,
+      "rc": 0
+    },
+    {
+      "mode": "on",
+      "doc_id": "Grampian-2024-2025",
+      "ok": true,
+      "rc": 0
+    },
+    {
+      "mode": "off",
+      "doc_id": "Grampian-2020-2021",
+      "ok": true,
+      "rc": 0
+    },
+    {
+      "mode": "off",
+      "doc_id": "Grampian-2021-2022",
+      "ok": true,
+      "rc": 0
+    },
+    {
+      "mode": "off",
+      "doc_id": "Grampian-2022-2023",
+      "ok": true,
+      "rc": 0
+    },
+    {
+      "mode": "off",
+      "doc_id": "Grampian-2023-2024",
+      "ok": true,
+      "rc": 0
+    },
+    {
+      "mode": "off",
+      "doc_id": "Grampian-2024-2025",
+      "ok": true,
+      "rc": 0
+    }
+  ],
+  "ok_count": 10,
+  "fail_count": 0,
+  "fp2_on_total": 0,
+  "fp2_off_total": 0,
+  "fp2_delta_on_minus_off_total": 0
+}

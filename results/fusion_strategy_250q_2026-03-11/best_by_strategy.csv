@@ -1,0 +1,3 @@
+strategy,bm25_weight,n_queries,hit1,hit3,mrr10
+score_fusion,1.25,250,0.756,0.868,0.8254206349206349
+rrf,1.0,250,0.716,0.856,0.8040650793650793

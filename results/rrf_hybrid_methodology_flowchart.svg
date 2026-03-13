@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1300" height="900" viewBox="0 0 1300 900">
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto">
+      <polygon points="0,0 10,4 0,8" fill="#1f1f1f"/>
+    </marker>
+    <style>
+      .bg { fill: #ffffff; }
+      .title { fill: #111; font-family: "Avenir Next", "Trebuchet MS", sans-serif; font-size: 38px; font-weight: 700; }
+      .box { fill: #fafafa; stroke: #222; stroke-width: 2.4; rx: 18; ry: 18; }
+      .box2 { fill: #f5f7fb; stroke: #243b6b; stroke-width: 2.4; rx: 18; ry: 18; }
+      .diamond { fill: #f8f8f8; stroke: #222; stroke-width: 2.4; }
+      .txt { fill: #1c1c1c; font-family: "Avenir Next", "Trebuchet MS", sans-serif; font-size: 32px; font-weight: 600; }
+      .sub { fill: #333; font-family: "Avenir Next", "Trebuchet MS", sans-serif; font-size: 26px; }
+      .wire { stroke: #1f1f1f; stroke-width: 3.2; fill: none; marker-end: url(#arrow); }
+      .hint { fill: #555; font-family: "Avenir Next", "Trebuchet MS", sans-serif; font-size: 22px; font-style: italic; }
+    </style>
+  </defs>
+
+  <rect class="bg" x="0" y="0" width="1300" height="900"/>
+  <text class="title" x="650" y="64" text-anchor="middle">Hybrid Retrieval with Reciprocal Rank Fusion</text>
+
+  <!-- Query -->
+  <rect class="box" x="500" y="110" width="300" height="88" rx="18" ry="18"/>
+  <text class="txt" x="650" y="165" text-anchor="middle">Query</text>
+
+  <!-- Branch hint -->
+  <text class="hint" x="650" y="255" text-anchor="middle">Two parallel retrieval paths</text>
+
+  <!-- Parallel retrieval -->
+  <rect class="box2" x="120" y="300" width="430" height="110" rx="18" ry="18"/>
+  <text class="txt" x="335" y="350" text-anchor="middle">Lexical Retrieval</text>
+  <text class="sub" x="335" y="386" text-anchor="middle">(BM25)</text>
+
+  <rect class="box2" x="750" y="300" width="430" height="110" rx="18" ry="18"/>
+  <text class="txt" x="965" y="350" text-anchor="middle">Semantic Retrieval</text>
+  <text class="sub" x="965" y="386" text-anchor="middle">(Dense Embeddings - MiniLM + FAISS)</text>
+
+  <!-- RRF -->
+  <polygon class="diamond" points="650,470 820,600 650,730 480,600"/>
+  <text class="txt" x="650" y="592" text-anchor="middle">Reciprocal Rank</text>
+  <text class="txt" x="650" y="630" text-anchor="middle">Fusion (RRF)</text>
+
+  <!-- Output -->
+  <rect class="box" x="430" y="790" width="440" height="88" rx="18" ry="18"/>
+  <text class="txt" x="650" y="845" text-anchor="middle">Final Ranked Candidate Chunks (Top-k)</text>
+
+  <!-- Wires -->
+  <path class="wire" d="M650,198 L650,260 L335,300"/>
+  <path class="wire" d="M650,198 L650,260 L965,300"/>
+
+  <path class="wire" d="M335,410 L335,520 L500,585"/>
+  <path class="wire" d="M965,410 L965,520 L800,585"/>
+
+  <path class="wire" d="M650,730 L650,790"/>
+</svg>

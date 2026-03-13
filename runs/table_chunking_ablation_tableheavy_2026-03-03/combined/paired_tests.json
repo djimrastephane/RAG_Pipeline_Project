@@ -1,0 +1,30 @@
+{
+  "all": {
+    "baseline_vs_row_preserving": {
+      "b_only": 1,
+      "c_only": 0,
+      "n_discordant": 1,
+      "p_value": 1.0
+    },
+    "baseline_vs_two_stage": {
+      "b_only": 1,
+      "c_only": 0,
+      "n_discordant": 1,
+      "p_value": 1.0
+    }
+  },
+  "table_query": {
+    "baseline_vs_row_preserving": {
+      "b_only": 1,
+      "c_only": 0,
+      "n_discordant": 1,
+      "p_value": 1.0
+    },
+    "baseline_vs_two_stage": {
+      "b_only": 1,
+      "c_only": 0,
+      "n_discordant": 1,
+      "p_value": 1.0
+    }
+  }
+}

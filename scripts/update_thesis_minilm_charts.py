@@ -5,6 +5,7 @@ from __future__ import annotations
 
 from pathlib import Path
 
+import _matplotlib_env
 import matplotlib.pyplot as plt
 import pandas as pd
 
@@ -153,9 +154,11 @@ def plot_truncation_by_doc(per_doc_csv: Path, output_path: Path, title: str) -> 
 def main() -> None:
     root = Path(__file__).resolve().parents[1]
     token_dir = root / "results" / "token_validation"
+    docs_figures_dir = root / "docs" / "figures"
+    docs_figures_dir.mkdir(parents=True, exist_ok=True)
 
-    plot_effective_context(root / "effective_embedding_context_minilm_grampian.png", "Grampian")
-    plot_effective_context(root / "effective_embedding_context_minilm_shetland.png", "Shetland")
+    plot_effective_context(docs_figures_dir / "effective_embedding_context_minilm_grampian.png", "Grampian")
+    plot_effective_context(docs_figures_dir / "effective_embedding_context_minilm_shetland.png", "Shetland")
 
     plot_truncation_overall(
         token_dir / "grampian_21_minilm_summary.csv",

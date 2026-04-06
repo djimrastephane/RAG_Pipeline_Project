@@ -1,7 +1,7 @@
 python_bin: .venv/bin/python
 data_root: data_processed
-ablation_root: data_processed_ablation_thesis_all_docs
-output_dir: data_processed/ablation_thesis_all_docs
+ablation_root: results/ablations/ablation_thesis_all_docs
+output_dir: results/ablations/ablation_thesis_all_docs
 embed_model: models/all-MiniLM-L6-v2
 k_list:
 - 1

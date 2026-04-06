@@ -37,15 +37,14 @@ class UploadResponse(BaseModel):
     """Response payload for successful upload/process request."""
 
     doc_id: str
-    data_dir: str
     page_count: int
     chunk_count: int
     table_chunk_count: int
     chunk_size_tokens: Optional[int] = None
     chunk_overlap_tokens: Optional[int] = None
+    table_chunking: Optional[str] = None
     has_eval_set: bool
     has_pipeline_log: bool
-    pipeline_log_path: str
     status: str
 
 
@@ -78,12 +77,16 @@ class SearchResponse(BaseModel):
     query_id: Optional[str] = None
     expected_pages: list[int] = []
     expected_answer: Optional[str] = None
+    expected_subsection: Optional[str] = None
+    answer_type: Optional[str] = None
     hit_at_k: bool
     predicted_answer: Optional[str] = None
+    predicted_answer_raw: Optional[str] = None
     answer_source_chunk_id: Optional[str] = None
     answer_debug: dict[str, Any] = {}
     include_generated_answer: bool = False
     generated_answer: Optional[str] = None
+    generated_answer_raw: Optional[str] = None
     generated_citations: list[SearchCitation] = []
     generation_status: str = "skipped"
     generation_confidence: Optional[float] = None

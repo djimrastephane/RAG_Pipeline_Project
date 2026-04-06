@@ -37,9 +37,9 @@ from rag_pdf.chunking import (
     count_tokens,
     get_encoder,
     require_encoder,
-    split_text_for_segment_aware_chunking,
+    split_text_for_segment_aware_chunking_with_patterns,
 )
-from rag_pdf.config import PreprocessConfig
+from rag_pdf.config import PreprocessConfig, RegionConfig, TableExtractConfig
 from rag_pdf.extract_page import OCR_AVAILABLE, extract_page_struct_hybrid, extract_page_with_ocr
 from rag_pdf.headings import (
     is_part_label,
@@ -50,6 +50,8 @@ from rag_pdf.headings import (
 )
 from rag_pdf.metrics import StepTimer, safe_json_dump
 from rag_pdf.ocr_quality import evaluate_ocr_quality
+from rag_pdf.region_classify import classify_region
+from rag_pdf.region_segment import segment_page_into_regions
 from rag_pdf.schemas import build_page_list_struct, make_chunk_id_global
 from rag_pdf.sections import build_sections_from_pages, find_section_for_page
 from rag_pdf.table_detect import (
@@ -68,6 +70,7 @@ from rag_pdf.text_normalize import (
     normalize_page_text,
     now_utc_iso,
 )
+from runtime_env import collect_runtime_provenance, critical_environment_checks
 
 
 def _alpha_ratio(text: str) -> float:
@@ -152,6 +155,18 @@ def parse_args() -> argparse.Namespace:
         help="Chunk overlap in tokens for text chunking.",
     )
     parser.add_argument(
+        "--cross-page-sentence-overlap",
+        action="store_true",
+        default=_env_flag("CROSS_PAGE_SENTENCE_OVERLAP", "0"),
+        help="Add one cross-page text chunk when a page ends mid-sentence and the next page continues it.",
+    )
+    parser.add_argument(
+        "--cross-page-overlap-max-chars",
+        type=int,
+        default=int(_env_or_default("CROSS_PAGE_OVERLAP_MAX_CHARS", "320")),
+        help="Max chars taken from each side of a page boundary for cross-page overlap chunks.",
+    )
+    parser.add_argument(
         "--segment-aware-chunking",
         action="store_true",
         default=_env_flag("SEGMENT_AWARE_CHUNKING", "1"),
@@ -184,8 +199,14 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument(
         "--table-chunking",
         default=_env_or_default("TABLE_CHUNKING", "baseline"),
-        choices=["baseline", "row_preserving", "two_stage"],
+        choices=["baseline", "row_preserving", "two_stage", "row_blocks"],
         help="Table chunk construction strategy (affects only table chunks).",
+    )
+    parser.add_argument(
+        "--region-diagnostics",
+        action="store_true",
+        default=_env_flag("REGION_DIAGNOSTICS", "0"),
+        help="Emit region-level segmentation/classification diagnostics without changing main routing.",
     )
     parser.add_argument(
         "--table-page-backup-text-chunks",
@@ -309,8 +330,12 @@ def _apply_config_overrides(cfg: PreprocessConfig) -> None:
     import rag_pdf.boilerplate as boilerplate_mod
     import rag_pdf.extract_page as extract_page_mod
     import rag_pdf.headings as headings_mod
+    import rag_pdf.region_segment as region_segment_mod
+    import rag_pdf.table_camelot as table_camelot_mod
+    import rag_pdf.table_chunking as table_chunking_mod
     import rag_pdf.table_detect as table_detect_mod
     import rag_pdf.table_extract as table_extract_mod
+    import rag_pdf.table_markdown as table_markdown_mod
 
     _set_module_cfg_attrs(
         boilerplate_mod,
@@ -353,21 +378,17 @@ def _apply_config_overrides(cfg: PreprocessConfig) -> None:
             "TABLE_MIN_LINES",
         ),
     )
+    setattr(table_detect_mod, "TABLE_DETECT_CFG", cfg.TABLE_DETECT)
     _set_module_cfg_attrs(
         table_extract_mod,
         cfg,
-        (
-            "CAMELOT_LATTICE_ACCURACY_THRESHOLD",
-            "CAMELOT_LATTICE_WHITESPACE_MAX",
-            "CAMELOT_HYBRID_ACCURACY_THRESHOLD",
-            "CAMELOT_HYBRID_WHITESPACE_MAX",
-            "CAMELOT_LINE_SCALE",
-            "CAMELOT_RESOLUTION",
-            "CAMELOT_STREAM_ROW_TOL",
-            "CAMELOT_STREAM_EDGE_TOL",
-            "TABLE_SUMMARY_MAX_ROWS",
-        ),
+        (),
     )
+    setattr(table_camelot_mod, "TABLE_EXTRACT_CFG", cfg.TABLE_EXTRACT)
+    setattr(table_chunking_mod, "TABLE_EXTRACT_CFG", cfg.TABLE_EXTRACT)
+    setattr(table_extract_mod, "TABLE_EXTRACT_CFG", cfg.TABLE_EXTRACT)
+    setattr(table_markdown_mod, "TABLE_EXTRACT_CFG", cfg.TABLE_EXTRACT)
+    setattr(region_segment_mod, "REGION_CFG", cfg.REGION)
 
 
 def _attach_section_columns(table_chunks_df: pd.DataFrame, sections_df: pd.DataFrame) -> None:
@@ -387,25 +408,79 @@ def _build_page_chunks(
     text: str,
     cfg: PreprocessConfig,
     enc,
-) -> tuple[list[tuple[int, str, str]], bool]:
+) -> tuple[list[tuple[int, str, str, str, bool]], bool]:
     if cfg.SEGMENT_AWARE_CHUNKING:
-        segments = split_text_for_segment_aware_chunking(text)
+        segments = split_text_for_segment_aware_chunking_with_patterns(
+            text,
+            insert_patterns=tuple(cfg.SEGMENT_BOUNDARY_INSERT_PATTERNS),
+            boundary_match_patterns=tuple(cfg.SEGMENT_BOUNDARY_MATCH_PATTERNS),
+            boundary_search_patterns=tuple(cfg.SEGMENT_BOUNDARY_SEARCH_PATTERNS),
+            uppercase_heading_pattern=str(cfg.SEGMENT_UPPERCASE_HEADING_PATTERN),
+            uppercase_heading_max_words=int(cfg.SEGMENT_UPPERCASE_HEADING_MAX_WORDS),
+        )
         segment_aware_applied = len(segments) > 1
     else:
         segments = [("segment_000", text)]
         segment_aware_applied = False
 
-    page_chunks: list[tuple[int, str, str]] = []
-    for seg_idx, (segment_title, segment_text) in enumerate(segments):
+    page_chunks: list[tuple[int, str, str, str, bool]] = []
+    for seg_idx, segment in enumerate(segments):
         seg_chunks = chunk_text_by_tokens(
-            segment_text,
+            segment.text,
             cfg.CHUNK_SIZE_TOKENS,
             cfg.CHUNK_OVERLAP_TOKENS,
             enc,
         )
         for c in seg_chunks:
-            page_chunks.append((seg_idx, segment_title, c))
+            page_chunks.append((seg_idx, segment.title, segment.boundary_type, c, bool(segment.segment_has_search_hit)))
     return page_chunks, segment_aware_applied
+
+
+def _normalize_chunk_text_for_boundary(text: str) -> str:
+    return re.sub(r"\s+", " ", str(text or "")).strip()
+
+
+def _page_ends_mid_sentence(text: str) -> bool:
+    tail = _normalize_chunk_text_for_boundary(text).rstrip()
+    if not tail:
+        return False
+    tail = tail.rstrip("\"'”’)]}")
+    if not tail:
+        return False
+    return tail[-1] not in ".!?:;"
+
+
+def _extract_trailing_sentence_window(text: str, max_chars: int) -> str:
+    normalized = _normalize_chunk_text_for_boundary(text)
+    if not normalized:
+        return ""
+    if len(normalized) <= max_chars:
+        return normalized
+    start = max(0, len(normalized) - max_chars)
+    boundary_positions = [
+        normalized.rfind(mark, 0, start)
+        for mark in (". ", "! ", "? ", "; ", ": ")
+    ]
+    boundary = max(boundary_positions)
+    if boundary >= 0:
+        start = boundary + 2
+    return normalized[start:].strip()
+
+
+def _extract_leading_sentence_window(text: str, max_chars: int) -> str:
+    normalized = _normalize_chunk_text_for_boundary(text)
+    if not normalized:
+        return ""
+    normalized = re.sub(r"^[A-Z][A-Z0-9 ,/&()\-]{6,}\s+", "", normalized).strip()
+    if not normalized:
+        return ""
+    window = normalized[:max_chars].strip()
+    if not window:
+        return ""
+    for idx, ch in enumerate(window):
+        if ch in ".!?":
+            return window[: idx + 1].strip()
+    return window
 
 
 def _make_text_chunk_record(
@@ -420,18 +495,22 @@ def _make_text_chunk_record(
     chunk_idx: int,
     seg_idx: int,
     seg_title: str,
+    seg_boundary_type: str,
+    seg_has_search_hit: bool,
     chunk_text: str,
     part,
     section,
     subsection,
     cfg: PreprocessConfig,
     enc,
+    pages: Optional[list[int]] = None,
+    chunk_id_local: Optional[str] = None,
 ) -> Optional[dict]:
     wc = len(chunk_text.split())
     if wc < cfg.MIN_CHUNK_WORDS:
         return None
-    chunk_id_local = f"p{page_no:04d}_{chunk_idx:03d}"
-    pages = [page_no]
+    chunk_id_local = chunk_id_local or f"p{page_no:04d}_{chunk_idx:03d}"
+    pages = [int(p) for p in (pages or [page_no])]
     page_list_struct = build_page_list_struct(pages)
     return {
         "doc_id": doc_id,
@@ -445,8 +524,8 @@ def _make_text_chunk_record(
         "part": part,
         "section_title": section,
         "subsection_title": subsection,
-        "page_start": page_no,
-        "page_end": page_no,
+        "page_start": min(pages),
+        "page_end": max(pages),
         "pages": pages,
         "page_list": page_list_struct,
         "chunk_text": chunk_text,
@@ -454,6 +533,8 @@ def _make_text_chunk_record(
         "word_count": wc,
         "segment_title": seg_title,
         "segment_id": f"s{seg_idx:02d}",
+        "segment_boundary_type": str(seg_boundary_type or "CONTINUATION"),
+        "segment_has_search_hit": bool(seg_has_search_hit),
         "segment_aware": bool(cfg.SEGMENT_AWARE_CHUNKING),
         "is_table_like": False,
         "many_numbers": contains_many_numbers(chunk_text),
@@ -479,9 +560,10 @@ def _append_text_chunks_for_page(
     subsection,
     cfg: PreprocessConfig,
     enc,
-) -> bool:
+) -> tuple[bool, int]:
     page_chunks, segment_aware_applied = _build_page_chunks(text, cfg, enc)
-    for j, (seg_idx, seg_title, ctext) in enumerate(page_chunks):
+    created = 0
+    for j, (seg_idx, seg_title, seg_boundary_type, ctext, seg_has_search_hit) in enumerate(page_chunks):
         ctext_final = ctext
         if cfg.WHOLE_DOC_MARKDOWN_MODE and cfg.MARKDOWN_HEADER_CARRY_FORWARD:
             ctext_final = _prepend_header_context(
@@ -501,6 +583,8 @@ def _append_text_chunks_for_page(
             chunk_idx=j,
             seg_idx=seg_idx,
             seg_title=seg_title,
+            seg_boundary_type=seg_boundary_type,
+            seg_has_search_hit=seg_has_search_hit,
             chunk_text=ctext_final,
             part=part,
             section=section,
@@ -510,7 +594,72 @@ def _append_text_chunks_for_page(
         )
         if chunk_record is not None:
             text_chunks.append(chunk_record)
-    return segment_aware_applied
+            created += 1
+    return segment_aware_applied, created
+
+
+def _append_cross_page_overlap_chunk(
+    *,
+    text_chunks: list[dict],
+    doc_id: str,
+    corpus_id: str,
+    report_year,
+    report_year_source: str,
+    period_end_date,
+    run_date_utc: str,
+    page_no: int,
+    next_page_no: int,
+    current_text: str,
+    next_text: str,
+    chunk_idx: int,
+    part,
+    section,
+    subsection,
+    cfg: PreprocessConfig,
+    enc,
+) -> bool:
+    if not cfg.CROSS_PAGE_SENTENCE_OVERLAP or cfg.WHOLE_DOC_MARKDOWN_MODE:
+        return False
+    if next_page_no <= page_no:
+        return False
+    if not _page_ends_mid_sentence(current_text):
+        return False
+
+    trailing = _extract_trailing_sentence_window(current_text, cfg.CROSS_PAGE_OVERLAP_MAX_CHARS)
+    leading = _extract_leading_sentence_window(next_text, cfg.CROSS_PAGE_OVERLAP_MAX_CHARS)
+    if not trailing or not leading:
+        return False
+
+    overlap_text = f"{trailing} {leading}".strip()
+    if not overlap_text or normalize_page_text(overlap_text) == normalize_page_text(trailing):
+        return False
+
+    chunk_record = _make_text_chunk_record(
+        doc_id=doc_id,
+        corpus_id=corpus_id,
+        report_year=report_year,
+        report_year_source=report_year_source,
+        period_end_date=period_end_date,
+        run_date_utc=run_date_utc,
+        page_no=page_no,
+        chunk_idx=chunk_idx,
+        seg_idx=99,
+        seg_title="cross_page_sentence_overlap",
+        seg_boundary_type="CROSS_PAGE_CONTINUATION",
+        seg_has_search_hit=False,
+        chunk_text=overlap_text,
+        part=part,
+        section=section,
+        subsection=subsection,
+        cfg=cfg,
+        enc=enc,
+        pages=[page_no, next_page_no],
+        chunk_id_local=f"p{page_no:04d}_x{chunk_idx:03d}",
+    )
+    if chunk_record is None:
+        return False
+    text_chunks.append(chunk_record)
+    return True
 
 
 def main() -> None:
@@ -536,6 +685,8 @@ def main() -> None:
         CORPUS_ID=None,
         CHUNK_SIZE_TOKENS=int(args.chunk_size_tokens),
         CHUNK_OVERLAP_TOKENS=int(args.chunk_overlap_tokens),
+        CROSS_PAGE_SENTENCE_OVERLAP=bool(args.cross_page_sentence_overlap),
+        CROSS_PAGE_OVERLAP_MAX_CHARS=int(args.cross_page_overlap_max_chars),
         SEGMENT_AWARE_CHUNKING=bool(args.segment_aware_chunking),
         WHOLE_DOC_MARKDOWN_MODE=bool(args.whole_doc_markdown_mode),
         MARKDOWN_HEADER_CARRY_FORWARD=bool(args.markdown_header_carry_forward),
@@ -562,8 +713,19 @@ def main() -> None:
         TABLE_DIGIT_RATIO=0.15,
         TABLE_SPACE_RATIO=0.3,
         TABLE_MIN_LINES=1,
-        CAMELOT_LATTICE_ACCURACY_THRESHOLD=70,
-        TABLE_SUMMARY_MAX_ROWS=5,
+        TABLE_EXTRACT=TableExtractConfig(
+            CAMELOT_LATTICE_ACCURACY_THRESHOLD=70,
+            TABLE_SUMMARY_MAX_ROWS=5,
+            TABLE_SUMMARY_WORD_TARGET=140,
+            TABLE_ROW_CHUNK_WORD_TARGET=320,
+            TABLE_ROW_CHUNK_WORD_HARD_MAX=450,
+            TABLE_ROW_CHUNK_MAX_ROWS=10,
+            TABLE_LOCAL_FACTS_MAX=24,
+            TABLE_SUMMARY_KEY_ROWS_MAX=5,
+        ),
+        REGION=RegionConfig(
+            ENABLE_DIAGNOSTICS=bool(args.region_diagnostics),
+        ),
         OCR_MIN_ALPHA_RATIO=0.3,
         OCR_MIN_DIGIT_RATIO=0.6,
         OCR_QUALITY_MIN_CHARS=200,
@@ -739,6 +901,7 @@ def main() -> None:
         # Build pages dataframe with classification
         print("\nClassifying pages...")
         pages_records = []
+        region_records = []
         text_pages = []
         table_pages = []
         ocr_short_pages_triggered = 0
@@ -855,6 +1018,37 @@ def main() -> None:
                     classification["table_type"] = detect_table_type(clean_text)
 
             s = page_structs.get(page_no, {})
+            if bool(cfg.REGION.ENABLE_DIAGNOSTICS):
+                regions = segment_page_into_regions(
+                    page_no=page_no,
+                    lines_all=s.get("lines_all", []),
+                )
+                for region in regions:
+                    region_cls = classify_region(region)
+                    region_records.append({
+                        "doc_id": doc_id,
+                        "corpus_id": corpus_id,
+                        "report_year": report_year,
+                        "report_year_source": report_year_source,
+                        "period_end_date": period_end_date,
+                        "run_date_utc": run_date_utc,
+                        "page": page_no,
+                        "region_id": region.region_id,
+                        "region_index": region.region_index,
+                        "x0": region.x0,
+                        "y0": region.y0,
+                        "x1": region.x1,
+                        "y1": region.y1,
+                        "width": region.width,
+                        "height": region.height,
+                        "line_count": region.line_count,
+                        "text": region.text,
+                        "is_table": bool(region_cls.get("is_table", False)),
+                        "is_text": bool(region_cls.get("is_text", False)),
+                        "is_raw_table": bool(region_cls.get("is_raw_table", False)),
+                        "table_type": region_cls.get("table_type"),
+                        "confidence": region_cls.get("confidence"),
+                    })
 
             pages_records.append({
                 "doc_id": doc_id,
@@ -960,6 +1154,7 @@ def main() -> None:
         print("\nChunking text pages...")
         text_chunks = []
         segment_aware_applied_pages = 0
+        cross_page_overlap_chunks = 0
 
         table_rows_by_page: dict[int, list[dict]] = {}
         if cfg.WHOLE_DOC_MARKDOWN_MODE and cfg.MARKDOWN_TABLE_INJECTION and len(structured_tables_df) > 0:
@@ -984,13 +1179,14 @@ def main() -> None:
         else:
             text_page_records = text_pages
 
-        for page_record in text_page_records:
+        for idx, page_record in enumerate(text_page_records):
             page_no = int(page_record["page"])
-            text = str(page_record.get("text") or "")
-            if not text:
+            raw_text = str(page_record.get("text") or "")
+            if not raw_text:
                 continue
 
             part, section, subsection = find_section_for_page(sections_df, page_no)
+            text = raw_text
             if cfg.WHOLE_DOC_MARKDOWN_MODE:
                 text = _compose_page_markdown_text(
                     page_no=page_no,
@@ -1002,7 +1198,7 @@ def main() -> None:
                     inject_tables=bool(cfg.MARKDOWN_TABLE_INJECTION),
                 )
 
-            segment_aware_applied = _append_text_chunks_for_page(
+            segment_aware_applied, chunk_count = _append_text_chunks_for_page(
                 text_chunks=text_chunks,
                 doc_id=doc_id,
                 corpus_id=corpus_id,
@@ -1020,11 +1216,38 @@ def main() -> None:
             )
             if segment_aware_applied:
                 segment_aware_applied_pages += 1
+            if cfg.CROSS_PAGE_SENTENCE_OVERLAP and not cfg.WHOLE_DOC_MARKDOWN_MODE and chunk_count >= 0:
+                next_record = text_page_records[idx + 1] if idx + 1 < len(text_page_records) else None
+                if next_record is not None:
+                    next_page_no = int(next_record["page"])
+                    next_raw_text = str(next_record.get("text") or "")
+                    if next_raw_text and _append_cross_page_overlap_chunk(
+                        text_chunks=text_chunks,
+                        doc_id=doc_id,
+                        corpus_id=corpus_id,
+                        report_year=report_year,
+                        report_year_source=report_year_source,
+                        period_end_date=period_end_date,
+                        run_date_utc=run_date_utc,
+                        page_no=page_no,
+                        next_page_no=next_page_no,
+                        current_text=raw_text,
+                        next_text=next_raw_text,
+                        chunk_idx=chunk_count,
+                        part=part,
+                        section=section,
+                        subsection=subsection,
+                        cfg=cfg,
+                        enc=enc,
+                    ):
+                        cross_page_overlap_chunks += 1
 
         text_chunks_df = pd.DataFrame(text_chunks)
         print(f"  Created {len(text_chunks_df)} text chunks")
         if cfg.SEGMENT_AWARE_CHUNKING:
             print(f"  Segment-aware pages (multi-segment): {segment_aware_applied_pages}")
+        if cfg.CROSS_PAGE_SENTENCE_OVERLAP and not cfg.WHOLE_DOC_MARKDOWN_MODE:
+            print(f"  Cross-page overlap chunks: {cross_page_overlap_chunks}")
 
         timer.mark("Step 5: text chunking")
 
@@ -1122,7 +1345,7 @@ def main() -> None:
         _attach_section_columns(table_chunks_df, sections_df)
 
         print(f"  Extracted {len(structured_tables_df)} tables")
-        print(f"  Created {len(table_chunks_df)} table summary chunks")
+        print(f"  Created {len(table_chunks_df)} table chunks")
 
         timer.mark("Step 6: table extraction + summarization")
 
@@ -1135,14 +1358,16 @@ def main() -> None:
             f"({len(text_chunks_df)} text + {len(table_chunks_df)} table)"
         )
 
-        # Validate page-bounded chunks
+        # Validate chunk page spans
         if len(all_chunks_df) > 0:
             bad_span = all_chunks_df[all_chunks_df["page_start"] != all_chunks_df["page_end"]]
-            if len(bad_span) > 0:
+            if len(bad_span) > 0 and not cfg.CROSS_PAGE_SENTENCE_OVERLAP:
                 raise ValueError(
                     f"Found {len(bad_span)} chunks spanning multiple pages. "
                     "Pipeline requires page-bounded chunks for accurate citations."
                 )
+            if len(bad_span) > 0 and cfg.CROSS_PAGE_SENTENCE_OVERLAP:
+                print(f"  Retained {len(bad_span)} multi-page text chunks for cross-page sentence continuity")
 
         timer.mark("Step 7: chunk merging + validation")
 
@@ -1189,12 +1414,34 @@ def main() -> None:
         ocr_pages_df["clean_text_len"] = ocr_pages_df["clean_text"].fillna("").str.len()
         ocr_pages_df = ocr_pages_df.drop(columns=["clean_text"])
         ocr_pages_df.to_csv(out_dir / "ocr_pages.csv", index=False)
+        if region_records:
+            regions_df = pd.DataFrame(region_records)
+            regions_df.to_parquet(out_dir / "regions.parquet", index=False)
+            regions_df.to_csv(out_dir / "regions.csv", index=False)
 
         # Write structured tables
         if len(structured_tables_df) > 0:
             structured_tables_df.to_parquet(out_dir / "tables_structured.parquet", index=False)
         if len(table_facts_df) > 0:
             table_facts_df.to_parquet(out_dir / "table_facts.parquet", index=False)
+        if len(table_chunks_df) > 0:
+            diag_cols = [
+                "doc_id",
+                "chunk_id",
+                "table_ref",
+                "table_type",
+                "table_chunk_kind",
+                "row_start_idx",
+                "row_end_idx",
+                "word_count",
+                "page_start",
+            ]
+            available_diag_cols = [col for col in diag_cols if col in table_chunks_df.columns]
+            if available_diag_cols:
+                table_chunks_df.loc[:, available_diag_cols].to_csv(
+                    out_dir / "table_chunk_diagnostics.csv",
+                    index=False,
+                )
 
         timer.mark("Step 8: parquet writes")
 
@@ -1211,6 +1458,16 @@ def main() -> None:
         embedding_model = os.getenv("EMBED_MODEL_NAME") or "sentence-transformers/all-MiniLM-L6-v2"
         tokenizer_backend = "tiktoken" if enc is not None else "word_fallback"
         time_total_wall = time.perf_counter() - t_doc_start
+        table_word_counts = (
+            pd.to_numeric(table_chunks_df.get("word_count"), errors="coerce").dropna()
+            if "word_count" in table_chunks_df.columns
+            else pd.Series(dtype=float)
+        )
+        table_chunk_kind_series = (
+            table_chunks_df["table_chunk_kind"].astype(str)
+            if "table_chunk_kind" in table_chunks_df.columns
+            else pd.Series(dtype=str)
+        )
         metrics = {
             "schema_version": "3.0_hybrid",
             "doc_id": doc_id,
@@ -1220,6 +1477,8 @@ def main() -> None:
             "run_utc": run_utc,
             "git_commit_short": git_commit_short,
             "embedding_model": embedding_model,
+            "runtime": collect_runtime_provenance(),
+            "critical_environment_checks": critical_environment_checks(),
             "counts": {
                 "pages_total": len(pages_df),
                 "pages_text": len(text_pages),
@@ -1230,6 +1489,9 @@ def main() -> None:
                 "chunks_table": len(table_chunks_df),
                 "tables_extracted": len(structured_tables_df),
                 "table_facts": len(table_facts_df),
+                "table_summary_chunks_total": int((table_chunk_kind_series == "summary").sum()),
+                "table_row_chunks_total": int((table_chunk_kind_series == "row_block").sum()),
+                "regions": len(region_records),
                 "ocr_raw_pages_detected": ocr_raw_pages_detected,
                 "ocr_raw_pages_accepted": ocr_raw_pages_accepted,
                 "ocr_short_pages_triggered": ocr_short_pages_triggered,
@@ -1257,6 +1519,27 @@ def main() -> None:
                 "ocr_quality_reject_rate": (
                     ocr_rejected_quality / max(ocr_attempts, 1)
                 ),
+                "table_chunk_words_mean": (
+                    float(table_word_counts.mean()) if len(table_word_counts) > 0 else 0.0
+                ),
+                "table_chunk_words_median": (
+                    float(table_word_counts.median()) if len(table_word_counts) > 0 else 0.0
+                ),
+                "table_chunk_words_p95": (
+                    float(table_word_counts.quantile(0.95)) if len(table_word_counts) > 0 else 0.0
+                ),
+                "table_chunk_words_p99": (
+                    float(table_word_counts.quantile(0.99)) if len(table_word_counts) > 0 else 0.0
+                ),
+                "table_chunk_words_max": (
+                    float(table_word_counts.max()) if len(table_word_counts) > 0 else 0.0
+                ),
+                "table_chunks_gt_300": (
+                    int((table_word_counts > 300).sum()) if len(table_word_counts) > 0 else 0
+                ),
+                "table_chunks_gt_400": (
+                    int((table_word_counts > 400).sum()) if len(table_word_counts) > 0 else 0
+                ),
                 "toc_coverage_pct": float(section_diag.get("toc_coverage_pct", 0.0))
                 if isinstance(section_diag, dict)
                 else 0.0,
@@ -1280,8 +1563,11 @@ def main() -> None:
             "params": {
                 "chunk_size_tokens": cfg.CHUNK_SIZE_TOKENS,
                 "chunk_overlap_tokens": cfg.CHUNK_OVERLAP_TOKENS,
+                "cross_page_sentence_overlap": bool(cfg.CROSS_PAGE_SENTENCE_OVERLAP),
+                "cross_page_overlap_max_chars": int(cfg.CROSS_PAGE_OVERLAP_MAX_CHARS),
                 "tokenizer_backend": tokenizer_backend,
                 "tokenizer_exact_counting": bool(enc is not None),
+                "require_tiktoken": bool(args.require_tiktoken),
                 "top_strip_frac": cfg.TOP_STRIP_FRAC,
                 "bottom_strip_frac": cfg.BOTTOM_STRIP_FRAC,
                 "left_strip_frac": cfg.LEFT_STRIP_FRAC,
@@ -1294,6 +1580,11 @@ def main() -> None:
                 "markdown_header_carry_forward": bool(cfg.MARKDOWN_HEADER_CARRY_FORWARD),
                 "markdown_table_injection": bool(cfg.MARKDOWN_TABLE_INJECTION),
                 "table_chunking": str(cfg.TABLE_CHUNKING_STRATEGY),
+                "table_summary_word_target": int(cfg.TABLE_EXTRACT.TABLE_SUMMARY_WORD_TARGET),
+                "table_row_chunk_word_target": int(cfg.TABLE_EXTRACT.TABLE_ROW_CHUNK_WORD_TARGET),
+                "table_row_chunk_word_hard_max": int(cfg.TABLE_EXTRACT.TABLE_ROW_CHUNK_WORD_HARD_MAX),
+                "table_row_chunk_max_rows": int(cfg.TABLE_EXTRACT.TABLE_ROW_CHUNK_MAX_ROWS),
+                "table_local_facts_max": int(cfg.TABLE_EXTRACT.TABLE_LOCAL_FACTS_MAX),
                 "table_page_backup_text_chunks": bool(cfg.TABLE_PAGE_BACKUP_TEXT_CHUNKS),
                 "table_extract_return_all_tables": bool(cfg.TABLE_EXTRACT_RETURN_ALL_TABLES),
                 "table_extract_secondary_bottom_pass": bool(cfg.TABLE_EXTRACT_SECONDARY_BOTTOM_PASS),
@@ -1332,6 +1623,8 @@ def main() -> None:
         print(f"  - pages.parquet: {len(pages_df)} pages")
         print(f"  - sections.parquet: {len(sections_df)} sections")
         print(f"  - chunks.parquet: {len(all_chunks_df)} chunks (text + table summaries)")
+        if region_records:
+            print(f"  - regions.parquet: {len(region_records)} regions")
         if len(structured_tables_df) > 0:
             print(f"  - tables_structured.parquet: {len(structured_tables_df)} tables")
         if len(table_facts_df) > 0:

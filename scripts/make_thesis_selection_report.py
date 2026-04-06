@@ -5,6 +5,7 @@ import json
 from pathlib import Path
 from typing import Any
 
+import _matplotlib_env
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
@@ -15,12 +16,12 @@ def parse_args() -> argparse.Namespace:
     p = argparse.ArgumentParser(description="Build thesis-ready selection tables/charts from ablation summary.")
     p.add_argument(
         "--summary-csv",
-        default="data_processed/ablation_thesis_all_docs/retrieval_ablation_summary.csv",
+        default="results/ablations/ablation_thesis_all_docs/retrieval_ablation_summary.csv",
         help="Input ablation summary CSV.",
     )
     p.add_argument(
         "--out-dir",
-        default="data_processed/ablation_thesis_all_docs/final_selection",
+        default="results/ablations/ablation_thesis_all_docs/final_selection",
         help="Output directory for tables/charts.",
     )
     return p.parse_args()

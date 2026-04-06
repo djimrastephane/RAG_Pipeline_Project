@@ -45,6 +45,7 @@ from rag_pdf.retrieval.rerank import (
     RerankConfig,
     numeric_density_boost,
     query_overlap_boost,
+    segment_search_hit_boost,
     table_priority_boost,
 )
 
@@ -64,6 +65,7 @@ SUBSECTION_BOOST = float(os.getenv("SUBSECTION_BOOST", "0.05"))
 TABLE_CHUNK_BOOST = float(os.getenv("TABLE_CHUNK_BOOST", "0.08"))
 ENTITY_MATCH_BOOST = float(os.getenv("ENTITY_MATCH_BOOST", "0.04"))
 NUMERIC_DENSITY_BOOST = float(os.getenv("NUMERIC_DENSITY_BOOST", "0.03"))
+SEGMENT_SEARCH_HIT_BOOST = float(os.getenv("SEGMENT_SEARCH_HIT_BOOST", "0.03"))
 MAX_ENTITY_MATCHES = int(os.getenv("MAX_ENTITY_MATCHES", "4"))
 ENABLE_LEXICAL_RERANK = os.getenv("ENABLE_LEXICAL_RERANK", "1") != "0"
 ENABLE_SUBSECTION_BOOST = os.getenv("ENABLE_SUBSECTION_BOOST", "1") != "0"
@@ -678,6 +680,7 @@ def main() -> None:
         table_chunk_boost=TABLE_CHUNK_BOOST,
         entity_match_boost=ENTITY_MATCH_BOOST,
         numeric_density_boost=NUMERIC_DENSITY_BOOST,
+        segment_search_hit_boost=SEGMENT_SEARCH_HIT_BOOST,
         max_entity_matches=MAX_ENTITY_MATCHES,
     )
 
@@ -757,6 +760,11 @@ def main() -> None:
                 )
                 score += query_overlap_boost(question=question, chunk_text=ctext, config=rerank_cfg)
                 score += numeric_density_boost(question=question, chunk_text=ctext, config=rerank_cfg)
+                score += segment_search_hit_boost(
+                    question=question,
+                    segment_has_search_hit=bool(row.get("segment_has_search_hit", False)),
+                    config=rerank_cfg,
+                )
                 scores_map[idx] = score
 
         if enable_subsection_boost and expected_subsection and "subsection_title" in meta.columns:
@@ -909,6 +917,7 @@ def main() -> None:
             "table_chunk_boost": float(TABLE_CHUNK_BOOST),
             "entity_match_boost": float(ENTITY_MATCH_BOOST),
             "numeric_density_boost": float(NUMERIC_DENSITY_BOOST),
+            "segment_search_hit_boost": float(SEGMENT_SEARCH_HIT_BOOST),
             "subsection_boost": float(SUBSECTION_BOOST),
             "k_list": k_list,
             "num_queries": int(len(results)),

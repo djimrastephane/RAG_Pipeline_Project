@@ -101,6 +101,36 @@ def _safe_name(s: str) -> str:
     return out or "experiment"
 
 
+def _normalize_ablation_path(path_value: Any) -> Path:
+    raw = str(path_value or "").strip()
+    if not raw:
+        return Path(raw)
+    p = Path(raw)
+    if p.is_absolute():
+        return p
+
+    replacements = {
+        "data_processed_ablation_intrinsic": "results/ablations/ablation_intrinsic",
+        "data_processed_ablation_thesis_all_docs": "results/ablations/ablation_thesis_all_docs",
+        "data_processed_ablation_thesis_5docs_q50": "results/ablations/ablation_thesis_5docs_q50",
+        "data_processed_ablation": "results/ablations/ablation",
+        "data_processed/ablation_intrinsic": "results/ablations/ablation_intrinsic",
+        "data_processed/ablation_thesis_all_docs": "results/ablations/ablation_thesis_all_docs",
+        "data_processed/ablation_thesis_5docs_q50": "results/ablations/ablation_thesis_5docs_q50",
+        "data_processed/ablation_thesis": "results/ablations/ablation_thesis",
+        "data_processed/ablation_splade": "results/ablations/ablation_splade",
+        "data_processed/ablation_minilm_cap_5docs": "results/ablations/ablation_minilm_cap_5docs",
+        "data_processed/ablation_224_56_5docs": "results/ablations/ablation_224_56_5docs",
+        "data_processed/ablation": "results/ablations/ablation",
+    }
+    normalized = raw
+    for old, new in replacements.items():
+        if normalized == old or normalized.startswith(old + "/"):
+            normalized = new + normalized[len(old) :]
+            break
+    return Path(normalized).resolve()
+
+
 def run_benchmark(
     exp: dict[str, Any],
     global_cfg: dict[str, Any],
@@ -112,11 +142,11 @@ def run_benchmark(
     if not enabled:
         return None, None
 
-    python_bin = str(global_cfg.get("python_bin", ".venv/bin/python"))
+    python_bin = str(global_cfg.get("python_bin", sys.executable))
     model = str(global_cfg.get("embed_model", "models/all-MiniLM-L6-v2"))
     exp_name = _safe_name(str(exp.get("name", "experiment")))
 
-    output_dir = Path(str(global_cfg.get("output_dir", "data_processed/ablation"))).resolve()
+    output_dir = _normalize_ablation_path(global_cfg.get("output_dir", "results/ablations/ablation"))
     bench_dir = output_dir / "benchmarks"
     bench_dir.mkdir(parents=True, exist_ok=True)
     output_json = bench_dir / f"{exp_name}_benchmark.json"
@@ -197,8 +227,8 @@ def build_eval_set_rewrites(eval_path: Path, out_path: Path) -> None:
 def prepare_data_dir(exp: dict[str, Any], global_cfg: dict[str, Any]) -> tuple[Path, str]:
     """Prepare per-experiment data directory, optionally rebuilding with chunk settings."""
     data_root = Path(global_cfg["data_root"]).resolve()
-    ablation_root = Path(global_cfg.get("ablation_root", "data_processed_ablation")).resolve()
-    python_bin = str(global_cfg.get("python_bin", ".venv/bin/python"))
+    ablation_root = _normalize_ablation_path(global_cfg.get("ablation_root", "results/ablations/ablation"))
+    python_bin = str(global_cfg.get("python_bin", sys.executable))
     embed_model = str(global_cfg.get("embed_model", "models/all-MiniLM-L6-v2"))
     offline_env = os.environ.copy()
     offline_env.setdefault("TRANSFORMERS_OFFLINE", "1")
@@ -269,7 +299,7 @@ def prepare_data_dir(exp: dict[str, Any], global_cfg: dict[str, Any]) -> tuple[P
     )
 
     data_dir = run_root / doc_id
-    source_eval_set = Path(str(exp.get("source_eval_set") or global_cfg.get("source_eval_set") or "")).resolve()
+    source_eval_set = _normalize_ablation_path(exp.get("source_eval_set") or global_cfg.get("source_eval_set") or "")
     if not source_eval_set.exists():
         fallback = data_root / doc_id / "eval_set.json"
         source_eval_set = fallback
@@ -305,6 +335,7 @@ def run_experiment(exp: dict[str, Any], global_cfg: dict[str, Any]) -> Experimen
     env["MILESTONE_TEXT_BOOST"] = str(float(rerank.get("milestone_text_boost", 0.08 if rerank_enabled else 0.0)))
     env["ENTITY_MATCH_BOOST"] = str(float(rerank.get("entity_match_boost", 0.04 if rerank_enabled else 0.0)))
     env["NUMERIC_DENSITY_BOOST"] = str(float(rerank.get("numeric_density_boost", 0.03 if rerank_enabled else 0.0)))
+    env["SEGMENT_SEARCH_HIT_BOOST"] = str(float(rerank.get("segment_search_hit_boost", 0.03 if rerank_enabled else 0.0)))
     env["SUBSECTION_BOOST"] = str(float(rerank.get("subsection_boost", 0.05 if subsection_enabled else 0.0)))
 
     ce_cfg = exp.get("cross_encoder") or global_cfg.get("cross_encoder") or {}
@@ -313,7 +344,7 @@ def run_experiment(exp: dict[str, Any], global_cfg: dict[str, Any]) -> Experimen
     ce_topn = int(ce_cfg.get("topn", 50))
     ce_weight = float(ce_cfg.get("weight", 0.2))
 
-    python_bin = str(global_cfg.get("python_bin", ".venv/bin/python"))
+    python_bin = str(global_cfg.get("python_bin", sys.executable))
     if mode == "baseline":
         run_cmd(
             [
@@ -568,7 +599,7 @@ def main() -> None:
     if df.empty:
         raise RuntimeError("No ablation rows produced.")
 
-    out_dir = Path(cfg.get("output_dir", "data_processed/ablation")).resolve()
+    out_dir = _normalize_ablation_path(cfg.get("output_dir", "results/ablations/ablation"))
     out_dir.mkdir(parents=True, exist_ok=True)
 
     summary_csv = out_dir / "retrieval_ablation_summary.csv"

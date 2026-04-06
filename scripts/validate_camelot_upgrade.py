@@ -69,7 +69,7 @@ def parse_args() -> argparse.Namespace:
     )
     p.add_argument(
         "--python-bin",
-        default=".venv/bin/python",
+        default=sys.executable,
         help="Python executable to run pipeline scripts.",
     )
     p.add_argument(

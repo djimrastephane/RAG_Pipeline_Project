@@ -9,18 +9,33 @@ from pathlib import Path
 from typing import Any, Optional
 import re
 
+# Keep local cross-encoder inference stable in the interactive pipeline.
+# The offline evaluators already constrain these values, but the service path
+# can otherwise over-subscribe worker threads and terminate without a Python traceback.
+os.environ.setdefault("OMP_NUM_THREADS", "1")
+os.environ.setdefault("MKL_NUM_THREADS", "1")
+os.environ.setdefault("TOKENIZERS_PARALLELISM", "false")
+os.environ.setdefault("KMP_DUPLICATE_LIB_OK", "TRUE")
+
 import faiss
 import numpy as np
 import pandas as pd
 from sentence_transformers import CrossEncoder, SentenceTransformer
+import torch
 
+from rag_pdf.retrieval.canonical_hybrid import (
+    apply_post_fusion_rerank,
+    fuse_ranked_lists,
+    normalize_cross_encoder_scores,
+)
+from rag_pdf.retrieval.rerank import (
+    RerankConfig,
+)
 from rag_pdf.retrieval.hybrid_utils import (
     BM25Index,
     LoadedDoc,
     LoadedGlobal,
     l2_normalize,
-    rrf_fuse,
-    score_fuse,
     to_pages_list,
     tokenize,
 )
@@ -32,6 +47,11 @@ from rag_pdf.services.search_helpers import (
     trust_from_doc_id,
 )
 from rag_pdf.services.local_llm_service import LocalLLMService
+from rag_pdf.services.numeric_extraction import pick_best_numeric_candidate
+from rag_pdf.services.numeric_normalization import (
+    canonicalize_numeric_text,
+    looks_like_standalone_numeric_answer,
+)
 
 MAX_K_SEARCH = 100
 # Keep API/UI retrieval defaults aligned with retrieval_eval_hybrid.py.
@@ -46,6 +66,15 @@ ENABLE_CROSS_ENCODER_RERANK = os.getenv("ENABLE_CROSS_ENCODER_RERANK", "0").stri
 CROSS_ENCODER_MODEL_NAME = os.getenv("CROSS_ENCODER_MODEL_NAME", "models/bge-reranker-v2-m3")
 CROSS_ENCODER_TOPN = int(os.getenv("CROSS_ENCODER_TOPN", "50"))
 CROSS_ENCODER_WEIGHT = float(os.getenv("CROSS_ENCODER_WEIGHT", "0.2"))
+ENABLE_LEXICAL_RERANK = os.getenv("ENABLE_LEXICAL_RERANK", "1").strip().lower() in {"1", "true", "yes", "y", "on"}
+ENABLE_SUBSECTION_BOOST = os.getenv("ENABLE_SUBSECTION_BOOST", "1").strip().lower() in {"1", "true", "yes", "y", "on"}
+TABLE_CHUNK_BOOST = float(os.getenv("TABLE_CHUNK_BOOST", "0.08"))
+ENTITY_MATCH_BOOST = float(os.getenv("ENTITY_MATCH_BOOST", "0.04"))
+NUMERIC_DENSITY_BOOST = float(os.getenv("NUMERIC_DENSITY_BOOST", "0.03"))
+SEGMENT_SEARCH_HIT_BOOST = float(os.getenv("SEGMENT_SEARCH_HIT_BOOST", "0.03"))
+MAX_ENTITY_MATCHES = int(os.getenv("MAX_ENTITY_MATCHES", "4"))
+SUBSECTION_BOOST = float(os.getenv("SUBSECTION_BOOST", "0.05"))
+CROSS_PAGE_OUT_OF_SECTION_PENALTY = float(os.getenv("CROSS_PAGE_OUT_OF_SECTION_PENALTY", "0.08"))
 ANSWER_GATE_ENABLED = os.getenv("ANSWER_GATE_ENABLED", "1").strip().lower() in {"1", "true", "yes", "y", "on"}
 ANSWER_GATE_WINDOW_CHARS = int(os.getenv("ANSWER_GATE_WINDOW_CHARS", "180"))
 ANSWER_GATE_MIN_SCORE = int(os.getenv("ANSWER_GATE_MIN_SCORE", "2"))
@@ -65,20 +94,46 @@ GEN_TIMEOUT_SECONDS = float(os.getenv("GEN_TIMEOUT_SECONDS", "20"))
 
 logger = logging.getLogger(__name__)
 
+
+def _resolve_torch_device(name: str) -> str:
+    requested = str(name or "cpu").strip().lower()
+    if requested == "auto":
+        if hasattr(torch.backends, "mps") and torch.backends.mps.is_available():
+            return "mps"
+        if torch.cuda.is_available():
+            return "cuda"
+        return "cpu"
+    if requested == "mps":
+        return "mps" if hasattr(torch.backends, "mps") and torch.backends.mps.is_available() else "cpu"
+    if requested == "cuda":
+        return "cuda" if torch.cuda.is_available() else "cpu"
+    return "cpu"
+
 class SearchService:
     """Run top-k vector retrieval over processed artifacts."""
 
     def __init__(self, repo_root: Path, model_path: Path) -> None:
         self.repo_root = repo_root
-        self.model = SentenceTransformer(str(model_path))
+        self.model_device = _resolve_torch_device(os.getenv("ST_MODEL_DEVICE", "cpu"))
+        self.cross_encoder_device = _resolve_torch_device(os.getenv("CROSS_ENCODER_DEVICE", self.model_device))
+        self.model = SentenceTransformer(str(model_path), device=self.model_device)
         self.cross_encoder: Optional[CrossEncoder] = None
         self.cross_encoder_topn = max(1, int(CROSS_ENCODER_TOPN))
         self.cross_encoder_weight = float(CROSS_ENCODER_WEIGHT)
         if ENABLE_CROSS_ENCODER_RERANK:
             try:
-                self.cross_encoder = CrossEncoder(str(CROSS_ENCODER_MODEL_NAME))
+                self.cross_encoder = CrossEncoder(str(CROSS_ENCODER_MODEL_NAME), device=self.cross_encoder_device)
             except Exception as exc:
                 logger.warning("Cross-encoder reranker disabled; failed to load model %s: %s", CROSS_ENCODER_MODEL_NAME, exc)
+        self.lexical_rerank_enabled = bool(ENABLE_LEXICAL_RERANK)
+        self.subsection_boost_enabled = bool(ENABLE_SUBSECTION_BOOST)
+        self.rerank_cfg = RerankConfig(
+            table_chunk_boost=TABLE_CHUNK_BOOST,
+            entity_match_boost=ENTITY_MATCH_BOOST,
+            numeric_density_boost=NUMERIC_DENSITY_BOOST,
+            segment_search_hit_boost=SEGMENT_SEARCH_HIT_BOOST,
+            max_entity_matches=MAX_ENTITY_MATCHES,
+        )
         self.local_llm = LocalLLMService()
         self._cache: dict[str, LoadedDoc] = {}
         self._global_cache: dict[str, LoadedGlobal] = {}
@@ -108,6 +163,7 @@ class SearchService:
         max_context_chunks: int,
         max_context_chars: int,
         max_chunk_chars: int,
+        answer_type: Optional[str] = None,
     ) -> tuple[str, dict[str, Any]]:
         """
         Build a strict grounded prompt:
@@ -145,21 +201,52 @@ class SearchService:
         if not context:
             context = "[no context]"
 
-        prompt = (
-            "You are a retrieval-grounded assistant.\n"
-            "Use only the provided CONTEXT.\n"
-            "If the answer is not explicitly supported, reply exactly: "
-            "\"Insufficient evidence in retrieved context.\"\n"
-            "Keep answer concise and factual.\n"
-            "Do not invent chunk_id or page values.\n"
-            "Return JSON only (no markdown/code fences) with this exact shape:\n"
-            "{\"answer\":\"...\",\"citations\":[{\"chunk_id\":\"...\",\"page\":21}]}\n"
-            "When answer is unsupported, return:\n"
-            "{\"answer\":\"Insufficient evidence in retrieved context.\",\"citations\":[]}\n\n"
-            f"QUESTION:\n{str(question).strip()}\n\n"
-            f"CONTEXT:\n{context}\n\n"
-            "ANSWER:"
-        )
+        prompt_mode = "numeric" if self._should_use_numeric_generation_mode(question=question, answer_type=answer_type) else "generic"
+        if prompt_mode == "numeric":
+            prompt = (
+                "You are a retrieval-grounded assistant answering a numeric question.\n"
+                "Use only the provided CONTEXT.\n"
+                "Use zero external knowledge and zero assumptions.\n"
+                "Return a minimal labeled factual phrase, not just a bare number.\n"
+                "Preserve unit, sign, and scale exactly as supported by the context.\n"
+                "If multiple numeric candidates exist, choose the one that most directly answers the question.\n"
+                "Every part of the answer must be explicitly supported by at least one cited context block.\n"
+                "Before outputting, verify that every detail is supported; if any detail is unsupported, delete it.\n"
+                "Keep the answer short, factual, and grounded.\n"
+                "Do not add explanations, hedging, or background context.\n"
+                "Do not invent chunk_id or page values.\n"
+                "If the answer is not explicitly supported, reply exactly with:\n"
+                "{\"answer\":\"Insufficient evidence in retrieved context.\",\"citations\":[]}\n"
+                "Otherwise return JSON only (no markdown/code fences) with this exact shape:\n"
+                "{\"answer\":\"...\",\"citations\":[{\"chunk_id\":\"...\",\"page\":21}]}\n"
+                "The answer field must contain a minimal labeled phrase, for example:\n"
+                "{\"answer\":\"Core revenue underspend: £0.769m\",\"citations\":[{\"chunk_id\":\"abc\",\"page\":28}]}\n"
+                "{\"answer\":\"Cash requirement limit: £43.316m\",\"citations\":[{\"chunk_id\":\"def\",\"page\":29}]}\n\n"
+                f"QUESTION:\n{str(question).strip()}\n\n"
+                f"CONTEXT:\n{context}\n\n"
+                "ANSWER:"
+            )
+        else:
+            prompt = (
+                "You are a retrieval-grounded assistant.\n"
+                "Use only the provided CONTEXT.\n"
+                "Use zero external knowledge and zero assumptions.\n"
+                "Answer as a strict extractor, not a creative writer.\n"
+                "If the answer is not explicitly supported, reply exactly: "
+                "\"Insufficient evidence in retrieved context.\"\n"
+                "Keep answer concise and factual.\n"
+                "Every claim in the answer must be explicitly supported by at least one cited context block.\n"
+                "Do not infer missing details, generalize beyond the evidence, or fill gaps.\n"
+                "Before outputting, verify that every detail is supported; if any detail is unsupported, delete it.\n"
+                "Do not invent chunk_id or page values.\n"
+                "Return JSON only (no markdown/code fences) with this exact shape:\n"
+                "{\"answer\":\"...\",\"citations\":[{\"chunk_id\":\"...\",\"page\":21}]}\n"
+                "When answer is unsupported, return:\n"
+                "{\"answer\":\"Insufficient evidence in retrieved context.\",\"citations\":[]}\n\n"
+                f"QUESTION:\n{str(question).strip()}\n\n"
+                f"CONTEXT:\n{context}\n\n"
+                "ANSWER:"
+            )
         return prompt, {
             "context_chunks_used": int(used_chunks),
             "context_chars_used": int(total_chars),
@@ -168,6 +255,8 @@ class SearchService:
             "context_max_chars": int(max_context_chars),
             "context_truncated": bool(context_truncated),
             "chunk_text_truncations": int(truncated_chunks),
+            "prompt_mode": prompt_mode,
+            "answer_type": str(answer_type or ""),
         }
 
     def _generate_local_answer(
@@ -178,6 +267,7 @@ class SearchService:
         max_context_chars: int,
         max_chunk_chars: int,
         timeout_seconds: float,
+        answer_type: Optional[str] = None,
     ) -> tuple[Optional[str], dict[str, Any]]:
         prompt, ctx_stats = self._build_local_generation_prompt(
             question=question,
@@ -185,6 +275,7 @@ class SearchService:
             max_context_chunks=max_context_chunks,
             max_context_chars=max_context_chars,
             max_chunk_chars=max_chunk_chars,
+            answer_type=answer_type,
         )
         t0 = time.perf_counter()
         out = self.local_llm.generate(prompt, timeout_seconds=float(timeout_seconds))
@@ -199,6 +290,35 @@ class SearchService:
             "timeout_seconds": float(timeout_seconds),
             **ctx_stats,
         }
+
+    @staticmethod
+    def _should_use_numeric_generation_mode(question: str, answer_type: Optional[str]) -> bool:
+        if str(answer_type or "").strip().lower() == "number":
+            return True
+        q = str(question or "").lower()
+        numeric_cues = (
+            "how much",
+            "how many",
+            "what amount",
+            "what value",
+            "what percentage",
+            "what proportion",
+            "what share",
+            "what was the total",
+            "what ceiling",
+            "what balance",
+            "what cost",
+            "what deficit",
+            "what surplus",
+            "£",
+            "%",
+            "million",
+            "billion",
+            "ratio",
+            "rate",
+            "number of",
+        )
+        return any(cue in q for cue in numeric_cues)
 
     @staticmethod
     def _extract_citations_from_answer(answer: str) -> list[dict[str, Any]]:
@@ -292,6 +412,16 @@ class SearchService:
                 elif isinstance(item, str):
                     citations.extend(SearchService._extract_citations_from_answer(item))
         return answer_text, citations, "json"
+
+    @staticmethod
+    def _normalize_runtime_answer(answer: Optional[str]) -> tuple[Optional[str], Optional[str]]:
+        text = str(answer or "").strip()
+        if not text or not looks_like_standalone_numeric_answer(text):
+            return answer, None
+        normalized = canonicalize_numeric_text(text)
+        if not normalized:
+            return answer, None
+        return normalized, text
 
     @staticmethod
     def _validate_citations(
@@ -683,22 +813,16 @@ class SearchService:
         bm25_score_map: dict[int, float] = {idx: float(score) for idx, score in bm25_ranked_pairs}
 
         fusion_strategy = FUSION_STRATEGY if FUSION_STRATEGY in {"rrf", "score_fusion"} else "rrf"
-        if fusion_strategy == "score_fusion":
-            fused_ranked, fused_scores = score_fuse(
-                dense_score_map=dense_score_map,
-                bm25_score_map=bm25_score_map,
-                dense_weight=RRF_DENSE_WEIGHT,
-                bm25_weight=RRF_BM25_WEIGHT,
-            )
-        else:
-            fused_ranked, fused_scores = rrf_fuse(
-                dense_ranked=dense_ranked,
-                bm25_ranked=bm25_ranked,
-                rrf_k=RRF_K,
-                dense_weight=RRF_DENSE_WEIGHT,
-                bm25_weight=RRF_BM25_WEIGHT,
-            )
-        scores_map: dict[int, float] = dict(fused_scores)
+        fused_ranked, scores_map = fuse_ranked_lists(
+            fusion_strategy=fusion_strategy,
+            dense_ranked=dense_ranked,
+            bm25_ranked=bm25_ranked,
+            dense_score_map=dense_score_map,
+            bm25_score_map=bm25_score_map,
+            rrf_k=RRF_K,
+            dense_weight=RRF_DENSE_WEIGHT,
+            bm25_weight=RRF_BM25_WEIGHT,
+        )
         if self.cross_encoder is not None and fused_ranked:
             ce_topn = min(len(fused_ranked), self.cross_encoder_topn)
             cand = fused_ranked[:ce_topn]
@@ -709,12 +833,7 @@ class SearchService:
                 pairs.append((question, chunk_text_by_id.get(cid, "")))
             ce_scores_raw = np.asarray(self.cross_encoder.predict(pairs), dtype=np.float32)
             if ce_scores_raw.size:
-                lo = float(np.min(ce_scores_raw))
-                hi = float(np.max(ce_scores_raw))
-                if hi > lo:
-                    ce_scores = ((ce_scores_raw - lo) / (hi - lo)).astype(np.float32)
-                else:
-                    ce_scores = np.zeros_like(ce_scores_raw, dtype=np.float32)
+                ce_scores = normalize_cross_encoder_scores(ce_scores_raw)
                 for idx, ce_s in zip(cand, ce_scores.tolist()):
                     scores_map[idx] = float(scores_map.get(idx, 0.0)) + self.cross_encoder_weight * float(ce_s)
                 fused_ranked = sorted(fused_ranked, key=lambda i: scores_map.get(i, 0.0), reverse=True)
@@ -722,6 +841,9 @@ class SearchService:
 
         expected_pages: list[int] = []
         expected_answer: Optional[str] = None
+        answer_type: Optional[str] = None
+        expected_section: str = ""
+        expected_subsection: str = ""
         if query_id:
             for item in loaded_doc.eval_items:
                 if str(item.get("query_id", "")).strip() == query_id:
@@ -729,7 +851,28 @@ class SearchService:
                     raw_expected = item.get("expected_answer")
                     if raw_expected is not None:
                         expected_answer = str(raw_expected)
+                    raw_answer_type = item.get("answer_type")
+                    if raw_answer_type is not None:
+                        answer_type = str(raw_answer_type)
+                    expected_section = str(item.get("expected_section", "") or "").strip()
+                    expected_subsection = str(item.get("expected_subsection", "") or "").strip()
                     break
+
+        fused_ranked, scores_map = apply_post_fusion_rerank(
+            question=question,
+            fused_ranked=fused_ranked,
+            scores_map=scores_map,
+            meta=scope_meta,
+            chunk_text_by_id=chunk_text_by_id,
+            rerank_cfg=self.rerank_cfg,
+            enable_lexical_rerank=self.lexical_rerank_enabled,
+            expected_section=expected_section,
+            expected_subsection=expected_subsection,
+            enable_subsection_boost=self.subsection_boost_enabled,
+            subsection_boost=SUBSECTION_BOOST,
+            cross_page_out_of_section_penalty=CROSS_PAGE_OUT_OF_SECTION_PENALTY,
+        )
+        idx_list = fused_ranked[:k]
 
         results: list[dict[str, Any]] = []
         retrieved_pages: list[int] = []
@@ -782,6 +925,21 @@ class SearchService:
                     "chunk_text": full_chunk_text,
                     "hit_expected_page": hit_expected,
                     "is_table": bool(row.get("is_table", False)),
+                    "table_chunk_kind": (
+                        str(row.get("table_chunk_kind"))
+                        if pd.notna(row.get("table_chunk_kind"))
+                        else None
+                    ),
+                    "row_start_idx": (
+                        int(row.get("row_start_idx"))
+                        if pd.notna(row.get("row_start_idx"))
+                        else None
+                    ),
+                    "row_end_idx": (
+                        int(row.get("row_end_idx"))
+                        if pd.notna(row.get("row_end_idx"))
+                        else None
+                    ),
                 }
             )
 
@@ -791,49 +949,98 @@ class SearchService:
             results=results,
             query_id=query_id,
             expected_pages=expected_pages,
+            answer_type=answer_type,
         )
+        predicted_answer, predicted_answer_raw = self._normalize_runtime_answer(predicted_answer)
+        if predicted_answer_raw is not None:
+            answer_debug["raw_predicted_answer"] = predicted_answer_raw
+            answer_debug["normalized_predicted_answer"] = predicted_answer
         if include_generated_answer:
-            raw_generated_answer, generation_debug = self._generate_local_answer(
-                question=question,
-                results=results,
-                max_context_chunks=max_context_chunks,
-                max_context_chars=max_context_chars,
-                max_chunk_chars=max_chunk_chars,
-                timeout_seconds=timeout_seconds,
-            )
-            parsed_answer, raw_citations_from_json, parse_mode = self._parse_generation_json_payload(
-                str(raw_generated_answer or "")
-            )
-            raw_citations = list(raw_citations_from_json)
-            if not raw_citations:
-                raw_citations = self._extract_citations_from_answer(str(raw_generated_answer or ""))
-            generated_answer = parsed_answer
-            valid_citations, rejected_citations = self._validate_citations(raw_citations, results)
-            raw_status = str(generation_debug.get("status") or "").strip().lower()
-            text_answer = str(generated_answer or "").strip()
-            if raw_status != "ok" or not text_answer:
-                generation_status = raw_status or "error"
-                generated_answer = None
-                generated_citations: list[dict[str, Any]] = []
-                generation_confidence: Optional[float] = None
-            elif text_answer.lower() == "insufficient evidence in retrieved context.":
-                generation_status = "insufficient_evidence"
-                generated_answer = None
-                generated_citations = []
-                generation_confidence = None
-            elif not valid_citations:
-                generation_status = "insufficient_evidence"
-                generated_answer = None
-                generated_citations = []
-                generation_confidence = None
-            else:
+            numeric_pick = None
+            numeric_debug: dict[str, Any] = {}
+            if str(answer_type or "").strip().lower() == "number":
+                numeric_pick, numeric_debug = pick_best_numeric_candidate(question=question, results=results)
+
+            if numeric_pick is not None:
+                generated_answer = str(numeric_pick.get("canonical") or numeric_pick.get("raw") or "")
+                primary_page = next(
+                    (int(p) for p in (numeric_pick.get("pages") or []) if str(p).strip().isdigit()),
+                    None,
+                )
+                generated_citations = (
+                    [{"chunk_id": str(numeric_pick.get("chunk_id") or ""), "page": int(primary_page)}]
+                    if primary_page is not None and str(numeric_pick.get("chunk_id") or "").strip()
+                    else []
+                )
                 generation_status = "ok"
-                generated_citations = valid_citations
-                generation_confidence = float(len(valid_citations)) / float(max(1, len(raw_citations)))
-            generation_debug["citations_parsed"] = int(len(raw_citations))
-            generation_debug["citations_valid"] = int(len(valid_citations))
-            generation_debug["citations_rejected"] = int(rejected_citations)
-            generation_debug["parse_mode"] = parse_mode
+                generation_confidence = 1.0
+                generation_debug = {
+                    "provider": "deterministic_numeric_extractor",
+                    "status": "ok",
+                    "model": None,
+                    "error": None,
+                    "prompt_chars": 0,
+                    "prompt_mode": "deterministic_numeric",
+                    "answer_type": str(answer_type or ""),
+                    "citations_parsed": int(len(generated_citations)),
+                    "citations_valid": int(len(generated_citations)),
+                    "citations_rejected": 0,
+                    "parse_mode": "deterministic",
+                    "numeric_extraction": numeric_debug,
+                }
+                generated_answer, generated_answer_raw = self._normalize_runtime_answer(generated_answer)
+                if generated_answer_raw is not None:
+                    generation_debug["raw_generated_answer"] = generated_answer_raw
+                    generation_debug["normalized_generated_answer"] = generated_answer
+            else:
+                raw_generated_answer, generation_debug = self._generate_local_answer(
+                    question=question,
+                    results=results,
+                    max_context_chunks=max_context_chunks,
+                    max_context_chars=max_context_chars,
+                    max_chunk_chars=max_chunk_chars,
+                    timeout_seconds=timeout_seconds,
+                    answer_type=answer_type,
+                )
+                parsed_answer, raw_citations_from_json, parse_mode = self._parse_generation_json_payload(
+                    str(raw_generated_answer or "")
+                )
+                raw_citations = list(raw_citations_from_json)
+                if not raw_citations:
+                    raw_citations = self._extract_citations_from_answer(str(raw_generated_answer or ""))
+                generated_answer = parsed_answer
+                valid_citations, rejected_citations = self._validate_citations(raw_citations, results)
+                raw_status = str(generation_debug.get("status") or "").strip().lower()
+                text_answer = str(generated_answer or "").strip()
+                if raw_status != "ok" or not text_answer:
+                    generation_status = raw_status or "error"
+                    generated_answer = None
+                    generated_citations = []
+                    generation_confidence = None
+                elif text_answer.lower() == "insufficient evidence in retrieved context.":
+                    generation_status = "insufficient_evidence"
+                    generated_answer = None
+                    generated_citations = []
+                    generation_confidence = None
+                elif not valid_citations:
+                    generation_status = "insufficient_evidence"
+                    generated_answer = None
+                    generated_citations = []
+                    generation_confidence = None
+                else:
+                    generation_status = "ok"
+                    generated_citations = valid_citations
+                    generation_confidence = float(len(valid_citations)) / float(max(1, len(raw_citations)))
+                    generated_answer, generated_answer_raw = self._normalize_runtime_answer(generated_answer)
+                    if generated_answer_raw is not None:
+                        generation_debug["raw_generated_answer"] = generated_answer_raw
+                        generation_debug["normalized_generated_answer"] = generated_answer
+                generation_debug["citations_parsed"] = int(len(raw_citations))
+                generation_debug["citations_valid"] = int(len(valid_citations))
+                generation_debug["citations_rejected"] = int(rejected_citations)
+                generation_debug["parse_mode"] = parse_mode
+                if numeric_debug:
+                    generation_debug["numeric_extraction"] = numeric_debug
         else:
             generated_answer = None
             generation_debug = {
@@ -882,6 +1089,10 @@ class SearchService:
                 "cross_encoder_model": (str(CROSS_ENCODER_MODEL_NAME) if self.cross_encoder is not None else None),
                 "cross_encoder_topn": int(self.cross_encoder_topn),
                 "cross_encoder_weight": float(self.cross_encoder_weight),
+                "enable_lexical_rerank": bool(self.lexical_rerank_enabled),
+                "enable_subsection_boost": bool(self.subsection_boost_enabled),
+                "subsection_boost": float(SUBSECTION_BOOST),
+                "cross_page_out_of_section_penalty": float(CROSS_PAGE_OUT_OF_SECTION_PENALTY),
                 "bm25_k1": 1.5,
                 "bm25_b": 0.75,
             },
@@ -890,13 +1101,18 @@ class SearchService:
             "filters_applied": filters or {},
             "query_id": query_id,
             "expected_pages": expected_pages,
+            "expected_section": expected_section,
             "expected_answer": expected_answer,
+            "expected_subsection": expected_subsection,
+            "answer_type": answer_type,
             "hit_at_k": hit_at_k,
             "predicted_answer": predicted_answer,
+            "predicted_answer_raw": answer_debug.get("raw_predicted_answer"),
             "answer_source_chunk_id": answer_source_chunk_id,
             "answer_debug": answer_debug,
             "include_generated_answer": bool(include_generated_answer),
             "generated_answer": generated_answer,
+            "generated_answer_raw": generation_debug.get("raw_generated_answer"),
             "generated_citations": generated_citations,
             "generation_status": generation_status,
             "generation_confidence": generation_confidence,
@@ -1259,6 +1475,7 @@ class SearchService:
         results: list[dict[str, Any]],
         query_id: Optional[str] = None,
         expected_pages: Optional[list[int]] = None,
+        answer_type: Optional[str] = None,
     ) -> tuple[Optional[str], Optional[str], dict[str, Any]]:
         """
         Heuristically predict an answer from top-k retrieved chunks.
@@ -1267,6 +1484,19 @@ class SearchService:
         """
         if not results:
             return None, None, {"strategy": "topk_entity_aware", "reason": "no_results"}
+        if str(answer_type or "").strip().lower() == "number":
+            numeric_pick, numeric_debug = pick_best_numeric_candidate(question=question, results=results)
+            if numeric_pick is not None:
+                return (
+                    str(numeric_pick.get("canonical") or numeric_pick.get("raw") or ""),
+                    str(numeric_pick.get("chunk_id") or "") or None,
+                    {
+                        "strategy": "deterministic_numeric_extractor",
+                        "numeric_extraction": numeric_debug,
+                        "selected_rank": int(numeric_pick.get("rank") or 0),
+                        "selected_chunk_id": str(numeric_pick.get("chunk_id") or ""),
+                    },
+                )
         q = str(question or "").lower()
         entity_terms = self._extract_entity_terms(q)
         hard_entity_terms = [t for t in entity_terms if t != "ijb"]

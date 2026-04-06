@@ -8,6 +8,7 @@ import time
 from pathlib import Path
 from typing import Any
 
+import _matplotlib_env
 import matplotlib.pyplot as plt
 import pandas as pd
 import yaml
@@ -227,13 +228,13 @@ def main() -> None:
     args = parse_args()
     cfg = load_yaml(Path(args.config).resolve())
 
-    python_bin = str(cfg.get("python_bin", ".venv/bin/python"))
+    python_bin = str(cfg.get("python_bin", sys.executable))
     embed_model = str(cfg.get("embed_model", "models/all-MiniLM-L6-v2"))
     run_index = _as_bool(cfg.get("run_index"), default=False)
     pdf_dir = Path(str(cfg.get("pdf_dir", "Data/Annual Accounts NHS Grampian/Preliminary_Test"))).resolve()
     pdf_glob = str(cfg.get("pdf_glob", "*.pdf"))
-    out_root = Path(str(cfg.get("out_root", "data_processed_ablation_intrinsic"))).resolve()
-    summary_out_dir = Path(str(cfg.get("summary_out_dir", "data_processed/ablation_intrinsic"))).resolve()
+    out_root = Path(str(cfg.get("out_root", "results/ablations/ablation_intrinsic"))).resolve()
+    summary_out_dir = Path(str(cfg.get("summary_out_dir", "results/ablations/ablation_intrinsic"))).resolve()
     variants = cfg.get("variants")
     if not isinstance(variants, list) or not variants:
         raise ValueError("Config must include a non-empty 'variants' list.")

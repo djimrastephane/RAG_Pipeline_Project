@@ -4,6 +4,7 @@ import argparse
 import json
 from pathlib import Path
 
+import _matplotlib_env
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd

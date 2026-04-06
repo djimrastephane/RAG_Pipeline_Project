@@ -6,6 +6,7 @@ import argparse
 import json
 import re
 import subprocess
+import sys
 import time
 from pathlib import Path
 
@@ -139,6 +140,7 @@ def _read_doc_metrics(out_dir: Path) -> dict[str, Optional[float]]:
 
 def main() -> None:
     args = parse_args()
+    python_bin = sys.executable
     pdf_dir = Path(args.pdf_dir)
     out_root = Path(args.out_root)
     pdfs = sorted(pdf_dir.glob(args.pdf_glob))
@@ -169,7 +171,7 @@ def main() -> None:
 
         log_path = out_dir / "preprocess.log"
         cmd = [
-            ".venv/bin/python",
+            python_bin,
             "scripts/preprocess_hybrid.py",
             "--pdf-path",
             str(pdf),
@@ -205,7 +207,7 @@ def main() -> None:
     print("Building index...")
     run_cmd(
         [
-            ".venv/bin/python",
+            python_bin,
             "scripts/build_index.py",
             "--data-dir",
             str(out_root),
@@ -223,7 +225,7 @@ def main() -> None:
             continue
         run_cmd(
             [
-                ".venv/bin/python",
+                python_bin,
                 "scripts/retrieval_eval_hybrid.py",
                 "--data-dir",
                 str(doc_dir),
@@ -235,7 +237,7 @@ def main() -> None:
     print("Building reports...")
     run_cmd(
         [
-            ".venv/bin/python",
+            python_bin,
             "scripts/report_retrieval_metrics.py",
             "--data-root",
             str(out_root),

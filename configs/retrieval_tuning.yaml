@@ -1,7 +1,7 @@
 python_bin: .venv/bin/python
 data_root: data_processed
-ablation_root: data_processed_ablation
-output_dir: data_processed/ablation
+ablation_root: results/ablations/ablation
+output_dir: results/ablations/ablation
 embed_model: models/all-MiniLM-L6-v2
 default_doc_id: Grampian-2024-2025
 pdf_path: Data/Annual Accounts NHS Grampian/Preliminary_Test/Grampian-2024-2025.pdf

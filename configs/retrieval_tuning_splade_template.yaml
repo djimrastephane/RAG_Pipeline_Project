@@ -3,7 +3,7 @@
 
 python_bin: .venv/bin/python
 data_root: data_processed
-output_dir: data_processed/ablation_splade
+output_dir: results/ablations/ablation_splade
 
 # Dense embedding model (already used by your FAISS index)
 embed_model: models/all-MiniLM-L6-v2

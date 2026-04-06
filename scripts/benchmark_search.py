@@ -68,6 +68,35 @@ def parse_args() -> argparse.Namespace:
         help="Top-k retrieval value.",
     )
     parser.add_argument(
+        "--include-generated-answer",
+        action="store_true",
+        help="Include answer generation in the benchmarked search path.",
+    )
+    parser.add_argument(
+        "--gen-max-context-chunks",
+        type=int,
+        default=None,
+        help="Optional override for generation context chunk count.",
+    )
+    parser.add_argument(
+        "--gen-max-context-chars",
+        type=int,
+        default=None,
+        help="Optional override for generation context char budget.",
+    )
+    parser.add_argument(
+        "--gen-max-chunk-chars",
+        type=int,
+        default=None,
+        help="Optional override for per-chunk char budget in generation.",
+    )
+    parser.add_argument(
+        "--gen-timeout-seconds",
+        type=float,
+        default=None,
+        help="Optional override for generation timeout.",
+    )
+    parser.add_argument(
         "--num-queries",
         type=int,
         default=100,
@@ -126,9 +155,15 @@ def _load_questions(args: argparse.Namespace) -> list[str]:
     eval_path = Path(args.eval_set) if args.eval_set else Path(args.data_dir) / "eval_set.json"
     if not eval_path.exists():
         raise FileNotFoundError(f"eval_set not found: {eval_path}")
-    items = json.loads(eval_path.read_text(encoding="utf-8"))
-    if not isinstance(items, list):
-        raise ValueError(f"Invalid eval_set format in {eval_path}: expected list")
+    payload = json.loads(eval_path.read_text(encoding="utf-8"))
+    if isinstance(payload, list):
+        items = payload
+    elif isinstance(payload, dict) and isinstance(payload.get("queries"), list):
+        items = payload["queries"]
+    else:
+        raise ValueError(
+            f"Invalid eval_set format in {eval_path}: expected list or dict with 'queries' list"
+        )
 
     qs: list[str] = []
     for item in items:
@@ -156,9 +191,23 @@ def _make_local_runner(args: argparse.Namespace) -> Callable[[str], None]:
     )
     data_dir = Path(args.data_dir)
     k = int(args.k)
+    generation_overrides = {
+        "max_context_chunks": args.gen_max_context_chunks,
+        "max_context_chars": args.gen_max_context_chars,
+        "max_chunk_chars": args.gen_max_chunk_chars,
+        "timeout_seconds": args.gen_timeout_seconds,
+    }
+    generation_overrides = {k: v for k, v in generation_overrides.items() if v is not None}
 
     def run(question: str) -> None:
-        service.search(data_dir=data_dir, question=question, k=k, query_id=None)
+        service.search(
+            data_dir=data_dir,
+            question=question,
+            k=k,
+            query_id=None,
+            include_generated_answer=bool(args.include_generated_answer),
+            generation_overrides=generation_overrides,
+        )
 
     return run
 
@@ -170,7 +219,20 @@ def _make_api_runner(args: argparse.Namespace) -> Callable[[str], None]:
     k = int(args.k)
 
     def run(question: str) -> None:
-        body = json.dumps({"question": question, "k": k}).encode("utf-8")
+        body_payload: dict[str, Any] = {
+            "question": question,
+            "k": k,
+            "include_generated_answer": bool(args.include_generated_answer),
+        }
+        if args.gen_max_context_chunks is not None:
+            body_payload["gen_max_context_chunks"] = int(args.gen_max_context_chunks)
+        if args.gen_max_context_chars is not None:
+            body_payload["gen_max_context_chars"] = int(args.gen_max_context_chars)
+        if args.gen_max_chunk_chars is not None:
+            body_payload["gen_max_chunk_chars"] = int(args.gen_max_chunk_chars)
+        if args.gen_timeout_seconds is not None:
+            body_payload["gen_timeout_seconds"] = float(args.gen_timeout_seconds)
+        body = json.dumps(body_payload).encode("utf-8")
         req = urllib.request.Request(url=url, data=body, headers=headers, method="POST")
         try:
             with urllib.request.urlopen(req, timeout=60) as resp:
@@ -225,6 +287,7 @@ def _summarize(
     warmup_queries: int,
     mode: str,
     concurrency: int,
+    include_generated_answer: bool,
 ) -> dict[str, Any]:
     vals = sorted(latencies_ms)
     mean_ms = statistics.fmean(vals) if vals else float("nan")
@@ -235,6 +298,7 @@ def _summarize(
     return {
         "mode": mode,
         "concurrency": int(concurrency),
+        "include_generated_answer": bool(include_generated_answer),
         "queries_measured": int(measured_queries),
         "queries_warmup": int(warmup_queries),
         "throughput_qps": float(qps),
@@ -290,6 +354,7 @@ def main() -> None:
         warmup_queries=int(args.warmup_queries),
         mode=str(args.mode),
         concurrency=int(args.concurrency),
+        include_generated_answer=bool(args.include_generated_answer),
     )
 
     print(json.dumps(result, indent=2))

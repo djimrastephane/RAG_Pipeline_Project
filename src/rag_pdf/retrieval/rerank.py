@@ -63,6 +63,7 @@ class RerankConfig:
     table_chunk_boost: float = 0.08
     entity_match_boost: float = 0.04
     numeric_density_boost: float = 0.03
+    segment_search_hit_boost: float = 0.03
     max_entity_matches: int = 4
 
 
@@ -171,6 +172,21 @@ def numeric_density_boost(question: str, chunk_text: str, config: RerankConfig) 
     if ("%" in q and "%" in chunk_text) or ("£" in q and "£" in chunk_text):
         boost += 0.5 * float(config.numeric_density_boost)
     return boost
+
+
+def search_hit_question(question: str) -> bool:
+    """Return True when the question explicitly targets IJB-like entities."""
+    q = normalize_text(question)
+    return bool(re.search(r"\b(?:integration\s+joint\s+boards?|ijbs?)\b", q))
+
+
+def segment_search_hit_boost(question: str, segment_has_search_hit: bool, config: RerankConfig) -> float:
+    """Boost metadata-tagged chunks when the question targets the same entity family."""
+    if not segment_has_search_hit:
+        return 0.0
+    if not search_hit_question(question):
+        return 0.0
+    return float(config.segment_search_hit_boost)
 
 
 def table_priority_boost(is_table_chunk: bool, route_intent: str, config: RerankConfig) -> float:

@@ -8,6 +8,7 @@ import re
 from pathlib import Path
 from typing import Any
 
+import _matplotlib_env  # noqa: F401
 import numpy as np
 import pandas as pd
 from scipy.ndimage import gaussian_filter
@@ -136,10 +137,10 @@ def load_table(path: Path) -> pd.DataFrame:
 
 def find_default_doc_dir(doc_id: str) -> Path | None:
     roots = [
-        Path("data_processed_tiktoken_all_docs_224_56") / doc_id,
+        Path("data_variants/tiktoken_all_docs_224_56") / doc_id,
         Path("data_processed") / doc_id,
-        Path("data_processed_toc_upgrade_5docs") / doc_id,
-        Path("data_processed_toc_upgrade_test") / doc_id,
+        Path("data_variants/toc_upgrade_5docs") / doc_id,
+        Path("data_variants/toc_upgrade_test") / doc_id,
         Path("archive/2026-02-28_ablation_cleanup/data_processed_ablation_intrinsic/chunk_280_90_seg_off") / doc_id,
     ]
     for candidate in roots:

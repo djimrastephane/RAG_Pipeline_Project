@@ -22,6 +22,8 @@ from typing import Any
 
 import pandas as pd
 
+from runtime_env import collect_runtime_provenance, critical_environment_checks
+
 
 DATA_DIR = Path("data_processed/Grampian-2024-2025")
 K_LIST = [1, 3, 5, 10]
@@ -32,6 +34,8 @@ SUMMARY_CSV = DATA_DIR / "retrieval_summary_bm25.csv"
 
 QUERY_ID_PATTERN_V1 = re.compile(r"^Q_(REV|EFF|DEF|STAFF|ACC|GOV|TABLE)_\d{4}_\d{2}$")
 QUERY_ID_PATTERN_V2 = re.compile(r"^Q_(\d{4})_([A-Z]+)_(\d{2}|P\d+)$")
+BM25_TOKENIZER_VARIANTS = ("default", "no_hyphen")
+_BM25_TOKENIZER_VARIANT = "default"
 
 
 def _env_or_default(name: str, default: str) -> str:
@@ -85,6 +89,12 @@ def parse_args() -> argparse.Namespace:
         type=float,
         default=float(_env_or_default("BM25_B", "0.75")),
         help="BM25 b parameter.",
+    )
+    parser.add_argument(
+        "--bm25-tokenizer",
+        choices=BM25_TOKENIZER_VARIANTS,
+        default=_env_or_default("BM25_TOKENIZER", "default"),
+        help="Lexical tokenizer variant for BM25 sensitivity checks.",
     )
     return parser.parse_args()
 
@@ -262,8 +272,27 @@ def compute_leakage(expected_doc_id: str, retrieved_doc_ids: list[str]) -> dict[
     }
 
 
-def tokenize(text: str) -> list[str]:
-    return re.findall(r"[a-z0-9][a-z0-9\-]{1,}", str(text or "").lower())
+def set_bm25_tokenizer_variant(variant: str) -> None:
+    if variant not in BM25_TOKENIZER_VARIANTS:
+        raise ValueError(
+            f"Unsupported BM25 tokenizer variant '{variant}'. "
+            f"Expected one of: {', '.join(BM25_TOKENIZER_VARIANTS)}"
+        )
+    global _BM25_TOKENIZER_VARIANT
+    _BM25_TOKENIZER_VARIANT = str(variant)
+
+
+def tokenize(text: str, variant: str | None = None) -> list[str]:
+    use_variant = str(variant or _BM25_TOKENIZER_VARIANT)
+    text_norm = str(text or "").lower()
+    if use_variant == "default":
+        return re.findall(r"[a-z0-9][a-z0-9\-]{1,}", text_norm)
+    if use_variant == "no_hyphen":
+        return re.findall(r"[a-z0-9][a-z0-9]{1,}", text_norm)
+    raise ValueError(
+        f"Unsupported BM25 tokenizer variant '{use_variant}'. "
+        f"Expected one of: {', '.join(BM25_TOKENIZER_VARIANTS)}"
+    )
 
 
 class BM25Index:
@@ -305,6 +334,7 @@ class BM25Index:
 
 def main() -> None:
     args = parse_args()
+    set_bm25_tokenizer_variant(str(args.bm25_tokenizer))
     data_dir = Path(args.data_dir).resolve()
     k_list = parse_k_list(args.k_list)
     max_k = max(k_list)
@@ -476,8 +506,11 @@ def main() -> None:
             "run_utc": utc_now_iso(),
             "data_dir": str(data_dir),
             "method": "bm25",
+            "runtime": collect_runtime_provenance(),
+            "critical_environment_checks": critical_environment_checks(),
             "bm25_k1": float(args.k1),
             "bm25_b": float(args.b),
+            "bm25_tokenizer": str(args.bm25_tokenizer),
             "k_list": k_list,
             "num_queries": int(len(results)),
         },

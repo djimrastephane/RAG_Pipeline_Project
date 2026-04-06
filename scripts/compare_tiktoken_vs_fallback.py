@@ -12,7 +12,8 @@ SRC_PATH = REPO_ROOT / "src"
 if str(SRC_PATH) not in sys.path:
     sys.path.insert(0, str(SRC_PATH))
 
-from rag_pdf.chunking import count_tokens, chunk_text_by_tokens, get_encoder, split_text_for_segment_aware_chunking
+from rag_pdf.chunking import count_tokens, chunk_text_by_tokens, get_encoder, split_text_for_segment_aware_chunking_with_patterns
+from rag_pdf.config import DEFAULT_CONFIG
 
 
 DEFAULT_DOCS = [
@@ -36,14 +37,21 @@ def _chunk_count_for_text(
     if not value:
         return 0
     if segment_aware:
-        segments = split_text_for_segment_aware_chunking(value)
+        segments = split_text_for_segment_aware_chunking_with_patterns(
+            value,
+            insert_patterns=tuple(DEFAULT_CONFIG.SEGMENT_BOUNDARY_INSERT_PATTERNS),
+            boundary_match_patterns=tuple(DEFAULT_CONFIG.SEGMENT_BOUNDARY_MATCH_PATTERNS),
+            boundary_search_patterns=tuple(DEFAULT_CONFIG.SEGMENT_BOUNDARY_SEARCH_PATTERNS),
+            uppercase_heading_pattern=str(DEFAULT_CONFIG.SEGMENT_UPPERCASE_HEADING_PATTERN),
+            uppercase_heading_max_words=int(DEFAULT_CONFIG.SEGMENT_UPPERCASE_HEADING_MAX_WORDS),
+        )
     else:
         segments = [("segment_000", value)]
     count = 0
-    for _, seg_text in segments:
+    for segment in segments:
         count += len(
             chunk_text_by_tokens(
-                seg_text,
+                segment.text,
                 chunk_tokens=chunk_size_tokens,
                 overlap_tokens=overlap_tokens,
                 enc=enc,

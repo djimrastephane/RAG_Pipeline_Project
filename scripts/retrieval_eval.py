@@ -1,6 +1,12 @@
 """
 retrieval_eval.py
 
+NOTE
+- This script is a dense-first baseline evaluator kept for ablations/comparisons.
+- It does not represent the production pipeline end-to-end retrieval mode.
+- For pipeline-faithful evaluation, use `scripts/evaluate_pipeline.py` or
+  `scripts/retrieval_eval_hybrid.py`.
+
 Evaluate top-k retrieval using:
 - faiss.index
 - chunk_meta.parquet
@@ -83,6 +89,7 @@ except Exception as e:
 try:
     from transformers import logging as hf_logging
     from sentence_transformers import SentenceTransformer
+    import torch
 except Exception as e:
     raise RuntimeError(
         "sentence-transformers is not installed.\n"
@@ -109,8 +116,10 @@ from rag_pdf.retrieval.rerank import (
     RerankConfig,
     numeric_density_boost,
     query_overlap_boost,
+    segment_search_hit_boost,
     table_priority_boost,
 )
+from runtime_env import collect_runtime_provenance, critical_environment_checks
 
 
 # =============================================================================
@@ -134,6 +143,7 @@ TABLE_CHUNK_BOOST = float(os.getenv("TABLE_CHUNK_BOOST", "0.08"))
 MILESTONE_TEXT_BOOST = float(os.getenv("MILESTONE_TEXT_BOOST", "0.08"))
 ENTITY_MATCH_BOOST = float(os.getenv("ENTITY_MATCH_BOOST", "0.04"))
 NUMERIC_DENSITY_BOOST = float(os.getenv("NUMERIC_DENSITY_BOOST", "0.03"))
+SEGMENT_SEARCH_HIT_BOOST = float(os.getenv("SEGMENT_SEARCH_HIT_BOOST", "0.03"))
 MAX_ENTITY_MATCHES = int(os.getenv("MAX_ENTITY_MATCHES", "4"))
 ENABLE_LEXICAL_RERANK = os.getenv("ENABLE_LEXICAL_RERANK", "1") != "0"
 ENABLE_SUBSECTION_BOOST = os.getenv("ENABLE_SUBSECTION_BOOST", "1") != "0"
@@ -205,6 +215,21 @@ def write_json(path: Path, obj: Any) -> None:
 def _env_or_default(name: str, default: str) -> str:
     val = os.getenv(name)
     return val if val else default
+
+
+def resolve_torch_device(name: str) -> str:
+    requested = str(name or "cpu").strip().lower()
+    if requested == "auto":
+        if hasattr(torch.backends, "mps") and torch.backends.mps.is_available():
+            return "mps"
+        if torch.cuda.is_available():
+            return "cuda"
+        return "cpu"
+    if requested == "mps":
+        return "mps" if hasattr(torch.backends, "mps") and torch.backends.mps.is_available() else "cpu"
+    if requested == "cuda":
+        return "cuda" if torch.cuda.is_available() else "cpu"
+    return "cpu"
 
 
 def parse_k_list(val: str) -> list[int]:
@@ -494,6 +519,11 @@ def parse_args() -> argparse.Namespace:
         "--model",
         default=_env_or_default("EMBED_MODEL_NAME", EMBED_MODEL_NAME),
         help="Sentence-transformers model name or local path.",
+    )
+    parser.add_argument(
+        "--device",
+        default=_env_or_default("ST_MODEL_DEVICE", "cpu"),
+        help="Embedding device: cpu, mps, cuda, or auto.",
     )
     parser.add_argument(
         "--k-list",
@@ -803,6 +833,91 @@ def _extract_numbers(val: str) -> list[str]:
     return re.findall(r"\d+(?:\.\d+)?", str(val or ""))
 
 
+def _detect_numeric_dimension(val: str) -> str:
+    text = str(val or "").lower()
+    if any(tok in text for tok in ["%", "percent", "percentage"]):
+        return "percent"
+    if "£" in text or "$" in text or "eur" in text or "usd" in text:
+        return "currency"
+    return "count"
+
+
+def _detect_numeric_multiplier(val: str) -> float:
+    text = str(val or "").lower()
+    compact = re.sub(r"\s+", "", text)
+    if "£000" in compact or "($000)" in compact or "usd000" in compact or "eur000" in compact:
+        return 1_000.0
+    if "(000)" in compact or "[000]" in compact:
+        return 1_000.0
+    if re.search(r"\b(thousand|thousands)\b", text):
+        return 1_000.0
+    if re.search(r"(?<![a-z])[-+]?\d+(?:\.\d+)?\s*k\b", text):
+        return 1_000.0
+    if re.search(r"(?<![a-z])[-+]?\d+(?:\.\d+)?\s*m\b", text):
+        return 1_000_000.0
+    if re.search(r"\b(mn|million|millions)\b", text):
+        return 1_000_000.0
+    if re.search(r"(?<![a-z])[-+]?\d+(?:\.\d+)?\s*bn\b", text):
+        return 1_000_000_000.0
+    if re.search(r"\b(billion|billions)\b", text):
+        return 1_000_000_000.0
+    return 1.0
+
+
+def _normalize_numeric_value(val: str) -> Optional[dict[str, float | str]]:
+    text = str(val or "").strip()
+    if not text:
+        return None
+    lowered = text.lower()
+    negative = bool(re.search(r"\(\s*[-+]?\d[\d,]*(?:\.\d+)?\s*\)", lowered))
+    cleaned = lowered.replace(",", "")
+    match = re.search(r"[-+]?\d+(?:\.\d+)?", cleaned)
+    if not match:
+        return None
+    try:
+        number = float(match.group())
+    except Exception:
+        return None
+    if negative and number > 0:
+        number = -number
+    multiplier = _detect_numeric_multiplier(lowered)
+    dimension = _detect_numeric_dimension(lowered)
+    return {
+        "value": float(number * multiplier),
+        "dimension": dimension,
+        "multiplier": multiplier,
+    }
+
+
+def _numeric_values_match(expected_answer: Any, extracted_answer: str) -> tuple[bool, bool]:
+    expected_values = expected_answer if isinstance(expected_answer, list) else [expected_answer]
+    normalized_expected = [nv for nv in (_normalize_numeric_value(v) for v in expected_values) if nv is not None]
+    normalized_extracted = _normalize_numeric_value(extracted_answer)
+    if not normalized_expected or normalized_extracted is None:
+        return False, False
+
+    full_matches = 0
+    partial_matches = 0
+    for exp in normalized_expected:
+        exp_dimension = str(exp["dimension"])
+        got_dimension = str(normalized_extracted["dimension"])
+        if exp_dimension != got_dimension and "percent" in {exp_dimension, got_dimension}:
+            continue
+        exp_value = float(exp["value"])
+        got_value = float(normalized_extracted["value"])
+        abs_diff = abs(exp_value - got_value)
+        rel_tol = 0.01 * max(abs(exp_value), abs(got_value), 1.0)
+        if abs_diff <= max(1.0, rel_tol):
+            full_matches += 1
+        elif abs_diff <= max(5.0, 0.05 * max(abs(exp_value), abs(got_value), 1.0)):
+            partial_matches += 1
+
+    return (
+        full_matches == len(normalized_expected) and len(normalized_expected) > 0,
+        full_matches == 0 and partial_matches > 0,
+    )
+
+
 def _is_missing_extraction(extracted_answer: Optional[str]) -> bool:
     if not extracted_answer:
         return True
@@ -819,6 +934,10 @@ def _expected_in_context(expected_answer: Any, context_text: str, answer_type: s
         return any(item and item in ctx_norm for item in expected_items)
     expected_norm = _normalize_answer_text(expected_answer)
     if answer_type == "number":
+        if _normalize_numeric_value(context_text) is not None:
+            match, partial = _numeric_values_match(expected_answer, context_text)
+            if match or partial:
+                return True
         expected_nums = _extract_numbers(expected_answer)
         ctx_nums = _extract_numbers(context_text)
         return any(n in ctx_nums for n in expected_nums)
@@ -852,6 +971,9 @@ def _compare_expected_to_extracted(
         return len(matched) == len(expected_items), 0 < len(matched) < len(expected_items)
     expected_norm = _normalize_answer_text(expected_answer)
     if answer_type == "number":
+        numeric_match, numeric_partial = _numeric_values_match(expected_answer, extracted_answer)
+        if numeric_match or numeric_partial:
+            return numeric_match, numeric_partial
         expected_nums = _extract_numbers(expected_answer)
         extracted_nums = _extract_numbers(extracted_answer)
         matched = [n for n in expected_nums if n in extracted_nums]
@@ -898,6 +1020,10 @@ def categorize_failure_type(
 def main():
     hf_logging.set_verbosity_error()
     args = parse_args()
+    print(
+        "[info] scripts/retrieval_eval.py is the dense-first baseline evaluator. "
+        "Use scripts/evaluate_pipeline.py for pipeline-faithful hybrid evaluation."
+    )
     global DATA_DIR, EMBED_MODEL_NAME, K_LIST
     DATA_DIR = Path(args.data_dir)
     EMBED_MODEL_NAME = args.model
@@ -932,7 +1058,7 @@ def main():
                     chunk_text_by_id.setdefault(str(cid), str(row.get("chunk_text") or ""))
 
     print("Loading embedding model:", EMBED_MODEL_NAME)
-    model = SentenceTransformer(EMBED_MODEL_NAME)
+    model = SentenceTransformer(str(args.model), device=resolve_torch_device(args.device))
 
     eval_obj = read_json(EVAL_SET_PATH)
     if isinstance(eval_obj, list):
@@ -963,6 +1089,8 @@ def main():
     run_info = {
         "run_utc": utc_now_iso(),
         "data_dir": str(DATA_DIR),
+        "runtime": collect_runtime_provenance(),
+        "critical_environment_checks": critical_environment_checks(),
         "index_path": str(INDEX_PATH),
         "meta_path": str(META_PATH),
         "table_facts_path": str(TABLE_FACTS_PATH),
@@ -974,6 +1102,7 @@ def main():
         "milestone_text_boost": MILESTONE_TEXT_BOOST,
         "entity_match_boost": ENTITY_MATCH_BOOST,
         "numeric_density_boost": NUMERIC_DENSITY_BOOST,
+        "segment_search_hit_boost": SEGMENT_SEARCH_HIT_BOOST,
         "max_entity_matches": MAX_ENTITY_MATCHES,
         "enable_lexical_rerank": enable_lexical_rerank,
         "enable_subsection_boost": enable_subsection_boost,
@@ -1016,6 +1145,7 @@ def main():
         table_chunk_boost=TABLE_CHUNK_BOOST,
         entity_match_boost=ENTITY_MATCH_BOOST,
         numeric_density_boost=NUMERIC_DENSITY_BOOST,
+        segment_search_hit_boost=SEGMENT_SEARCH_HIT_BOOST,
         max_entity_matches=MAX_ENTITY_MATCHES,
     )
 
@@ -1093,6 +1223,11 @@ def main():
                 )
                 score += query_overlap_boost(question=question, chunk_text=ctext, config=rerank_cfg)
                 score += numeric_density_boost(question=question, chunk_text=ctext, config=rerank_cfg)
+                score += segment_search_hit_boost(
+                    question=question,
+                    segment_has_search_hit=bool(meta.iloc[idx].get("segment_has_search_hit", False)),
+                    config=rerank_cfg,
+                )
                 score += _milestone_text_relevance_boost(route, question, ctext)
                 boosted.append((score, idx))
             boosted.sort(key=lambda x: x[0], reverse=True)

@@ -11,6 +11,7 @@ import hmac
 import time
 import threading
 from collections import defaultdict, deque
+from urllib.parse import urlparse
 
 from fastapi import FastAPI, HTTPException, Depends, Header, Query, Request
 from fastapi.middleware.cors import CORSMiddleware
@@ -38,6 +39,7 @@ process_service = ProcessService(repo_root=REPO_ROOT, data_root=storage.data_roo
 search_service = SearchService(repo_root=REPO_ROOT, model_path=MODEL_PATH)
 DEMO_MODE = os.getenv("DEMO_MODE", "0") == "1"
 API_KEY = str(os.getenv("API_KEY", "")).strip()
+UPLOAD_ENABLED = os.getenv("UPLOAD_ENABLED", "0") == "1"
 MAX_UPLOAD_MB = float(os.getenv("MAX_UPLOAD_MB", "20"))
 MAX_UPLOAD_BYTES = int(MAX_UPLOAD_MB * 1024 * 1024)
 MAX_LOG_TAIL_LINES = int(os.getenv("MAX_LOG_TAIL_LINES", "1000"))
@@ -57,6 +59,34 @@ ALLOWED_ORIGINS = [
     if x.strip()
 ]
 ALLOW_CREDENTIALS = not (len(ALLOWED_ORIGINS) == 1 and ALLOWED_ORIGINS[0] == "*")
+
+
+def _origin_is_local(origin: str) -> bool:
+    raw = str(origin or "").strip()
+    if not raw:
+        return False
+    if raw == "*":
+        return False
+    parsed = urlparse(raw)
+    host = (parsed.hostname or "").strip().lower()
+    return host in {"localhost", "127.0.0.1"}
+
+
+_api_key_policy = str(os.getenv("API_KEY_POLICY", "auto")).strip().lower()
+if _api_key_policy not in {"auto", "always", "never"}:
+    _api_key_policy = "auto"
+if _api_key_policy == "always":
+    REQUIRE_API_KEY = True
+elif _api_key_policy == "never":
+    REQUIRE_API_KEY = False
+else:
+    REQUIRE_API_KEY = any(not _origin_is_local(origin) for origin in ALLOWED_ORIGINS)
+
+if REQUIRE_API_KEY and not API_KEY:
+    raise RuntimeError(
+        "API_KEY is required when API_KEY_POLICY requires authentication. "
+        "Set API_KEY or restrict UI_ALLOWED_ORIGINS to localhost-only origins."
+    )
 
 app = FastAPI(title="RAG Retrieval UI API", version="0.1.0")
 app.add_middleware(
@@ -122,8 +152,8 @@ rank_rate_limiter = SlidingWindowRateLimiter(
 
 
 def _require_api_key(x_api_key: Optional[str] = Header(default=None, alias="X-API-Key")) -> None:
-    """Require API key for sensitive/expensive endpoints when API_KEY is configured."""
-    if not API_KEY:
+    """Require API key when API policy or deployment posture demands it."""
+    if not REQUIRE_API_KEY:
         return
     if not x_api_key or not hmac.compare_digest(str(x_api_key), API_KEY):
         raise HTTPException(status_code=401, detail="Unauthorized.")
@@ -132,7 +162,7 @@ def _require_api_key(x_api_key: Optional[str] = Header(default=None, alias="X-AP
 def _rate_limit_key(request: Request, x_api_key: Optional[str]) -> str:
     """Build stable limiter key from API key (when set) and client address."""
     client_host = request.client.host if request.client else "unknown"
-    if API_KEY:
+    if REQUIRE_API_KEY:
         return f"api_key:{(x_api_key or '').strip()}|ip:{client_host}"
     return f"ip:{client_host}"
 
@@ -275,6 +305,8 @@ async def upload_doc(
     """
     if DEMO_MODE:
         raise HTTPException(status_code=403, detail="Upload disabled in demo mode.")
+    if not UPLOAD_ENABLED:
+        raise HTTPException(status_code=403, detail="Upload disabled. Set UPLOAD_ENABLED=1 to enable.")
     pdf_filename = _sanitize_upload_filename(req.pdf_filename, ".pdf")
 
     with tempfile.TemporaryDirectory(prefix="rag_ui_upload_") as td:
@@ -300,15 +332,14 @@ async def upload_doc(
 
     return UploadResponse(
         doc_id=out["doc_id"],
-        data_dir=out["data_dir"],
         page_count=stats["page_count"],
         chunk_count=stats["chunk_count"],
         table_chunk_count=stats["table_chunk_count"],
         chunk_size_tokens=stats.get("chunk_size_tokens"),
         chunk_overlap_tokens=stats.get("chunk_overlap_tokens"),
+        table_chunking=stats.get("table_chunking") or out.get("table_chunking"),
         has_eval_set=stats["has_eval_set"],
         has_pipeline_log=stats.get("has_pipeline_log", False),
-        pipeline_log_path=out.get("pipeline_log_path", ""),
         status="ready",
     )
 

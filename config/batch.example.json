@@ -1,6 +1,0 @@
-{
-  "pdf_dir": "/Users/djimra/MSc Data Science Jan 2025/Thesis documents/RAG_Pipeline_Project/Data/Annual Accounts NHS Grampian/Preliminary_Test",
-  "pdf_glob": "*.pdf",
-  "out_root": "/Users/djimra/MSc Data Science Jan 2025/Thesis documents/RAG_Pipeline_Project/data_processed",
-  "embed_model_name": "/Users/djimra/MSc Data Science Jan 2025/Thesis documents/RAG_Pipeline_Project/models/all-MiniLM-L6-v2"
-}

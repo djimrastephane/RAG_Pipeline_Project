@@ -12,6 +12,7 @@ from rag_pdf.headings import (
     is_section_anchor_line,
     looks_like_heading_text_only,
     looks_like_lettered_subsection,
+    looks_like_numbered_heading,
 )
 from rag_pdf.text_normalize import normalize_line
 from rag_pdf.toc import (
@@ -168,6 +169,9 @@ def _detect_page_heading_signals(row: pd.Series) -> tuple[str | None, str | None
     section_found = None
     subsection_found = None
 
+    def _looks_like_subsection(line: str) -> bool:
+        return looks_like_lettered_subsection(line) or looks_like_numbered_heading(line)
+
     if top_lines:
         for i, line in enumerate(top_lines):
             if is_part_label(line):
@@ -178,10 +182,10 @@ def _detect_page_heading_signals(row: pd.Series) -> tuple[str | None, str | None
                 and subsection_found is None
             ):
                 combined = f"{line[0]} {top_lines[i + 1]}"
-                if looks_like_lettered_subsection(combined):
+                if _looks_like_subsection(combined):
                     subsection_found = combined
                     continue
-            if subsection_found is None and looks_like_lettered_subsection(line):
+            if subsection_found is None and _looks_like_subsection(line):
                 subsection_found = line
                 continue
             if section_found is None and (
@@ -193,7 +197,7 @@ def _detect_page_heading_signals(row: pd.Series) -> tuple[str | None, str | None
                 break
     elif heading_candidates:
         for cand in heading_candidates:
-            if subsection_found is None and looks_like_lettered_subsection(cand):
+            if subsection_found is None and _looks_like_subsection(cand):
                 subsection_found = cand
                 continue
             if section_found is None and looks_like_heading_text_only(cand):
@@ -203,7 +207,7 @@ def _detect_page_heading_signals(row: pd.Series) -> tuple[str | None, str | None
     else:
         for line in lines[:25]:
             if not is_part_label(line):
-                if subsection_found is None and looks_like_lettered_subsection(line):
+                if subsection_found is None and _looks_like_subsection(line):
                     subsection_found = line
                     continue
                 if section_found is None and looks_like_heading_text_only(line):
@@ -215,7 +219,7 @@ def _detect_page_heading_signals(row: pd.Series) -> tuple[str | None, str | None
         m = re.search(r"\b([A-Z])[.)]?\s+([A-Z][A-Z ]{3,})\b", text)
         if m:
             candidate = f"{m.group(1)} {normalize_line(m.group(2))}"
-            if looks_like_lettered_subsection(candidate):
+            if _looks_like_subsection(candidate):
                 subsection_found = candidate
 
     if subsection_found is None:
@@ -383,7 +387,7 @@ def _infer_labels(
                 if _extract_note_subsection(chosen_subsection) is None:
                     accept_subsection = False
 
-            if toc_active and subsection_allow_list:
+            if toc_active and subsection_allow_list and not looks_like_numbered_heading(chosen_subsection):
                 ok, matched, score = fuzzy_match_title(
                     proposed=chosen_subsection,
                     allow_list=subsection_allow_list,

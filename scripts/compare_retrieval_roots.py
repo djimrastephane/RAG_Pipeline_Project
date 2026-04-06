@@ -31,7 +31,7 @@ def _metric(obj: dict, k: int, key: str) -> float | None:
 def main() -> None:
     parser = argparse.ArgumentParser(description="Compare retrieval metrics across two processed roots.")
     parser.add_argument("--base-root", default=str(REPO_ROOT / "data_processed"))
-    parser.add_argument("--compare-root", default=str(REPO_ROOT / "data_processed_tiktoken_5docs"))
+    parser.add_argument("--compare-root", default=str(REPO_ROOT / "data_variants" / "tiktoken_5docs"))
     parser.add_argument("--out-csv", default=str(REPO_ROOT / "results" / "retrieval_compare_fallback_vs_tiktoken_2020_2025.csv"))
     parser.add_argument("--docs", nargs="*", default=DEFAULT_DOCS)
     args = parser.parse_args()

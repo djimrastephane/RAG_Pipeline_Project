@@ -28,6 +28,7 @@ import faiss
 import numpy as np
 import pandas as pd
 from sentence_transformers import CrossEncoder, SentenceTransformer
+import torch
 
 repo_root = Path(__file__).resolve().parents[1]
 if str(repo_root) not in sys.path:
@@ -36,14 +37,17 @@ src_path = repo_root / "src"
 if src_path.exists() and str(src_path) not in sys.path:
     sys.path.insert(0, str(src_path))
 
-from scripts.retrieval_eval_bm25 import BM25Index, get_retrieved_pages, tokenize
-from rag_pdf.question_router import route_question
-from rag_pdf.retrieval.rerank import (
-    RerankConfig,
-    numeric_density_boost,
-    query_overlap_boost,
-    table_priority_boost,
+try:
+    from scripts.retrieval_eval_bm25 import BM25Index, get_retrieved_pages, set_bm25_tokenizer_variant, tokenize
+except ModuleNotFoundError:
+    from retrieval_eval_bm25 import BM25Index, get_retrieved_pages, set_bm25_tokenizer_variant, tokenize
+from rag_pdf.retrieval.canonical_hybrid import (
+    apply_post_fusion_rerank,
+    fuse_ranked_lists,
+    normalize_cross_encoder_scores,
 )
+from rag_pdf.retrieval.rerank import RerankConfig
+from runtime_env import collect_runtime_provenance, critical_environment_checks
 
 
 DATA_DIR = Path("data_processed/Grampian-2024-2025")
@@ -59,6 +63,7 @@ SUBSECTION_BOOST = float(os.getenv("SUBSECTION_BOOST", "0.05"))
 TABLE_CHUNK_BOOST = float(os.getenv("TABLE_CHUNK_BOOST", "0.08"))
 ENTITY_MATCH_BOOST = float(os.getenv("ENTITY_MATCH_BOOST", "0.04"))
 NUMERIC_DENSITY_BOOST = float(os.getenv("NUMERIC_DENSITY_BOOST", "0.03"))
+SEGMENT_SEARCH_HIT_BOOST = float(os.getenv("SEGMENT_SEARCH_HIT_BOOST", "0.03"))
 MAX_ENTITY_MATCHES = int(os.getenv("MAX_ENTITY_MATCHES", "4"))
 ENABLE_LEXICAL_RERANK = os.getenv("ENABLE_LEXICAL_RERANK", "1") != "0"
 ENABLE_SUBSECTION_BOOST = os.getenv("ENABLE_SUBSECTION_BOOST", "1") != "0"
@@ -74,6 +79,21 @@ QUERY_ID_PATTERN_V2 = re.compile(r"^Q_(\d{4})_([A-Z]+)_(\d{2}|P\d+)$")
 def _env_or_default(name: str, default: str) -> str:
     val = os.getenv(name)
     return val if val else default
+
+
+def resolve_torch_device(name: str) -> str:
+    requested = str(name or "cpu").strip().lower()
+    if requested == "auto":
+        if hasattr(torch.backends, "mps") and torch.backends.mps.is_available():
+            return "mps"
+        if torch.cuda.is_available():
+            return "cuda"
+        return "cpu"
+    if requested == "mps":
+        return "mps" if hasattr(torch.backends, "mps") and torch.backends.mps.is_available() else "cpu"
+    if requested == "cuda":
+        return "cuda" if torch.cuda.is_available() else "cpu"
+    return "cpu"
 
 
 def utc_now_iso() -> str:
@@ -168,6 +188,11 @@ def parse_args() -> argparse.Namespace:
         help="Sentence-transformers model name or local path.",
     )
     parser.add_argument(
+        "--device",
+        default=_env_or_default("ST_MODEL_DEVICE", "cpu"),
+        help="Embedding device: cpu, mps, cuda, or auto.",
+    )
+    parser.add_argument(
         "--k-list",
         default=_env_or_default("K_LIST", ",".join(str(k) for k in K_LIST)),
         help="Comma-separated list of k values (e.g. 1,3,5,10).",
@@ -203,6 +228,12 @@ def parse_args() -> argparse.Namespace:
         help="BM25 b parameter.",
     )
     parser.add_argument(
+        "--bm25-tokenizer",
+        choices=("default", "no_hyphen"),
+        default=_env_or_default("BM25_TOKENIZER", "default"),
+        help="Lexical tokenizer variant for BM25 sensitivity checks.",
+    )
+    parser.add_argument(
         "--no-lexical-rerank",
         action="store_true",
         help="Disable lexical rerank boosts on top of fused ranking.",
@@ -221,6 +252,11 @@ def parse_args() -> argparse.Namespace:
         "--cross-encoder-model",
         default=_env_or_default("CROSS_ENCODER_MODEL_NAME", "models/bge-reranker-v2-m3"),
         help="Cross-encoder model name/local path.",
+    )
+    parser.add_argument(
+        "--cross-encoder-device",
+        default=_env_or_default("CROSS_ENCODER_DEVICE", "cpu"),
+        help="Cross-encoder device: cpu, mps, cuda, or auto.",
     )
     parser.add_argument(
         "--cross-encoder-topn",
@@ -405,38 +441,9 @@ def l2_normalize(x: np.ndarray, eps: float = 1e-12) -> np.ndarray:
     return x / (norms + eps)
 
 
-def rrf_fuse_with_scores(
-    dense_ranked: list[int],
-    bm25_ranked: list[int],
-    rrf_k: int,
-    dense_weight: float,
-    bm25_weight: float,
-) -> tuple[list[int], dict[int, float]]:
-    scores: dict[int, float] = {}
-    for rank, idx in enumerate(dense_ranked, start=1):
-        scores[idx] = scores.get(idx, 0.0) + (dense_weight / float(rrf_k + rank))
-    for rank, idx in enumerate(bm25_ranked, start=1):
-        scores[idx] = scores.get(idx, 0.0) + (bm25_weight / float(rrf_k + rank))
-    ranked = [idx for idx, _ in sorted(scores.items(), key=lambda kv: kv[1], reverse=True)]
-    return ranked, scores
-
-
-def _normalize_text(v: str) -> str:
-    return " ".join(str(v).lower().split())
-
-
-def _normalize_unit(scores: np.ndarray) -> np.ndarray:
-    if scores.size == 0:
-        return scores
-    lo = float(np.min(scores))
-    hi = float(np.max(scores))
-    if hi <= lo:
-        return np.zeros_like(scores, dtype=np.float32)
-    return ((scores - lo) / (hi - lo)).astype(np.float32)
-
-
 def main() -> None:
     args = parse_args()
+    set_bm25_tokenizer_variant(str(args.bm25_tokenizer))
     data_dir = Path(args.data_dir).resolve()
     index_path = data_dir / "faiss.index"
     meta_path = data_dir / "chunk_meta.parquet"
@@ -472,7 +479,7 @@ def main() -> None:
     enable_cross_encoder_rerank = bool(args.enable_cross_encoder_rerank)
 
     # Dense resources
-    model = SentenceTransformer(str(args.model))
+    model = SentenceTransformer(str(args.model), device=resolve_torch_device(args.device))
     index = faiss.read_index(str(index_path))
     questions = [str(x.get("question", "")).strip() for x in eval_items]
     q_emb = model.encode(
@@ -500,11 +507,16 @@ def main() -> None:
         cid = str(r.get("chunk_id_global") or r.get("chunk_id") or "")
         corpus_texts.append(text_by_id.get(cid, ""))
     bm25 = BM25Index([tokenize(t) for t in corpus_texts], k1=float(args.bm25_k1), b=float(args.bm25_b))
-    cross_encoder = CrossEncoder(str(args.cross_encoder_model)) if enable_cross_encoder_rerank else None
+    cross_encoder = (
+        CrossEncoder(str(args.cross_encoder_model), device=resolve_torch_device(args.cross_encoder_device))
+        if enable_cross_encoder_rerank
+        else None
+    )
     rerank_cfg = RerankConfig(
         table_chunk_boost=TABLE_CHUNK_BOOST,
         entity_match_boost=ENTITY_MATCH_BOOST,
         numeric_density_boost=NUMERIC_DENSITY_BOOST,
+        segment_search_hit_boost=SEGMENT_SEARCH_HIT_BOOST,
         max_entity_matches=MAX_ENTITY_MATCHES,
     )
 
@@ -530,8 +542,6 @@ def main() -> None:
         filter_hints = item.get("filter_hints", {})
         answer_type = str(item.get("answer_type", "unknown"))
 
-        route = route_question(question) if enable_lexical_rerank else None
-
         if expected_doc_id and meta_doc_ids and expected_doc_id not in meta_doc_ids:
             raise ValueError(
                 f"Query {query_id} expects doc_id={expected_doc_id}, "
@@ -546,14 +556,16 @@ def main() -> None:
         bm25_scores = bm25.score_query(tokenize(question))
         bm25_ranked = [idx for idx, _ in sorted(enumerate(bm25_scores), key=lambda x: x[1], reverse=True)[:max_k_search]]
 
-        fused_ranked, fused_scores = rrf_fuse_with_scores(
+        fused_ranked, scores_map = fuse_ranked_lists(
+            fusion_strategy="rrf",
             dense_ranked=dense_ranked,
             bm25_ranked=bm25_ranked,
+            dense_score_map={int(idx): float(score) for idx, score in zip(dense_ranked, dense_scores[0].tolist())},
+            bm25_score_map={int(idx): float(score) for idx, score in enumerate(bm25_scores)},
             rrf_k=int(args.rrf_k),
             dense_weight=float(args.dense_weight),
             bm25_weight=float(args.bm25_weight),
         )
-        scores_map: dict[int, float] = dict(fused_scores)
 
         if cross_encoder is not None and fused_ranked:
             ce_topn = max(1, min(int(args.cross_encoder_topn), len(fused_ranked)))
@@ -564,40 +576,30 @@ def main() -> None:
                 cid = str(row.get("chunk_id_global") or row.get("chunk_id") or "")
                 pairs.append((question, text_by_id.get(cid, "")))
             ce_scores_raw = np.asarray(cross_encoder.predict(pairs), dtype=np.float32)
-            ce_scores = _normalize_unit(ce_scores_raw)
+            ce_scores = normalize_cross_encoder_scores(ce_scores_raw)
             for idx, ce_s in zip(cand, ce_scores.tolist()):
                 scores_map[idx] = float(scores_map.get(idx, 0.0)) + float(args.cross_encoder_weight) * float(ce_s)
-
-        if enable_lexical_rerank:
-            for idx in fused_ranked:
-                row = meta.iloc[idx]
-                is_table_chunk = bool(row.get("is_table", False))
-                cid = str(row.get("chunk_id_global") or row.get("chunk_id") or "")
-                ctext = text_by_id.get(cid, "")
-                score = scores_map.get(idx, 0.0)
-                score += table_priority_boost(
-                    is_table_chunk=is_table_chunk,
-                    route_intent=route.intent if route is not None else "generic",
-                    config=rerank_cfg,
-                )
-                score += query_overlap_boost(question=question, chunk_text=ctext, config=rerank_cfg)
-                score += numeric_density_boost(question=question, chunk_text=ctext, config=rerank_cfg)
-                scores_map[idx] = score
-
-        if enable_subsection_boost and expected_subsection and "subsection_title" in meta.columns:
-            target = _normalize_text(expected_subsection)
-            for idx in fused_ranked:
-                sub = _normalize_text(str(meta.iloc[idx].get("subsection_title", "")))
-                if sub == target:
-                    scores_map[idx] = scores_map.get(idx, 0.0) + SUBSECTION_BOOST
-
-        fused_ranked = sorted(fused_ranked, key=lambda i: scores_map.get(i, 0.0), reverse=True)
+        fused_ranked, scores_map = apply_post_fusion_rerank(
+            question=question,
+            fused_ranked=fused_ranked,
+            scores_map=scores_map,
+            meta=meta,
+            chunk_text_by_id=text_by_id,
+            rerank_cfg=rerank_cfg,
+            enable_lexical_rerank=enable_lexical_rerank,
+            expected_section=expected_section,
+            expected_subsection=expected_subsection,
+            enable_subsection_boost=enable_subsection_boost,
+            subsection_boost=SUBSECTION_BOOST,
+            cross_page_out_of_section_penalty=0.08,
+        )
 
         per_k: dict[str, Any] = {}
         for k in k_list:
             top_idxs = fused_ranked[:k]
             retrieved_chunks = meta.iloc[top_idxs].copy()
-            retrieved_chunks["score"] = [scores_map.get(i, 0.0) for i in top_idxs]
+            top_scores = [float(scores_map.get(i, 0.0)) for i in top_idxs]
+            retrieved_chunks["score"] = top_scores
 
             retrieved_chunk_ids = get_chunk_ids(retrieved_chunks)
             retrieved_doc_ids = get_doc_ids(retrieved_chunks)
@@ -623,6 +625,7 @@ def main() -> None:
                 "retrieved_chunk_ids": retrieved_chunk_ids,
                 "retrieved_doc_ids_top_k": retrieved_doc_ids,
                 "retrieved_pages_ranked": ranked_pages_unique,
+                "retrieved_scores": top_scores,
                 "page_recall_at_k": float(page_recall),
                 "page_precision_at_k": float(page_precision),
                 "page_mrr_at_k": float(page_mrr),
@@ -693,9 +696,12 @@ def main() -> None:
             "run_utc": utc_now_iso(),
             "data_dir": str(data_dir),
             "method": "hybrid_rrf_dense_bm25",
+            "runtime": collect_runtime_provenance(),
+            "critical_environment_checks": critical_environment_checks(),
             "embedding_model": str(args.model),
             "bm25_k1": float(args.bm25_k1),
             "bm25_b": float(args.bm25_b),
+            "bm25_tokenizer": str(args.bm25_tokenizer),
             "rrf_k": int(args.rrf_k),
             "dense_weight": float(args.dense_weight),
             "bm25_weight": float(args.bm25_weight),
@@ -708,6 +714,7 @@ def main() -> None:
             "table_chunk_boost": float(TABLE_CHUNK_BOOST),
             "entity_match_boost": float(ENTITY_MATCH_BOOST),
             "numeric_density_boost": float(NUMERIC_DENSITY_BOOST),
+            "segment_search_hit_boost": float(SEGMENT_SEARCH_HIT_BOOST),
             "subsection_boost": float(SUBSECTION_BOOST),
             "k_list": k_list,
             "num_queries": int(len(results)),

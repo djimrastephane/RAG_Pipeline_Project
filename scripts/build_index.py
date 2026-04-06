@@ -36,6 +36,7 @@ import json
 import math
 import os
 import re
+import sys
 from pathlib import Path
 from datetime import datetime, timezone
 from typing import Any, Optional
@@ -46,6 +47,14 @@ import pandas as pd
 import faiss
 from transformers import logging as hf_logging
 from sentence_transformers import SentenceTransformer
+import torch
+
+repo_root = Path(__file__).resolve().parents[1]
+scripts_path = repo_root / "scripts"
+if str(scripts_path) not in sys.path:
+    sys.path.insert(0, str(scripts_path))
+
+from runtime_env import collect_runtime_provenance, critical_environment_checks
 
 
 # =============================================================================
@@ -128,6 +137,21 @@ def _env_or_default(name: str, default: str) -> str:
     return val if val else default
 
 
+def resolve_torch_device(name: str) -> str:
+    requested = str(name or "cpu").strip().lower()
+    if requested == "auto":
+        if hasattr(torch.backends, "mps") and torch.backends.mps.is_available():
+            return "mps"
+        if torch.cuda.is_available():
+            return "cuda"
+        return "cpu"
+    if requested == "mps":
+        return "mps" if hasattr(torch.backends, "mps") and torch.backends.mps.is_available() else "cpu"
+    if requested == "cuda":
+        return "cuda" if torch.cuda.is_available() else "cpu"
+    return "cpu"
+
+
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
         description="Build embeddings + FAISS index from chunks.parquet."
@@ -141,6 +165,11 @@ def parse_args() -> argparse.Namespace:
         "--model",
         default=_env_or_default("EMBED_MODEL_NAME", EMBED_MODEL_NAME),
         help="Sentence-transformers model name or local path.",
+    )
+    parser.add_argument(
+        "--device",
+        default=_env_or_default("ST_MODEL_DEVICE", "cpu"),
+        help="Embedding device: cpu, mps, cuda, or auto.",
     )
     return parser.parse_args()
 
@@ -353,6 +382,7 @@ def build_meta_table(chunks: pd.DataFrame) -> pd.DataFrame:
         "part",
         "section_title",
         "subsection_title",
+        "segment_boundary_type",
         "is_table",
         "page_start",
         "page_end",
@@ -512,6 +542,8 @@ def build_index_for_doc(doc_dir: Path, model: SentenceTransformer) -> None:
 
     # Metadata aligned with index rows
     meta = build_meta_table(chunks)
+    if "segment_boundary_type" in chunks.columns and "segment_boundary_type" not in meta.columns:
+        meta["segment_boundary_type"] = chunks["segment_boundary_type"].astype(str)
 
     # Load preprocess metrics for traceability
     preprocess_metrics = read_json(metrics_path)
@@ -552,6 +584,8 @@ def build_index_for_doc(doc_dir: Path, model: SentenceTransformer) -> None:
         "embedding": {
             "created_utc": utc_now_iso(),
             "model": EMBED_MODEL_NAME,
+            "runtime": collect_runtime_provenance(),
+            "critical_environment_checks": critical_environment_checks(),
             "chunks_embedded": int(n),
             "embedding_dim": int(d),
             "faiss_index_type": "IndexFlatIP",
@@ -601,7 +635,7 @@ def main():
         return
 
     print(f"Loading embedding model once: {EMBED_MODEL_NAME}")
-    model = SentenceTransformer(EMBED_MODEL_NAME)
+    model = SentenceTransformer(str(args.model), device=resolve_torch_device(args.device))
 
     processed = 0
     skipped = 0

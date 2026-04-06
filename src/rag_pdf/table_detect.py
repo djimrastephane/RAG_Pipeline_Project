@@ -10,6 +10,7 @@ from rag_pdf.text_normalize import normalize_line
 TABLE_DIGIT_RATIO = DEFAULT_CONFIG.TABLE_DIGIT_RATIO
 TABLE_SPACE_RATIO = DEFAULT_CONFIG.TABLE_SPACE_RATIO
 TABLE_MIN_LINES = DEFAULT_CONFIG.TABLE_MIN_LINES
+TABLE_DETECT_CFG = DEFAULT_CONFIG.TABLE_DETECT
 
 
 def is_table_like(text: str) -> bool:
@@ -34,56 +35,46 @@ def is_table_like(text: str) -> bool:
 
 
 def count_numeric_tokens(line: str) -> int:
-    patterns = [
-        r"\(\d[\d,]*\)",  # parentheses negatives
-        r"\d{1,3}(?:,\d{3})+(?:\.\d+)?",  # comma numbers
-        r"\d+(?:\.\d+)?%",  # percents
-        r"\d+(?:\.\d+)?",  # plain numbers
-        r"\b-\b",  # dash placeholder
-    ]
+    cfg = TABLE_DETECT_CFG
     count = 0
-    for pat in patterns:
+    for pat in cfg.NUMERIC_TOKEN_PATTERNS:
         count += len(re.findall(pat, line))
     return count
 
 
 def is_small_financial_table(text: str) -> bool:
+    cfg = TABLE_DETECT_CFG
     lines = [l for l in text.splitlines() if l.strip()]
-    if len(lines) < 4:
+    if len(lines) < cfg.SMALL_MIN_LINES:
         return False
 
-    currency_pattern = re.compile(r"£\s*'?000'?s?|\(£\s*'?000'?\)", re.IGNORECASE)
+    currency_pattern = re.compile(cfg.SMALL_CURRENCY_PATTERN, re.IGNORECASE)
     if not currency_pattern.search(text):
         return False
-
-    header_keywords = {
-        "limit", "actual", "variance", "reported", "consolidated",
-        "assets", "liabilities", "outturn", "surplus", "deficit", "net",
-    }
 
     body_like = []
     header_like_indices = []
     for i, line in enumerate(lines):
         tokens = count_numeric_tokens(line)
         has_alpha = bool(re.search(r"[A-Za-z]", line))
-        if has_alpha and tokens >= 2:
+        if has_alpha and tokens >= cfg.SMALL_MIN_NUMERIC_TOKENS_PER_BODY_LINE:
             body_like.append(i)
         words = {w.strip(".,;:()").lower() for w in line.split()}
-        if sum(1 for w in words if w in header_keywords) >= 2:
+        if sum(1 for w in words if w in cfg.SMALL_HEADER_KEYWORDS) >= 2:
             header_like_indices.append(i)
-        if line.count("  ") >= 3 and tokens >= 2:
+        if line.count("  ") >= cfg.SMALL_MIN_DOUBLE_SPACES and tokens >= cfg.SMALL_MIN_NUMERIC_TOKENS_PER_BODY_LINE:
             return True
 
     def _window_has_body(start_idx: int, need: int) -> bool:
-        end = min(start_idx + 12, len(lines))
+        end = min(start_idx + cfg.SMALL_BODY_WINDOW, len(lines))
         return sum(1 for i in body_like if start_idx <= i < end) >= need
 
     for i in range(len(lines)):
-        if _window_has_body(i, 3):
+        if _window_has_body(i, cfg.SMALL_REQUIRED_BODY_LINES):
             return True
 
     for idx in header_like_indices:
-        if _window_has_body(idx + 1, 2):
+        if _window_has_body(idx + 1, cfg.SMALL_REQUIRED_HEADER_BODY_LINES):
             return True
 
     return False
@@ -100,6 +91,7 @@ def is_graphics_table_like(drawings: list[dict]) -> bool:
     """
     if not drawings:
         return False
+    cfg = TABLE_DETECT_CFG
     def _coords_from_item(item):
         if len(item) >= 5:
             return item[1], item[2], item[3], item[4]
@@ -132,11 +124,11 @@ def is_graphics_table_like(drawings: list[dict]) -> bool:
                 x0, y0, x1, y1 = coords
                 dx = abs(x1 - x0)
                 dy = abs(y1 - y0)
-                if max(dx, dy) < 30:
+                if max(dx, dy) < cfg.GRAPHICS_MIN_LINE_SPAN:
                     continue
-                if dy <= 2 and dx >= 30:
+                if dy <= cfg.GRAPHICS_AXIS_TOLERANCE and dx >= cfg.GRAPHICS_MIN_LINE_SPAN:
                     h_lines += 1
-                elif dx <= 2 and dy >= 30:
+                elif dx <= cfg.GRAPHICS_AXIS_TOLERANCE and dy >= cfg.GRAPHICS_MIN_LINE_SPAN:
                     v_lines += 1
             elif op == "re":
                 # Filled rectangles are often chart bars/background blocks.
@@ -149,23 +141,24 @@ def is_graphics_table_like(drawings: list[dict]) -> bool:
                 x0, y0, x1, y1 = coords
                 dx = abs(x1 - x0)
                 dy = abs(y1 - y0)
-                if dx >= 30 and dy >= 12:
+                if dx >= cfg.GRAPHICS_MIN_LINE_SPAN and dy >= cfg.GRAPHICS_MIN_RECT_HEIGHT:
                     h_lines += 2
                     v_lines += 2
     # Plot-heavy pages are curve-dominant and should not be marked as table.
-    if curve_ops > (h_lines + v_lines) * 3 and rects < 2:
+    if curve_ops > (h_lines + v_lines) * cfg.GRAPHICS_CURVE_DOMINANCE_RATIO and rects < cfg.GRAPHICS_MAX_CURVE_RECTS:
         return False
 
-    if rects >= 4 and h_lines >= 8 and v_lines >= 4:
+    if rects >= cfg.GRAPHICS_MIN_RECTS and h_lines >= cfg.GRAPHICS_MIN_H_LINES_WITH_RECTS and v_lines >= cfg.GRAPHICS_MIN_V_LINES_WITH_RECTS:
         return True
-    return h_lines >= 10 and v_lines >= 5
+    return h_lines >= cfg.GRAPHICS_MIN_H_LINES and v_lines >= cfg.GRAPHICS_MIN_V_LINES
 
 
 def is_column_alignment_table_like(lines_all: list[dict]) -> bool:
     """
     Detect table-like columns by clustered x positions of raw lines.
     """
-    if not lines_all or len(lines_all) < 12:
+    cfg = TABLE_DETECT_CFG
+    if not lines_all or len(lines_all) < cfg.COLUMN_MIN_LINES:
         return False
     buckets = {}
     digit_lines = 0
@@ -173,15 +166,15 @@ def is_column_alignment_table_like(lines_all: list[dict]) -> bool:
         x0 = ln.get("x0")
         if x0 is None:
             continue
-        bucket = int(round(float(x0) / 12.0) * 12)
+        bucket = int(round(float(x0) / cfg.COLUMN_BUCKET_WIDTH) * cfg.COLUMN_BUCKET_WIDTH)
         buckets[bucket] = buckets.get(bucket, 0) + 1
         text = str(ln.get("text", ""))
         if any(ch.isdigit() for ch in text):
             digit_lines += 1
-    dense_cols = [b for b, c in buckets.items() if c >= 6]
-    if digit_lines < 6:
+    dense_cols = [b for b, c in buckets.items() if c >= cfg.COLUMN_MIN_BUCKET_COUNT]
+    if digit_lines < cfg.COLUMN_MIN_DIGIT_LINES:
         return False
-    return len(dense_cols) >= 5
+    return len(dense_cols) >= cfg.COLUMN_MIN_DENSE_COLS
 
 
 if __name__ == "__main__":
@@ -220,47 +213,42 @@ def is_table_like_from_raw_lines(lines: list[str]) -> bool:
     - Contains common table keywords
     - Multiple lines with consistent spacing patterns
     """
-    if not lines or len(lines) < 2:
+    cfg = TABLE_DETECT_CFG
+    if not lines or len(lines) < cfg.RAW_MIN_LINES:
         return False
 
     text = "\n".join(lines)
 
     # Check for financial table keywords
     text_lower = text.lower()
-    table_keywords = [
-        "note", "£", "£000", "£'000",
-        "total", "balance", "expenditure", "income", "assets",
-        "liabilities", "depreciation", "impairment",
-    ]
     table_keyword_patterns = [
-        re.compile(r"\b20\d{2}/\d{2}\b"),  # Year pattern like 2022/23
-        re.compile(r"£\s?[\d,]+(?:\.\d+)?"),  # Currency amounts like £1,000
+        re.compile(pat) for pat in cfg.RAW_KEYWORD_PATTERNS
     ]
-    keyword_hits = sum(1 for kw in table_keywords if kw in text_lower)
+    keyword_hits = sum(1 for kw in cfg.RAW_KEYWORDS if kw in text_lower)
     keyword_hits += sum(1 for pat in table_keyword_patterns if pat.search(text_lower))
 
     # Small-table detector: line has 2+ numeric bands + table keyword signal.
-    range_pattern = re.compile(r"\b\d+\s*[-–]\s*\d+\b")
+    range_pattern = re.compile(cfg.RAW_RANGE_PATTERN)
     for line in lines:
-        if len(range_pattern.findall(line)) >= 2 and keyword_hits >= 1:
+        if len(range_pattern.findall(line)) >= cfg.RAW_MIN_RANGE_MATCHES and keyword_hits >= cfg.RAW_MIN_KEYWORD_HITS:
             return True
 
     # Check digit ratio
     non_space_chars = sum(1 for ch in text if not ch.isspace())
     digit_ratio = sum(ch.isdigit() for ch in text) / max(1, non_space_chars)
-    if digit_ratio < 0.15:
+    if digit_ratio < cfg.RAW_DIGIT_RATIO:
         return False
 
     # Strong signal: multiple keywords + high digits
-    if keyword_hits >= 2 and digit_ratio > 0.15:
+    if keyword_hits >= cfg.RAW_STRONG_KEYWORD_HITS and digit_ratio > cfg.RAW_DIGIT_RATIO:
         return True
 
     # Check for tabular spacing (multiple aligned columns)
     lines_with_content = [l for l in lines if l.strip()]
-    if len(lines_with_content) >= 3:
+    if len(lines_with_content) >= cfg.RAW_SPACING_MIN_LINES:
         # Look for consistent spacing patterns (tabs or multiple spaces)
         multi_space_lines = sum(1 for l in lines_with_content if "  " in l or "\t" in l)
-        if multi_space_lines / len(lines_with_content) > 0.5:
+        if multi_space_lines / len(lines_with_content) > cfg.RAW_MULTI_SPACE_RATIO:
             return True
 
     return False
@@ -268,9 +256,10 @@ def is_table_like_from_raw_lines(lines: list[str]) -> bool:
 
 def contains_many_numbers(text: str) -> bool:
     """Check if text has high numeric content (>10% digits)."""
+    cfg = TABLE_DETECT_CFG
     digits = sum(ch.isdigit() for ch in text)
     non_space_chars = sum(1 for ch in text if not ch.isspace())
-    return digits / max(1, non_space_chars) > 0.10
+    return digits / max(1, non_space_chars) > cfg.MANY_NUMBERS_DIGIT_RATIO
 
 
 # =============================================================================
@@ -298,55 +287,12 @@ def detect_table_type(text: str) -> Optional[str]:
     Returns:
         Table type string or None if not a table
     """
+    cfg = TABLE_DETECT_CFG
     text_norm = normalize_line(text.lower())
-
-    patterns = {
-        "cash_flow": [
-            "cash flow",
-            "non-cash transaction",
-            "note 2a",
-            "note 2b",
-            "reconciliation of net cash",
-        ],
-        "balance_sheet": [
-            "balance sheet",
-            "statement of financial position",
-            "net assets",
-            "total assets",
-        ],
-        "income_statement": [
-            "statement of comprehensive net expenditure",
-            "socne",
-            "income and expenditure",
-            "operating costs",
-        ],
-        "staff_costs": [
-            "staff costs",
-            "employee benefit",
-            "remuneration",
-            "pension costs",
-        ],
-        "property": [
-            "property, plant and equipment",
-            "ppe",
-            "intangible assets",
-            "additions to assets",
-        ],
-        "provisions": [
-            "provisions",
-            "contingent liabilities",
-            "clinical negligence",
-        ],
-        "financial_instruments": [
-            "financial instruments",
-            "financial assets",
-            "financial liabilities",
-        ],
-    }
 
     # Score each table type by keyword matches
     scores = {}
-    for table_type, keywords in patterns.items():
+    for table_type, keywords in cfg.TYPE_PATTERNS.items():
         score = sum(1 for kw in keywords if kw in text_norm)
         if score > 0:
             scores[table_type] = score

@@ -4,6 +4,7 @@ import argparse
 import json
 from pathlib import Path
 
+import _matplotlib_env
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
@@ -23,10 +24,10 @@ def parse_args() -> argparse.Namespace:
 def _metric_rows(summary: dict) -> list[tuple[str, float, float, float]]:
     metrics = summary["metrics"]
     rows: list[tuple[str, float, float, float]] = []
-    rows.append(("Hit@1 (A - B)", metrics["hit_at_1"]["observed_delta"], metrics["hit_at_1"]["ci95_low"], metrics["hit_at_1"]["ci95_high"]))
-    rows.append(("Hit@3 (A - B)", metrics["hit_at_3"]["observed_delta"], metrics["hit_at_3"]["ci95_low"], metrics["hit_at_3"]["ci95_high"]))
+    rows.append(("Hit@1 (Hybrid - Dense)", metrics["hit_at_1"]["observed_delta"], metrics["hit_at_1"]["ci95_low"], metrics["hit_at_1"]["ci95_high"]))
+    rows.append(("Hit@3 (Hybrid - Dense)", metrics["hit_at_3"]["observed_delta"], metrics["hit_at_3"]["ci95_low"], metrics["hit_at_3"]["ci95_high"]))
     mrr_key = next(k for k in metrics.keys() if k.startswith("mrr_at_"))
-    rows.append((f"MRR@{mrr_key.split('_')[-1]} (A - B)", metrics[mrr_key]["observed_delta"], metrics[mrr_key]["ci95_low"], metrics[mrr_key]["ci95_high"]))
+    rows.append((f"MRR@{mrr_key.split('_')[-1]} (Hybrid - Dense)", metrics[mrr_key]["observed_delta"], metrics[mrr_key]["ci95_low"], metrics[mrr_key]["ci95_high"]))
     return rows
 
 
@@ -54,7 +55,7 @@ def plot_ci(summary: dict, label: str, out_path: Path, dpi: int) -> None:
     )
     ax.set_xticks(x)
     ax.set_xticklabels(labels)
-    ax.set_ylabel("Delta (System A minus System B)")
+    ax.set_ylabel("Delta (Hybrid - Dense)")
     ax.set_title("Paired Bootstrap 95% CI for Retrieval Deltas\n" + f"({label})")
     ax.grid(axis="y", alpha=0.3, linewidth=0.7)
 

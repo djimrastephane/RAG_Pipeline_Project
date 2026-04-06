@@ -4,10 +4,12 @@ import argparse
 import json
 import os
 import subprocess
+import sys
 import time
 from pathlib import Path
 from typing import Any
 
+import _matplotlib_env
 import matplotlib.pyplot as plt
 import pandas as pd
 
@@ -43,7 +45,7 @@ def run_eval(data_dir: Path, args: argparse.Namespace, max_k_search: int) -> tup
     env["MAX_K_SEARCH"] = str(int(max_k_search))
 
     cmd = [
-        ".venv/bin/python",
+        sys.executable,
         "scripts/retrieval_eval_hybrid.py",
         "--data-dir",
         str(data_dir),

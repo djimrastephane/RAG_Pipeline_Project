@@ -5,6 +5,7 @@ import argparse
 import json
 from pathlib import Path
 
+import _matplotlib_env
 import matplotlib.pyplot as plt
 import matplotlib.image as mpimg
 

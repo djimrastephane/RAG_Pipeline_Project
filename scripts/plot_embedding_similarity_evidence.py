@@ -7,6 +7,7 @@ import re
 from pathlib import Path
 from typing import Any
 
+import _matplotlib_env
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
@@ -110,8 +111,6 @@ def plot_similarity_margin_histogram(
     margins: list[float] | np.ndarray,
     report_label: str,
     output_path: str | Path,
-    ambiguous_threshold: float = 0.01,
-    warning_threshold: float = 0.02,
     bins: int = 32,
     dpi: int = 300,
 ) -> None:
@@ -123,12 +122,7 @@ def plot_similarity_margin_histogram(
 
     mean_val = float(np.mean(vals))
     median_val = float(np.median(vals))
-
-    n_total = int(vals.size)
-    n_lt_amb = int(np.sum(vals < float(ambiguous_threshold)))
-    n_lt_warn = int(np.sum(vals < float(warning_threshold)))
-    pct_lt_amb = 100.0 * n_lt_amb / max(1, n_total)
-    pct_lt_warn = 100.0 * n_lt_warn / max(1, n_total)
+    q1 = float(np.quantile(vals, 0.25))
 
     fig, ax = plt.subplots(figsize=(8.4, 5.2))
     counts, _, _ = ax.hist(
@@ -143,45 +137,29 @@ def plot_similarity_margin_histogram(
     # Small margins indicate weak separation between top-1 and top-2 retrieved chunks,
     # suggesting ranking uncertainty.
     x_min = min(0.0, float(np.min(vals)))
-    x_max = max(float(np.max(vals)) * 1.05, float(warning_threshold) * 1.35)
+    x_max = max(float(np.max(vals)) * 1.05, q1 * 1.35)
     ax.set_xlim(x_min, x_max)
-    # Two-zone uncertainty shading:
-    # 1) Very low margin: < ambiguous_threshold
-    # 2) Low margin: [ambiguous_threshold, warning_threshold)
-    ax.axvspan(
-        x_min,
-        float(ambiguous_threshold),
-        color="#f6d7a7",
-        alpha=0.22,
-        zorder=0,
-    )
-    ax.axvspan(
-        float(ambiguous_threshold),
-        float(warning_threshold),
-        color="#efc27b",
-        alpha=0.28,
-        zorder=0,
-    )
+    ax.axvspan(x_min, q1, color="#efc27b", alpha=0.24, zorder=0)
     y_max = float(np.max(counts)) if counts.size else 1.0
     ax.text(
-        x_min + (float(ambiguous_threshold) - x_min) * 0.08,
+        x_min + (q1 - x_min) * 0.08,
         y_max * 0.95,
-        "Ambiguous retrieval zone (< 0.02)",
+        "Ambiguous retrieval zone (<= Q1)",
         fontsize=9,
         color="#2c3e50",
         ha="left",
         va="top",
     )
 
+    q1_line = ax.axvline(q1, linestyle="-.", linewidth=1.6, color="#b9770e", label=f"Q1: {q1:.3f}")
     mean_line = ax.axvline(mean_val, linestyle="-", linewidth=1.8, color="#8e44ad", label=f"Mean: {mean_val:.3f}")
     median_line = ax.axvline(median_val, linestyle="--", linewidth=1.8, color="#1f618d", label=f"Median: {median_val:.3f}")
 
-    # Single legend box: counts + true line-handle entries for mean/median.
-    counts_h1 = Patch(facecolor="none", edgecolor="none", label=f"< {ambiguous_threshold:.2f}: {n_lt_amb} / {n_total} ({pct_lt_amb:.1f}%)")
-    counts_h2 = Patch(facecolor="none", edgecolor="none", label=f"< {warning_threshold:.2f}: {n_lt_warn} / {n_total} ({pct_lt_warn:.1f}%)")
+    # Single legend box: threshold marker + line-handle entries for distribution summaries.
+    counts_h1 = Patch(facecolor="none", edgecolor="none", label="Ambiguous zone defined by Q1")
     legend = ax.legend(
-        handles=[counts_h1, counts_h2, mean_line, median_line],
-        title="Low-margin queries",
+        handles=[counts_h1, q1_line, mean_line, median_line],
+        title="Margin summary",
         loc="upper right",
         bbox_to_anchor=(0.98, 0.98),
         frameon=True,
@@ -216,7 +194,6 @@ def plot_similarity_margin_histogram(
     output = Path(output_path)
     output.parent.mkdir(parents=True, exist_ok=True)
     fig.savefig(output, dpi=int(dpi), bbox_inches="tight")
-    plt.show()
     plt.close(fig)
 
 
@@ -224,11 +201,9 @@ def plot_similarity_margin_ecdf(
     margins: list[float] | np.ndarray,
     report_label: str,
     output_path: str | Path,
-    ambiguous_threshold: float = 0.01,
-    warning_threshold: float = 0.02,
     dpi: int = 300,
 ) -> None:
-    """Plot thesis-ready ECDF of similarity margins with uncertainty-threshold annotations."""
+    """Plot thesis-ready ECDF of similarity margins with a Q1-based ambiguous zone."""
     vals = np.asarray(margins, dtype=np.float64)
     vals = vals[np.isfinite(vals)]
     if vals.size == 0:
@@ -237,25 +212,23 @@ def plot_similarity_margin_ecdf(
     xs = np.sort(vals)
     ys = np.arange(1, xs.size + 1, dtype=np.float64) / float(xs.size)
 
-    p_amb = float(np.mean(vals < float(ambiguous_threshold)))
-    p_warn = float(np.mean(vals < float(warning_threshold)))
+    q1 = float(np.quantile(vals, 0.25))
+    p_q1 = float(np.mean(vals <= q1))
 
     fig, ax = plt.subplots(figsize=(8.4, 5.2))
     fig.patch.set_edgecolor("none")
 
     x_min = min(0.0, float(np.min(vals)))
-    x_max = max(float(np.max(vals)) * 1.05, float(warning_threshold) * 1.4)
+    x_max = max(float(np.max(vals)) * 1.05, q1 * 1.4)
     ax.set_xlim(x_min, x_max)
     ax.set_ylim(0.0, 1.02)
 
-    # Same uncertainty bands as histogram, now with explicit threshold marker at 0.02.
-    ax.axvspan(x_min, float(ambiguous_threshold), color="#f6d7a7", alpha=0.22, zorder=0)
-    ax.axvspan(float(ambiguous_threshold), float(warning_threshold), color="#efc27b", alpha=0.28, zorder=0)
-    ax.axvline(float(warning_threshold), linestyle="--", linewidth=1.3, color="#b9770e", zorder=2)
+    ax.axvspan(x_min, q1, color="#efc27b", alpha=0.24, zorder=0)
+    ax.axvline(q1, linestyle="--", linewidth=1.3, color="#b9770e", zorder=2)
     ax.text(
-        x_min + (float(warning_threshold) - x_min) * 0.10,
+        x_min + (q1 - x_min) * 0.10,
         0.95,
-        "Ambiguous retrieval zone (< 0.02)",
+        "Ambiguous retrieval zone (<= Q1)",
         fontsize=9,
         color="#2c3e50",
         ha="left",
@@ -265,24 +238,11 @@ def plot_similarity_margin_ecdf(
     # ECDF line (thinner for clarity against annotations).
     ax.step(xs, ys, where="post", color="#2c3e50", linewidth=1.5, zorder=3)
 
-    # Horizontal reference lines from y-intercepts to the 0.02 threshold.
-    ax.hlines(y=p_warn, xmin=x_min, xmax=float(warning_threshold), colors="#7f8c8d", linestyles="-", linewidth=1.0)
-    ax.hlines(y=p_amb, xmin=x_min, xmax=float(ambiguous_threshold), colors="#95a5a6", linestyles="-", linewidth=1.0)
+    ax.hlines(y=p_q1, xmin=x_min, xmax=q1, colors="#7f8c8d", linestyles="-", linewidth=1.0)
 
     ax.plot(
-        [float(warning_threshold)],
-        [p_warn],
-        marker="o",
-        markersize=5.0,
-        markerfacecolor="white",
-        markeredgecolor="#b9770e",
-        markeredgewidth=1.3,
-        linestyle="None",
-        zorder=4,
-    )
-    ax.plot(
-        [float(ambiguous_threshold)],
-        [p_amb],
+        [q1],
+        [p_q1],
         marker="o",
         markersize=5.0,
         markerfacecolor="white",
@@ -293,8 +253,8 @@ def plot_similarity_margin_ecdf(
     )
 
     ax.annotate(
-        f"{p_warn * 100:.0f}% of queries",
-        xy=(float(warning_threshold), p_warn),
+        "Quartile boundary",
+        xy=(q1, p_q1),
         xytext=(8, 8),
         textcoords="offset points",
         fontsize=9,
@@ -303,18 +263,8 @@ def plot_similarity_margin_ecdf(
         va="bottom",
     )
     ax.annotate(
-        f"{p_amb * 100:.0f}% of queries",
-        xy=(float(ambiguous_threshold), p_amb),
-        xytext=(8, -12),
-        textcoords="offset points",
-        fontsize=9,
-        color="#4d4d4d",
-        ha="left",
-        va="top",
-    )
-    ax.annotate(
-        "0.02",
-        xy=(float(warning_threshold), 0.0),
+        f"Q1 = {q1:.3f}",
+        xy=(q1, 0.0),
         xytext=(0, -14),
         textcoords="offset points",
         ha="center",
@@ -346,7 +296,6 @@ def plot_similarity_margin_ecdf(
     output = Path(output_path)
     output.parent.mkdir(parents=True, exist_ok=True)
     fig.savefig(output, dpi=int(dpi), bbox_inches="tight", facecolor="white")
-    plt.show()
     plt.close(fig)
 
 

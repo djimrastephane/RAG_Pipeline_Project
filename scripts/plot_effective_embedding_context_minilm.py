@@ -1,6 +1,9 @@
 #!/usr/bin/env python3
 """Plot the effective embedding context under MiniLM token cap."""
 
+from pathlib import Path
+
+import _matplotlib_env
 import matplotlib.pyplot as plt
 
 
@@ -70,7 +73,9 @@ def main() -> None:
     ax.legend(frameon=False, loc="lower right")
 
     # Save high-resolution output
-    output_path = "effective_embedding_context_minilm.png"
+    repo_root = Path(__file__).resolve().parents[1]
+    output_path = repo_root / "docs" / "figures" / "effective_embedding_context_minilm.png"
+    output_path.parent.mkdir(parents=True, exist_ok=True)
     plt.tight_layout()
     plt.savefig(output_path, dpi=300)
 

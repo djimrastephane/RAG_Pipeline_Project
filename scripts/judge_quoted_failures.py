@@ -6,6 +6,7 @@ import sys
 from pathlib import Path
 from typing import Any
 
+import _matplotlib_env
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd

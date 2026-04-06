@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import base64
 import ast
+import hashlib
 import json
 import re
 import sys
@@ -15,6 +16,14 @@ import streamlit.components.v1 as components
 import os
 import pandas as pd
 import numpy as np
+
+try:
+    from app.ui import _matplotlib_env  # noqa: F401
+except ModuleNotFoundError:
+    repo_root = Path(__file__).resolve().parents[2]
+    if str(repo_root) not in sys.path:
+        sys.path.insert(0, str(repo_root))
+    from app.ui import _matplotlib_env  # noqa: F401
 
 try:
     from app.ui.components import results_to_dataframe
@@ -527,6 +536,164 @@ def _load_embedding_artifacts(data_root_str: str, doc_id: str) -> dict:
     return {"ok": True, "emb": emb, "meta": meta}
 
 
+def _l2_normalize(x: np.ndarray, eps: float = 1e-12) -> np.ndarray:
+    denom = np.linalg.norm(x, axis=1, keepdims=True)
+    denom = np.maximum(denom, eps)
+    return x / denom
+
+
+@st.cache_resource(show_spinner=False)
+def _load_query_encoder(model_path_str: str):
+    from sentence_transformers import SentenceTransformer
+
+    return SentenceTransformer(model_path_str)
+
+
+@st.cache_resource(show_spinner=False)
+def _fit_wizmap_projection_model(data_root_str: str, doc_id: str, method: str, seed: int):
+    live = _load_embedding_artifacts(str(data_root_str), str(doc_id))
+    if not bool(live.get("ok")):
+        raise ValueError(str(live.get("error") or "Could not load embedding artifacts."))
+    emb = np.asarray(live["emb"], dtype=np.float32)
+
+    method_norm = str(method).strip().lower()
+    if method_norm == "pca":
+        from sklearn.decomposition import PCA
+
+        model = PCA(n_components=2, random_state=int(seed))
+        model.fit(emb)
+        return model
+    if method_norm == "umap":
+        import umap  # type: ignore
+
+        model = umap.UMAP(
+            n_components=2,
+            n_neighbors=15,
+            min_dist=0.1,
+            metric="cosine",
+            random_state=int(seed),
+        )
+        model.fit(emb)
+        return model
+    raise ValueError(f"Query projection is not supported for method: {method}")
+
+
+def _compute_query_projection(
+    data_root_str: str,
+    doc_id: str,
+    question: str,
+    source_csv: Path | None = None,
+    method: str = "umap",
+    seed: int = 42,
+) -> dict | None:
+    text = str(question or "").strip()
+    if not text:
+        return None
+
+    model_path = project_root() / "models" / "all-MiniLM-L6-v2"
+    if not model_path.exists():
+        raise ValueError(f"Embedding model not found: {model_path}")
+
+    encoder = _load_query_encoder(str(model_path))
+    query_emb = encoder.encode([text], convert_to_numpy=True, normalize_embeddings=False).astype("float32")
+    query_emb = _l2_normalize(query_emb).astype("float32")
+
+    try:
+        reducer = _fit_wizmap_projection_model(str(data_root_str), str(doc_id), method=method, seed=seed)
+        xy = np.asarray(reducer.transform(query_emb), dtype=np.float32)
+        if xy.ndim != 2 or xy.shape[0] != 1 or xy.shape[1] != 2:
+            raise ValueError("Query projection did not return a 2D coordinate.")
+        coord_x = float(xy[0, 0])
+        coord_y = float(xy[0, 1])
+        projection_method = "umap_transform"
+    except Exception:
+        if source_csv is None or not source_csv.exists():
+            raise
+        live = _load_embedding_artifacts(str(data_root_str), str(doc_id))
+        if not bool(live.get("ok")):
+            raise ValueError(str(live.get("error") or "Could not load embedding artifacts."))
+        meta = pd.DataFrame(live["meta"]).copy()
+        emb = np.asarray(live["emb"], dtype=np.float32)
+        src_df = pd.read_csv(source_csv)
+        if "id" not in src_df.columns or "x" not in src_df.columns or "y" not in src_df.columns:
+            raise ValueError("Source CSV missing id/x/y required for query fallback projection.")
+
+        id_series = None
+        for candidate in ("chunk_id_global", "chunk_id"):
+            if candidate in meta.columns:
+                id_series = meta[candidate].astype(str)
+                break
+        if id_series is None:
+            raise ValueError("Chunk metadata missing chunk id columns for query fallback projection.")
+
+        coord_map = {
+            str(row.id): (float(row.x), float(row.y))
+            for row in src_df.itertuples(index=False)
+            if pd.notna(getattr(row, "x", np.nan)) and pd.notna(getattr(row, "y", np.nan))
+        }
+        matched_idx = [i for i, cid in enumerate(id_series.tolist()) if cid in coord_map]
+        if not matched_idx:
+            raise ValueError("Could not align source CSV ids with document embeddings for query fallback projection.")
+
+        matched_emb = emb[matched_idx]
+        matched_ids = [id_series.iloc[i] for i in matched_idx]
+        sims = np.asarray(matched_emb @ query_emb[0], dtype=np.float32)
+        top_k = min(12, int(sims.shape[0]))
+        order = np.argsort(-sims)[:top_k]
+        top_sims = sims[order]
+        top_ids = [matched_ids[i] for i in order]
+        top_xy = np.asarray([coord_map[cid] for cid in top_ids], dtype=np.float32)
+        weights = np.exp(top_sims - float(np.max(top_sims)))
+        weights_sum = float(np.sum(weights))
+        if weights_sum <= 0:
+            raise ValueError("Invalid neighbor weights for query fallback projection.")
+        weights = weights / weights_sum
+        coord_x = float(np.sum(top_xy[:, 0] * weights))
+        coord_y = float(np.sum(top_xy[:, 1] * weights))
+        projection_method = "neighbor_weighted_fallback"
+
+    return {
+        "id": f"query::{doc_id}",
+        "x": coord_x,
+        "y": coord_y,
+        "text": f"QUERY_POINT live query ({projection_method}): {text}",
+        "label": "QUERY_POINT",
+        "page": "",
+        "section": "Live query",
+        "category": "Query",
+        "highlight": True,
+    }
+
+
+def _wizmap_output_contains_query(output_dir: Path, doc_id: str) -> bool:
+    data_path = output_dir / "data.ndjson"
+    if not data_path.exists():
+        return False
+    target = f"query::{doc_id}"
+    try:
+        with data_path.open("r", encoding="utf-8") as handle:
+            for line in handle:
+                if target in line or "QUERY_POINT live query:" in line:
+                    return True
+    except Exception:
+        return False
+    return False
+
+
+def _coalesce_wizmap_text(*values: object) -> str:
+    for value in values:
+        if value is None:
+            continue
+        if isinstance(value, float) and np.isnan(value):
+            continue
+        if pd.isna(value):
+            continue
+        text = str(value).strip()
+        if text and text.lower() != "nan":
+            return text
+    return ""
+
+
 @st.cache_data(show_spinner=False)
 def _project_embeddings(emb: np.ndarray, method: str, max_points: int, seed: int) -> tuple[np.ndarray, np.ndarray]:
     n = int(emb.shape[0])
@@ -631,26 +798,90 @@ def _doc_default_port(doc_id: str) -> int:
     return 8700 + (sum(ord(ch) for ch in key) % 200)
 
 
-def _resolve_wizmap_source_csv(doc_id: str) -> Path | None:
+@st.cache_data(show_spinner=False)
+def _current_wizmap_id_set(data_root_str: str, doc_id: str) -> set[str]:
+    live = _load_embedding_artifacts(str(data_root_str), str(doc_id))
+    if not bool(live.get("ok")):
+        return set()
+    meta = pd.DataFrame(live.get("meta") or [])
+    for col in ("chunk_id_global", "chunk_id"):
+        if col in meta.columns:
+            vals = {
+                str(v).strip()
+                for v in meta[col].tolist()
+                if str(v).strip() and str(v).strip().lower() != "nan"
+            }
+            if vals:
+                return vals
+    return set()
+
+
+@st.cache_data(show_spinner=False)
+def _read_wizmap_source_ids(path_str: str) -> list[str]:
+    path = Path(path_str)
+    try:
+        df = pd.read_csv(path, usecols=["id"])
+    except Exception:
+        try:
+            df = pd.read_csv(path)
+        except Exception:
+            return []
+    if "id" not in df.columns:
+        return []
+    out: list[str] = []
+    for raw in df["id"].tolist():
+        text = str(raw).strip()
+        if not text or text.lower() == "nan" or text.startswith("query::"):
+            continue
+        out.append(text)
+    return out
+
+
+def _score_wizmap_source_csv(path: Path, current_ids: set[str]) -> tuple[float, int, int, float]:
+    source_ids = _read_wizmap_source_ids(str(path))
+    if not source_ids or not current_ids:
+        return (0.0, 0, 0, float(path.stat().st_mtime if path.exists() else 0.0))
+    overlap = sum(1 for cid in source_ids if cid in current_ids)
+    ratio = float(overlap) / float(max(1, len(source_ids)))
+    return (ratio, overlap, len(source_ids), float(path.stat().st_mtime))
+
+
+def _resolve_wizmap_source_csv(doc_id: str, data_root_str: str) -> Path | None:
     wiz_root = project_root() / "results" / "wizmap"
     if not wiz_root.exists():
         return None
+    current_ids = _current_wizmap_id_set(str(data_root_str), str(doc_id))
     candidates = [
         wiz_root / f"{doc_id}_wizmap_umap.csv",
         wiz_root / f"{_slug(doc_id)}_wizmap_umap.csv",
     ]
-    for p in candidates:
-        if p.exists():
-            return p
     globbed = sorted(wiz_root.glob(f"*{doc_id}*wizmap_umap.csv"))
-    return globbed[0] if globbed else None
+    unique_candidates: list[Path] = []
+    seen: set[str] = set()
+    for p in candidates + globbed:
+        if p.exists() and str(p) not in seen:
+            seen.add(str(p))
+            unique_candidates.append(p)
+    if not unique_candidates:
+        return None
+    if not current_ids:
+        return unique_candidates[0]
+    scored = []
+    for idx, p in enumerate(unique_candidates):
+        ratio, overlap, total, mtime = _score_wizmap_source_csv(p, current_ids)
+        exact_name = 1 if p.name == f"{doc_id}_wizmap_umap.csv" else 0
+        scored.append((ratio, overlap, exact_name, mtime, -idx, total, p))
+    scored.sort(reverse=True)
+    return scored[0][-1]
 
 
-def _resolve_chunks_for_doc(doc_id: str) -> Path | None:
+def _resolve_chunks_for_doc(doc_id: str, data_root_str: str) -> Path | None:
+    active_root = Path(str(data_root_str)).expanduser()
     roots = [
+        active_root / doc_id,
         project_root() / "data_processed" / doc_id,
-        project_root() / "data_processed_toc_upgrade_5docs" / doc_id,
-        project_root() / "data_processed_toc_upgrade_test" / doc_id,
+        project_root() / "data_variants" / "toc_upgrade_5docs" / doc_id,
+        project_root() / "data_variants" / "toc_upgrade_test" / doc_id,
     ]
     for root in roots:
         candidate = root / "chunks.parquet"
@@ -672,26 +903,87 @@ def _discover_wizmap_dir(doc_id: str) -> Path | None:
     return None
 
 
+def _validate_wizmap_source_csv(doc_id: str, source_csv: Path, data_root_str: str) -> tuple[bool, str]:
+    if not source_csv.exists():
+        return False, f"Source CSV not found: {source_csv}"
+    try:
+        df = pd.read_csv(source_csv)
+    except Exception as e:
+        return False, f"Could not read source CSV: {type(e).__name__}: {e}"
+    required = {"x", "y", "id"}
+    if not required.issubset(df.columns):
+        return False, f"Source CSV missing required columns: {sorted(required)}"
+
+    current_ids = _current_wizmap_id_set(str(data_root_str), str(doc_id))
+    if not current_ids:
+        return False, f"Current corpus artifacts for {doc_id} are unavailable under {data_root_str}."
+
+    source_ids = [
+        str(v).strip()
+        for v in df["id"].tolist()
+        if str(v).strip() and str(v).strip().lower() != "nan" and not str(v).startswith("query::")
+    ]
+    if not source_ids:
+        return False, "Source CSV does not contain any chunk ids."
+    overlap = sum(1 for cid in source_ids if cid in current_ids)
+    ratio = float(overlap) / float(max(1, len(source_ids)))
+    if overlap == 0:
+        return False, (
+            f"Source CSV does not match the active corpus for {doc_id}. "
+            "No chunk ids overlap with the current embeddings/chunk metadata."
+        )
+    if ratio < 0.80:
+        return False, (
+            f"Source CSV appears stale or from a different corpus variant for {doc_id}. "
+            f"Matched {overlap}/{len(source_ids)} ids ({ratio:.1%}) against the active corpus."
+        )
+    return True, f"Validated source CSV against active corpus ids: {overlap}/{len(source_ids)} matched."
+
+
+def _format_result_card_meta(result: dict) -> str:
+    parts: list[str] = []
+    dense = result.get("dense_raw_score")
+    bm25 = result.get("bm25_raw_score")
+    fused = result.get("score")
+    parts.append(f"dense={dense}")
+    parts.append(f"bm25={bm25}")
+    parts.append(f"fused={fused}")
+    table_chunk_kind = result.get("table_chunk_kind")
+    if table_chunk_kind:
+        parts.append(f"table_chunk_kind={table_chunk_kind}")
+    row_start_idx = result.get("row_start_idx")
+    row_end_idx = result.get("row_end_idx")
+    if row_start_idx is not None or row_end_idx is not None:
+        parts.append(f"row_range={row_start_idx}..{row_end_idx}")
+    return " | ".join(parts)
+
+
 def _generate_wizmap_files(
     doc_id: str,
     source_csv: Path,
     output_dir: Path,
     include_chunk_text: bool = True,
     use_category_groups: bool = False,
+    query_text: str | None = None,
+    data_root_str: str | None = None,
 ) -> tuple[bool, str]:
     try:
         import wizmap  # type: ignore
     except Exception as e:
         return False, f"Missing `wizmap` package: {type(e).__name__}: {e}"
 
+    ok_source, source_msg = _validate_wizmap_source_csv(
+        doc_id=str(doc_id),
+        source_csv=source_csv,
+        data_root_str=str(data_root_str or (project_root() / "data_processed")),
+    )
+    if not ok_source:
+        return False, source_msg
+
     try:
         df = pd.read_csv(source_csv)
     except Exception as e:
         return False, f"Could not read source CSV: {type(e).__name__}: {e}"
-
-    required = {"x", "y"}
-    if not required.issubset(df.columns):
-        return False, f"Source CSV missing required columns: {sorted(required)}"
 
     if "text" not in df.columns:
         df["text"] = ""
@@ -704,27 +996,74 @@ def _generate_wizmap_files(
     if "page" not in df.columns:
         df["page"] = ""
 
+    query_note = ""
+    query_text_clean = str(query_text or "").strip()
+    if query_text_clean:
+        try:
+            query_row = _compute_query_projection(
+                data_root_str=str(data_root_str or (project_root() / "data_processed")),
+                doc_id=str(doc_id),
+                question=query_text_clean,
+                source_csv=source_csv,
+                method="umap",
+                seed=42,
+            )
+            if query_row is not None:
+                df = pd.concat([df, pd.DataFrame([query_row])], ignore_index=True)
+                query_note = " Included live query point."
+        except Exception as e:
+            query_note = f" Query point skipped: {type(e).__name__}: {e}"
+
     if include_chunk_text:
-        chunks_path = _resolve_chunks_for_doc(doc_id)
-        if chunks_path is not None:
-            try:
-                chunks = pd.read_parquet(chunks_path)
-                join_cols = {}
-                if "chunk_id_global" in chunks.columns:
-                    join_cols["chunk_id_global"] = "id"
-                if "chunk_text" in chunks.columns:
-                    join_cols["chunk_text"] = "chunk_text_full"
-                if join_cols:
-                    tmp = chunks[list(join_cols.keys())].rename(columns=join_cols)
-                    df = df.merge(tmp, on="id", how="left")
-            except Exception:
-                pass
+        chunks_path = _resolve_chunks_for_doc(doc_id, str(data_root_str or (project_root() / "data_processed")))
+        if chunks_path is None:
+            return False, f"Could not locate chunks.parquet for {doc_id} under the active corpus root."
+        try:
+            chunks = pd.read_parquet(chunks_path)
+        except Exception as e:
+            return False, f"Could not read chunk text source: {type(e).__name__}: {e}"
+
+        if "chunk_text" not in chunks.columns:
+            return False, f"Chunk source is missing `chunk_text`: {chunks_path}"
+
+        join_col = None
+        best_overlap = -1
+        source_ids = {str(v).strip() for v in df["id"].tolist() if str(v).strip() and not str(v).startswith("query::")}
+        for candidate in ("chunk_id_global", "chunk_id"):
+            if candidate not in chunks.columns:
+                continue
+            chunk_ids = {
+                str(v).strip()
+                for v in chunks[candidate].tolist()
+                if str(v).strip() and str(v).strip().lower() != "nan"
+            }
+            overlap = len(source_ids.intersection(chunk_ids))
+            if overlap > best_overlap:
+                best_overlap = overlap
+                join_col = candidate
+        if not join_col or best_overlap <= 0:
+            return False, (
+                f"Could not align WIZMAP source ids with chunk text in {chunks_path}. "
+                "Regenerate the projection from the active corpus before building searchable WIZMAP files."
+            )
+
+        tmp = chunks[[join_col, "chunk_text"]].copy()
+        tmp = tmp.rename(columns={join_col: "id", "chunk_text": "chunk_text_full"})
+        df = df.merge(tmp, on="id", how="left")
+        source_rows = df[~df["id"].astype(str).str.startswith("query::")].copy()
+        matched = int(source_rows["chunk_text_full"].notna().sum()) if "chunk_text_full" in source_rows.columns else 0
+        expected = int(len(source_rows))
+        if matched < expected:
+            return False, (
+                f"WIZMAP text enrichment only matched {matched}/{expected} source rows against {chunks_path}. "
+                "Regenerate the source CSV from the active corpus to avoid stale searchable content."
+            )
 
     xs = pd.to_numeric(df["x"], errors="coerce").fillna(0.0).astype(float).tolist()
     ys = pd.to_numeric(df["y"], errors="coerce").fillna(0.0).astype(float).tolist()
 
     def _mk_text(r: pd.Series) -> str:
-        body = str(r.get("chunk_text_full") or r.get("text") or "")
+        body = _coalesce_wizmap_text(r.get("chunk_text_full"), r.get("text"), r.get("label"))
         body = re.sub(r"\s+", " ", body).strip()[:1200]
         return (
             f"chunk_id {r.get('id','')} page {r.get('page','')} "
@@ -767,7 +1106,7 @@ def _generate_wizmap_files(
             data_json_name="data.ndjson",
             grid_json_name="grid.json",
         )
-        return True, f"Wrote {output_dir / 'data.ndjson'} and {output_dir / 'grid.json'}"
+        return True, f"{source_msg} Wrote {output_dir / 'data.ndjson'} and {output_dir / 'grid.json'}.{query_note}"
     except Exception as e:
         return False, f"WIZMAP generation failed: {type(e).__name__}: {e}"
 
@@ -857,6 +1196,19 @@ if stats:
     d2.markdown(_stat_card("Chunks", str(stats["chunk_count"])), unsafe_allow_html=True)
     d3.markdown(_stat_card("Table Chunks", str(stats["table_chunk_count"])), unsafe_allow_html=True)
     d4.markdown(_stat_card("Extracted Tables", str(stats.get("table_count") or 0)), unsafe_allow_html=True)
+    pipe_chunk_size = stats.get("chunk_size_tokens")
+    pipe_overlap = stats.get("chunk_overlap_tokens")
+    pipe_tokenizer = stats.get("tokenizer_backend") or "unknown"
+    pipe_require_tiktoken = stats.get("require_tiktoken")
+    pipe_table_chunking = stats.get("table_chunking") or "unknown"
+    provenance_bits = [
+        f"Chunking: {pipe_chunk_size}/{pipe_overlap}" if pipe_chunk_size and pipe_overlap is not None else "Chunking: n/a",
+        f"Table chunking: {pipe_table_chunking}",
+        f"Tokenizer: {pipe_tokenizer}",
+    ]
+    if pipe_require_tiktoken is not None:
+        provenance_bits.append(f"Require tiktoken: {'yes' if pipe_require_tiktoken else 'no'}")
+    st.caption(" | ".join(provenance_bits))
     s1, s2, s3 = st.columns(3)
     s1.markdown(_status_card("Eval Set", bool(stats.get("has_eval_set", False))), unsafe_allow_html=True)
     s2.markdown(_status_card("Pipeline Log", bool(stats.get("has_pipeline_log", False))), unsafe_allow_html=True)
@@ -900,14 +1252,85 @@ with tabs[0]:
         gen_max_context_chars = st.slider("Max context chars", 1000, 20000, 9000, 500)
         gen_max_chunk_chars = st.slider("Max chars per chunk", 200, 4000, 2200, 100)
         gen_timeout_seconds = st.slider("Generation timeout (sec)", 5, 180, 20, 5)
+    with st.expander("Advanced retrieval controls (live search scope + filters)", expanded=False):
+        retrieval_scope = st.selectbox(
+            "Dense retrieval scope",
+            options=["doc", "trust", "global"],
+            index=0,
+            help=(
+                "`doc` searches only the selected document. "
+                "`trust` searches all documents from the same NHS trust/board. "
+                "`global` searches every indexed document. "
+                "Use `trust` or `global` when the answer may live outside the currently selected report."
+            ),
+        )
+        lexical_scope = st.selectbox(
+            "BM25 / lexical scope",
+            options=["doc", "trust", "global"],
+            index=0,
+            help=(
+                "Scope for the lexical BM25 side of hybrid fusion. "
+                "Keeping this aligned with dense scope is the safest default. "
+                "Widen it when exact wording may appear in related reports outside the selected document."
+            ),
+        )
+        filter_is_table_label = st.selectbox(
+            "Evidence type filter",
+            options=["Any", "Only tables", "Only narrative"],
+            index=0,
+            help="Restrict search to table chunks only, narrative chunks only, or both.",
+        )
+        filter_year_text = st.text_input(
+            "Filter report year",
+            value="",
+            help="Optional year filter, mainly useful with `trust` or `global` scope.",
+        ).strip()
+        filter_doc_id = st.text_input(
+            "Filter exact doc_id",
+            value="",
+            help="Optional exact document filter. Most useful when searching in `trust` or `global` scope.",
+        ).strip()
+        filter_trust_id = st.text_input(
+            "Filter exact trust_id",
+            value="",
+            help="Optional trust/board filter. Most useful with `global` scope.",
+        ).strip()
+        filter_section_contains = st.text_input(
+            "Section title contains",
+            value="",
+            help="Optional case-insensitive section filter, useful when you know the answer should live in a broad section.",
+        ).strip()
+        filter_subsection_contains = st.text_input(
+            "Subsection title contains",
+            value="",
+            help="Optional case-insensitive subsection filter, useful for targeted queries against known headings.",
+        ).strip()
 
     if st.button("Run Search", disabled=(not doc_id or not question.strip())):
         try:
+            filter_is_table = None
+            if filter_is_table_label == "Only tables":
+                filter_is_table = True
+            elif filter_is_table_label == "Only narrative":
+                filter_is_table = False
+            filter_year = None
+            if filter_year_text:
+                if not filter_year_text.isdigit():
+                    raise ValueError("Filter year must be a whole number.")
+                filter_year = int(filter_year_text)
             payload = {
                 "question": question.strip(),
                 "k": int(k),
                 "query_id": (query_id or None),
                 "include_generated_answer": bool(include_generated_answer),
+                "retrieval_scope": str(retrieval_scope),
+                "lexical_scope": str(lexical_scope),
+                "filter_doc_id": (filter_doc_id or None),
+                "filter_trust_id": (filter_trust_id or None),
+                "filter_year": filter_year,
+                "filter_is_table": filter_is_table,
+                "filter_section_contains": (filter_section_contains or None),
+                "filter_subsection_contains": (filter_subsection_contains or None),
                 "gen_max_context_chunks": int(gen_max_context_chunks),
                 "gen_max_context_chars": int(gen_max_context_chars),
                 "gen_max_chunk_chars": int(gen_max_chunk_chars),
@@ -928,7 +1351,8 @@ with tabs[0]:
                 f"{last.get('retrieval_mode', 'hybrid_rrf_dense_bm25')} | "
                 f"rrf_k={retrieval_cfg.get('rrf_k')} | "
                 f"dense_w={retrieval_cfg.get('dense_weight')} | "
-                f"bm25_w={retrieval_cfg.get('bm25_weight')}"
+                f"bm25_w={retrieval_cfg.get('bm25_weight')} | "
+                f"subsection_boost={retrieval_cfg.get('enable_subsection_boost')}"
             )
         gen_dbg = last.get("generation_debug") if isinstance(last.get("generation_debug"), dict) else {}
         gen_status = str(last.get("generation_status") or gen_dbg.get("status") or "").strip()
@@ -1042,6 +1466,9 @@ with tabs[0]:
                 "chunk_id",
                 "is_table",
                 "evidence_layout",
+                "table_chunk_kind",
+                "row_start_idx",
+                "row_end_idx",
                 "section_title",
                 "subsection_title",
                 "dense_raw_score",
@@ -1054,16 +1481,34 @@ with tabs[0]:
 
             st.markdown("**Result cards**")
             for r in last.get("results", []):
+                chunk_kind = r.get("table_chunk_kind")
+                row_start_idx = r.get("row_start_idx")
+                row_end_idx = r.get("row_end_idx")
+                kind_bits = []
+                if chunk_kind:
+                    kind_bits.append(str(chunk_kind))
+                if row_start_idx is not None or row_end_idx is not None:
+                    kind_bits.append(f"rows {row_start_idx}..{row_end_idx}")
+                kind_suffix = f" | {' | '.join(kind_bits)}" if kind_bits else ""
                 title = (
                     f"Rank {r.get('rank')} | {_short_chunk_name(str(r.get('chunk_id')))} | "
                     f"p{_format_pages(r.get('pages', []))} | "
                     f"{'table' if bool(r.get('is_table')) else 'narrative'}"
+                    f"{kind_suffix}"
                 )
                 with st.expander(title, expanded=False):
-                    st.caption(
-                        f"dense={r.get('dense_raw_score')} | bm25={r.get('bm25_raw_score')} | fused={r.get('score')}"
-                    )
-                    st.write((r.get("chunk_text", "") or "")[:500])
+                    st.caption(_format_result_card_meta(r))
+                    chunk_text = (r.get("chunk_text", "") or "")
+                    preview_chars = 1400 if bool(r.get("is_table")) else 700
+                    st.code(chunk_text[:preview_chars], language="text")
+                    if len(chunk_text) > preview_chars:
+                        show_full = st.checkbox(
+                            "Show full chunk text",
+                            value=False,
+                            key=f"show_full_chunk::{r.get('chunk_id')}::{r.get('rank')}",
+                        )
+                        if show_full:
+                            st.code(chunk_text, language="text")
         else:
             st.info("No results.")
 
@@ -1409,12 +1854,13 @@ with tabs[4]:
 
         discovered_wizmap_dir = _discover_wizmap_dir(str(doc_id))
         default_wizmap_dir = discovered_wizmap_dir or (project_root() / "results" / "wizmap" / str(doc_id) / "searchable")
-        source_csv_default = _resolve_wizmap_source_csv(str(doc_id))
+        source_csv_default = _resolve_wizmap_source_csv(str(doc_id), str(DATA_ROOT))
         source_csv_default_str = str(source_csv_default) if source_csv_default else str(
             project_root() / "results" / "wizmap" / f"{doc_id}_wizmap_umap.csv"
         )
 
-        g0, g1, g2, g3 = st.columns([2.3, 1.5, 1.3, 1.2])
+        current_query_text = str(question or "").strip()
+        g0, g1, g2, g3, g4 = st.columns([2.2, 1.25, 1.1, 1.1, 1.3])
         source_csv_input = g0.text_input(
             "Source UMAP CSV",
             value=source_csv_default_str,
@@ -1422,16 +1868,44 @@ with tabs[4]:
         )
         generate_include_chunk_text = g1.checkbox("Use full chunk text (search)", value=True)
         generate_use_groups = g2.checkbox("Use category groups", value=False)
-        do_generate = g3.button("Generate/Refresh WIZMAP files", use_container_width=True)
+        include_query_point = g3.checkbox("Plot current query", value=True)
+        auto_refresh_query_point = g4.checkbox("Auto-refresh query point", value=True)
+        do_generate = st.button("Generate/Refresh WIZMAP files", use_container_width=True)
         wizmap_dir = st.text_input(
             "WIZMAP file dir",
             value=str(default_wizmap_dir),
             key=f"wizmap_dir_{doc_id}",
         )
 
-        if do_generate:
-            src = Path(source_csv_input).expanduser()
-            out = Path(wizmap_dir).expanduser()
+        active_source = Path(source_csv_input).expanduser()
+        active_wizmap_dir = Path(wizmap_dir).expanduser()
+        query_hash = hashlib.sha1(current_query_text.encode("utf-8")).hexdigest()[:12] if current_query_text else "empty"
+        auto_sync_signature = "|".join(
+            [
+                str(doc_id),
+                str(active_source),
+                str(active_wizmap_dir),
+                "1" if generate_include_chunk_text else "0",
+                "1" if generate_use_groups else "0",
+                "1" if include_query_point else "0",
+                query_hash if include_query_point else "no-query",
+            ]
+        )
+        wizmap_sync_state_key = f"wizmap_sync_signature_{doc_id}"
+        should_auto_refresh = bool(
+            auto_refresh_query_point
+            and include_query_point
+            and current_query_text
+            and active_source.exists()
+            and (
+                st.session_state.get(wizmap_sync_state_key) != auto_sync_signature
+                or not _wizmap_output_contains_query(active_wizmap_dir, str(doc_id))
+            )
+        )
+
+        if do_generate or should_auto_refresh:
+            src = active_source
+            out = active_wizmap_dir
             if not src.exists():
                 st.error(f"Source CSV not found: {src}")
             else:
@@ -1441,19 +1915,40 @@ with tabs[4]:
                     output_dir=out,
                     include_chunk_text=bool(generate_include_chunk_text),
                     use_category_groups=bool(generate_use_groups),
+                    query_text=current_query_text if include_query_point else None,
+                    data_root_str=str(DATA_ROOT),
                 )
                 if ok:
-                    st.success(msg)
+                    if do_generate:
+                        st.success(msg)
+                    elif should_auto_refresh:
+                        st.caption(f"Auto-refreshed WIZMAP for current query. {msg}")
                     st.session_state[f"wizmap_cache_buster_{doc_id}"] = str(time.time_ns())
+                    st.session_state[wizmap_sync_state_key] = auto_sync_signature
                 else:
                     st.error(msg)
 
         active_source_path = str(Path(source_csv_input).expanduser())
         source_exists = Path(active_source_path).exists()
+        source_ok, source_status = _validate_wizmap_source_csv(
+            doc_id=str(doc_id),
+            source_csv=Path(active_source_path),
+            data_root_str=str(DATA_ROOT),
+        )
         st.caption(
             f"Active source CSV: `{active_source_path}` "
             f"({'found' if source_exists else 'missing'}) | Projection tag: **UMAP**"
         )
+        if source_exists:
+            if source_ok:
+                st.caption(source_status)
+            else:
+                st.warning(source_status)
+        if include_query_point:
+            if current_query_text:
+                st.caption("Current question will be appended as a live `Query` point in WizMap.")
+            else:
+                st.caption("Enter a question to add a live `Query` point to WizMap.")
         if str(doc_id) not in active_source_path:
             st.warning("Source CSV path does not include selected doc_id. Confirm this is intentional.")
         if str(doc_id) not in str(wizmap_dir):
@@ -1501,7 +1996,7 @@ with tabs[4]:
             st.code(
                 " ".join(
                     [
-                        "./.venv/bin/python",
+                        "python",
                         "scripts/serve_wizmap_local.py",
                         f"--dir \"{wizmap_dir}\"",
                         f"--host {wizmap_host}",

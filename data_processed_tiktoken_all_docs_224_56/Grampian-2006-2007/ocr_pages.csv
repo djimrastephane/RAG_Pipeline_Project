@@ -1,2 +1,0 @@
-page,extractor_notes,ocr_text_len,clean_text_len,ocr_quality_reject,ocr_low_text_density,ocr_high_symbol_ratio,ocr_repeated_garbage,ocr_low_line_count,ocr_symbol_ratio,ocr_alpha_word_count,ocr_non_empty_lines
-54,fallback_not_better:too_short<80;fallback_quality:too_short<80;ocr_raw_attempted;ocr_raw_used,,1132,,,,,,,,

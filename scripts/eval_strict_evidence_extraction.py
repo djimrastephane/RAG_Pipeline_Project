@@ -11,6 +11,7 @@ from typing import Any, Optional
 
 import numpy as np
 import pandas as pd
+import _matplotlib_env
 import matplotlib.pyplot as plt
 from sentence_transformers import SentenceTransformer
 

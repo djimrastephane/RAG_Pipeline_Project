@@ -1,2 +1,0 @@
-page,extractor_notes,ocr_text_len,clean_text_len,ocr_quality_reject,ocr_low_text_density,ocr_high_symbol_ratio,ocr_repeated_garbage,ocr_low_line_count,ocr_symbol_ratio,ocr_alpha_word_count,ocr_non_empty_lines
-92,clean_text_short_used_ocr,1198.0,1187,False,False,False,True,False,0.0010050251256281408,189.0,22.0

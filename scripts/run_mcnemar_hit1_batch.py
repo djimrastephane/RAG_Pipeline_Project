@@ -17,6 +17,8 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Any
 
+from corpus_guard import is_eval_ready_doc_dir
+
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 MCNEMAR_SCRIPT = REPO_ROOT / "scripts" / "mcnemar_hit1_compare.py"
@@ -49,6 +51,11 @@ def parse_args() -> argparse.Namespace:
         default="Grampian-",
         help="Prefix used during auto-discovery from data_processed when --pair is not provided.",
     )
+    p.add_argument(
+        "--allow-incomplete-corpora",
+        action="store_true",
+        help="Include matching cohorts even if the source folder is missing canonical evaluation artifacts.",
+    )
     return p.parse_args()
 
 
@@ -68,13 +75,15 @@ def _parse_pair_arg(value: str) -> CohortPair:
     return CohortPair(cohort=cohort, hybrid_path=hp, dense_path=dp)
 
 
-def _autodiscover_pairs(prefix: str) -> list[CohortPair]:
+def _autodiscover_pairs(prefix: str, allow_incomplete_corpora: bool) -> list[CohortPair]:
     root = REPO_ROOT / "data_processed"
     if not root.exists():
         raise FileNotFoundError(f"Missing data_processed directory: {root}")
 
     pairs: list[CohortPair] = []
     for cohort_dir in sorted(p for p in root.iterdir() if p.is_dir() and p.name.startswith(prefix)):
+        if not allow_incomplete_corpora and not is_eval_ready_doc_dir(cohort_dir):
+            continue
         hybrid = cohort_dir / "retrieval_results_hybrid.json"
         dense = cohort_dir / "retrieval_results.json"
         if hybrid.exists() and dense.exists():
@@ -117,7 +126,10 @@ def main() -> None:
     if args.pair:
         pairs = [_parse_pair_arg(p) for p in args.pair]
     else:
-        pairs = _autodiscover_pairs(prefix=str(args.cohort_prefix))
+        pairs = _autodiscover_pairs(
+            prefix=str(args.cohort_prefix),
+            allow_incomplete_corpora=bool(args.allow_incomplete_corpora),
+        )
 
     rows: list[dict[str, Any]] = []
     errors: list[dict[str, str]] = []

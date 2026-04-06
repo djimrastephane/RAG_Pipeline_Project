@@ -2,11 +2,29 @@ from __future__ import annotations
 
 import argparse
 import json
+import sys
 from pathlib import Path
 
 import pandas as pd
 from datasets import Dataset
-from langchain_community.chat_models import ChatOllama
+
+
+def _import_chat_ollama_without_transformers():
+    """Avoid eager transformers/torch import in langchain_core BaseLanguageModel."""
+    sentinel = object()
+    previous = sys.modules.get("transformers", sentinel)
+    sys.modules["transformers"] = None
+    try:
+        from langchain_community.chat_models import ChatOllama
+    finally:
+        if previous is sentinel:
+            sys.modules.pop("transformers", None)
+        else:
+            sys.modules["transformers"] = previous
+    return ChatOllama
+
+
+ChatOllama = _import_chat_ollama_without_transformers()
 from langchain_community.embeddings import HuggingFaceEmbeddings
 from ragas import evaluate
 from ragas.embeddings import LangchainEmbeddingsWrapper

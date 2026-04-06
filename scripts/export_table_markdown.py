@@ -2,7 +2,7 @@
 Export table markdown files from tables_structured.parquet.
 
 Usage:
-    .venv/bin/python scripts/export_table_markdown.py --doc-id Grampian-2024-2025
+    python scripts/export_table_markdown.py --doc-id Grampian-2024-2025
 """
 
 from __future__ import annotations

@@ -182,7 +182,7 @@ def parse_args() -> argparse.Namespace:
     p.add_argument(
         "--run-root",
         required=True,
-        help="Root dir containing ablation run folders (e.g. data_processed_ablation_thesis_5docs_q50).",
+        help="Root dir containing ablation run folders (e.g. results/ablations/ablation_thesis_5docs_q50).",
     )
     p.add_argument(
         "--run-filter",

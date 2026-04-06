@@ -87,7 +87,7 @@ def parse_args() -> argparse.Namespace:
     p.add_argument("--seed", type=int, default=42)
     p.add_argument(
         "--out-dir",
-        default="data_processed/ablation_thesis_5docs_q50/final_selection/fusion_strategy_temporal_compare_2026-03-01/bootstrap_delta_2026-03-01",
+        default="results/ablations/ablation_thesis_5docs_q50/final_selection/fusion_strategy_temporal_compare_2026-03-01/bootstrap_delta_2026-03-01",
     )
     return p.parse_args()
 

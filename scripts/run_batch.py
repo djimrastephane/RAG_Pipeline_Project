@@ -2,7 +2,14 @@ import argparse
 import csv
 import json
 import subprocess
+import sys
 from pathlib import Path
+
+
+DEFAULT_CONFIG_CANDIDATES = (
+    Path("configs/batch.json"),
+    Path("config/batch.json"),
+)
 
 
 def load_config(path: Path) -> dict:
@@ -18,11 +25,18 @@ def iter_pdfs(cfg: dict) -> list[Path]:
     return sorted(pdf_dir.glob(pdf_glob))
 
 
+def default_config_path() -> str:
+    for candidate in DEFAULT_CONFIG_CANDIDATES:
+        if candidate.exists():
+            return str(candidate)
+    return str(DEFAULT_CONFIG_CANDIDATES[0])
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(description="Batch preprocess PDFs.")
     parser.add_argument(
         "--config",
-        default="config/batch.json",
+        default=default_config_path(),
         help="Path to batch config JSON.",
     )
     parser.add_argument(
@@ -58,7 +72,7 @@ def main() -> None:
         out_dir.mkdir(parents=True, exist_ok=True)
         log_path = out_dir / "preprocess.log"
         cmd = [
-            ".venv/bin/python",
+            sys.executable,
             "scripts/preprocess_hybrid.py",
             "--pdf-path",
             str(pdf),

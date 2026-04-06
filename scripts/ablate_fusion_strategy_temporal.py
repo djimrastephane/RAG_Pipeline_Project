@@ -25,6 +25,7 @@ from pathlib import Path
 from typing import Any
 
 import faiss
+import _matplotlib_env
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
@@ -294,7 +295,7 @@ def parse_args() -> argparse.Namespace:
     p.add_argument("--bm25-b", type=float, default=0.75)
     p.add_argument(
         "--out-dir",
-        default="data_processed/ablation_thesis_5docs_q50/final_selection/fusion_strategy_temporal_compare_2026-03-01",
+        default="results/ablations/ablation_thesis_5docs_q50/final_selection/fusion_strategy_temporal_compare_2026-03-01",
     )
     return p.parse_args()
 

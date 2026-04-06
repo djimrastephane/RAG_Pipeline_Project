@@ -12,6 +12,7 @@ from typing import Any, Optional
 class ProcessService:
     """Run preprocessing and indexing scripts for one uploaded PDF."""
     DOC_ID_RE = re.compile(r"^[A-Za-z0-9][A-Za-z0-9._-]{0,119}$")
+    ALLOWED_TABLE_CHUNKING_MODES = {"baseline", "row_preserving", "two_stage", "row_blocks"}
 
     def __init__(self, repo_root: Path, data_root: Path, model_path: Path) -> None:
         self.repo_root = repo_root
@@ -57,6 +58,12 @@ class ProcessService:
             raise ValueError("Unsafe output path for document id.") from e
         out_dir.mkdir(parents=True, exist_ok=True)
         ui_log_path = out_dir / "ui_pipeline.log"
+        table_chunking_mode = str(os.getenv("UI_TABLE_CHUNKING_MODE", "baseline") or "baseline").strip()
+        if table_chunking_mode not in self.ALLOWED_TABLE_CHUNKING_MODES:
+            raise ValueError(
+                f"Unsupported UI_TABLE_CHUNKING_MODE={table_chunking_mode!r}. "
+                f"Expected one of {sorted(self.ALLOWED_TABLE_CHUNKING_MODES)}."
+            )
 
         cmd_preprocess = [
             sys.executable,
@@ -65,6 +72,8 @@ class ProcessService:
             str(pdf_path),
             "--out-root",
             str(self.data_root),
+            "--table-chunking",
+            table_chunking_mode,
         ]
         preprocess_output = self._run(cmd_preprocess)
 
@@ -104,4 +113,5 @@ class ProcessService:
             "doc_id": doc_id,
             "data_dir": str(out_dir),
             "pipeline_log_path": str(ui_log_path),
+            "table_chunking": table_chunking_mode,
         }

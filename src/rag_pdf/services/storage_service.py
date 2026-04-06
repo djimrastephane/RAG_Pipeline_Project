@@ -172,6 +172,9 @@ class StorageService:
         chunk_size_tokens: Optional[int] = None
         chunk_overlap_tokens: Optional[int] = None
         segment_aware_chunking: Optional[bool] = None
+        tokenizer_backend: Optional[str] = None
+        require_tiktoken: Optional[bool] = None
+        table_chunking: Optional[str] = None
         metrics_path = doc_dir / "metrics.json"
         if metrics_path.exists():
             try:
@@ -187,11 +190,23 @@ class StorageService:
                     raw_segment_aware = params.get("segment_aware_chunking")
                     if raw_segment_aware is not None:
                         segment_aware_chunking = bool(raw_segment_aware)
+                    raw_tokenizer_backend = params.get("tokenizer_backend")
+                    if raw_tokenizer_backend is not None:
+                        tokenizer_backend = str(raw_tokenizer_backend)
+                    raw_require_tiktoken = params.get("require_tiktoken")
+                    if raw_require_tiktoken is not None:
+                        require_tiktoken = bool(raw_require_tiktoken)
+                    raw_table_chunking = params.get("table_chunking")
+                    if raw_table_chunking is not None:
+                        table_chunking = str(raw_table_chunking)
             except Exception:
                 # Keep stats endpoint resilient even when metrics.json is malformed.
                 chunk_size_tokens = None
                 chunk_overlap_tokens = None
                 segment_aware_chunking = None
+                tokenizer_backend = None
+                require_tiktoken = None
+                table_chunking = None
 
         return {
             "doc_id": doc_id,
@@ -203,6 +218,9 @@ class StorageService:
             "chunk_size_tokens": chunk_size_tokens,
             "chunk_overlap_tokens": chunk_overlap_tokens,
             "segment_aware_chunking": segment_aware_chunking,
+            "tokenizer_backend": tokenizer_backend,
+            "require_tiktoken": require_tiktoken,
+            "table_chunking": table_chunking,
             "has_eval_set": bool((doc_dir / "eval_set.json").exists()),
             "has_pipeline_log": bool((doc_dir / "ui_pipeline.log").exists()),
             "has_tables_structured": bool(tables_structured_path.exists()),

@@ -11,17 +11,17 @@ def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Generate markdown/CSV report from ablation summary.")
     parser.add_argument(
         "--summary-csv",
-        default="data_processed/ablation/retrieval_ablation_summary.csv",
+        default="results/ablations/ablation/retrieval_ablation_summary.csv",
         help="Input ablation summary CSV.",
     )
     parser.add_argument(
         "--out-md",
-        default="data_processed/ablation/retrieval_ablation_report.md",
+        default="results/ablations/ablation/retrieval_ablation_report.md",
         help="Output markdown report path.",
     )
     parser.add_argument(
         "--out-csv",
-        default="data_processed/ablation/retrieval_ablation_ranked.csv",
+        default="results/ablations/ablation/retrieval_ablation_ranked.csv",
         help="Output ranked CSV path.",
     )
     return parser.parse_args()

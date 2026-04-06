@@ -3,8 +3,8 @@ embed_model: models/all-MiniLM-L6-v2
 run_index: false
 pdf_dir: Data/Annual Accounts NHS Grampian/Preliminary_Test
 pdf_glob: "*.pdf"
-out_root: data_processed_ablation_intrinsic
-summary_out_dir: data_processed/ablation_intrinsic
+out_root: results/ablations/ablation_intrinsic
+summary_out_dir: results/ablations/ablation_intrinsic
 
 variants:
   - name: chunk_280_90_seg_off

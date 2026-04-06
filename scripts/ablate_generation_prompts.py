@@ -8,6 +8,7 @@ import time
 from pathlib import Path
 from typing import Any, Optional
 
+import _matplotlib_env
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd

@@ -1,2 +1,0 @@
-doc_id,query_id,question,expected_pages,top_pages,failure_type
-Grampian-2023-2024,Q_2024_FIN_14,What was the net expenditure figure in Note 2A Summary of Core Revenue Resource Outturn for 2023/24?,[118],[26],FP2_MISSED_TOP_RANK

@@ -1,0 +1,26 @@
+{
+  "ablation_dir": "results/generation_prompt_ablation_2026-03-13",
+  "n_candidate_failures": 23,
+  "n_judged_rows": 23,
+  "arms": [
+    "baseline",
+    "grounded_reasoning",
+    "quote_then_answer",
+    "constrained_extraction"
+  ],
+  "judge_model": "qwen2.5:7b-instruct",
+  "labels": [
+    "quote_supports_gold_but_answer_misread",
+    "quote_supports_gold_but_answer_truncated",
+    "quote_supports_gold_but_answer_overgeneralized",
+    "quote_partial_only",
+    "quote_irrelevant",
+    "answer_formatting_only",
+    "retrieval_context_insufficient",
+    "judge_uncertain"
+  ],
+  "chart_paths": [
+    "results/generation_prompt_ablation_2026-03-13/judge_quoted_failures/charts/judge_label_distribution.png",
+    "results/generation_prompt_ablation_2026-03-13/judge_quoted_failures/charts/judge_mismatch_by_quote_support.png"
+  ]
+}

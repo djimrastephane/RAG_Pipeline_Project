@@ -1,0 +1,21 @@
+{
+  "input_rows": 75,
+  "scored_rows": 75,
+  "llm_model": "qwen2.5:7b-instruct",
+  "embedding_model": "models/all-MiniLM-L6-v2",
+  "timeout": 90.0,
+  "max_retries": 1,
+  "batch_size": 2,
+  "metrics_mean": {
+    "answer_relevancy": 0.3489438386506413,
+    "faithfulness": 0.550228310502283,
+    "context_precision": 0.7391891891381888,
+    "context_recall": 0.8648648648648649
+  },
+  "metrics_non_null": {
+    "answer_relevancy": 75,
+    "faithfulness": 73,
+    "context_precision": 74,
+    "context_recall": 74
+  }
+}

@@ -1,0 +1,4586 @@
+{
+  "run_info": {
+    "run_utc": "2026-02-25T08:56:02+00:00",
+    "data_dir": "/Users/djimra/MSc Data Science Jan 2025/Thesis documents/RAG_Pipeline_Project/data_processed_ablation_thesis_all_docs/thesis_Grampian-2023-2024_chunk_280_90_seg_off_rewrite_rerank_on/Grampian-2023-2024",
+    "index_path": "/Users/djimra/MSc Data Science Jan 2025/Thesis documents/RAG_Pipeline_Project/data_processed_ablation_thesis_all_docs/thesis_Grampian-2023-2024_chunk_280_90_seg_off_rewrite_rerank_on/Grampian-2023-2024/faiss.index",
+    "meta_path": "/Users/djimra/MSc Data Science Jan 2025/Thesis documents/RAG_Pipeline_Project/data_processed_ablation_thesis_all_docs/thesis_Grampian-2023-2024_chunk_280_90_seg_off_rewrite_rerank_on/Grampian-2023-2024/chunk_meta.parquet",
+    "eval_set_path": "/Users/djimra/MSc Data Science Jan 2025/Thesis documents/RAG_Pipeline_Project/data_processed_ablation_thesis_all_docs/thesis_Grampian-2023-2024_chunk_280_90_seg_off_rewrite_rerank_on/Grampian-2023-2024/eval_set_rewrites.json",
+    "embedding_model": "models/all-MiniLM-L6-v2",
+    "k_list": [
+      1,
+      3,
+      5,
+      10
+    ],
+    "max_k_per_variant": 20,
+    "num_queries": 30,
+    "num_chunks_indexed": 313,
+    "merge_strategy": "max_score_per_chunk_across_variants"
+  },
+  "results": [
+    {
+      "query_id": "Q_2024_FIN_01",
+      "question": "What was the underlying deficit against the Core Revenue Resource Limit for 2023/24?",
+      "answer_type": "number",
+      "expected_pages": [
+        27
+      ],
+      "query_variants": [
+        "What was the underlying deficit against the Core Revenue Resource Limit for 2023/24?",
+        "What was the underlying deficit against the Core Revenue Resource Limit for 2023/24? (overspend / shortfall)"
+      ],
+      "per_k": {
+        "1": {
+          "query_variants": [
+            "What was the underlying deficit against the Core Revenue Resource Limit for 2023/24?",
+            "What was the underlying deficit against the Core Revenue Resource Limit for 2023/24? (overspend / shortfall)"
+          ],
+          "retrieved_chunk_ids": [
+            "p0027_000"
+          ],
+          "retrieved_pages_ranked": [
+            27
+          ],
+          "retrieved_scores": [
+            0.543850839138031
+          ],
+          "best_variant_per_chunk": [
+            "What was the underlying deficit against the Core Revenue Resource Limit for 2023/24? (overspend / shortfall)"
+          ],
+          "recall_at_k": 1.0,
+          "precision_at_k": 1.0,
+          "mrr_at_k": 1.0
+        },
+        "3": {
+          "query_variants": [
+            "What was the underlying deficit against the Core Revenue Resource Limit for 2023/24?",
+            "What was the underlying deficit against the Core Revenue Resource Limit for 2023/24? (overspend / shortfall)"
+          ],
+          "retrieved_chunk_ids": [
+            "p0027_000",
+            "p0026_001",
+            "p0031_001"
+          ],
+          "retrieved_pages_ranked": [
+            27,
+            26,
+            31
+          ],
+          "retrieved_scores": [
+            0.543850839138031,
+            0.49749597907066345,
+            0.4846841096878052
+          ],
+          "best_variant_per_chunk": [
+            "What was the underlying deficit against the Core Revenue Resource Limit for 2023/24? (overspend / shortfall)",
+            "What was the underlying deficit against the Core Revenue Resource Limit for 2023/24?",
+            "What was the underlying deficit against the Core Revenue Resource Limit for 2023/24? (overspend / shortfall)"
+          ],
+          "recall_at_k": 1.0,
+          "precision_at_k": 0.3333333333333333,
+          "mrr_at_k": 1.0
+        },
+        "5": {
+          "query_variants": [
+            "What was the underlying deficit against the Core Revenue Resource Limit for 2023/24?",
+            "What was the underlying deficit against the Core Revenue Resource Limit for 2023/24? (overspend / shortfall)"
+          ],
+          "retrieved_chunk_ids": [
+            "p0027_000",
+            "p0026_001",
+            "p0031_001",
+            "p0025_000",
+            "p0027_001"
+          ],
+          "retrieved_pages_ranked": [
+            27,
+            26,
+            31,
+            25
+          ],
+          "retrieved_scores": [
+            0.543850839138031,
+            0.49749597907066345,
+            0.4846841096878052,
+            0.47407007217407227,
+            0.4372462034225464
+          ],
+          "best_variant_per_chunk": [
+            "What was the underlying deficit against the Core Revenue Resource Limit for 2023/24? (overspend / shortfall)",
+            "What was the underlying deficit against the Core Revenue Resource Limit for 2023/24?",
+            "What was the underlying deficit against the Core Revenue Resource Limit for 2023/24? (overspend / shortfall)",
+            "What was the underlying deficit against the Core Revenue Resource Limit for 2023/24? (overspend / shortfall)",
+            "What was the underlying deficit against the Core Revenue Resource Limit for 2023/24? (overspend / shortfall)"
+          ],
+          "recall_at_k": 1.0,
+          "precision_at_k": 0.25,
+          "mrr_at_k": 1.0
+        },
+        "10": {
+          "query_variants": [
+            "What was the underlying deficit against the Core Revenue Resource Limit for 2023/24?",
+            "What was the underlying deficit against the Core Revenue Resource Limit for 2023/24? (overspend / shortfall)"
+          ],
+          "retrieved_chunk_ids": [
+            "p0027_000",
+            "p0026_001",
+            "p0031_001",
+            "p0025_000",
+            "p0027_001",
+            "p0070_000",
+            "p0031_000",
+            "p0147_002",
+            "p0030_001",
+            "p0109_000"
+          ],
+          "retrieved_pages_ranked": [
+            27,
+            26,
+            31,
+            25,
+            70,
+            147,
+            30,
+            109
+          ],
+          "retrieved_scores": [
+            0.543850839138031,
+            0.49749597907066345,
+            0.4846841096878052,
+            0.47407007217407227,
+            0.4372462034225464,
+            0.4367291331291199,
+            0.4059083163738251,
+            0.40257924795150757,
+            0.4005032181739807,
+            0.4003596603870392
+          ],
+          "best_variant_per_chunk": [
+            "What was the underlying deficit against the Core Revenue Resource Limit for 2023/24? (overspend / shortfall)",
+            "What was the underlying deficit against the Core Revenue Resource Limit for 2023/24?",
+            "What was the underlying deficit against the Core Revenue Resource Limit for 2023/24? (overspend / shortfall)",
+            "What was the underlying deficit against the Core Revenue Resource Limit for 2023/24? (overspend / shortfall)",
+            "What was the underlying deficit against the Core Revenue Resource Limit for 2023/24? (overspend / shortfall)",
+            "What was the underlying deficit against the Core Revenue Resource Limit for 2023/24? (overspend / shortfall)",
+            "What was the underlying deficit against the Core Revenue Resource Limit for 2023/24? (overspend / shortfall)",
+            "What was the underlying deficit against the Core Revenue Resource Limit for 2023/24? (overspend / shortfall)",
+            "What was the underlying deficit against the Core Revenue Resource Limit for 2023/24? (overspend / shortfall)",
+            "What was the underlying deficit against the Core Revenue Resource Limit for 2023/24? (overspend / shortfall)"
+          ],
+          "recall_at_k": 1.0,
+          "precision_at_k": 0.125,
+          "mrr_at_k": 1.0
+        }
+      }
+    },
+    {
+      "query_id": "Q_2024_FIN_02",
+      "question": "What percentage of the Revenue Resource Limit did the underlying deficit represent?",
+      "answer_type": "number",
+      "expected_pages": [
+        27
+      ],
+      "query_variants": [
+        "What percentage of the Revenue Resource Limit did the underlying deficit represent?",
+        "What percentage of the Revenue Resource Limit did the underlying deficit represent? (overspend / shortfall)"
+      ],
+      "per_k": {
+        "1": {
+          "query_variants": [
+            "What percentage of the Revenue Resource Limit did the underlying deficit represent?",
+            "What percentage of the Revenue Resource Limit did the underlying deficit represent? (overspend / shortfall)"
+          ],
+          "retrieved_chunk_ids": [
+            "p0031_001"
+          ],
+          "retrieved_pages_ranked": [
+            31
+          ],
+          "retrieved_scores": [
+            0.5158182382583618
+          ],
+          "best_variant_per_chunk": [
+            "What percentage of the Revenue Resource Limit did the underlying deficit represent? (overspend / shortfall)"
+          ],
+          "recall_at_k": 0.0,
+          "precision_at_k": 0.0,
+          "mrr_at_k": 0.0
+        },
+        "3": {
+          "query_variants": [
+            "What percentage of the Revenue Resource Limit did the underlying deficit represent?",
+            "What percentage of the Revenue Resource Limit did the underlying deficit represent? (overspend / shortfall)"
+          ],
+          "retrieved_chunk_ids": [
+            "p0031_001",
+            "p0027_000",
+            "p0026_001"
+          ],
+          "retrieved_pages_ranked": [
+            31,
+            27,
+            26
+          ],
+          "retrieved_scores": [
+            0.5158182382583618,
+            0.5072693824768066,
+            0.4765467345714569
+          ],
+          "best_variant_per_chunk": [
+            "What percentage of the Revenue Resource Limit did the underlying deficit represent? (overspend / shortfall)",
+            "What percentage of the Revenue Resource Limit did the underlying deficit represent? (overspend / shortfall)",
+            "What percentage of the Revenue Resource Limit did the underlying deficit represent?"
+          ],
+          "recall_at_k": 1.0,
+          "precision_at_k": 0.3333333333333333,
+          "mrr_at_k": 0.5
+        },
+        "5": {
+          "query_variants": [
+            "What percentage of the Revenue Resource Limit did the underlying deficit represent?",
+            "What percentage of the Revenue Resource Limit did the underlying deficit represent? (overspend / shortfall)"
+          ],
+          "retrieved_chunk_ids": [
+            "p0031_001",
+            "p0027_000",
+            "p0026_001",
+            "p0109_000",
+            "p0027_001"
+          ],
+          "retrieved_pages_ranked": [
+            31,
+            27,
+            26,
+            109
+          ],
+          "retrieved_scores": [
+            0.5158182382583618,
+            0.5072693824768066,
+            0.4765467345714569,
+            0.43573492765426636,
+            0.43221694231033325
+          ],
+          "best_variant_per_chunk": [
+            "What percentage of the Revenue Resource Limit did the underlying deficit represent? (overspend / shortfall)",
+            "What percentage of the Revenue Resource Limit did the underlying deficit represent? (overspend / shortfall)",
+            "What percentage of the Revenue Resource Limit did the underlying deficit represent?",
+            "What percentage of the Revenue Resource Limit did the underlying deficit represent? (overspend / shortfall)",
+            "What percentage of the Revenue Resource Limit did the underlying deficit represent? (overspend / shortfall)"
+          ],
+          "recall_at_k": 1.0,
+          "precision_at_k": 0.25,
+          "mrr_at_k": 0.5
+        },
+        "10": {
+          "query_variants": [
+            "What percentage of the Revenue Resource Limit did the underlying deficit represent?",
+            "What percentage of the Revenue Resource Limit did the underlying deficit represent? (overspend / shortfall)"
+          ],
+          "retrieved_chunk_ids": [
+            "p0031_001",
+            "p0027_000",
+            "p0026_001",
+            "p0109_000",
+            "p0027_001",
+            "p0025_000",
+            "p0102_001",
+            "p0031_000",
+            "p0102_002",
+            "table_p0075"
+          ],
+          "retrieved_pages_ranked": [
+            31,
+            27,
+            26,
+            109,
+            25,
+            102,
+            75
+          ],
+          "retrieved_scores": [
+            0.5158182382583618,
+            0.5072693824768066,
+            0.4765467345714569,
+            0.43573492765426636,
+            0.43221694231033325,
+            0.43190011382102966,
+            0.4186839759349823,
+            0.41154029965400696,
+            0.40038901567459106,
+            0.39633530378341675
+          ],
+          "best_variant_per_chunk": [
+            "What percentage of the Revenue Resource Limit did the underlying deficit represent? (overspend / shortfall)",
+            "What percentage of the Revenue Resource Limit did the underlying deficit represent? (overspend / shortfall)",
+            "What percentage of the Revenue Resource Limit did the underlying deficit represent?",
+            "What percentage of the Revenue Resource Limit did the underlying deficit represent? (overspend / shortfall)",
+            "What percentage of the Revenue Resource Limit did the underlying deficit represent? (overspend / shortfall)",
+            "What percentage of the Revenue Resource Limit did the underlying deficit represent? (overspend / shortfall)",
+            "What percentage of the Revenue Resource Limit did the underlying deficit represent? (overspend / shortfall)",
+            "What percentage of the Revenue Resource Limit did the underlying deficit represent? (overspend / shortfall)",
+            "What percentage of the Revenue Resource Limit did the underlying deficit represent? (overspend / shortfall)",
+            "What percentage of the Revenue Resource Limit did the underlying deficit represent?"
+          ],
+          "recall_at_k": 1.0,
+          "precision_at_k": 0.14285714285714285,
+          "mrr_at_k": 0.5
+        }
+      }
+    },
+    {
+      "query_id": "Q_2024_FIN_03",
+      "question": "How much repayable brokerage was provided by the Scottish Government during 2023/24?",
+      "answer_type": "number",
+      "expected_pages": [
+        27
+      ],
+      "query_variants": [
+        "How much repayable brokerage was provided by the Scottish Government during 2023/24?"
+      ],
+      "per_k": {
+        "1": {
+          "query_variants": [
+            "How much repayable brokerage was provided by the Scottish Government during 2023/24?"
+          ],
+          "retrieved_chunk_ids": [
+            "p0027_001"
+          ],
+          "retrieved_pages_ranked": [
+            27
+          ],
+          "retrieved_scores": [
+            0.7090922594070435
+          ],
+          "best_variant_per_chunk": [
+            "How much repayable brokerage was provided by the Scottish Government during 2023/24?"
+          ],
+          "recall_at_k": 1.0,
+          "precision_at_k": 1.0,
+          "mrr_at_k": 1.0
+        },
+        "3": {
+          "query_variants": [
+            "How much repayable brokerage was provided by the Scottish Government during 2023/24?"
+          ],
+          "retrieved_chunk_ids": [
+            "p0027_001",
+            "p0070_000",
+            "p0039_000"
+          ],
+          "retrieved_pages_ranked": [
+            27,
+            70,
+            39
+          ],
+          "retrieved_scores": [
+            0.7090922594070435,
+            0.6229772567749023,
+            0.5492305755615234
+          ],
+          "best_variant_per_chunk": [
+            "How much repayable brokerage was provided by the Scottish Government during 2023/24?",
+            "How much repayable brokerage was provided by the Scottish Government during 2023/24?",
+            "How much repayable brokerage was provided by the Scottish Government during 2023/24?"
+          ],
+          "recall_at_k": 1.0,
+          "precision_at_k": 0.3333333333333333,
+          "mrr_at_k": 1.0
+        },
+        "5": {
+          "query_variants": [
+            "How much repayable brokerage was provided by the Scottish Government during 2023/24?"
+          ],
+          "retrieved_chunk_ids": [
+            "p0027_001",
+            "p0070_000",
+            "p0039_000",
+            "p0027_000",
+            "p0154_003"
+          ],
+          "retrieved_pages_ranked": [
+            27,
+            70,
+            39,
+            154
+          ],
+          "retrieved_scores": [
+            0.7090922594070435,
+            0.6229772567749023,
+            0.5492305755615234,
+            0.5460205078125,
+            0.5329415798187256
+          ],
+          "best_variant_per_chunk": [
+            "How much repayable brokerage was provided by the Scottish Government during 2023/24?",
+            "How much repayable brokerage was provided by the Scottish Government during 2023/24?",
+            "How much repayable brokerage was provided by the Scottish Government during 2023/24?",
+            "How much repayable brokerage was provided by the Scottish Government during 2023/24?",
+            "How much repayable brokerage was provided by the Scottish Government during 2023/24?"
+          ],
+          "recall_at_k": 1.0,
+          "precision_at_k": 0.25,
+          "mrr_at_k": 1.0
+        },
+        "10": {
+          "query_variants": [
+            "How much repayable brokerage was provided by the Scottish Government during 2023/24?"
+          ],
+          "retrieved_chunk_ids": [
+            "p0027_001",
+            "p0070_000",
+            "p0039_000",
+            "p0027_000",
+            "p0154_003",
+            "p0028_000",
+            "p0099_002",
+            "p0027_002",
+            "p0148_001",
+            "p0151_001"
+          ],
+          "retrieved_pages_ranked": [
+            27,
+            70,
+            39,
+            154,
+            28,
+            99,
+            148,
+            151
+          ],
+          "retrieved_scores": [
+            0.7090922594070435,
+            0.6229772567749023,
+            0.5492305755615234,
+            0.5460205078125,
+            0.5329415798187256,
+            0.5240991115570068,
+            0.517009437084198,
+            0.5071359872817993,
+            0.5027784705162048,
+            0.49353155493736267
+          ],
+          "best_variant_per_chunk": [
+            "How much repayable brokerage was provided by the Scottish Government during 2023/24?",
+            "How much repayable brokerage was provided by the Scottish Government during 2023/24?",
+            "How much repayable brokerage was provided by the Scottish Government during 2023/24?",
+            "How much repayable brokerage was provided by the Scottish Government during 2023/24?",
+            "How much repayable brokerage was provided by the Scottish Government during 2023/24?",
+            "How much repayable brokerage was provided by the Scottish Government during 2023/24?",
+            "How much repayable brokerage was provided by the Scottish Government during 2023/24?",
+            "How much repayable brokerage was provided by the Scottish Government during 2023/24?",
+            "How much repayable brokerage was provided by the Scottish Government during 2023/24?",
+            "How much repayable brokerage was provided by the Scottish Government during 2023/24?"
+          ],
+          "recall_at_k": 1.0,
+          "precision_at_k": 0.125,
+          "mrr_at_k": 1.0
+        }
+      }
+    },
+    {
+      "query_id": "Q_2024_FIN_04",
+      "question": "What surplus was reported against the Core Revenue Resource Limit after financial support?",
+      "answer_type": "number",
+      "expected_pages": [
+        27
+      ],
+      "query_variants": [
+        "What surplus was reported against the Core Revenue Resource Limit after financial support?",
+        "What surplus was reported against the Core Revenue Resource Limit after financial support? (underspend)"
+      ],
+      "per_k": {
+        "1": {
+          "query_variants": [
+            "What surplus was reported against the Core Revenue Resource Limit after financial support?",
+            "What surplus was reported against the Core Revenue Resource Limit after financial support? (underspend)"
+          ],
+          "retrieved_chunk_ids": [
+            "p0027_000"
+          ],
+          "retrieved_pages_ranked": [
+            27
+          ],
+          "retrieved_scores": [
+            0.5441557765007019
+          ],
+          "best_variant_per_chunk": [
+            "What surplus was reported against the Core Revenue Resource Limit after financial support? (underspend)"
+          ],
+          "recall_at_k": 1.0,
+          "precision_at_k": 1.0,
+          "mrr_at_k": 1.0
+        },
+        "3": {
+          "query_variants": [
+            "What surplus was reported against the Core Revenue Resource Limit after financial support?",
+            "What surplus was reported against the Core Revenue Resource Limit after financial support? (underspend)"
+          ],
+          "retrieved_chunk_ids": [
+            "p0027_000",
+            "p0031_001",
+            "p0026_001"
+          ],
+          "retrieved_pages_ranked": [
+            27,
+            31,
+            26
+          ],
+          "retrieved_scores": [
+            0.5441557765007019,
+            0.542134702205658,
+            0.5273073315620422
+          ],
+          "best_variant_per_chunk": [
+            "What surplus was reported against the Core Revenue Resource Limit after financial support? (underspend)",
+            "What surplus was reported against the Core Revenue Resource Limit after financial support? (underspend)",
+            "What surplus was reported against the Core Revenue Resource Limit after financial support? (underspend)"
+          ],
+          "recall_at_k": 1.0,
+          "precision_at_k": 0.3333333333333333,
+          "mrr_at_k": 1.0
+        },
+        "5": {
+          "query_variants": [
+            "What surplus was reported against the Core Revenue Resource Limit after financial support?",
+            "What surplus was reported against the Core Revenue Resource Limit after financial support? (underspend)"
+          ],
+          "retrieved_chunk_ids": [
+            "p0027_000",
+            "p0031_001",
+            "p0026_001",
+            "p0030_001",
+            "p0027_001"
+          ],
+          "retrieved_pages_ranked": [
+            27,
+            31,
+            26,
+            30
+          ],
+          "retrieved_scores": [
+            0.5441557765007019,
+            0.542134702205658,
+            0.5273073315620422,
+            0.5037797689437866,
+            0.5028656721115112
+          ],
+          "best_variant_per_chunk": [
+            "What surplus was reported against the Core Revenue Resource Limit after financial support? (underspend)",
+            "What surplus was reported against the Core Revenue Resource Limit after financial support? (underspend)",
+            "What surplus was reported against the Core Revenue Resource Limit after financial support? (underspend)",
+            "What surplus was reported against the Core Revenue Resource Limit after financial support? (underspend)",
+            "What surplus was reported against the Core Revenue Resource Limit after financial support? (underspend)"
+          ],
+          "recall_at_k": 1.0,
+          "precision_at_k": 0.25,
+          "mrr_at_k": 1.0
+        },
+        "10": {
+          "query_variants": [
+            "What surplus was reported against the Core Revenue Resource Limit after financial support?",
+            "What surplus was reported against the Core Revenue Resource Limit after financial support? (underspend)"
+          ],
+          "retrieved_chunk_ids": [
+            "p0027_000",
+            "p0031_001",
+            "p0026_001",
+            "p0030_001",
+            "p0027_001",
+            "p0128_000",
+            "p0029_002",
+            "p0025_000",
+            "table_p0077",
+            "table_p0118"
+          ],
+          "retrieved_pages_ranked": [
+            27,
+            31,
+            26,
+            30,
+            128,
+            29,
+            25,
+            77,
+            118
+          ],
+          "retrieved_scores": [
+            0.5441557765007019,
+            0.542134702205658,
+            0.5273073315620422,
+            0.5037797689437866,
+            0.5028656721115112,
+            0.4923190176486969,
+            0.47842639684677124,
+            0.4749409258365631,
+            0.4561963975429535,
+            0.45364731550216675
+          ],
+          "best_variant_per_chunk": [
+            "What surplus was reported against the Core Revenue Resource Limit after financial support? (underspend)",
+            "What surplus was reported against the Core Revenue Resource Limit after financial support? (underspend)",
+            "What surplus was reported against the Core Revenue Resource Limit after financial support? (underspend)",
+            "What surplus was reported against the Core Revenue Resource Limit after financial support? (underspend)",
+            "What surplus was reported against the Core Revenue Resource Limit after financial support? (underspend)",
+            "What surplus was reported against the Core Revenue Resource Limit after financial support? (underspend)",
+            "What surplus was reported against the Core Revenue Resource Limit after financial support? (underspend)",
+            "What surplus was reported against the Core Revenue Resource Limit after financial support? (underspend)",
+            "What surplus was reported against the Core Revenue Resource Limit after financial support? (underspend)",
+            "What surplus was reported against the Core Revenue Resource Limit after financial support? (underspend)"
+          ],
+          "recall_at_k": 1.0,
+          "precision_at_k": 0.1111111111111111,
+          "mrr_at_k": 1.0
+        }
+      }
+    },
+    {
+      "query_id": "Q_2024_FIN_P1",
+      "question": "How large was the overspend relative to the Core Revenue Resource Limit before brokerage support?",
+      "answer_type": "number",
+      "expected_pages": [
+        27
+      ],
+      "query_variants": [
+        "How large was the overspend relative to the Core Revenue Resource Limit before brokerage support?"
+      ],
+      "per_k": {
+        "1": {
+          "query_variants": [
+            "How large was the overspend relative to the Core Revenue Resource Limit before brokerage support?"
+          ],
+          "retrieved_chunk_ids": [
+            "p0027_001"
+          ],
+          "retrieved_pages_ranked": [
+            27
+          ],
+          "retrieved_scores": [
+            0.47401943802833557
+          ],
+          "best_variant_per_chunk": [
+            "How large was the overspend relative to the Core Revenue Resource Limit before brokerage support?"
+          ],
+          "recall_at_k": 1.0,
+          "precision_at_k": 1.0,
+          "mrr_at_k": 1.0
+        },
+        "3": {
+          "query_variants": [
+            "How large was the overspend relative to the Core Revenue Resource Limit before brokerage support?"
+          ],
+          "retrieved_chunk_ids": [
+            "p0027_001",
+            "p0026_001",
+            "p0031_001"
+          ],
+          "retrieved_pages_ranked": [
+            27,
+            26,
+            31
+          ],
+          "retrieved_scores": [
+            0.47401943802833557,
+            0.4334225058555603,
+            0.3927450180053711
+          ],
+          "best_variant_per_chunk": [
+            "How large was the overspend relative to the Core Revenue Resource Limit before brokerage support?",
+            "How large was the overspend relative to the Core Revenue Resource Limit before brokerage support?",
+            "How large was the overspend relative to the Core Revenue Resource Limit before brokerage support?"
+          ],
+          "recall_at_k": 1.0,
+          "precision_at_k": 0.3333333333333333,
+          "mrr_at_k": 1.0
+        },
+        "5": {
+          "query_variants": [
+            "How large was the overspend relative to the Core Revenue Resource Limit before brokerage support?"
+          ],
+          "retrieved_chunk_ids": [
+            "p0027_001",
+            "p0026_001",
+            "p0031_001",
+            "p0027_000",
+            "table_p0083"
+          ],
+          "retrieved_pages_ranked": [
+            27,
+            26,
+            31,
+            83
+          ],
+          "retrieved_scores": [
+            0.47401943802833557,
+            0.4334225058555603,
+            0.3927450180053711,
+            0.3842105269432068,
+            0.3810728192329407
+          ],
+          "best_variant_per_chunk": [
+            "How large was the overspend relative to the Core Revenue Resource Limit before brokerage support?",
+            "How large was the overspend relative to the Core Revenue Resource Limit before brokerage support?",
+            "How large was the overspend relative to the Core Revenue Resource Limit before brokerage support?",
+            "How large was the overspend relative to the Core Revenue Resource Limit before brokerage support?",
+            "How large was the overspend relative to the Core Revenue Resource Limit before brokerage support?"
+          ],
+          "recall_at_k": 1.0,
+          "precision_at_k": 0.25,
+          "mrr_at_k": 1.0
+        },
+        "10": {
+          "query_variants": [
+            "How large was the overspend relative to the Core Revenue Resource Limit before brokerage support?"
+          ],
+          "retrieved_chunk_ids": [
+            "p0027_001",
+            "p0026_001",
+            "p0031_001",
+            "p0027_000",
+            "table_p0083",
+            "p0070_000",
+            "p0029_002",
+            "p0108_000",
+            "p0145_002",
+            "table_p0118"
+          ],
+          "retrieved_pages_ranked": [
+            27,
+            26,
+            31,
+            83,
+            70,
+            29,
+            108,
+            145,
+            118
+          ],
+          "retrieved_scores": [
+            0.47401943802833557,
+            0.4334225058555603,
+            0.3927450180053711,
+            0.3842105269432068,
+            0.3810728192329407,
+            0.37755435705184937,
+            0.37198206782341003,
+            0.3714427351951599,
+            0.3714010715484619,
+            0.36926621198654175
+          ],
+          "best_variant_per_chunk": [
+            "How large was the overspend relative to the Core Revenue Resource Limit before brokerage support?",
+            "How large was the overspend relative to the Core Revenue Resource Limit before brokerage support?",
+            "How large was the overspend relative to the Core Revenue Resource Limit before brokerage support?",
+            "How large was the overspend relative to the Core Revenue Resource Limit before brokerage support?",
+            "How large was the overspend relative to the Core Revenue Resource Limit before brokerage support?",
+            "How large was the overspend relative to the Core Revenue Resource Limit before brokerage support?",
+            "How large was the overspend relative to the Core Revenue Resource Limit before brokerage support?",
+            "How large was the overspend relative to the Core Revenue Resource Limit before brokerage support?",
+            "How large was the overspend relative to the Core Revenue Resource Limit before brokerage support?",
+            "How large was the overspend relative to the Core Revenue Resource Limit before brokerage support?"
+          ],
+          "recall_at_k": 1.0,
+          "precision_at_k": 0.1111111111111111,
+          "mrr_at_k": 1.0
+        }
+      }
+    },
+    {
+      "query_id": "Q_2024_FIN_05",
+      "question": "What was the total Revenue Resource Limit for 2023/24?",
+      "answer_type": "number",
+      "expected_pages": [
+        26
+      ],
+      "query_variants": [
+        "What was the total Revenue Resource Limit for 2023/24?"
+      ],
+      "per_k": {
+        "1": {
+          "query_variants": [
+            "What was the total Revenue Resource Limit for 2023/24?"
+          ],
+          "retrieved_chunk_ids": [
+            "p0026_001"
+          ],
+          "retrieved_pages_ranked": [
+            26
+          ],
+          "retrieved_scores": [
+            0.4887412190437317
+          ],
+          "best_variant_per_chunk": [
+            "What was the total Revenue Resource Limit for 2023/24?"
+          ],
+          "recall_at_k": 1.0,
+          "precision_at_k": 1.0,
+          "mrr_at_k": 1.0
+        },
+        "3": {
+          "query_variants": [
+            "What was the total Revenue Resource Limit for 2023/24?"
+          ],
+          "retrieved_chunk_ids": [
+            "p0026_001",
+            "p0031_001",
+            "p0027_000"
+          ],
+          "retrieved_pages_ranked": [
+            26,
+            31,
+            27
+          ],
+          "retrieved_scores": [
+            0.4887412190437317,
+            0.46609562635421753,
+            0.43765154480934143
+          ],
+          "best_variant_per_chunk": [
+            "What was the total Revenue Resource Limit for 2023/24?",
+            "What was the total Revenue Resource Limit for 2023/24?",
+            "What was the total Revenue Resource Limit for 2023/24?"
+          ],
+          "recall_at_k": 1.0,
+          "precision_at_k": 0.3333333333333333,
+          "mrr_at_k": 1.0
+        },
+        "5": {
+          "query_variants": [
+            "What was the total Revenue Resource Limit for 2023/24?"
+          ],
+          "retrieved_chunk_ids": [
+            "p0026_001",
+            "p0031_001",
+            "p0027_000",
+            "p0025_000",
+            "p0085_001"
+          ],
+          "retrieved_pages_ranked": [
+            26,
+            31,
+            27,
+            25,
+            85
+          ],
+          "retrieved_scores": [
+            0.4887412190437317,
+            0.46609562635421753,
+            0.43765154480934143,
+            0.4281419813632965,
+            0.4029383659362793
+          ],
+          "best_variant_per_chunk": [
+            "What was the total Revenue Resource Limit for 2023/24?",
+            "What was the total Revenue Resource Limit for 2023/24?",
+            "What was the total Revenue Resource Limit for 2023/24?",
+            "What was the total Revenue Resource Limit for 2023/24?",
+            "What was the total Revenue Resource Limit for 2023/24?"
+          ],
+          "recall_at_k": 1.0,
+          "precision_at_k": 0.2,
+          "mrr_at_k": 1.0
+        },
+        "10": {
+          "query_variants": [
+            "What was the total Revenue Resource Limit for 2023/24?"
+          ],
+          "retrieved_chunk_ids": [
+            "p0026_001",
+            "p0031_001",
+            "p0027_000",
+            "p0025_000",
+            "p0085_001",
+            "p0145_002",
+            "p0027_002",
+            "p0027_001",
+            "p0128_000",
+            "p0023_001"
+          ],
+          "retrieved_pages_ranked": [
+            26,
+            31,
+            27,
+            25,
+            85,
+            145,
+            128,
+            23
+          ],
+          "retrieved_scores": [
+            0.4887412190437317,
+            0.46609562635421753,
+            0.43765154480934143,
+            0.4281419813632965,
+            0.4029383659362793,
+            0.40080687403678894,
+            0.39976766705513,
+            0.39596569538116455,
+            0.3910488188266754,
+            0.38829752802848816
+          ],
+          "best_variant_per_chunk": [
+            "What was the total Revenue Resource Limit for 2023/24?",
+            "What was the total Revenue Resource Limit for 2023/24?",
+            "What was the total Revenue Resource Limit for 2023/24?",
+            "What was the total Revenue Resource Limit for 2023/24?",
+            "What was the total Revenue Resource Limit for 2023/24?",
+            "What was the total Revenue Resource Limit for 2023/24?",
+            "What was the total Revenue Resource Limit for 2023/24?",
+            "What was the total Revenue Resource Limit for 2023/24?",
+            "What was the total Revenue Resource Limit for 2023/24?",
+            "What was the total Revenue Resource Limit for 2023/24?"
+          ],
+          "recall_at_k": 1.0,
+          "precision_at_k": 0.125,
+          "mrr_at_k": 1.0
+        }
+      }
+    },
+    {
+      "query_id": "Q_2024_FIN_06",
+      "question": "What was NHS Grampian’s total net expenditure in 2023/24?",
+      "answer_type": "number",
+      "expected_pages": [
+        29
+      ],
+      "query_variants": [
+        "What was NHS Grampian’s total net expenditure in 2023/24?"
+      ],
+      "per_k": {
+        "1": {
+          "query_variants": [
+            "What was NHS Grampian’s total net expenditure in 2023/24?"
+          ],
+          "retrieved_chunk_ids": [
+            "p0022_002"
+          ],
+          "retrieved_pages_ranked": [
+            22
+          ],
+          "retrieved_scores": [
+            0.6264874339103699
+          ],
+          "best_variant_per_chunk": [
+            "What was NHS Grampian’s total net expenditure in 2023/24?"
+          ],
+          "recall_at_k": 0.0,
+          "precision_at_k": 0.0,
+          "mrr_at_k": 0.0
+        },
+        "3": {
+          "query_variants": [
+            "What was NHS Grampian’s total net expenditure in 2023/24?"
+          ],
+          "retrieved_chunk_ids": [
+            "p0022_002",
+            "p0154_002",
+            "p0023_000"
+          ],
+          "retrieved_pages_ranked": [
+            22,
+            154,
+            23
+          ],
+          "retrieved_scores": [
+            0.6264874339103699,
+            0.6218171119689941,
+            0.6194838285446167
+          ],
+          "best_variant_per_chunk": [
+            "What was NHS Grampian’s total net expenditure in 2023/24?",
+            "What was NHS Grampian’s total net expenditure in 2023/24?",
+            "What was NHS Grampian’s total net expenditure in 2023/24?"
+          ],
+          "recall_at_k": 0.0,
+          "precision_at_k": 0.0,
+          "mrr_at_k": 0.0
+        },
+        "5": {
+          "query_variants": [
+            "What was NHS Grampian’s total net expenditure in 2023/24?"
+          ],
+          "retrieved_chunk_ids": [
+            "p0022_002",
+            "p0154_002",
+            "p0023_000",
+            "p0154_003",
+            "p0085_001"
+          ],
+          "retrieved_pages_ranked": [
+            22,
+            154,
+            23,
+            85
+          ],
+          "retrieved_scores": [
+            0.6264874339103699,
+            0.6218171119689941,
+            0.6194838285446167,
+            0.6166518330574036,
+            0.6158998012542725
+          ],
+          "best_variant_per_chunk": [
+            "What was NHS Grampian’s total net expenditure in 2023/24?",
+            "What was NHS Grampian’s total net expenditure in 2023/24?",
+            "What was NHS Grampian’s total net expenditure in 2023/24?",
+            "What was NHS Grampian’s total net expenditure in 2023/24?",
+            "What was NHS Grampian’s total net expenditure in 2023/24?"
+          ],
+          "recall_at_k": 0.0,
+          "precision_at_k": 0.0,
+          "mrr_at_k": 0.0
+        },
+        "10": {
+          "query_variants": [
+            "What was NHS Grampian’s total net expenditure in 2023/24?"
+          ],
+          "retrieved_chunk_ids": [
+            "p0022_002",
+            "p0154_002",
+            "p0023_000",
+            "p0154_003",
+            "p0085_001",
+            "p0027_002",
+            "p0064_001",
+            "p0031_001",
+            "p0028_000",
+            "p0023_001"
+          ],
+          "retrieved_pages_ranked": [
+            22,
+            154,
+            23,
+            85,
+            27,
+            64,
+            31,
+            28
+          ],
+          "retrieved_scores": [
+            0.6264874339103699,
+            0.6218171119689941,
+            0.6194838285446167,
+            0.6166518330574036,
+            0.6158998012542725,
+            0.608600378036499,
+            0.5999841690063477,
+            0.5985825061798096,
+            0.5973438620567322,
+            0.5872927904129028
+          ],
+          "best_variant_per_chunk": [
+            "What was NHS Grampian’s total net expenditure in 2023/24?",
+            "What was NHS Grampian’s total net expenditure in 2023/24?",
+            "What was NHS Grampian’s total net expenditure in 2023/24?",
+            "What was NHS Grampian’s total net expenditure in 2023/24?",
+            "What was NHS Grampian’s total net expenditure in 2023/24?",
+            "What was NHS Grampian’s total net expenditure in 2023/24?",
+            "What was NHS Grampian’s total net expenditure in 2023/24?",
+            "What was NHS Grampian’s total net expenditure in 2023/24?",
+            "What was NHS Grampian’s total net expenditure in 2023/24?",
+            "What was NHS Grampian’s total net expenditure in 2023/24?"
+          ],
+          "recall_at_k": 0.0,
+          "precision_at_k": 0.0,
+          "mrr_at_k": 0.0
+        }
+      }
+    },
+    {
+      "query_id": "Q_2024_FIN_07",
+      "question": "By how much did net expenditure increase compared to 2022/23?",
+      "answer_type": "number",
+      "expected_pages": [
+        29
+      ],
+      "query_variants": [
+        "By how much did net expenditure increase compared to 2022/23?"
+      ],
+      "per_k": {
+        "1": {
+          "query_variants": [
+            "By how much did net expenditure increase compared to 2022/23?"
+          ],
+          "retrieved_chunk_ids": [
+            "p0031_001"
+          ],
+          "retrieved_pages_ranked": [
+            31
+          ],
+          "retrieved_scores": [
+            0.49290013313293457
+          ],
+          "best_variant_per_chunk": [
+            "By how much did net expenditure increase compared to 2022/23?"
+          ],
+          "recall_at_k": 0.0,
+          "precision_at_k": 0.0,
+          "mrr_at_k": 0.0
+        },
+        "3": {
+          "query_variants": [
+            "By how much did net expenditure increase compared to 2022/23?"
+          ],
+          "retrieved_chunk_ids": [
+            "p0031_001",
+            "p0029_000",
+            "p0025_000"
+          ],
+          "retrieved_pages_ranked": [
+            31,
+            29,
+            25
+          ],
+          "retrieved_scores": [
+            0.49290013313293457,
+            0.47203290462493896,
+            0.442648708820343
+          ],
+          "best_variant_per_chunk": [
+            "By how much did net expenditure increase compared to 2022/23?",
+            "By how much did net expenditure increase compared to 2022/23?",
+            "By how much did net expenditure increase compared to 2022/23?"
+          ],
+          "recall_at_k": 1.0,
+          "precision_at_k": 0.3333333333333333,
+          "mrr_at_k": 0.5
+        },
+        "5": {
+          "query_variants": [
+            "By how much did net expenditure increase compared to 2022/23?"
+          ],
+          "retrieved_chunk_ids": [
+            "p0031_001",
+            "p0029_000",
+            "p0025_000",
+            "p0027_000",
+            "p0031_000"
+          ],
+          "retrieved_pages_ranked": [
+            31,
+            29,
+            25,
+            27
+          ],
+          "retrieved_scores": [
+            0.49290013313293457,
+            0.47203290462493896,
+            0.442648708820343,
+            0.44215941429138184,
+            0.436054527759552
+          ],
+          "best_variant_per_chunk": [
+            "By how much did net expenditure increase compared to 2022/23?",
+            "By how much did net expenditure increase compared to 2022/23?",
+            "By how much did net expenditure increase compared to 2022/23?",
+            "By how much did net expenditure increase compared to 2022/23?",
+            "By how much did net expenditure increase compared to 2022/23?"
+          ],
+          "recall_at_k": 1.0,
+          "precision_at_k": 0.25,
+          "mrr_at_k": 0.5
+        },
+        "10": {
+          "query_variants": [
+            "By how much did net expenditure increase compared to 2022/23?"
+          ],
+          "retrieved_chunk_ids": [
+            "p0031_001",
+            "p0029_000",
+            "p0025_000",
+            "p0027_000",
+            "p0031_000",
+            "p0026_001",
+            "p0022_002",
+            "p0128_002",
+            "p0102_002",
+            "p0023_000"
+          ],
+          "retrieved_pages_ranked": [
+            31,
+            29,
+            25,
+            27,
+            26,
+            22,
+            128,
+            102,
+            23
+          ],
+          "retrieved_scores": [
+            0.49290013313293457,
+            0.47203290462493896,
+            0.442648708820343,
+            0.44215941429138184,
+            0.436054527759552,
+            0.4185682237148285,
+            0.4178261458873749,
+            0.40957027673721313,
+            0.4053521752357483,
+            0.40519994497299194
+          ],
+          "best_variant_per_chunk": [
+            "By how much did net expenditure increase compared to 2022/23?",
+            "By how much did net expenditure increase compared to 2022/23?",
+            "By how much did net expenditure increase compared to 2022/23?",
+            "By how much did net expenditure increase compared to 2022/23?",
+            "By how much did net expenditure increase compared to 2022/23?",
+            "By how much did net expenditure increase compared to 2022/23?",
+            "By how much did net expenditure increase compared to 2022/23?",
+            "By how much did net expenditure increase compared to 2022/23?",
+            "By how much did net expenditure increase compared to 2022/23?",
+            "By how much did net expenditure increase compared to 2022/23?"
+          ],
+          "recall_at_k": 1.0,
+          "precision_at_k": 0.1111111111111111,
+          "mrr_at_k": 0.5
+        }
+      }
+    },
+    {
+      "query_id": "Q_2024_FIN_P2",
+      "question": "What was the year-on-year growth in overall spending for NHS Grampian?",
+      "answer_type": "number",
+      "expected_pages": [
+        29
+      ],
+      "query_variants": [
+        "What was the year-on-year growth in overall spending for NHS Grampian?"
+      ],
+      "per_k": {
+        "1": {
+          "query_variants": [
+            "What was the year-on-year growth in overall spending for NHS Grampian?"
+          ],
+          "retrieved_chunk_ids": [
+            "p0023_000"
+          ],
+          "retrieved_pages_ranked": [
+            23
+          ],
+          "retrieved_scores": [
+            0.6419864892959595
+          ],
+          "best_variant_per_chunk": [
+            "What was the year-on-year growth in overall spending for NHS Grampian?"
+          ],
+          "recall_at_k": 0.0,
+          "precision_at_k": 0.0,
+          "mrr_at_k": 0.0
+        },
+        "3": {
+          "query_variants": [
+            "What was the year-on-year growth in overall spending for NHS Grampian?"
+          ],
+          "retrieved_chunk_ids": [
+            "p0023_000",
+            "p0028_000",
+            "p0154_002"
+          ],
+          "retrieved_pages_ranked": [
+            23,
+            28,
+            154
+          ],
+          "retrieved_scores": [
+            0.6419864892959595,
+            0.6153407096862793,
+            0.6027225255966187
+          ],
+          "best_variant_per_chunk": [
+            "What was the year-on-year growth in overall spending for NHS Grampian?",
+            "What was the year-on-year growth in overall spending for NHS Grampian?",
+            "What was the year-on-year growth in overall spending for NHS Grampian?"
+          ],
+          "recall_at_k": 0.0,
+          "precision_at_k": 0.0,
+          "mrr_at_k": 0.0
+        },
+        "5": {
+          "query_variants": [
+            "What was the year-on-year growth in overall spending for NHS Grampian?"
+          ],
+          "retrieved_chunk_ids": [
+            "p0023_000",
+            "p0028_000",
+            "p0154_002",
+            "p0028_001",
+            "p0022_002"
+          ],
+          "retrieved_pages_ranked": [
+            23,
+            28,
+            154,
+            22
+          ],
+          "retrieved_scores": [
+            0.6419864892959595,
+            0.6153407096862793,
+            0.6027225255966187,
+            0.6010311841964722,
+            0.5978034734725952
+          ],
+          "best_variant_per_chunk": [
+            "What was the year-on-year growth in overall spending for NHS Grampian?",
+            "What was the year-on-year growth in overall spending for NHS Grampian?",
+            "What was the year-on-year growth in overall spending for NHS Grampian?",
+            "What was the year-on-year growth in overall spending for NHS Grampian?",
+            "What was the year-on-year growth in overall spending for NHS Grampian?"
+          ],
+          "recall_at_k": 0.0,
+          "precision_at_k": 0.0,
+          "mrr_at_k": 0.0
+        },
+        "10": {
+          "query_variants": [
+            "What was the year-on-year growth in overall spending for NHS Grampian?"
+          ],
+          "retrieved_chunk_ids": [
+            "p0023_000",
+            "p0028_000",
+            "p0154_002",
+            "p0028_001",
+            "p0022_002",
+            "p0064_001",
+            "p0004_001",
+            "p0027_002",
+            "p0023_001",
+            "p0154_003"
+          ],
+          "retrieved_pages_ranked": [
+            23,
+            28,
+            154,
+            22,
+            64,
+            4,
+            27
+          ],
+          "retrieved_scores": [
+            0.6419864892959595,
+            0.6153407096862793,
+            0.6027225255966187,
+            0.6010311841964722,
+            0.5978034734725952,
+            0.5859189033508301,
+            0.58186936378479,
+            0.5801753401756287,
+            0.5731984376907349,
+            0.5660488605499268
+          ],
+          "best_variant_per_chunk": [
+            "What was the year-on-year growth in overall spending for NHS Grampian?",
+            "What was the year-on-year growth in overall spending for NHS Grampian?",
+            "What was the year-on-year growth in overall spending for NHS Grampian?",
+            "What was the year-on-year growth in overall spending for NHS Grampian?",
+            "What was the year-on-year growth in overall spending for NHS Grampian?",
+            "What was the year-on-year growth in overall spending for NHS Grampian?",
+            "What was the year-on-year growth in overall spending for NHS Grampian?",
+            "What was the year-on-year growth in overall spending for NHS Grampian?",
+            "What was the year-on-year growth in overall spending for NHS Grampian?",
+            "What was the year-on-year growth in overall spending for NHS Grampian?"
+          ],
+          "recall_at_k": 0.0,
+          "precision_at_k": 0.0,
+          "mrr_at_k": 0.0
+        }
+      }
+    },
+    {
+      "query_id": "Q_2024_SAV_01",
+      "question": "What total efficiency savings were achieved in 2023/24?",
+      "answer_type": "number",
+      "expected_pages": [
+        29
+      ],
+      "query_variants": [
+        "What total efficiency savings were achieved in 2023/24?"
+      ],
+      "per_k": {
+        "1": {
+          "query_variants": [
+            "What total efficiency savings were achieved in 2023/24?"
+          ],
+          "retrieved_chunk_ids": [
+            "p0037_000"
+          ],
+          "retrieved_pages_ranked": [
+            37
+          ],
+          "retrieved_scores": [
+            0.4287525415420532
+          ],
+          "best_variant_per_chunk": [
+            "What total efficiency savings were achieved in 2023/24?"
+          ],
+          "recall_at_k": 0.0,
+          "precision_at_k": 0.0,
+          "mrr_at_k": 0.0
+        },
+        "3": {
+          "query_variants": [
+            "What total efficiency savings were achieved in 2023/24?"
+          ],
+          "retrieved_chunk_ids": [
+            "p0037_000",
+            "p0028_001",
+            "p0031_001"
+          ],
+          "retrieved_pages_ranked": [
+            37,
+            28,
+            31
+          ],
+          "retrieved_scores": [
+            0.4287525415420532,
+            0.3931144177913666,
+            0.36566752195358276
+          ],
+          "best_variant_per_chunk": [
+            "What total efficiency savings were achieved in 2023/24?",
+            "What total efficiency savings were achieved in 2023/24?",
+            "What total efficiency savings were achieved in 2023/24?"
+          ],
+          "recall_at_k": 0.0,
+          "precision_at_k": 0.0,
+          "mrr_at_k": 0.0
+        },
+        "5": {
+          "query_variants": [
+            "What total efficiency savings were achieved in 2023/24?"
+          ],
+          "retrieved_chunk_ids": [
+            "p0037_000",
+            "p0028_001",
+            "p0031_001",
+            "p0027_000",
+            "p0025_000"
+          ],
+          "retrieved_pages_ranked": [
+            37,
+            28,
+            31,
+            27,
+            25
+          ],
+          "retrieved_scores": [
+            0.4287525415420532,
+            0.3931144177913666,
+            0.36566752195358276,
+            0.36385294795036316,
+            0.36050891876220703
+          ],
+          "best_variant_per_chunk": [
+            "What total efficiency savings were achieved in 2023/24?",
+            "What total efficiency savings were achieved in 2023/24?",
+            "What total efficiency savings were achieved in 2023/24?",
+            "What total efficiency savings were achieved in 2023/24?",
+            "What total efficiency savings were achieved in 2023/24?"
+          ],
+          "recall_at_k": 0.0,
+          "precision_at_k": 0.0,
+          "mrr_at_k": 0.0
+        },
+        "10": {
+          "query_variants": [
+            "What total efficiency savings were achieved in 2023/24?"
+          ],
+          "retrieved_chunk_ids": [
+            "p0037_000",
+            "p0028_001",
+            "p0031_001",
+            "p0027_000",
+            "p0025_000",
+            "p0029_000",
+            "p0026_001",
+            "p0032_001",
+            "p0031_000",
+            "table_p0083"
+          ],
+          "retrieved_pages_ranked": [
+            37,
+            28,
+            31,
+            27,
+            25,
+            29,
+            26,
+            32,
+            83
+          ],
+          "retrieved_scores": [
+            0.4287525415420532,
+            0.3931144177913666,
+            0.36566752195358276,
+            0.36385294795036316,
+            0.36050891876220703,
+            0.35351601243019104,
+            0.35080257058143616,
+            0.3371102213859558,
+            0.3362458050251007,
+            0.3356723189353943
+          ],
+          "best_variant_per_chunk": [
+            "What total efficiency savings were achieved in 2023/24?",
+            "What total efficiency savings were achieved in 2023/24?",
+            "What total efficiency savings were achieved in 2023/24?",
+            "What total efficiency savings were achieved in 2023/24?",
+            "What total efficiency savings were achieved in 2023/24?",
+            "What total efficiency savings were achieved in 2023/24?",
+            "What total efficiency savings were achieved in 2023/24?",
+            "What total efficiency savings were achieved in 2023/24?",
+            "What total efficiency savings were achieved in 2023/24?",
+            "What total efficiency savings were achieved in 2023/24?"
+          ],
+          "recall_at_k": 1.0,
+          "precision_at_k": 0.1111111111111111,
+          "mrr_at_k": 0.16666666666666666
+        }
+      }
+    },
+    {
+      "query_id": "Q_2024_SAV_02",
+      "question": "How much of the 2023/24 savings were recurring?",
+      "answer_type": "number",
+      "expected_pages": [
+        29
+      ],
+      "query_variants": [
+        "How much of the 2023/24 savings were recurring?"
+      ],
+      "per_k": {
+        "1": {
+          "query_variants": [
+            "How much of the 2023/24 savings were recurring?"
+          ],
+          "retrieved_chunk_ids": [
+            "p0131_003"
+          ],
+          "retrieved_pages_ranked": [
+            131
+          ],
+          "retrieved_scores": [
+            0.47798407077789307
+          ],
+          "best_variant_per_chunk": [
+            "How much of the 2023/24 savings were recurring?"
+          ],
+          "recall_at_k": 0.0,
+          "precision_at_k": 0.0,
+          "mrr_at_k": 0.0
+        },
+        "3": {
+          "query_variants": [
+            "How much of the 2023/24 savings were recurring?"
+          ],
+          "retrieved_chunk_ids": [
+            "p0131_003",
+            "p0025_000",
+            "p0147_002"
+          ],
+          "retrieved_pages_ranked": [
+            131,
+            25,
+            147
+          ],
+          "retrieved_scores": [
+            0.47798407077789307,
+            0.4272840917110443,
+            0.3963282108306885
+          ],
+          "best_variant_per_chunk": [
+            "How much of the 2023/24 savings were recurring?",
+            "How much of the 2023/24 savings were recurring?",
+            "How much of the 2023/24 savings were recurring?"
+          ],
+          "recall_at_k": 0.0,
+          "precision_at_k": 0.0,
+          "mrr_at_k": 0.0
+        },
+        "5": {
+          "query_variants": [
+            "How much of the 2023/24 savings were recurring?"
+          ],
+          "retrieved_chunk_ids": [
+            "p0131_003",
+            "p0025_000",
+            "p0147_002",
+            "p0031_001",
+            "p0027_000"
+          ],
+          "retrieved_pages_ranked": [
+            131,
+            25,
+            147,
+            31,
+            27
+          ],
+          "retrieved_scores": [
+            0.47798407077789307,
+            0.4272840917110443,
+            0.3963282108306885,
+            0.39202308654785156,
+            0.38736483454704285
+          ],
+          "best_variant_per_chunk": [
+            "How much of the 2023/24 savings were recurring?",
+            "How much of the 2023/24 savings were recurring?",
+            "How much of the 2023/24 savings were recurring?",
+            "How much of the 2023/24 savings were recurring?",
+            "How much of the 2023/24 savings were recurring?"
+          ],
+          "recall_at_k": 0.0,
+          "precision_at_k": 0.0,
+          "mrr_at_k": 0.0
+        },
+        "10": {
+          "query_variants": [
+            "How much of the 2023/24 savings were recurring?"
+          ],
+          "retrieved_chunk_ids": [
+            "p0131_003",
+            "p0025_000",
+            "p0147_002",
+            "p0031_001",
+            "p0027_000",
+            "p0148_001",
+            "p0159_000",
+            "p0030_002",
+            "p0147_000",
+            "p0145_002"
+          ],
+          "retrieved_pages_ranked": [
+            131,
+            25,
+            147,
+            31,
+            27,
+            148,
+            159,
+            30,
+            145
+          ],
+          "retrieved_scores": [
+            0.47798407077789307,
+            0.4272840917110443,
+            0.3963282108306885,
+            0.39202308654785156,
+            0.38736483454704285,
+            0.38583457469940186,
+            0.3819722831249237,
+            0.38033610582351685,
+            0.3782745897769928,
+            0.37519535422325134
+          ],
+          "best_variant_per_chunk": [
+            "How much of the 2023/24 savings were recurring?",
+            "How much of the 2023/24 savings were recurring?",
+            "How much of the 2023/24 savings were recurring?",
+            "How much of the 2023/24 savings were recurring?",
+            "How much of the 2023/24 savings were recurring?",
+            "How much of the 2023/24 savings were recurring?",
+            "How much of the 2023/24 savings were recurring?",
+            "How much of the 2023/24 savings were recurring?",
+            "How much of the 2023/24 savings were recurring?",
+            "How much of the 2023/24 savings were recurring?"
+          ],
+          "recall_at_k": 0.0,
+          "precision_at_k": 0.0,
+          "mrr_at_k": 0.0
+        }
+      }
+    },
+    {
+      "query_id": "Q_2024_SAV_03",
+      "question": "How much of the 2023/24 savings were non-recurring?",
+      "answer_type": "number",
+      "expected_pages": [
+        29
+      ],
+      "query_variants": [
+        "How much of the 2023/24 savings were non-recurring?"
+      ],
+      "per_k": {
+        "1": {
+          "query_variants": [
+            "How much of the 2023/24 savings were non-recurring?"
+          ],
+          "retrieved_chunk_ids": [
+            "p0131_003"
+          ],
+          "retrieved_pages_ranked": [
+            131
+          ],
+          "retrieved_scores": [
+            0.48932981491088867
+          ],
+          "best_variant_per_chunk": [
+            "How much of the 2023/24 savings were non-recurring?"
+          ],
+          "recall_at_k": 0.0,
+          "precision_at_k": 0.0,
+          "mrr_at_k": 0.0
+        },
+        "3": {
+          "query_variants": [
+            "How much of the 2023/24 savings were non-recurring?"
+          ],
+          "retrieved_chunk_ids": [
+            "p0131_003",
+            "p0159_000",
+            "p0025_000"
+          ],
+          "retrieved_pages_ranked": [
+            131,
+            159,
+            25
+          ],
+          "retrieved_scores": [
+            0.48932981491088867,
+            0.43182429671287537,
+            0.4250374138355255
+          ],
+          "best_variant_per_chunk": [
+            "How much of the 2023/24 savings were non-recurring?",
+            "How much of the 2023/24 savings were non-recurring?",
+            "How much of the 2023/24 savings were non-recurring?"
+          ],
+          "recall_at_k": 0.0,
+          "precision_at_k": 0.0,
+          "mrr_at_k": 0.0
+        },
+        "5": {
+          "query_variants": [
+            "How much of the 2023/24 savings were non-recurring?"
+          ],
+          "retrieved_chunk_ids": [
+            "p0131_003",
+            "p0159_000",
+            "p0025_000",
+            "p0031_001",
+            "p0131_000"
+          ],
+          "retrieved_pages_ranked": [
+            131,
+            159,
+            25,
+            31
+          ],
+          "retrieved_scores": [
+            0.48932981491088867,
+            0.43182429671287537,
+            0.4250374138355255,
+            0.4037840664386749,
+            0.39663517475128174
+          ],
+          "best_variant_per_chunk": [
+            "How much of the 2023/24 savings were non-recurring?",
+            "How much of the 2023/24 savings were non-recurring?",
+            "How much of the 2023/24 savings were non-recurring?",
+            "How much of the 2023/24 savings were non-recurring?",
+            "How much of the 2023/24 savings were non-recurring?"
+          ],
+          "recall_at_k": 0.0,
+          "precision_at_k": 0.0,
+          "mrr_at_k": 0.0
+        },
+        "10": {
+          "query_variants": [
+            "How much of the 2023/24 savings were non-recurring?"
+          ],
+          "retrieved_chunk_ids": [
+            "p0131_003",
+            "p0159_000",
+            "p0025_000",
+            "p0031_001",
+            "p0131_000",
+            "p0030_002",
+            "p0027_000",
+            "p0147_002",
+            "p0148_001",
+            "table_p0118"
+          ],
+          "retrieved_pages_ranked": [
+            131,
+            159,
+            25,
+            31,
+            30,
+            27,
+            147,
+            148,
+            118
+          ],
+          "retrieved_scores": [
+            0.48932981491088867,
+            0.43182429671287537,
+            0.4250374138355255,
+            0.4037840664386749,
+            0.39663517475128174,
+            0.3930703401565552,
+            0.3877025246620178,
+            0.383899986743927,
+            0.3837200701236725,
+            0.3741060793399811
+          ],
+          "best_variant_per_chunk": [
+            "How much of the 2023/24 savings were non-recurring?",
+            "How much of the 2023/24 savings were non-recurring?",
+            "How much of the 2023/24 savings were non-recurring?",
+            "How much of the 2023/24 savings were non-recurring?",
+            "How much of the 2023/24 savings were non-recurring?",
+            "How much of the 2023/24 savings were non-recurring?",
+            "How much of the 2023/24 savings were non-recurring?",
+            "How much of the 2023/24 savings were non-recurring?",
+            "How much of the 2023/24 savings were non-recurring?",
+            "How much of the 2023/24 savings were non-recurring?"
+          ],
+          "recall_at_k": 0.0,
+          "precision_at_k": 0.0,
+          "mrr_at_k": 0.0
+        }
+      }
+    },
+    {
+      "query_id": "Q_2024_SAV_P1",
+      "question": "What proportion of savings delivered in 2023/24 were one-off measures?",
+      "answer_type": "number",
+      "expected_pages": [
+        29
+      ],
+      "query_variants": [
+        "What proportion of savings delivered in 2023/24 were one-off measures?"
+      ],
+      "per_k": {
+        "1": {
+          "query_variants": [
+            "What proportion of savings delivered in 2023/24 were one-off measures?"
+          ],
+          "retrieved_chunk_ids": [
+            "p0025_000"
+          ],
+          "retrieved_pages_ranked": [
+            25
+          ],
+          "retrieved_scores": [
+            0.45042726397514343
+          ],
+          "best_variant_per_chunk": [
+            "What proportion of savings delivered in 2023/24 were one-off measures?"
+          ],
+          "recall_at_k": 0.0,
+          "precision_at_k": 0.0,
+          "mrr_at_k": 0.0
+        },
+        "3": {
+          "query_variants": [
+            "What proportion of savings delivered in 2023/24 were one-off measures?"
+          ],
+          "retrieved_chunk_ids": [
+            "p0025_000",
+            "p0031_001",
+            "p0030_002"
+          ],
+          "retrieved_pages_ranked": [
+            25,
+            31,
+            30
+          ],
+          "retrieved_scores": [
+            0.45042726397514343,
+            0.4228699505329132,
+            0.41088756918907166
+          ],
+          "best_variant_per_chunk": [
+            "What proportion of savings delivered in 2023/24 were one-off measures?",
+            "What proportion of savings delivered in 2023/24 were one-off measures?",
+            "What proportion of savings delivered in 2023/24 were one-off measures?"
+          ],
+          "recall_at_k": 0.0,
+          "precision_at_k": 0.0,
+          "mrr_at_k": 0.0
+        },
+        "5": {
+          "query_variants": [
+            "What proportion of savings delivered in 2023/24 were one-off measures?"
+          ],
+          "retrieved_chunk_ids": [
+            "p0025_000",
+            "p0031_001",
+            "p0030_002",
+            "table_p0077",
+            "table_p0118"
+          ],
+          "retrieved_pages_ranked": [
+            25,
+            31,
+            30,
+            77,
+            118
+          ],
+          "retrieved_scores": [
+            0.45042726397514343,
+            0.4228699505329132,
+            0.41088756918907166,
+            0.40776166319847107,
+            0.4059014618396759
+          ],
+          "best_variant_per_chunk": [
+            "What proportion of savings delivered in 2023/24 were one-off measures?",
+            "What proportion of savings delivered in 2023/24 were one-off measures?",
+            "What proportion of savings delivered in 2023/24 were one-off measures?",
+            "What proportion of savings delivered in 2023/24 were one-off measures?",
+            "What proportion of savings delivered in 2023/24 were one-off measures?"
+          ],
+          "recall_at_k": 0.0,
+          "precision_at_k": 0.0,
+          "mrr_at_k": 0.0
+        },
+        "10": {
+          "query_variants": [
+            "What proportion of savings delivered in 2023/24 were one-off measures?"
+          ],
+          "retrieved_chunk_ids": [
+            "p0025_000",
+            "p0031_001",
+            "p0030_002",
+            "table_p0077",
+            "table_p0118",
+            "p0027_000",
+            "p0131_003",
+            "p0147_002",
+            "table_p0075",
+            "p0031_000"
+          ],
+          "retrieved_pages_ranked": [
+            25,
+            31,
+            30,
+            77,
+            118,
+            27,
+            131,
+            147,
+            75
+          ],
+          "retrieved_scores": [
+            0.45042726397514343,
+            0.4228699505329132,
+            0.41088756918907166,
+            0.40776166319847107,
+            0.4059014618396759,
+            0.4048292636871338,
+            0.40465837717056274,
+            0.39723488688468933,
+            0.3967101573944092,
+            0.3958714008331299
+          ],
+          "best_variant_per_chunk": [
+            "What proportion of savings delivered in 2023/24 were one-off measures?",
+            "What proportion of savings delivered in 2023/24 were one-off measures?",
+            "What proportion of savings delivered in 2023/24 were one-off measures?",
+            "What proportion of savings delivered in 2023/24 were one-off measures?",
+            "What proportion of savings delivered in 2023/24 were one-off measures?",
+            "What proportion of savings delivered in 2023/24 were one-off measures?",
+            "What proportion of savings delivered in 2023/24 were one-off measures?",
+            "What proportion of savings delivered in 2023/24 were one-off measures?",
+            "What proportion of savings delivered in 2023/24 were one-off measures?",
+            "What proportion of savings delivered in 2023/24 were one-off measures?"
+          ],
+          "recall_at_k": 0.0,
+          "precision_at_k": 0.0,
+          "mrr_at_k": 0.0
+        }
+      }
+    },
+    {
+      "query_id": "Q_2024_IJB_01",
+      "question": "What deficit did Aberdeen City IJB report for 2023/24?",
+      "answer_type": "number",
+      "expected_pages": [
+        24
+      ],
+      "query_variants": [
+        "What deficit did Aberdeen City IJB report for 2023/24?",
+        "What deficit did Aberdeen City IJB report for 2023/24? (overspend / shortfall) (integration joint board)"
+      ],
+      "per_k": {
+        "1": {
+          "query_variants": [
+            "What deficit did Aberdeen City IJB report for 2023/24?",
+            "What deficit did Aberdeen City IJB report for 2023/24? (overspend / shortfall) (integration joint board)"
+          ],
+          "retrieved_chunk_ids": [
+            "p0024_002"
+          ],
+          "retrieved_pages_ranked": [
+            24
+          ],
+          "retrieved_scores": [
+            0.7518246173858643
+          ],
+          "best_variant_per_chunk": [
+            "What deficit did Aberdeen City IJB report for 2023/24? (overspend / shortfall) (integration joint board)"
+          ],
+          "recall_at_k": 1.0,
+          "precision_at_k": 1.0,
+          "mrr_at_k": 1.0
+        },
+        "3": {
+          "query_variants": [
+            "What deficit did Aberdeen City IJB report for 2023/24?",
+            "What deficit did Aberdeen City IJB report for 2023/24? (overspend / shortfall) (integration joint board)"
+          ],
+          "retrieved_chunk_ids": [
+            "p0024_002",
+            "p0024_001",
+            "p0025_000"
+          ],
+          "retrieved_pages_ranked": [
+            24,
+            25
+          ],
+          "retrieved_scores": [
+            0.7518246173858643,
+            0.6655704975128174,
+            0.6208545565605164
+          ],
+          "best_variant_per_chunk": [
+            "What deficit did Aberdeen City IJB report for 2023/24? (overspend / shortfall) (integration joint board)",
+            "What deficit did Aberdeen City IJB report for 2023/24? (overspend / shortfall) (integration joint board)",
+            "What deficit did Aberdeen City IJB report for 2023/24? (overspend / shortfall) (integration joint board)"
+          ],
+          "recall_at_k": 1.0,
+          "precision_at_k": 0.5,
+          "mrr_at_k": 1.0
+        },
+        "5": {
+          "query_variants": [
+            "What deficit did Aberdeen City IJB report for 2023/24?",
+            "What deficit did Aberdeen City IJB report for 2023/24? (overspend / shortfall) (integration joint board)"
+          ],
+          "retrieved_chunk_ids": [
+            "p0024_002",
+            "p0024_001",
+            "p0025_000",
+            "p0070_000",
+            "p0022_001"
+          ],
+          "retrieved_pages_ranked": [
+            24,
+            25,
+            70,
+            22
+          ],
+          "retrieved_scores": [
+            0.7518246173858643,
+            0.6655704975128174,
+            0.6208545565605164,
+            0.610071063041687,
+            0.5900549292564392
+          ],
+          "best_variant_per_chunk": [
+            "What deficit did Aberdeen City IJB report for 2023/24? (overspend / shortfall) (integration joint board)",
+            "What deficit did Aberdeen City IJB report for 2023/24? (overspend / shortfall) (integration joint board)",
+            "What deficit did Aberdeen City IJB report for 2023/24? (overspend / shortfall) (integration joint board)",
+            "What deficit did Aberdeen City IJB report for 2023/24? (overspend / shortfall) (integration joint board)",
+            "What deficit did Aberdeen City IJB report for 2023/24? (overspend / shortfall) (integration joint board)"
+          ],
+          "recall_at_k": 1.0,
+          "precision_at_k": 0.25,
+          "mrr_at_k": 1.0
+        },
+        "10": {
+          "query_variants": [
+            "What deficit did Aberdeen City IJB report for 2023/24?",
+            "What deficit did Aberdeen City IJB report for 2023/24? (overspend / shortfall) (integration joint board)"
+          ],
+          "retrieved_chunk_ids": [
+            "p0024_002",
+            "p0024_001",
+            "p0025_000",
+            "p0070_000",
+            "p0022_001",
+            "p0154_000",
+            "p0029_002",
+            "p0030_000",
+            "p0027_001",
+            "p0099_001"
+          ],
+          "retrieved_pages_ranked": [
+            24,
+            25,
+            70,
+            22,
+            154,
+            29,
+            30,
+            27,
+            99
+          ],
+          "retrieved_scores": [
+            0.7518246173858643,
+            0.6655704975128174,
+            0.6208545565605164,
+            0.610071063041687,
+            0.5900549292564392,
+            0.5802133679389954,
+            0.5767378807067871,
+            0.5602023601531982,
+            0.5539366602897644,
+            0.5421382188796997
+          ],
+          "best_variant_per_chunk": [
+            "What deficit did Aberdeen City IJB report for 2023/24? (overspend / shortfall) (integration joint board)",
+            "What deficit did Aberdeen City IJB report for 2023/24? (overspend / shortfall) (integration joint board)",
+            "What deficit did Aberdeen City IJB report for 2023/24? (overspend / shortfall) (integration joint board)",
+            "What deficit did Aberdeen City IJB report for 2023/24? (overspend / shortfall) (integration joint board)",
+            "What deficit did Aberdeen City IJB report for 2023/24? (overspend / shortfall) (integration joint board)",
+            "What deficit did Aberdeen City IJB report for 2023/24? (overspend / shortfall) (integration joint board)",
+            "What deficit did Aberdeen City IJB report for 2023/24? (overspend / shortfall) (integration joint board)",
+            "What deficit did Aberdeen City IJB report for 2023/24? (overspend / shortfall) (integration joint board)",
+            "What deficit did Aberdeen City IJB report for 2023/24? (overspend / shortfall) (integration joint board)",
+            "What deficit did Aberdeen City IJB report for 2023/24? (overspend / shortfall) (integration joint board)"
+          ],
+          "recall_at_k": 1.0,
+          "precision_at_k": 0.1111111111111111,
+          "mrr_at_k": 1.0
+        }
+      }
+    },
+    {
+      "query_id": "Q_2024_IJB_02",
+      "question": "What were Aberdeen City IJB retained reserves at year end 2023/24?",
+      "answer_type": "number",
+      "expected_pages": [
+        24
+      ],
+      "query_variants": [
+        "What were Aberdeen City IJB retained reserves at year end 2023/24?",
+        "What were Aberdeen City IJB retained reserves at year end 2023/24? (integration joint board)"
+      ],
+      "per_k": {
+        "1": {
+          "query_variants": [
+            "What were Aberdeen City IJB retained reserves at year end 2023/24?",
+            "What were Aberdeen City IJB retained reserves at year end 2023/24? (integration joint board)"
+          ],
+          "retrieved_chunk_ids": [
+            "p0024_002"
+          ],
+          "retrieved_pages_ranked": [
+            24
+          ],
+          "retrieved_scores": [
+            0.7016711235046387
+          ],
+          "best_variant_per_chunk": [
+            "What were Aberdeen City IJB retained reserves at year end 2023/24? (integration joint board)"
+          ],
+          "recall_at_k": 1.0,
+          "precision_at_k": 1.0,
+          "mrr_at_k": 1.0
+        },
+        "3": {
+          "query_variants": [
+            "What were Aberdeen City IJB retained reserves at year end 2023/24?",
+            "What were Aberdeen City IJB retained reserves at year end 2023/24? (integration joint board)"
+          ],
+          "retrieved_chunk_ids": [
+            "p0024_002",
+            "p0024_001",
+            "p0025_000"
+          ],
+          "retrieved_pages_ranked": [
+            24,
+            25
+          ],
+          "retrieved_scores": [
+            0.7016711235046387,
+            0.6976194381713867,
+            0.6364856958389282
+          ],
+          "best_variant_per_chunk": [
+            "What were Aberdeen City IJB retained reserves at year end 2023/24? (integration joint board)",
+            "What were Aberdeen City IJB retained reserves at year end 2023/24? (integration joint board)",
+            "What were Aberdeen City IJB retained reserves at year end 2023/24? (integration joint board)"
+          ],
+          "recall_at_k": 1.0,
+          "precision_at_k": 0.5,
+          "mrr_at_k": 1.0
+        },
+        "5": {
+          "query_variants": [
+            "What were Aberdeen City IJB retained reserves at year end 2023/24?",
+            "What were Aberdeen City IJB retained reserves at year end 2023/24? (integration joint board)"
+          ],
+          "retrieved_chunk_ids": [
+            "p0024_002",
+            "p0024_001",
+            "p0025_000",
+            "p0030_001",
+            "p0154_000"
+          ],
+          "retrieved_pages_ranked": [
+            24,
+            25,
+            30,
+            154
+          ],
+          "retrieved_scores": [
+            0.7016711235046387,
+            0.6976194381713867,
+            0.6364856958389282,
+            0.6034992933273315,
+            0.6020166277885437
+          ],
+          "best_variant_per_chunk": [
+            "What were Aberdeen City IJB retained reserves at year end 2023/24? (integration joint board)",
+            "What were Aberdeen City IJB retained reserves at year end 2023/24? (integration joint board)",
+            "What were Aberdeen City IJB retained reserves at year end 2023/24? (integration joint board)",
+            "What were Aberdeen City IJB retained reserves at year end 2023/24? (integration joint board)",
+            "What were Aberdeen City IJB retained reserves at year end 2023/24? (integration joint board)"
+          ],
+          "recall_at_k": 1.0,
+          "precision_at_k": 0.25,
+          "mrr_at_k": 1.0
+        },
+        "10": {
+          "query_variants": [
+            "What were Aberdeen City IJB retained reserves at year end 2023/24?",
+            "What were Aberdeen City IJB retained reserves at year end 2023/24? (integration joint board)"
+          ],
+          "retrieved_chunk_ids": [
+            "p0024_002",
+            "p0024_001",
+            "p0025_000",
+            "p0030_001",
+            "p0154_000",
+            "p0099_001",
+            "p0022_001",
+            "p0005_001",
+            "p0024_000",
+            "p0039_001"
+          ],
+          "retrieved_pages_ranked": [
+            24,
+            25,
+            30,
+            154,
+            99,
+            22,
+            5,
+            39
+          ],
+          "retrieved_scores": [
+            0.7016711235046387,
+            0.6976194381713867,
+            0.6364856958389282,
+            0.6034992933273315,
+            0.6020166277885437,
+            0.5832411646842957,
+            0.5801982283592224,
+            0.5362722873687744,
+            0.5318212509155273,
+            0.5026485919952393
+          ],
+          "best_variant_per_chunk": [
+            "What were Aberdeen City IJB retained reserves at year end 2023/24? (integration joint board)",
+            "What were Aberdeen City IJB retained reserves at year end 2023/24? (integration joint board)",
+            "What were Aberdeen City IJB retained reserves at year end 2023/24? (integration joint board)",
+            "What were Aberdeen City IJB retained reserves at year end 2023/24? (integration joint board)",
+            "What were Aberdeen City IJB retained reserves at year end 2023/24? (integration joint board)",
+            "What were Aberdeen City IJB retained reserves at year end 2023/24? (integration joint board)",
+            "What were Aberdeen City IJB retained reserves at year end 2023/24? (integration joint board)",
+            "What were Aberdeen City IJB retained reserves at year end 2023/24? (integration joint board)",
+            "What were Aberdeen City IJB retained reserves at year end 2023/24? (integration joint board)",
+            "What were Aberdeen City IJB retained reserves at year end 2023/24? (integration joint board)"
+          ],
+          "recall_at_k": 1.0,
+          "precision_at_k": 0.125,
+          "mrr_at_k": 1.0
+        }
+      }
+    },
+    {
+      "query_id": "Q_2024_IJB_03",
+      "question": "What deficit did Aberdeenshire IJB report for 2023/24?",
+      "answer_type": "number",
+      "expected_pages": [
+        24
+      ],
+      "query_variants": [
+        "What deficit did Aberdeenshire IJB report for 2023/24?",
+        "What deficit did Aberdeenshire IJB report for 2023/24? (overspend / shortfall) (integration joint board)"
+      ],
+      "per_k": {
+        "1": {
+          "query_variants": [
+            "What deficit did Aberdeenshire IJB report for 2023/24?",
+            "What deficit did Aberdeenshire IJB report for 2023/24? (overspend / shortfall) (integration joint board)"
+          ],
+          "retrieved_chunk_ids": [
+            "p0024_002"
+          ],
+          "retrieved_pages_ranked": [
+            24
+          ],
+          "retrieved_scores": [
+            0.7786938548088074
+          ],
+          "best_variant_per_chunk": [
+            "What deficit did Aberdeenshire IJB report for 2023/24? (overspend / shortfall) (integration joint board)"
+          ],
+          "recall_at_k": 1.0,
+          "precision_at_k": 1.0,
+          "mrr_at_k": 1.0
+        },
+        "3": {
+          "query_variants": [
+            "What deficit did Aberdeenshire IJB report for 2023/24?",
+            "What deficit did Aberdeenshire IJB report for 2023/24? (overspend / shortfall) (integration joint board)"
+          ],
+          "retrieved_chunk_ids": [
+            "p0024_002",
+            "p0025_000",
+            "p0070_000"
+          ],
+          "retrieved_pages_ranked": [
+            24,
+            25,
+            70
+          ],
+          "retrieved_scores": [
+            0.7786938548088074,
+            0.6960604786872864,
+            0.6608231067657471
+          ],
+          "best_variant_per_chunk": [
+            "What deficit did Aberdeenshire IJB report for 2023/24? (overspend / shortfall) (integration joint board)",
+            "What deficit did Aberdeenshire IJB report for 2023/24? (overspend / shortfall) (integration joint board)",
+            "What deficit did Aberdeenshire IJB report for 2023/24? (overspend / shortfall) (integration joint board)"
+          ],
+          "recall_at_k": 1.0,
+          "precision_at_k": 0.3333333333333333,
+          "mrr_at_k": 1.0
+        },
+        "5": {
+          "query_variants": [
+            "What deficit did Aberdeenshire IJB report for 2023/24?",
+            "What deficit did Aberdeenshire IJB report for 2023/24? (overspend / shortfall) (integration joint board)"
+          ],
+          "retrieved_chunk_ids": [
+            "p0024_002",
+            "p0025_000",
+            "p0070_000",
+            "p0024_001",
+            "p0154_000"
+          ],
+          "retrieved_pages_ranked": [
+            24,
+            25,
+            70,
+            154
+          ],
+          "retrieved_scores": [
+            0.7786938548088074,
+            0.6960604786872864,
+            0.6608231067657471,
+            0.6565937399864197,
+            0.6238348484039307
+          ],
+          "best_variant_per_chunk": [
+            "What deficit did Aberdeenshire IJB report for 2023/24? (overspend / shortfall) (integration joint board)",
+            "What deficit did Aberdeenshire IJB report for 2023/24? (overspend / shortfall) (integration joint board)",
+            "What deficit did Aberdeenshire IJB report for 2023/24? (overspend / shortfall) (integration joint board)",
+            "What deficit did Aberdeenshire IJB report for 2023/24? (overspend / shortfall) (integration joint board)",
+            "What deficit did Aberdeenshire IJB report for 2023/24? (overspend / shortfall) (integration joint board)"
+          ],
+          "recall_at_k": 1.0,
+          "precision_at_k": 0.25,
+          "mrr_at_k": 1.0
+        },
+        "10": {
+          "query_variants": [
+            "What deficit did Aberdeenshire IJB report for 2023/24?",
+            "What deficit did Aberdeenshire IJB report for 2023/24? (overspend / shortfall) (integration joint board)"
+          ],
+          "retrieved_chunk_ids": [
+            "p0024_002",
+            "p0025_000",
+            "p0070_000",
+            "p0024_001",
+            "p0154_000",
+            "p0029_002",
+            "p0027_001",
+            "p0030_000",
+            "p0022_001",
+            "p0030_001"
+          ],
+          "retrieved_pages_ranked": [
+            24,
+            25,
+            70,
+            154,
+            29,
+            27,
+            30,
+            22
+          ],
+          "retrieved_scores": [
+            0.7786938548088074,
+            0.6960604786872864,
+            0.6608231067657471,
+            0.6565937399864197,
+            0.6238348484039307,
+            0.6220823526382446,
+            0.6169469356536865,
+            0.6017545461654663,
+            0.596037745475769,
+            0.5851823091506958
+          ],
+          "best_variant_per_chunk": [
+            "What deficit did Aberdeenshire IJB report for 2023/24? (overspend / shortfall) (integration joint board)",
+            "What deficit did Aberdeenshire IJB report for 2023/24? (overspend / shortfall) (integration joint board)",
+            "What deficit did Aberdeenshire IJB report for 2023/24? (overspend / shortfall) (integration joint board)",
+            "What deficit did Aberdeenshire IJB report for 2023/24? (overspend / shortfall) (integration joint board)",
+            "What deficit did Aberdeenshire IJB report for 2023/24? (overspend / shortfall) (integration joint board)",
+            "What deficit did Aberdeenshire IJB report for 2023/24? (overspend / shortfall) (integration joint board)",
+            "What deficit did Aberdeenshire IJB report for 2023/24? (overspend / shortfall) (integration joint board)",
+            "What deficit did Aberdeenshire IJB report for 2023/24? (overspend / shortfall) (integration joint board)",
+            "What deficit did Aberdeenshire IJB report for 2023/24? (overspend / shortfall) (integration joint board)",
+            "What deficit did Aberdeenshire IJB report for 2023/24? (overspend / shortfall) (integration joint board)"
+          ],
+          "recall_at_k": 1.0,
+          "precision_at_k": 0.125,
+          "mrr_at_k": 1.0
+        }
+      }
+    },
+    {
+      "query_id": "Q_2024_IJB_04",
+      "question": "What deficit did Moray IJB report for 2023/24?",
+      "answer_type": "number",
+      "expected_pages": [
+        25
+      ],
+      "query_variants": [
+        "What deficit did Moray IJB report for 2023/24?",
+        "What deficit did Moray IJB report for 2023/24? (overspend / shortfall) (integration joint board)"
+      ],
+      "per_k": {
+        "1": {
+          "query_variants": [
+            "What deficit did Moray IJB report for 2023/24?",
+            "What deficit did Moray IJB report for 2023/24? (overspend / shortfall) (integration joint board)"
+          ],
+          "retrieved_chunk_ids": [
+            "p0025_000"
+          ],
+          "retrieved_pages_ranked": [
+            25
+          ],
+          "retrieved_scores": [
+            0.6598533391952515
+          ],
+          "best_variant_per_chunk": [
+            "What deficit did Moray IJB report for 2023/24? (overspend / shortfall) (integration joint board)"
+          ],
+          "recall_at_k": 1.0,
+          "precision_at_k": 1.0,
+          "mrr_at_k": 1.0
+        },
+        "3": {
+          "query_variants": [
+            "What deficit did Moray IJB report for 2023/24?",
+            "What deficit did Moray IJB report for 2023/24? (overspend / shortfall) (integration joint board)"
+          ],
+          "retrieved_chunk_ids": [
+            "p0025_000",
+            "p0024_002",
+            "p0029_002"
+          ],
+          "retrieved_pages_ranked": [
+            25,
+            24,
+            29
+          ],
+          "retrieved_scores": [
+            0.6598533391952515,
+            0.6229144930839539,
+            0.5242100954055786
+          ],
+          "best_variant_per_chunk": [
+            "What deficit did Moray IJB report for 2023/24? (overspend / shortfall) (integration joint board)",
+            "What deficit did Moray IJB report for 2023/24? (overspend / shortfall) (integration joint board)",
+            "What deficit did Moray IJB report for 2023/24? (overspend / shortfall) (integration joint board)"
+          ],
+          "recall_at_k": 1.0,
+          "precision_at_k": 0.3333333333333333,
+          "mrr_at_k": 1.0
+        },
+        "5": {
+          "query_variants": [
+            "What deficit did Moray IJB report for 2023/24?",
+            "What deficit did Moray IJB report for 2023/24? (overspend / shortfall) (integration joint board)"
+          ],
+          "retrieved_chunk_ids": [
+            "p0025_000",
+            "p0024_002",
+            "p0029_002",
+            "p0070_000",
+            "p0024_001"
+          ],
+          "retrieved_pages_ranked": [
+            25,
+            24,
+            29,
+            70
+          ],
+          "retrieved_scores": [
+            0.6598533391952515,
+            0.6229144930839539,
+            0.5242100954055786,
+            0.5197171568870544,
+            0.5048509836196899
+          ],
+          "best_variant_per_chunk": [
+            "What deficit did Moray IJB report for 2023/24? (overspend / shortfall) (integration joint board)",
+            "What deficit did Moray IJB report for 2023/24? (overspend / shortfall) (integration joint board)",
+            "What deficit did Moray IJB report for 2023/24? (overspend / shortfall) (integration joint board)",
+            "What deficit did Moray IJB report for 2023/24? (overspend / shortfall) (integration joint board)",
+            "What deficit did Moray IJB report for 2023/24? (overspend / shortfall) (integration joint board)"
+          ],
+          "recall_at_k": 1.0,
+          "precision_at_k": 0.25,
+          "mrr_at_k": 1.0
+        },
+        "10": {
+          "query_variants": [
+            "What deficit did Moray IJB report for 2023/24?",
+            "What deficit did Moray IJB report for 2023/24? (overspend / shortfall) (integration joint board)"
+          ],
+          "retrieved_chunk_ids": [
+            "p0025_000",
+            "p0024_002",
+            "p0029_002",
+            "p0070_000",
+            "p0024_001",
+            "p0030_001",
+            "p0023_002",
+            "p0030_000",
+            "p0027_001",
+            "p0022_001"
+          ],
+          "retrieved_pages_ranked": [
+            25,
+            24,
+            29,
+            70,
+            30,
+            23,
+            27,
+            22
+          ],
+          "retrieved_scores": [
+            0.6598533391952515,
+            0.6229144930839539,
+            0.5242100954055786,
+            0.5197171568870544,
+            0.5048509836196899,
+            0.5014853477478027,
+            0.4855060875415802,
+            0.4822613596916199,
+            0.4736430048942566,
+            0.46011829376220703
+          ],
+          "best_variant_per_chunk": [
+            "What deficit did Moray IJB report for 2023/24? (overspend / shortfall) (integration joint board)",
+            "What deficit did Moray IJB report for 2023/24? (overspend / shortfall) (integration joint board)",
+            "What deficit did Moray IJB report for 2023/24? (overspend / shortfall) (integration joint board)",
+            "What deficit did Moray IJB report for 2023/24? (overspend / shortfall) (integration joint board)",
+            "What deficit did Moray IJB report for 2023/24? (overspend / shortfall) (integration joint board)",
+            "What deficit did Moray IJB report for 2023/24? (overspend / shortfall) (integration joint board)",
+            "What deficit did Moray IJB report for 2023/24? (overspend / shortfall) (integration joint board)",
+            "What deficit did Moray IJB report for 2023/24? (overspend / shortfall) (integration joint board)",
+            "What deficit did Moray IJB report for 2023/24? (overspend / shortfall) (integration joint board)",
+            "What deficit did Moray IJB report for 2023/24? (overspend / shortfall) (integration joint board)"
+          ],
+          "recall_at_k": 1.0,
+          "precision_at_k": 0.125,
+          "mrr_at_k": 1.0
+        }
+      }
+    },
+    {
+      "query_id": "Q_2024_IJB_P1",
+      "question": "How much did Aberdeen City’s Integration Joint Board overspend during 2023/24?",
+      "answer_type": "number",
+      "expected_pages": [
+        24
+      ],
+      "query_variants": [
+        "How much did Aberdeen City’s Integration Joint Board overspend during 2023/24?",
+        "How much did Aberdeen City’s Integration Joint Board overspend during 2023/24? (ijb)"
+      ],
+      "per_k": {
+        "1": {
+          "query_variants": [
+            "How much did Aberdeen City’s Integration Joint Board overspend during 2023/24?",
+            "How much did Aberdeen City’s Integration Joint Board overspend during 2023/24? (ijb)"
+          ],
+          "retrieved_chunk_ids": [
+            "p0024_002"
+          ],
+          "retrieved_pages_ranked": [
+            24
+          ],
+          "retrieved_scores": [
+            0.6363508105278015
+          ],
+          "best_variant_per_chunk": [
+            "How much did Aberdeen City’s Integration Joint Board overspend during 2023/24? (ijb)"
+          ],
+          "recall_at_k": 1.0,
+          "precision_at_k": 1.0,
+          "mrr_at_k": 1.0
+        },
+        "3": {
+          "query_variants": [
+            "How much did Aberdeen City’s Integration Joint Board overspend during 2023/24?",
+            "How much did Aberdeen City’s Integration Joint Board overspend during 2023/24? (ijb)"
+          ],
+          "retrieved_chunk_ids": [
+            "p0024_002",
+            "p0154_000",
+            "p0022_001"
+          ],
+          "retrieved_pages_ranked": [
+            24,
+            154,
+            22
+          ],
+          "retrieved_scores": [
+            0.6363508105278015,
+            0.5889521241188049,
+            0.5726161599159241
+          ],
+          "best_variant_per_chunk": [
+            "How much did Aberdeen City’s Integration Joint Board overspend during 2023/24? (ijb)",
+            "How much did Aberdeen City’s Integration Joint Board overspend during 2023/24? (ijb)",
+            "How much did Aberdeen City’s Integration Joint Board overspend during 2023/24? (ijb)"
+          ],
+          "recall_at_k": 1.0,
+          "precision_at_k": 0.3333333333333333,
+          "mrr_at_k": 1.0
+        },
+        "5": {
+          "query_variants": [
+            "How much did Aberdeen City’s Integration Joint Board overspend during 2023/24?",
+            "How much did Aberdeen City’s Integration Joint Board overspend during 2023/24? (ijb)"
+          ],
+          "retrieved_chunk_ids": [
+            "p0024_002",
+            "p0154_000",
+            "p0022_001",
+            "p0024_001",
+            "p0099_001"
+          ],
+          "retrieved_pages_ranked": [
+            24,
+            154,
+            22,
+            99
+          ],
+          "retrieved_scores": [
+            0.6363508105278015,
+            0.5889521241188049,
+            0.5726161599159241,
+            0.5671467781066895,
+            0.5356490612030029
+          ],
+          "best_variant_per_chunk": [
+            "How much did Aberdeen City’s Integration Joint Board overspend during 2023/24? (ijb)",
+            "How much did Aberdeen City’s Integration Joint Board overspend during 2023/24? (ijb)",
+            "How much did Aberdeen City’s Integration Joint Board overspend during 2023/24? (ijb)",
+            "How much did Aberdeen City’s Integration Joint Board overspend during 2023/24? (ijb)",
+            "How much did Aberdeen City’s Integration Joint Board overspend during 2023/24? (ijb)"
+          ],
+          "recall_at_k": 1.0,
+          "precision_at_k": 0.25,
+          "mrr_at_k": 1.0
+        },
+        "10": {
+          "query_variants": [
+            "How much did Aberdeen City’s Integration Joint Board overspend during 2023/24?",
+            "How much did Aberdeen City’s Integration Joint Board overspend during 2023/24? (ijb)"
+          ],
+          "retrieved_chunk_ids": [
+            "p0024_002",
+            "p0154_000",
+            "p0022_001",
+            "p0024_001",
+            "p0099_001",
+            "p0005_001",
+            "p0029_002",
+            "p0027_001",
+            "p0070_000",
+            "p0025_000"
+          ],
+          "retrieved_pages_ranked": [
+            24,
+            154,
+            22,
+            99,
+            5,
+            29,
+            27,
+            70,
+            25
+          ],
+          "retrieved_scores": [
+            0.6363508105278015,
+            0.5889521241188049,
+            0.5726161599159241,
+            0.5671467781066895,
+            0.5356490612030029,
+            0.5339670181274414,
+            0.5299322605133057,
+            0.4996907413005829,
+            0.4952256381511688,
+            0.4921650290489197
+          ],
+          "best_variant_per_chunk": [
+            "How much did Aberdeen City’s Integration Joint Board overspend during 2023/24? (ijb)",
+            "How much did Aberdeen City’s Integration Joint Board overspend during 2023/24? (ijb)",
+            "How much did Aberdeen City’s Integration Joint Board overspend during 2023/24? (ijb)",
+            "How much did Aberdeen City’s Integration Joint Board overspend during 2023/24? (ijb)",
+            "How much did Aberdeen City’s Integration Joint Board overspend during 2023/24? (ijb)",
+            "How much did Aberdeen City’s Integration Joint Board overspend during 2023/24? (ijb)",
+            "How much did Aberdeen City’s Integration Joint Board overspend during 2023/24? (ijb)",
+            "How much did Aberdeen City’s Integration Joint Board overspend during 2023/24? (ijb)",
+            "How much did Aberdeen City’s Integration Joint Board overspend during 2023/24? (ijb)",
+            "How much did Aberdeen City’s Integration Joint Board overspend during 2023/24? (ijb)"
+          ],
+          "recall_at_k": 1.0,
+          "precision_at_k": 0.1111111111111111,
+          "mrr_at_k": 1.0
+        }
+      }
+    },
+    {
+      "query_id": "Q_2024_DEL_01",
+      "question": "How many deliverables were reported in Q4 milestones of the 2023/24 Delivery Plan?",
+      "answer_type": "number",
+      "expected_pages": [
+        10
+      ],
+      "query_variants": [
+        "How many deliverables were reported in Q4 milestones of the 2023/24 Delivery Plan?"
+      ],
+      "per_k": {
+        "1": {
+          "query_variants": [
+            "How many deliverables were reported in Q4 milestones of the 2023/24 Delivery Plan?"
+          ],
+          "retrieved_chunk_ids": [
+            "p0010_001"
+          ],
+          "retrieved_pages_ranked": [
+            10
+          ],
+          "retrieved_scores": [
+            0.5545316338539124
+          ],
+          "best_variant_per_chunk": [
+            "How many deliverables were reported in Q4 milestones of the 2023/24 Delivery Plan?"
+          ],
+          "recall_at_k": 1.0,
+          "precision_at_k": 1.0,
+          "mrr_at_k": 1.0
+        },
+        "3": {
+          "query_variants": [
+            "How many deliverables were reported in Q4 milestones of the 2023/24 Delivery Plan?"
+          ],
+          "retrieved_chunk_ids": [
+            "p0010_001",
+            "p0011_000",
+            "p0053_001"
+          ],
+          "retrieved_pages_ranked": [
+            10,
+            11,
+            53
+          ],
+          "retrieved_scores": [
+            0.5545316338539124,
+            0.5110655426979065,
+            0.38402441143989563
+          ],
+          "best_variant_per_chunk": [
+            "How many deliverables were reported in Q4 milestones of the 2023/24 Delivery Plan?",
+            "How many deliverables were reported in Q4 milestones of the 2023/24 Delivery Plan?",
+            "How many deliverables were reported in Q4 milestones of the 2023/24 Delivery Plan?"
+          ],
+          "recall_at_k": 1.0,
+          "precision_at_k": 0.3333333333333333,
+          "mrr_at_k": 1.0
+        },
+        "5": {
+          "query_variants": [
+            "How many deliverables were reported in Q4 milestones of the 2023/24 Delivery Plan?"
+          ],
+          "retrieved_chunk_ids": [
+            "p0010_001",
+            "p0011_000",
+            "p0053_001",
+            "p0053_000",
+            "p0006_000"
+          ],
+          "retrieved_pages_ranked": [
+            10,
+            11,
+            53,
+            6
+          ],
+          "retrieved_scores": [
+            0.5545316338539124,
+            0.5110655426979065,
+            0.38402441143989563,
+            0.38019752502441406,
+            0.371620237827301
+          ],
+          "best_variant_per_chunk": [
+            "How many deliverables were reported in Q4 milestones of the 2023/24 Delivery Plan?",
+            "How many deliverables were reported in Q4 milestones of the 2023/24 Delivery Plan?",
+            "How many deliverables were reported in Q4 milestones of the 2023/24 Delivery Plan?",
+            "How many deliverables were reported in Q4 milestones of the 2023/24 Delivery Plan?",
+            "How many deliverables were reported in Q4 milestones of the 2023/24 Delivery Plan?"
+          ],
+          "recall_at_k": 1.0,
+          "precision_at_k": 0.25,
+          "mrr_at_k": 1.0
+        },
+        "10": {
+          "query_variants": [
+            "How many deliverables were reported in Q4 milestones of the 2023/24 Delivery Plan?"
+          ],
+          "retrieved_chunk_ids": [
+            "p0010_001",
+            "p0011_000",
+            "p0053_001",
+            "p0053_000",
+            "p0006_000",
+            "p0063_001",
+            "p0010_000",
+            "p0079_000",
+            "p0159_000",
+            "p0054_000"
+          ],
+          "retrieved_pages_ranked": [
+            10,
+            11,
+            53,
+            6,
+            63,
+            79,
+            159,
+            54
+          ],
+          "retrieved_scores": [
+            0.5545316338539124,
+            0.5110655426979065,
+            0.38402441143989563,
+            0.38019752502441406,
+            0.371620237827301,
+            0.3619270920753479,
+            0.3571021556854248,
+            0.35680249333381653,
+            0.34854966402053833,
+            0.34039396047592163
+          ],
+          "best_variant_per_chunk": [
+            "How many deliverables were reported in Q4 milestones of the 2023/24 Delivery Plan?",
+            "How many deliverables were reported in Q4 milestones of the 2023/24 Delivery Plan?",
+            "How many deliverables were reported in Q4 milestones of the 2023/24 Delivery Plan?",
+            "How many deliverables were reported in Q4 milestones of the 2023/24 Delivery Plan?",
+            "How many deliverables were reported in Q4 milestones of the 2023/24 Delivery Plan?",
+            "How many deliverables were reported in Q4 milestones of the 2023/24 Delivery Plan?",
+            "How many deliverables were reported in Q4 milestones of the 2023/24 Delivery Plan?",
+            "How many deliverables were reported in Q4 milestones of the 2023/24 Delivery Plan?",
+            "How many deliverables were reported in Q4 milestones of the 2023/24 Delivery Plan?",
+            "How many deliverables were reported in Q4 milestones of the 2023/24 Delivery Plan?"
+          ],
+          "recall_at_k": 1.0,
+          "precision_at_k": 0.125,
+          "mrr_at_k": 1.0
+        }
+      }
+    },
+    {
+      "query_id": "Q_2024_DEL_02",
+      "question": "What percentage of deliverables were on track at the end of Quarter 4?",
+      "answer_type": "number",
+      "expected_pages": [
+        10
+      ],
+      "query_variants": [
+        "What percentage of deliverables were on track at the end of Quarter 4?",
+        "What percentage of deliverables were on track at the end of Quarter 4? in performance table by quarter"
+      ],
+      "per_k": {
+        "1": {
+          "query_variants": [
+            "What percentage of deliverables were on track at the end of Quarter 4?",
+            "What percentage of deliverables were on track at the end of Quarter 4? in performance table by quarter"
+          ],
+          "retrieved_chunk_ids": [
+            "p0010_001"
+          ],
+          "retrieved_pages_ranked": [
+            10
+          ],
+          "retrieved_scores": [
+            0.5680761337280273
+          ],
+          "best_variant_per_chunk": [
+            "What percentage of deliverables were on track at the end of Quarter 4? in performance table by quarter"
+          ],
+          "recall_at_k": 1.0,
+          "precision_at_k": 1.0,
+          "mrr_at_k": 1.0
+        },
+        "3": {
+          "query_variants": [
+            "What percentage of deliverables were on track at the end of Quarter 4?",
+            "What percentage of deliverables were on track at the end of Quarter 4? in performance table by quarter"
+          ],
+          "retrieved_chunk_ids": [
+            "p0010_001",
+            "table_p0077",
+            "table_p0074"
+          ],
+          "retrieved_pages_ranked": [
+            10,
+            77,
+            74
+          ],
+          "retrieved_scores": [
+            0.5680761337280273,
+            0.47424179315567017,
+            0.4721335172653198
+          ],
+          "best_variant_per_chunk": [
+            "What percentage of deliverables were on track at the end of Quarter 4? in performance table by quarter",
+            "What percentage of deliverables were on track at the end of Quarter 4? in performance table by quarter",
+            "What percentage of deliverables were on track at the end of Quarter 4? in performance table by quarter"
+          ],
+          "recall_at_k": 1.0,
+          "precision_at_k": 0.3333333333333333,
+          "mrr_at_k": 1.0
+        },
+        "5": {
+          "query_variants": [
+            "What percentage of deliverables were on track at the end of Quarter 4?",
+            "What percentage of deliverables were on track at the end of Quarter 4? in performance table by quarter"
+          ],
+          "retrieved_chunk_ids": [
+            "p0010_001",
+            "table_p0077",
+            "table_p0074",
+            "table_p0075",
+            "p0013_000"
+          ],
+          "retrieved_pages_ranked": [
+            10,
+            77,
+            74,
+            75,
+            13
+          ],
+          "retrieved_scores": [
+            0.5680761337280273,
+            0.47424179315567017,
+            0.4721335172653198,
+            0.45031774044036865,
+            0.44491928815841675
+          ],
+          "best_variant_per_chunk": [
+            "What percentage of deliverables were on track at the end of Quarter 4? in performance table by quarter",
+            "What percentage of deliverables were on track at the end of Quarter 4? in performance table by quarter",
+            "What percentage of deliverables were on track at the end of Quarter 4? in performance table by quarter",
+            "What percentage of deliverables were on track at the end of Quarter 4? in performance table by quarter",
+            "What percentage of deliverables were on track at the end of Quarter 4? in performance table by quarter"
+          ],
+          "recall_at_k": 1.0,
+          "precision_at_k": 0.2,
+          "mrr_at_k": 1.0
+        },
+        "10": {
+          "query_variants": [
+            "What percentage of deliverables were on track at the end of Quarter 4?",
+            "What percentage of deliverables were on track at the end of Quarter 4? in performance table by quarter"
+          ],
+          "retrieved_chunk_ids": [
+            "p0010_001",
+            "table_p0077",
+            "table_p0074",
+            "table_p0075",
+            "p0013_000",
+            "p0011_000",
+            "p0012_000",
+            "table_p0083",
+            "p0087_000",
+            "p0010_000"
+          ],
+          "retrieved_pages_ranked": [
+            10,
+            77,
+            74,
+            75,
+            13,
+            11,
+            12,
+            83,
+            87
+          ],
+          "retrieved_scores": [
+            0.5680761337280273,
+            0.47424179315567017,
+            0.4721335172653198,
+            0.45031774044036865,
+            0.44491928815841675,
+            0.4331175982952118,
+            0.4202505350112915,
+            0.41876935958862305,
+            0.40122711658477783,
+            0.3949524164199829
+          ],
+          "best_variant_per_chunk": [
+            "What percentage of deliverables were on track at the end of Quarter 4? in performance table by quarter",
+            "What percentage of deliverables were on track at the end of Quarter 4? in performance table by quarter",
+            "What percentage of deliverables were on track at the end of Quarter 4? in performance table by quarter",
+            "What percentage of deliverables were on track at the end of Quarter 4? in performance table by quarter",
+            "What percentage of deliverables were on track at the end of Quarter 4? in performance table by quarter",
+            "What percentage of deliverables were on track at the end of Quarter 4? in performance table by quarter",
+            "What percentage of deliverables were on track at the end of Quarter 4? in performance table by quarter",
+            "What percentage of deliverables were on track at the end of Quarter 4? in performance table by quarter",
+            "What percentage of deliverables were on track at the end of Quarter 4? in performance table by quarter",
+            "What percentage of deliverables were on track at the end of Quarter 4? in performance table by quarter"
+          ],
+          "recall_at_k": 1.0,
+          "precision_at_k": 0.1111111111111111,
+          "mrr_at_k": 1.0
+        }
+      }
+    },
+    {
+      "query_id": "Q_2024_DEL_03",
+      "question": "What percentage of deliverables were complete at the end of Quarter 4?",
+      "answer_type": "number",
+      "expected_pages": [
+        10
+      ],
+      "query_variants": [
+        "What percentage of deliverables were complete at the end of Quarter 4?"
+      ],
+      "per_k": {
+        "1": {
+          "query_variants": [
+            "What percentage of deliverables were complete at the end of Quarter 4?"
+          ],
+          "retrieved_chunk_ids": [
+            "p0010_001"
+          ],
+          "retrieved_pages_ranked": [
+            10
+          ],
+          "retrieved_scores": [
+            0.4029701054096222
+          ],
+          "best_variant_per_chunk": [
+            "What percentage of deliverables were complete at the end of Quarter 4?"
+          ],
+          "recall_at_k": 1.0,
+          "precision_at_k": 1.0,
+          "mrr_at_k": 1.0
+        },
+        "3": {
+          "query_variants": [
+            "What percentage of deliverables were complete at the end of Quarter 4?"
+          ],
+          "retrieved_chunk_ids": [
+            "p0010_001",
+            "table_p0074",
+            "p0013_000"
+          ],
+          "retrieved_pages_ranked": [
+            10,
+            74,
+            13
+          ],
+          "retrieved_scores": [
+            0.4029701054096222,
+            0.3647995591163635,
+            0.3613743782043457
+          ],
+          "best_variant_per_chunk": [
+            "What percentage of deliverables were complete at the end of Quarter 4?",
+            "What percentage of deliverables were complete at the end of Quarter 4?",
+            "What percentage of deliverables were complete at the end of Quarter 4?"
+          ],
+          "recall_at_k": 1.0,
+          "precision_at_k": 0.3333333333333333,
+          "mrr_at_k": 1.0
+        },
+        "5": {
+          "query_variants": [
+            "What percentage of deliverables were complete at the end of Quarter 4?"
+          ],
+          "retrieved_chunk_ids": [
+            "p0010_001",
+            "table_p0074",
+            "p0013_000",
+            "table_p0077",
+            "table_p0075"
+          ],
+          "retrieved_pages_ranked": [
+            10,
+            74,
+            13,
+            77,
+            75
+          ],
+          "retrieved_scores": [
+            0.4029701054096222,
+            0.3647995591163635,
+            0.3613743782043457,
+            0.35661581158638,
+            0.34976425766944885
+          ],
+          "best_variant_per_chunk": [
+            "What percentage of deliverables were complete at the end of Quarter 4?",
+            "What percentage of deliverables were complete at the end of Quarter 4?",
+            "What percentage of deliverables were complete at the end of Quarter 4?",
+            "What percentage of deliverables were complete at the end of Quarter 4?",
+            "What percentage of deliverables were complete at the end of Quarter 4?"
+          ],
+          "recall_at_k": 1.0,
+          "precision_at_k": 0.2,
+          "mrr_at_k": 1.0
+        },
+        "10": {
+          "query_variants": [
+            "What percentage of deliverables were complete at the end of Quarter 4?"
+          ],
+          "retrieved_chunk_ids": [
+            "p0010_001",
+            "table_p0074",
+            "p0013_000",
+            "table_p0077",
+            "table_p0075",
+            "p0011_000",
+            "p0087_000",
+            "p0012_000",
+            "p0027_001",
+            "p0085_001"
+          ],
+          "retrieved_pages_ranked": [
+            10,
+            74,
+            13,
+            77,
+            75,
+            11,
+            87,
+            12,
+            27,
+            85
+          ],
+          "retrieved_scores": [
+            0.4029701054096222,
+            0.3647995591163635,
+            0.3613743782043457,
+            0.35661581158638,
+            0.34976425766944885,
+            0.34914296865463257,
+            0.3477552831172943,
+            0.3269263207912445,
+            0.314952552318573,
+            0.31477174162864685
+          ],
+          "best_variant_per_chunk": [
+            "What percentage of deliverables were complete at the end of Quarter 4?",
+            "What percentage of deliverables were complete at the end of Quarter 4?",
+            "What percentage of deliverables were complete at the end of Quarter 4?",
+            "What percentage of deliverables were complete at the end of Quarter 4?",
+            "What percentage of deliverables were complete at the end of Quarter 4?",
+            "What percentage of deliverables were complete at the end of Quarter 4?",
+            "What percentage of deliverables were complete at the end of Quarter 4?",
+            "What percentage of deliverables were complete at the end of Quarter 4?",
+            "What percentage of deliverables were complete at the end of Quarter 4?",
+            "What percentage of deliverables were complete at the end of Quarter 4?"
+          ],
+          "recall_at_k": 1.0,
+          "precision_at_k": 0.1,
+          "mrr_at_k": 1.0
+        }
+      }
+    },
+    {
+      "query_id": "Q_2024_DEL_P1",
+      "question": "At the close of Q4, what share of Delivery Plan milestones had been fully completed?",
+      "answer_type": "number",
+      "expected_pages": [
+        10
+      ],
+      "query_variants": [
+        "At the close of Q4, what share of Delivery Plan milestones had been fully completed?"
+      ],
+      "per_k": {
+        "1": {
+          "query_variants": [
+            "At the close of Q4, what share of Delivery Plan milestones had been fully completed?"
+          ],
+          "retrieved_chunk_ids": [
+            "p0010_001"
+          ],
+          "retrieved_pages_ranked": [
+            10
+          ],
+          "retrieved_scores": [
+            0.5244718790054321
+          ],
+          "best_variant_per_chunk": [
+            "At the close of Q4, what share of Delivery Plan milestones had been fully completed?"
+          ],
+          "recall_at_k": 1.0,
+          "precision_at_k": 1.0,
+          "mrr_at_k": 1.0
+        },
+        "3": {
+          "query_variants": [
+            "At the close of Q4, what share of Delivery Plan milestones had been fully completed?"
+          ],
+          "retrieved_chunk_ids": [
+            "p0010_001",
+            "p0011_000",
+            "p0053_001"
+          ],
+          "retrieved_pages_ranked": [
+            10,
+            11,
+            53
+          ],
+          "retrieved_scores": [
+            0.5244718790054321,
+            0.5050301551818848,
+            0.361377477645874
+          ],
+          "best_variant_per_chunk": [
+            "At the close of Q4, what share of Delivery Plan milestones had been fully completed?",
+            "At the close of Q4, what share of Delivery Plan milestones had been fully completed?",
+            "At the close of Q4, what share of Delivery Plan milestones had been fully completed?"
+          ],
+          "recall_at_k": 1.0,
+          "precision_at_k": 0.3333333333333333,
+          "mrr_at_k": 1.0
+        },
+        "5": {
+          "query_variants": [
+            "At the close of Q4, what share of Delivery Plan milestones had been fully completed?"
+          ],
+          "retrieved_chunk_ids": [
+            "p0010_001",
+            "p0011_000",
+            "p0053_001",
+            "p0006_000",
+            "p0010_000"
+          ],
+          "retrieved_pages_ranked": [
+            10,
+            11,
+            53,
+            6
+          ],
+          "retrieved_scores": [
+            0.5244718790054321,
+            0.5050301551818848,
+            0.361377477645874,
+            0.3516637086868286,
+            0.34766003489494324
+          ],
+          "best_variant_per_chunk": [
+            "At the close of Q4, what share of Delivery Plan milestones had been fully completed?",
+            "At the close of Q4, what share of Delivery Plan milestones had been fully completed?",
+            "At the close of Q4, what share of Delivery Plan milestones had been fully completed?",
+            "At the close of Q4, what share of Delivery Plan milestones had been fully completed?",
+            "At the close of Q4, what share of Delivery Plan milestones had been fully completed?"
+          ],
+          "recall_at_k": 1.0,
+          "precision_at_k": 0.25,
+          "mrr_at_k": 1.0
+        },
+        "10": {
+          "query_variants": [
+            "At the close of Q4, what share of Delivery Plan milestones had been fully completed?"
+          ],
+          "retrieved_chunk_ids": [
+            "p0010_001",
+            "p0011_000",
+            "p0053_001",
+            "p0006_000",
+            "p0010_000",
+            "p0053_000",
+            "p0054_000",
+            "p0079_000",
+            "p0085_001",
+            "p0027_002"
+          ],
+          "retrieved_pages_ranked": [
+            10,
+            11,
+            53,
+            6,
+            54,
+            79,
+            85,
+            27
+          ],
+          "retrieved_scores": [
+            0.5244718790054321,
+            0.5050301551818848,
+            0.361377477645874,
+            0.3516637086868286,
+            0.34766003489494324,
+            0.3416029214859009,
+            0.3407280743122101,
+            0.32775574922561646,
+            0.314372181892395,
+            0.3058861494064331
+          ],
+          "best_variant_per_chunk": [
+            "At the close of Q4, what share of Delivery Plan milestones had been fully completed?",
+            "At the close of Q4, what share of Delivery Plan milestones had been fully completed?",
+            "At the close of Q4, what share of Delivery Plan milestones had been fully completed?",
+            "At the close of Q4, what share of Delivery Plan milestones had been fully completed?",
+            "At the close of Q4, what share of Delivery Plan milestones had been fully completed?",
+            "At the close of Q4, what share of Delivery Plan milestones had been fully completed?",
+            "At the close of Q4, what share of Delivery Plan milestones had been fully completed?",
+            "At the close of Q4, what share of Delivery Plan milestones had been fully completed?",
+            "At the close of Q4, what share of Delivery Plan milestones had been fully completed?",
+            "At the close of Q4, what share of Delivery Plan milestones had been fully completed?"
+          ],
+          "recall_at_k": 1.0,
+          "precision_at_k": 0.125,
+          "mrr_at_k": 1.0
+        }
+      }
+    },
+    {
+      "query_id": "Q_2024_STR_01",
+      "question": "What are the three pillars of the Plan for the Future?",
+      "answer_type": "text",
+      "expected_pages": [
+        10
+      ],
+      "query_variants": [
+        "What are the three pillars of the Plan for the Future?"
+      ],
+      "per_k": {
+        "1": {
+          "query_variants": [
+            "What are the three pillars of the Plan for the Future?"
+          ],
+          "retrieved_chunk_ids": [
+            "p0053_000"
+          ],
+          "retrieved_pages_ranked": [
+            53
+          ],
+          "retrieved_scores": [
+            0.39811307191848755
+          ],
+          "best_variant_per_chunk": [
+            "What are the three pillars of the Plan for the Future?"
+          ],
+          "recall_at_k": 0.0,
+          "precision_at_k": 0.0,
+          "mrr_at_k": 0.0
+        },
+        "3": {
+          "query_variants": [
+            "What are the three pillars of the Plan for the Future?"
+          ],
+          "retrieved_chunk_ids": [
+            "p0053_000",
+            "p0006_000",
+            "p0080_001"
+          ],
+          "retrieved_pages_ranked": [
+            53,
+            6,
+            80
+          ],
+          "retrieved_scores": [
+            0.39811307191848755,
+            0.35872581601142883,
+            0.35547155141830444
+          ],
+          "best_variant_per_chunk": [
+            "What are the three pillars of the Plan for the Future?",
+            "What are the three pillars of the Plan for the Future?",
+            "What are the three pillars of the Plan for the Future?"
+          ],
+          "recall_at_k": 0.0,
+          "precision_at_k": 0.0,
+          "mrr_at_k": 0.0
+        },
+        "5": {
+          "query_variants": [
+            "What are the three pillars of the Plan for the Future?"
+          ],
+          "retrieved_chunk_ids": [
+            "p0053_000",
+            "p0006_000",
+            "p0080_001",
+            "p0053_001",
+            "p0078_001"
+          ],
+          "retrieved_pages_ranked": [
+            53,
+            6,
+            80,
+            78
+          ],
+          "retrieved_scores": [
+            0.39811307191848755,
+            0.35872581601142883,
+            0.35547155141830444,
+            0.33829766511917114,
+            0.3177022337913513
+          ],
+          "best_variant_per_chunk": [
+            "What are the three pillars of the Plan for the Future?",
+            "What are the three pillars of the Plan for the Future?",
+            "What are the three pillars of the Plan for the Future?",
+            "What are the three pillars of the Plan for the Future?",
+            "What are the three pillars of the Plan for the Future?"
+          ],
+          "recall_at_k": 0.0,
+          "precision_at_k": 0.0,
+          "mrr_at_k": 0.0
+        },
+        "10": {
+          "query_variants": [
+            "What are the three pillars of the Plan for the Future?"
+          ],
+          "retrieved_chunk_ids": [
+            "p0053_000",
+            "p0006_000",
+            "p0080_001",
+            "p0053_001",
+            "p0078_001",
+            "p0063_001",
+            "p0006_001",
+            "p0054_000",
+            "p0011_000",
+            "p0058_000"
+          ],
+          "retrieved_pages_ranked": [
+            53,
+            6,
+            80,
+            78,
+            63,
+            54,
+            11,
+            58
+          ],
+          "retrieved_scores": [
+            0.39811307191848755,
+            0.35872581601142883,
+            0.35547155141830444,
+            0.33829766511917114,
+            0.3177022337913513,
+            0.3083340525627136,
+            0.30467844009399414,
+            0.30072057247161865,
+            0.2822631597518921,
+            0.2780853807926178
+          ],
+          "best_variant_per_chunk": [
+            "What are the three pillars of the Plan for the Future?",
+            "What are the three pillars of the Plan for the Future?",
+            "What are the three pillars of the Plan for the Future?",
+            "What are the three pillars of the Plan for the Future?",
+            "What are the three pillars of the Plan for the Future?",
+            "What are the three pillars of the Plan for the Future?",
+            "What are the three pillars of the Plan for the Future?",
+            "What are the three pillars of the Plan for the Future?",
+            "What are the three pillars of the Plan for the Future?",
+            "What are the three pillars of the Plan for the Future?"
+          ],
+          "recall_at_k": 0.0,
+          "precision_at_k": 0.0,
+          "mrr_at_k": 0.0
+        }
+      }
+    },
+    {
+      "query_id": "Q_2024_STR_P1",
+      "question": "Which strategic pillars underpin NHS Grampian’s Plan for the Future?",
+      "answer_type": "text",
+      "expected_pages": [
+        10
+      ],
+      "query_variants": [
+        "Which strategic pillars underpin NHS Grampian’s Plan for the Future?"
+      ],
+      "per_k": {
+        "1": {
+          "query_variants": [
+            "Which strategic pillars underpin NHS Grampian’s Plan for the Future?"
+          ],
+          "retrieved_chunk_ids": [
+            "p0006_000"
+          ],
+          "retrieved_pages_ranked": [
+            6
+          ],
+          "retrieved_scores": [
+            0.6678348183631897
+          ],
+          "best_variant_per_chunk": [
+            "Which strategic pillars underpin NHS Grampian’s Plan for the Future?"
+          ],
+          "recall_at_k": 0.0,
+          "precision_at_k": 0.0,
+          "mrr_at_k": 0.0
+        },
+        "3": {
+          "query_variants": [
+            "Which strategic pillars underpin NHS Grampian’s Plan for the Future?"
+          ],
+          "retrieved_chunk_ids": [
+            "p0006_000",
+            "p0004_001",
+            "p0053_000"
+          ],
+          "retrieved_pages_ranked": [
+            6,
+            4,
+            53
+          ],
+          "retrieved_scores": [
+            0.6678348183631897,
+            0.6529523730278015,
+            0.6511306762695312
+          ],
+          "best_variant_per_chunk": [
+            "Which strategic pillars underpin NHS Grampian’s Plan for the Future?",
+            "Which strategic pillars underpin NHS Grampian’s Plan for the Future?",
+            "Which strategic pillars underpin NHS Grampian’s Plan for the Future?"
+          ],
+          "recall_at_k": 0.0,
+          "precision_at_k": 0.0,
+          "mrr_at_k": 0.0
+        },
+        "5": {
+          "query_variants": [
+            "Which strategic pillars underpin NHS Grampian’s Plan for the Future?"
+          ],
+          "retrieved_chunk_ids": [
+            "p0006_000",
+            "p0004_001",
+            "p0053_000",
+            "p0053_001",
+            "p0028_000"
+          ],
+          "retrieved_pages_ranked": [
+            6,
+            4,
+            53,
+            28
+          ],
+          "retrieved_scores": [
+            0.6678348183631897,
+            0.6529523730278015,
+            0.6511306762695312,
+            0.6499942541122437,
+            0.6347088813781738
+          ],
+          "best_variant_per_chunk": [
+            "Which strategic pillars underpin NHS Grampian’s Plan for the Future?",
+            "Which strategic pillars underpin NHS Grampian’s Plan for the Future?",
+            "Which strategic pillars underpin NHS Grampian’s Plan for the Future?",
+            "Which strategic pillars underpin NHS Grampian’s Plan for the Future?",
+            "Which strategic pillars underpin NHS Grampian’s Plan for the Future?"
+          ],
+          "recall_at_k": 0.0,
+          "precision_at_k": 0.0,
+          "mrr_at_k": 0.0
+        },
+        "10": {
+          "query_variants": [
+            "Which strategic pillars underpin NHS Grampian’s Plan for the Future?"
+          ],
+          "retrieved_chunk_ids": [
+            "p0006_000",
+            "p0004_001",
+            "p0053_000",
+            "p0053_001",
+            "p0028_000",
+            "p0008_001",
+            "p0004_000",
+            "p0027_002",
+            "p0054_000",
+            "p0006_001"
+          ],
+          "retrieved_pages_ranked": [
+            6,
+            4,
+            53,
+            28,
+            8,
+            27,
+            54
+          ],
+          "retrieved_scores": [
+            0.6678348183631897,
+            0.6529523730278015,
+            0.6511306762695312,
+            0.6499942541122437,
+            0.6347088813781738,
+            0.6307220458984375,
+            0.6248297691345215,
+            0.6109498143196106,
+            0.6016679406166077,
+            0.6002138257026672
+          ],
+          "best_variant_per_chunk": [
+            "Which strategic pillars underpin NHS Grampian’s Plan for the Future?",
+            "Which strategic pillars underpin NHS Grampian’s Plan for the Future?",
+            "Which strategic pillars underpin NHS Grampian’s Plan for the Future?",
+            "Which strategic pillars underpin NHS Grampian’s Plan for the Future?",
+            "Which strategic pillars underpin NHS Grampian’s Plan for the Future?",
+            "Which strategic pillars underpin NHS Grampian’s Plan for the Future?",
+            "Which strategic pillars underpin NHS Grampian’s Plan for the Future?",
+            "Which strategic pillars underpin NHS Grampian’s Plan for the Future?",
+            "Which strategic pillars underpin NHS Grampian’s Plan for the Future?",
+            "Which strategic pillars underpin NHS Grampian’s Plan for the Future?"
+          ],
+          "recall_at_k": 0.0,
+          "precision_at_k": 0.0,
+          "mrr_at_k": 0.0
+        }
+      }
+    },
+    {
+      "query_id": "Q_2024_AE_01",
+      "question": "What was the percentage of A&E patients seen within 4 hours in March 2024?",
+      "answer_type": "number",
+      "expected_pages": [
+        12
+      ],
+      "query_variants": [
+        "What was the percentage of A&E patients seen within 4 hours in March 2024?"
+      ],
+      "per_k": {
+        "1": {
+          "query_variants": [
+            "What was the percentage of A&E patients seen within 4 hours in March 2024?"
+          ],
+          "retrieved_chunk_ids": [
+            "p0012_000"
+          ],
+          "retrieved_pages_ranked": [
+            12
+          ],
+          "retrieved_scores": [
+            0.5639979839324951
+          ],
+          "best_variant_per_chunk": [
+            "What was the percentage of A&E patients seen within 4 hours in March 2024?"
+          ],
+          "recall_at_k": 1.0,
+          "precision_at_k": 1.0,
+          "mrr_at_k": 1.0
+        },
+        "3": {
+          "query_variants": [
+            "What was the percentage of A&E patients seen within 4 hours in March 2024?"
+          ],
+          "retrieved_chunk_ids": [
+            "p0012_000",
+            "p0013_000",
+            "p0014_000"
+          ],
+          "retrieved_pages_ranked": [
+            12,
+            13,
+            14
+          ],
+          "retrieved_scores": [
+            0.5639979839324951,
+            0.5148370862007141,
+            0.5028622150421143
+          ],
+          "best_variant_per_chunk": [
+            "What was the percentage of A&E patients seen within 4 hours in March 2024?",
+            "What was the percentage of A&E patients seen within 4 hours in March 2024?",
+            "What was the percentage of A&E patients seen within 4 hours in March 2024?"
+          ],
+          "recall_at_k": 1.0,
+          "precision_at_k": 0.3333333333333333,
+          "mrr_at_k": 1.0
+        },
+        "5": {
+          "query_variants": [
+            "What was the percentage of A&E patients seen within 4 hours in March 2024?"
+          ],
+          "retrieved_chunk_ids": [
+            "p0012_000",
+            "p0013_000",
+            "p0014_000",
+            "p0016_000",
+            "p0011_000"
+          ],
+          "retrieved_pages_ranked": [
+            12,
+            13,
+            14,
+            16,
+            11
+          ],
+          "retrieved_scores": [
+            0.5639979839324951,
+            0.5148370862007141,
+            0.5028622150421143,
+            0.4327808916568756,
+            0.4181367754936218
+          ],
+          "best_variant_per_chunk": [
+            "What was the percentage of A&E patients seen within 4 hours in March 2024?",
+            "What was the percentage of A&E patients seen within 4 hours in March 2024?",
+            "What was the percentage of A&E patients seen within 4 hours in March 2024?",
+            "What was the percentage of A&E patients seen within 4 hours in March 2024?",
+            "What was the percentage of A&E patients seen within 4 hours in March 2024?"
+          ],
+          "recall_at_k": 1.0,
+          "precision_at_k": 0.2,
+          "mrr_at_k": 1.0
+        },
+        "10": {
+          "query_variants": [
+            "What was the percentage of A&E patients seen within 4 hours in March 2024?"
+          ],
+          "retrieved_chunk_ids": [
+            "p0012_000",
+            "p0013_000",
+            "p0014_000",
+            "p0016_000",
+            "p0011_000",
+            "p0084_000",
+            "p0079_000",
+            "p0008_000",
+            "p0019_000",
+            "p0084_001"
+          ],
+          "retrieved_pages_ranked": [
+            12,
+            13,
+            14,
+            16,
+            11,
+            84,
+            79,
+            8,
+            19
+          ],
+          "retrieved_scores": [
+            0.5639979839324951,
+            0.5148370862007141,
+            0.5028622150421143,
+            0.4327808916568756,
+            0.4181367754936218,
+            0.41672617197036743,
+            0.3963143825531006,
+            0.3857561945915222,
+            0.38328737020492554,
+            0.38141027092933655
+          ],
+          "best_variant_per_chunk": [
+            "What was the percentage of A&E patients seen within 4 hours in March 2024?",
+            "What was the percentage of A&E patients seen within 4 hours in March 2024?",
+            "What was the percentage of A&E patients seen within 4 hours in March 2024?",
+            "What was the percentage of A&E patients seen within 4 hours in March 2024?",
+            "What was the percentage of A&E patients seen within 4 hours in March 2024?",
+            "What was the percentage of A&E patients seen within 4 hours in March 2024?",
+            "What was the percentage of A&E patients seen within 4 hours in March 2024?",
+            "What was the percentage of A&E patients seen within 4 hours in March 2024?",
+            "What was the percentage of A&E patients seen within 4 hours in March 2024?",
+            "What was the percentage of A&E patients seen within 4 hours in March 2024?"
+          ],
+          "recall_at_k": 1.0,
+          "precision_at_k": 0.1111111111111111,
+          "mrr_at_k": 1.0
+        }
+      }
+    },
+    {
+      "query_id": "Q_2024_AE_02",
+      "question": "How many A&E attendances were recorded in March 2024?",
+      "answer_type": "number",
+      "expected_pages": [
+        12
+      ],
+      "query_variants": [
+        "How many A&E attendances were recorded in March 2024?"
+      ],
+      "per_k": {
+        "1": {
+          "query_variants": [
+            "How many A&E attendances were recorded in March 2024?"
+          ],
+          "retrieved_chunk_ids": [
+            "p0012_000"
+          ],
+          "retrieved_pages_ranked": [
+            12
+          ],
+          "retrieved_scores": [
+            0.5019218325614929
+          ],
+          "best_variant_per_chunk": [
+            "How many A&E attendances were recorded in March 2024?"
+          ],
+          "recall_at_k": 1.0,
+          "precision_at_k": 1.0,
+          "mrr_at_k": 1.0
+        },
+        "3": {
+          "query_variants": [
+            "How many A&E attendances were recorded in March 2024?"
+          ],
+          "retrieved_chunk_ids": [
+            "p0012_000",
+            "p0013_000",
+            "p0036_000"
+          ],
+          "retrieved_pages_ranked": [
+            12,
+            13,
+            36
+          ],
+          "retrieved_scores": [
+            0.5019218325614929,
+            0.39963391423225403,
+            0.37538182735443115
+          ],
+          "best_variant_per_chunk": [
+            "How many A&E attendances were recorded in March 2024?",
+            "How many A&E attendances were recorded in March 2024?",
+            "How many A&E attendances were recorded in March 2024?"
+          ],
+          "recall_at_k": 1.0,
+          "precision_at_k": 0.3333333333333333,
+          "mrr_at_k": 1.0
+        },
+        "5": {
+          "query_variants": [
+            "How many A&E attendances were recorded in March 2024?"
+          ],
+          "retrieved_chunk_ids": [
+            "p0012_000",
+            "p0013_000",
+            "p0036_000",
+            "p0159_000",
+            "p0034_001"
+          ],
+          "retrieved_pages_ranked": [
+            12,
+            13,
+            36,
+            159,
+            34
+          ],
+          "retrieved_scores": [
+            0.5019218325614929,
+            0.39963391423225403,
+            0.37538182735443115,
+            0.334497332572937,
+            0.2873643934726715
+          ],
+          "best_variant_per_chunk": [
+            "How many A&E attendances were recorded in March 2024?",
+            "How many A&E attendances were recorded in March 2024?",
+            "How many A&E attendances were recorded in March 2024?",
+            "How many A&E attendances were recorded in March 2024?",
+            "How many A&E attendances were recorded in March 2024?"
+          ],
+          "recall_at_k": 1.0,
+          "precision_at_k": 0.2,
+          "mrr_at_k": 1.0
+        },
+        "10": {
+          "query_variants": [
+            "How many A&E attendances were recorded in March 2024?"
+          ],
+          "retrieved_chunk_ids": [
+            "p0012_000",
+            "p0013_000",
+            "p0036_000",
+            "p0159_000",
+            "p0034_001",
+            "p0014_000",
+            "p0010_001",
+            "p0079_000",
+            "p0027_002",
+            "p0052_001"
+          ],
+          "retrieved_pages_ranked": [
+            12,
+            13,
+            36,
+            159,
+            34,
+            14,
+            10,
+            79,
+            27,
+            52
+          ],
+          "retrieved_scores": [
+            0.5019218325614929,
+            0.39963391423225403,
+            0.37538182735443115,
+            0.334497332572937,
+            0.2873643934726715,
+            0.28183436393737793,
+            0.2807385325431824,
+            0.27442553639411926,
+            0.27093490958213806,
+            0.26872870326042175
+          ],
+          "best_variant_per_chunk": [
+            "How many A&E attendances were recorded in March 2024?",
+            "How many A&E attendances were recorded in March 2024?",
+            "How many A&E attendances were recorded in March 2024?",
+            "How many A&E attendances were recorded in March 2024?",
+            "How many A&E attendances were recorded in March 2024?",
+            "How many A&E attendances were recorded in March 2024?",
+            "How many A&E attendances were recorded in March 2024?",
+            "How many A&E attendances were recorded in March 2024?",
+            "How many A&E attendances were recorded in March 2024?",
+            "How many A&E attendances were recorded in March 2024?"
+          ],
+          "recall_at_k": 1.0,
+          "precision_at_k": 0.1,
+          "mrr_at_k": 1.0
+        }
+      }
+    },
+    {
+      "query_id": "Q_2024_AE_P1",
+      "question": "In March 2024, what proportion of emergency department patients were treated within the 4-hour target?",
+      "answer_type": "number",
+      "expected_pages": [
+        12
+      ],
+      "query_variants": [
+        "In March 2024, what proportion of emergency department patients were treated within the 4-hour target?"
+      ],
+      "per_k": {
+        "1": {
+          "query_variants": [
+            "In March 2024, what proportion of emergency department patients were treated within the 4-hour target?"
+          ],
+          "retrieved_chunk_ids": [
+            "p0013_000"
+          ],
+          "retrieved_pages_ranked": [
+            13
+          ],
+          "retrieved_scores": [
+            0.5441321730613708
+          ],
+          "best_variant_per_chunk": [
+            "In March 2024, what proportion of emergency department patients were treated within the 4-hour target?"
+          ],
+          "recall_at_k": 0.0,
+          "precision_at_k": 0.0,
+          "mrr_at_k": 0.0
+        },
+        "3": {
+          "query_variants": [
+            "In March 2024, what proportion of emergency department patients were treated within the 4-hour target?"
+          ],
+          "retrieved_chunk_ids": [
+            "p0013_000",
+            "p0012_000",
+            "p0014_000"
+          ],
+          "retrieved_pages_ranked": [
+            13,
+            12,
+            14
+          ],
+          "retrieved_scores": [
+            0.5441321730613708,
+            0.5204766988754272,
+            0.45159590244293213
+          ],
+          "best_variant_per_chunk": [
+            "In March 2024, what proportion of emergency department patients were treated within the 4-hour target?",
+            "In March 2024, what proportion of emergency department patients were treated within the 4-hour target?",
+            "In March 2024, what proportion of emergency department patients were treated within the 4-hour target?"
+          ],
+          "recall_at_k": 1.0,
+          "precision_at_k": 0.3333333333333333,
+          "mrr_at_k": 0.5
+        },
+        "5": {
+          "query_variants": [
+            "In March 2024, what proportion of emergency department patients were treated within the 4-hour target?"
+          ],
+          "retrieved_chunk_ids": [
+            "p0013_000",
+            "p0012_000",
+            "p0014_000",
+            "p0079_000",
+            "p0011_000"
+          ],
+          "retrieved_pages_ranked": [
+            13,
+            12,
+            14,
+            79,
+            11
+          ],
+          "retrieved_scores": [
+            0.5441321730613708,
+            0.5204766988754272,
+            0.45159590244293213,
+            0.42157691717147827,
+            0.41587918996810913
+          ],
+          "best_variant_per_chunk": [
+            "In March 2024, what proportion of emergency department patients were treated within the 4-hour target?",
+            "In March 2024, what proportion of emergency department patients were treated within the 4-hour target?",
+            "In March 2024, what proportion of emergency department patients were treated within the 4-hour target?",
+            "In March 2024, what proportion of emergency department patients were treated within the 4-hour target?",
+            "In March 2024, what proportion of emergency department patients were treated within the 4-hour target?"
+          ],
+          "recall_at_k": 1.0,
+          "precision_at_k": 0.2,
+          "mrr_at_k": 0.5
+        },
+        "10": {
+          "query_variants": [
+            "In March 2024, what proportion of emergency department patients were treated within the 4-hour target?"
+          ],
+          "retrieved_chunk_ids": [
+            "p0013_000",
+            "p0012_000",
+            "p0014_000",
+            "p0079_000",
+            "p0011_000",
+            "p0073_000",
+            "p0019_000",
+            "p0008_000",
+            "p0072_002",
+            "p0062_001"
+          ],
+          "retrieved_pages_ranked": [
+            13,
+            12,
+            14,
+            79,
+            11,
+            73,
+            19,
+            8,
+            72,
+            62
+          ],
+          "retrieved_scores": [
+            0.5441321730613708,
+            0.5204766988754272,
+            0.45159590244293213,
+            0.42157691717147827,
+            0.41587918996810913,
+            0.3981378674507141,
+            0.39084774255752563,
+            0.37978723645210266,
+            0.3727884292602539,
+            0.37166184186935425
+          ],
+          "best_variant_per_chunk": [
+            "In March 2024, what proportion of emergency department patients were treated within the 4-hour target?",
+            "In March 2024, what proportion of emergency department patients were treated within the 4-hour target?",
+            "In March 2024, what proportion of emergency department patients were treated within the 4-hour target?",
+            "In March 2024, what proportion of emergency department patients were treated within the 4-hour target?",
+            "In March 2024, what proportion of emergency department patients were treated within the 4-hour target?",
+            "In March 2024, what proportion of emergency department patients were treated within the 4-hour target?",
+            "In March 2024, what proportion of emergency department patients were treated within the 4-hour target?",
+            "In March 2024, what proportion of emergency department patients were treated within the 4-hour target?",
+            "In March 2024, what proportion of emergency department patients were treated within the 4-hour target?",
+            "In March 2024, what proportion of emergency department patients were treated within the 4-hour target?"
+          ],
+          "recall_at_k": 1.0,
+          "precision_at_k": 0.1,
+          "mrr_at_k": 0.5
+        }
+      }
+    },
+    {
+      "query_id": "Q_2024_GOV_01",
+      "question": "What are the three statutory financial targets NHS Boards must meet?",
+      "answer_type": "text",
+      "expected_pages": [
+        25
+      ],
+      "query_variants": [
+        "What are the three statutory financial targets NHS Boards must meet?"
+      ],
+      "per_k": {
+        "1": {
+          "query_variants": [
+            "What are the three statutory financial targets NHS Boards must meet?"
+          ],
+          "retrieved_chunk_ids": [
+            "p0026_000"
+          ],
+          "retrieved_pages_ranked": [
+            26
+          ],
+          "retrieved_scores": [
+            0.7025498151779175
+          ],
+          "best_variant_per_chunk": [
+            "What are the three statutory financial targets NHS Boards must meet?"
+          ],
+          "recall_at_k": 0.0,
+          "precision_at_k": 0.0,
+          "mrr_at_k": 0.0
+        },
+        "3": {
+          "query_variants": [
+            "What are the three statutory financial targets NHS Boards must meet?"
+          ],
+          "retrieved_chunk_ids": [
+            "p0026_000",
+            "p0026_001",
+            "p0039_000"
+          ],
+          "retrieved_pages_ranked": [
+            26,
+            39
+          ],
+          "retrieved_scores": [
+            0.7025498151779175,
+            0.6796934008598328,
+            0.6315052509307861
+          ],
+          "best_variant_per_chunk": [
+            "What are the three statutory financial targets NHS Boards must meet?",
+            "What are the three statutory financial targets NHS Boards must meet?",
+            "What are the three statutory financial targets NHS Boards must meet?"
+          ],
+          "recall_at_k": 0.0,
+          "precision_at_k": 0.0,
+          "mrr_at_k": 0.0
+        },
+        "5": {
+          "query_variants": [
+            "What are the three statutory financial targets NHS Boards must meet?"
+          ],
+          "retrieved_chunk_ids": [
+            "p0026_000",
+            "p0026_001",
+            "p0039_000",
+            "p0064_001",
+            "p0045_000"
+          ],
+          "retrieved_pages_ranked": [
+            26,
+            39,
+            64,
+            45
+          ],
+          "retrieved_scores": [
+            0.7025498151779175,
+            0.6796934008598328,
+            0.6315052509307861,
+            0.6284912824630737,
+            0.6209907531738281
+          ],
+          "best_variant_per_chunk": [
+            "What are the three statutory financial targets NHS Boards must meet?",
+            "What are the three statutory financial targets NHS Boards must meet?",
+            "What are the three statutory financial targets NHS Boards must meet?",
+            "What are the three statutory financial targets NHS Boards must meet?",
+            "What are the three statutory financial targets NHS Boards must meet?"
+          ],
+          "recall_at_k": 0.0,
+          "precision_at_k": 0.0,
+          "mrr_at_k": 0.0
+        },
+        "10": {
+          "query_variants": [
+            "What are the three statutory financial targets NHS Boards must meet?"
+          ],
+          "retrieved_chunk_ids": [
+            "p0026_000",
+            "p0026_001",
+            "p0039_000",
+            "p0064_001",
+            "p0045_000",
+            "p0099_002",
+            "p0151_001",
+            "p0053_001",
+            "p0051_001",
+            "p0151_000"
+          ],
+          "retrieved_pages_ranked": [
+            26,
+            39,
+            64,
+            45,
+            99,
+            151,
+            53,
+            51
+          ],
+          "retrieved_scores": [
+            0.7025498151779175,
+            0.6796934008598328,
+            0.6315052509307861,
+            0.6284912824630737,
+            0.6209907531738281,
+            0.6183360815048218,
+            0.6170734763145447,
+            0.6111364960670471,
+            0.6107695698738098,
+            0.6063719987869263
+          ],
+          "best_variant_per_chunk": [
+            "What are the three statutory financial targets NHS Boards must meet?",
+            "What are the three statutory financial targets NHS Boards must meet?",
+            "What are the three statutory financial targets NHS Boards must meet?",
+            "What are the three statutory financial targets NHS Boards must meet?",
+            "What are the three statutory financial targets NHS Boards must meet?",
+            "What are the three statutory financial targets NHS Boards must meet?",
+            "What are the three statutory financial targets NHS Boards must meet?",
+            "What are the three statutory financial targets NHS Boards must meet?",
+            "What are the three statutory financial targets NHS Boards must meet?",
+            "What are the three statutory financial targets NHS Boards must meet?"
+          ],
+          "recall_at_k": 0.0,
+          "precision_at_k": 0.0,
+          "mrr_at_k": 0.0
+        }
+      }
+    },
+    {
+      "query_id": "Q_2024_GOV_02",
+      "question": "What was the Core Revenue Resource Limit set for 2023/24?",
+      "answer_type": "number",
+      "expected_pages": [
+        26
+      ],
+      "query_variants": [
+        "What was the Core Revenue Resource Limit set for 2023/24?"
+      ],
+      "per_k": {
+        "1": {
+          "query_variants": [
+            "What was the Core Revenue Resource Limit set for 2023/24?"
+          ],
+          "retrieved_chunk_ids": [
+            "p0026_001"
+          ],
+          "retrieved_pages_ranked": [
+            26
+          ],
+          "retrieved_scores": [
+            0.533737301826477
+          ],
+          "best_variant_per_chunk": [
+            "What was the Core Revenue Resource Limit set for 2023/24?"
+          ],
+          "recall_at_k": 1.0,
+          "precision_at_k": 1.0,
+          "mrr_at_k": 1.0
+        },
+        "3": {
+          "query_variants": [
+            "What was the Core Revenue Resource Limit set for 2023/24?"
+          ],
+          "retrieved_chunk_ids": [
+            "p0026_001",
+            "p0027_000",
+            "p0031_001"
+          ],
+          "retrieved_pages_ranked": [
+            26,
+            27,
+            31
+          ],
+          "retrieved_scores": [
+            0.533737301826477,
+            0.4687923491001129,
+            0.4458419680595398
+          ],
+          "best_variant_per_chunk": [
+            "What was the Core Revenue Resource Limit set for 2023/24?",
+            "What was the Core Revenue Resource Limit set for 2023/24?",
+            "What was the Core Revenue Resource Limit set for 2023/24?"
+          ],
+          "recall_at_k": 1.0,
+          "precision_at_k": 0.3333333333333333,
+          "mrr_at_k": 1.0
+        },
+        "5": {
+          "query_variants": [
+            "What was the Core Revenue Resource Limit set for 2023/24?"
+          ],
+          "retrieved_chunk_ids": [
+            "p0026_001",
+            "p0027_000",
+            "p0031_001",
+            "p0025_000",
+            "p0027_002"
+          ],
+          "retrieved_pages_ranked": [
+            26,
+            27,
+            31,
+            25
+          ],
+          "retrieved_scores": [
+            0.533737301826477,
+            0.4687923491001129,
+            0.4458419680595398,
+            0.43918365240097046,
+            0.42488497495651245
+          ],
+          "best_variant_per_chunk": [
+            "What was the Core Revenue Resource Limit set for 2023/24?",
+            "What was the Core Revenue Resource Limit set for 2023/24?",
+            "What was the Core Revenue Resource Limit set for 2023/24?",
+            "What was the Core Revenue Resource Limit set for 2023/24?",
+            "What was the Core Revenue Resource Limit set for 2023/24?"
+          ],
+          "recall_at_k": 1.0,
+          "precision_at_k": 0.25,
+          "mrr_at_k": 1.0
+        },
+        "10": {
+          "query_variants": [
+            "What was the Core Revenue Resource Limit set for 2023/24?"
+          ],
+          "retrieved_chunk_ids": [
+            "p0026_001",
+            "p0027_000",
+            "p0031_001",
+            "p0025_000",
+            "p0027_002",
+            "p0147_002",
+            "p0027_001",
+            "p0145_002",
+            "p0070_000",
+            "p0026_000"
+          ],
+          "retrieved_pages_ranked": [
+            26,
+            27,
+            31,
+            25,
+            147,
+            145,
+            70
+          ],
+          "retrieved_scores": [
+            0.533737301826477,
+            0.4687923491001129,
+            0.4458419680595398,
+            0.43918365240097046,
+            0.42488497495651245,
+            0.41396385431289673,
+            0.4125349521636963,
+            0.4093571901321411,
+            0.38829535245895386,
+            0.38323137164115906
+          ],
+          "best_variant_per_chunk": [
+            "What was the Core Revenue Resource Limit set for 2023/24?",
+            "What was the Core Revenue Resource Limit set for 2023/24?",
+            "What was the Core Revenue Resource Limit set for 2023/24?",
+            "What was the Core Revenue Resource Limit set for 2023/24?",
+            "What was the Core Revenue Resource Limit set for 2023/24?",
+            "What was the Core Revenue Resource Limit set for 2023/24?",
+            "What was the Core Revenue Resource Limit set for 2023/24?",
+            "What was the Core Revenue Resource Limit set for 2023/24?",
+            "What was the Core Revenue Resource Limit set for 2023/24?",
+            "What was the Core Revenue Resource Limit set for 2023/24?"
+          ],
+          "recall_at_k": 1.0,
+          "precision_at_k": 0.14285714285714285,
+          "mrr_at_k": 1.0
+        }
+      }
+    },
+    {
+      "query_id": "Q_2024_GOV_03",
+      "question": "What was the Cash Requirement for 2023/24?",
+      "answer_type": "number",
+      "expected_pages": [
+        26
+      ],
+      "query_variants": [
+        "What was the Cash Requirement for 2023/24?"
+      ],
+      "per_k": {
+        "1": {
+          "query_variants": [
+            "What was the Cash Requirement for 2023/24?"
+          ],
+          "retrieved_chunk_ids": [
+            "p0025_000"
+          ],
+          "retrieved_pages_ranked": [
+            25
+          ],
+          "retrieved_scores": [
+            0.42611920833587646
+          ],
+          "best_variant_per_chunk": [
+            "What was the Cash Requirement for 2023/24?"
+          ],
+          "recall_at_k": 0.0,
+          "precision_at_k": 0.0,
+          "mrr_at_k": 0.0
+        },
+        "3": {
+          "query_variants": [
+            "What was the Cash Requirement for 2023/24?"
+          ],
+          "retrieved_chunk_ids": [
+            "p0025_000",
+            "p0131_000",
+            "p0145_002"
+          ],
+          "retrieved_pages_ranked": [
+            25,
+            131,
+            145
+          ],
+          "retrieved_scores": [
+            0.42611920833587646,
+            0.41334664821624756,
+            0.38758131861686707
+          ],
+          "best_variant_per_chunk": [
+            "What was the Cash Requirement for 2023/24?",
+            "What was the Cash Requirement for 2023/24?",
+            "What was the Cash Requirement for 2023/24?"
+          ],
+          "recall_at_k": 0.0,
+          "precision_at_k": 0.0,
+          "mrr_at_k": 0.0
+        },
+        "5": {
+          "query_variants": [
+            "What was the Cash Requirement for 2023/24?"
+          ],
+          "retrieved_chunk_ids": [
+            "p0025_000",
+            "p0131_000",
+            "p0145_002",
+            "p0131_003",
+            "p0085_001"
+          ],
+          "retrieved_pages_ranked": [
+            25,
+            131,
+            145,
+            85
+          ],
+          "retrieved_scores": [
+            0.42611920833587646,
+            0.41334664821624756,
+            0.38758131861686707,
+            0.38548222184181213,
+            0.3848646283149719
+          ],
+          "best_variant_per_chunk": [
+            "What was the Cash Requirement for 2023/24?",
+            "What was the Cash Requirement for 2023/24?",
+            "What was the Cash Requirement for 2023/24?",
+            "What was the Cash Requirement for 2023/24?",
+            "What was the Cash Requirement for 2023/24?"
+          ],
+          "recall_at_k": 0.0,
+          "precision_at_k": 0.0,
+          "mrr_at_k": 0.0
+        },
+        "10": {
+          "query_variants": [
+            "What was the Cash Requirement for 2023/24?"
+          ],
+          "retrieved_chunk_ids": [
+            "p0025_000",
+            "p0131_000",
+            "p0145_002",
+            "p0131_003",
+            "p0085_001",
+            "p0147_002",
+            "p0147_001",
+            "p0070_000",
+            "p0139_000",
+            "p0153_000"
+          ],
+          "retrieved_pages_ranked": [
+            25,
+            131,
+            145,
+            85,
+            147,
+            70,
+            139,
+            153
+          ],
+          "retrieved_scores": [
+            0.42611920833587646,
+            0.41334664821624756,
+            0.38758131861686707,
+            0.38548222184181213,
+            0.3848646283149719,
+            0.38039419054985046,
+            0.379397988319397,
+            0.3768673241138458,
+            0.371198832988739,
+            0.37077078223228455
+          ],
+          "best_variant_per_chunk": [
+            "What was the Cash Requirement for 2023/24?",
+            "What was the Cash Requirement for 2023/24?",
+            "What was the Cash Requirement for 2023/24?",
+            "What was the Cash Requirement for 2023/24?",
+            "What was the Cash Requirement for 2023/24?",
+            "What was the Cash Requirement for 2023/24?",
+            "What was the Cash Requirement for 2023/24?",
+            "What was the Cash Requirement for 2023/24?",
+            "What was the Cash Requirement for 2023/24?",
+            "What was the Cash Requirement for 2023/24?"
+          ],
+          "recall_at_k": 0.0,
+          "precision_at_k": 0.0,
+          "mrr_at_k": 0.0
+        }
+      }
+    }
+  ]
+}

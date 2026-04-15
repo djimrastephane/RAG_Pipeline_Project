@@ -1,0 +1,44 @@
+doc_id,query_id,question,expected_answer,answer_type,difficulty
+Grampian-2020-2021,Q_2021_FIN_01,What resource budget ceiling was set for NHS Grampian's core ongoing activities in 2020/21?,"£1,278,771 (£000)",number,MOD
+Grampian-2020-2021,Q_2021_FIN_02,How much did NHS Grampian actually spend against its core resource budget in 2020/21?,"£1,278,002 (£000)",number,MOD
+Grampian-2020-2021,Q_2021_FIN_03,By how much did NHS Grampian's actual core expenditure differ from its revenue resource limit in 2020/21?,£769 (£000) surplus,number,MOD
+Grampian-2020-2021,Q_2021_FIN_P1,"Did NHS Grampian overspend or underspend its Core Revenue Resource Limit in 2020/21, and by how much?","Underspend of £769,000",number,MOD
+Grampian-2020-2021,Q_2021_FIN_04,What was the approved cash financing requirement for NHS Grampian in 2020/21?,"£1,298,124 (£000)",number,MOD
+Grampian-2020-2021,Q_2021_FIN_05,What was the Total Revenue Resource Limit for 2020/21?,"£1,311,111 (£000)",number,LEX
+Grampian-2020-2021,Q_2021_FIN_06,What was the Core Capital Resource Limit for 2020/21?,"£42,246 (£000)",number,LEX
+Grampian-2020-2021,Q_2021_FIN_P2,How did NHS Grampian's total cash financing requirement compare to the limit set by the Scottish Government in 2020/21?,"NHS Grampian met the Cash Requirement exactly at £1,298,124 with no variance",text,STR
+Grampian-2020-2021,Q_2021_CAP_P1,What was the combined capital funding allocation for core and non-core purposes in 2020/21?,"£43,316 (£000) total capital resource limit",number,MOD
+Grampian-2020-2021,Q_2021_GOV_03,What was the Non-Core Revenue Resource Limit for 2020/21?,"£32,340 (£000)",number,LEX
+Grampian-2020-2021,Q_2021_GOV_04,What were the total consolidated net assets of NHS Grampian group at 31 March 2021?,"£418,000 (£000)",number,LEX
+Grampian-2021-2022,Q_2022_FIN_01,What ceiling did the Scottish Government place on NHS Grampian's core operational spending for 2021/22?,"£1,358,066 (£000)",number,STR
+Grampian-2021-2022,Q_2022_FIN_02,How much did NHS Grampian actually spend against its core resource budget in 2021/22?,"£1,357,936 (£000)",number,MOD
+Grampian-2021-2022,Q_2022_FIN_03,What was the variance surplus against the Core Revenue Resource Limit in 2021/22?,£130 (£000),number,LEX
+Grampian-2021-2022,Q_2022_FIN_04,What was the Cash Requirement limit for NHS Grampian in 2021/22?,"£1,434,610 (£000)",number,LEX
+Grampian-2021-2022,Q_2022_FIN_05,What was the Total Revenue Resource Limit for 2021/22?,"£1,386,551 (£000)",number,LEX
+Grampian-2021-2022,Q_2022_FIN_06,What was the Core Capital Resource Limit for 2021/22?,"£64,166 (£000)",number,LEX
+Grampian-2021-2022,Q_2022_GOV_02,What was the Non-Core Revenue Resource Limit for 2021/22?,"£28,485 (£000)",number,LEX
+Grampian-2021-2022,Q_2022_STR_03,By what proportion was the population of Aberdeen City expected to grow over the 25-year period from 2012?,28.4% total growth,number,STR
+Grampian-2021-2022,Q_2022_GOV_03,What were the consolidated net assets of the NHS Grampian group at 31 March 2022?,"£461,044 (£000)",number,LEX
+Grampian-2022-2023,Q_2023_FIN_01,What was the resource budget ceiling set for NHS Grampian's core ongoing activities in 2022/23?,"£1,292,491 (£000)",number,MOD
+Grampian-2022-2023,Q_2023_FIN_02,What was the actual Core Revenue Resource outturn in 2022/23?,"£1,291,879 (£000)",number,LEX
+Grampian-2022-2023,Q_2023_FIN_03,What was the surplus variance against the Core Revenue Resource Limit in 2022/23?,£612 (£000),number,LEX
+Grampian-2022-2023,Q_2023_FIN_04,What was the approved cash financing requirement for NHS Grampian in 2022/23?,"£1,546,903 (£000)",number,MOD
+Grampian-2022-2023,Q_2023_FIN_05,What was the Total Revenue Resource Limit for 2022/23?,"£1,338,691 (£000)",number,LEX
+Grampian-2022-2023,Q_2023_FIN_06,What was the Core Capital Resource Limit for 2022/23?,"£104,268 (£000)",number,LEX
+Grampian-2022-2023,Q_2023_FIN_09,What was the total COVID-19 expenditure across NHS Grampian and its IJBs in 2022/23?,"£41.04 million total (£23.06 million NHS Grampian, £17.97 million IJBs)",number,LEX
+Grampian-2022-2023,Q_2023_COV_01,What cost-reduction measures did NHS Grampian deploy to bring branded pharmaceuticals expenditure down in 2022/23?,£9.96 million,number,STR
+Grampian-2022-2023,Q_2023_COV_02,How much was spent on Test and Protect activities in 2022/23?,£3.97 million,number,LEX
+Grampian-2022-2023,Q_2023_GOV_03,What were the consolidated net assets of the NHS Grampian group at 31 March 2023?,"£580,541 (£000)",number,LEX
+Grampian-2022-2023,Q_2023_FIN_11,What was the Non-Core Revenue Resource Limit for 2022/23?,"£46,200 (£000)",number,LEX
+Grampian-2023-2024,Q_2024_FIN_01,What was the Core Revenue Resource Limit for NHS Grampian in 2023/24?,"£1,440,632 thousand",number,LEX
+Grampian-2023-2024,Q_2024_FIN_02,What gap existed between the resource ceiling and actual spend on core NHS Grampian services in 2023/24?,"£1,440,535 thousand",number,STR
+Grampian-2023-2024,Q_2024_FIN_03,What surplus did NHS Grampian report against the Core Revenue Resource Limit in 2023/24?,£97 thousand,number,LEX
+Grampian-2023-2024,Q_2024_FIN_06,What share of the total revenue resource ceiling related to non-core technical accounting items in 2023/24?,"Limit: £1,489,048 thousand; Actual: £1,488,951 thousand",number,STR
+Grampian-2023-2024,Q_2024_FIN_14,What was the net expenditure figure in Note 2A Summary of Core Revenue Resource Outturn for 2023/24?,"£1,583,114 thousand",number,STR
+Grampian-2023-2024,Q_2024_IJB_06,What were the consolidated net assets for all three IJBs as a joint venture in 2023/24?,"Aberdeen City: £4,918k; Aberdeenshire: £0; Moray: £1,012k; total consolidated group net assets: £700,580k",number,STR
+Grampian-2024-2025,Q_2025_FIN_01,What ceiling did the Scottish Government place on NHS Grampian's core operational spending for 2024/25?,"£1,559,285 (£000)",number,STR
+Grampian-2024-2025,Q_2025_FIN_02,How much did NHS Grampian actually spend against its core resource budget in 2024/25?,"£1,559,032 (£000)",number,MOD
+Grampian-2024-2025,Q_2025_FIN_03,By how much did NHS Grampian's actual core expenditure differ from its revenue resource limit in 2024/25?,£253 (£000),number,MOD
+Grampian-2024-2025,Q_2025_FIN_04,What was the Cash Requirement limit for NHS Grampian in 2024/25?,"£1,706,002 (£000)",number,LEX
+Grampian-2024-2025,Q_2025_FIN_P2,What was the Total Revenue Resource Limit for 2024/25?,"£1,599,504 (£000)",number,LEX
+Grampian-2024-2025,Q_2025_FIN_10,What approved capital expenditure envelope was NHS Grampian operating within for infrastructure and equipment investment in 2024/25?,"£86,909 (£000)",number,STR

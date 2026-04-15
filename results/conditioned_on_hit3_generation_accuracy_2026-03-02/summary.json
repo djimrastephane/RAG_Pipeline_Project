@@ -1,0 +1,7 @@
+{
+  "n_total": 50,
+  "n_hit3_success": 39,
+  "n_hit3_miss": 11,
+  "accuracy_given_hit3_success": 0.10256410256410256,
+  "accuracy_given_hit3_miss": 0.0
+}

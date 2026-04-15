@@ -1,0 +1,4 @@
+arm,n_queries,hit3_rate,queries_with_any_chunk_trim,mean_chunk_text_truncations_per_query,context_truncated_rate,mean_context_chars_used,expected_answer_in_trimmed_context_rate
+baseline,250,0.852,12,0.048,0.0,5818.468,0.344
+row_preserving,250,0.852,0,0.0,0.0,5737.072,0.344
+two_stage,250,0.852,0,0.0,0.0,5721.224,0.344

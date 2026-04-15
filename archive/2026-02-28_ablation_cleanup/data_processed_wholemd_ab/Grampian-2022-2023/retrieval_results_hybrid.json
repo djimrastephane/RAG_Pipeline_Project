@@ -1,0 +1,3095 @@
+{
+  "run_info": {
+    "run_utc": "2026-02-21T13:21:51+00:00",
+    "data_dir": "/Users/djimra/MSc Data Science Jan 2025/Thesis documents/RAG_Pipeline_Project/data_processed_wholemd_ab/Grampian-2022-2023",
+    "method": "hybrid_rrf_dense_bm25",
+    "embedding_model": "models/all-MiniLM-L6-v2",
+    "bm25_k1": 1.5,
+    "bm25_b": 0.75,
+    "rrf_k": 60,
+    "dense_weight": 1.0,
+    "bm25_weight": 1.0,
+    "k_list": [
+      1,
+      3,
+      5,
+      10
+    ],
+    "num_queries": 17,
+    "num_chunks_indexed": 707,
+    "pipeline_settings": {
+      "source_metrics_path": "/Users/djimra/MSc Data Science Jan 2025/Thesis documents/RAG_Pipeline_Project/data_processed_wholemd_ab/Grampian-2022-2023/metrics.json",
+      "source_metrics_exists": true,
+      "doc_id": "Grampian-2022-2023",
+      "corpus_id": "Grampian-2022-2023",
+      "report_year": "2022-2023",
+      "preprocess_run_utc": "2026-02-21T13:17:58+00:00",
+      "preprocess_git_commit_short": "1da05af",
+      "embedding_model_preprocess": "sentence-transformers/all-MiniLM-L6-v2",
+      "chunk_size_tokens": 280,
+      "chunk_overlap_tokens": 90,
+      "segment_aware_chunking": true,
+      "whole_doc_markdown_mode": true,
+      "markdown_header_carry_forward": true,
+      "markdown_table_injection": true,
+      "primary_extractor": "pymupdf",
+      "min_chunk_words": 20
+    },
+    "eval_set": {
+      "path": "/Users/djimra/MSc Data Science Jan 2025/Thesis documents/RAG_Pipeline_Project/data_processed_wholemd_ab/Grampian-2022-2023/eval_set.json",
+      "sha1": "d52f05a18d6c2561b37a914502989c204c594d6b",
+      "size_bytes": 12077,
+      "modified_utc": "2026-02-21T13:21:34+00:00",
+      "query_count": 17,
+      "meta_dataset_name": null,
+      "meta_doc_id": null,
+      "meta_version": null
+    }
+  },
+  "results": [
+    {
+      "query_id": "Q_DEF_2023_01",
+      "topic": "DEF",
+      "year": 2023,
+      "sequence": 1,
+      "question": "What deficit did Aberdeenshire IJB report for the year?",
+      "answer_type": "number",
+      "doc_id": "Grampian-2022-2023",
+      "expected_section": "3.1.2.2 Aberdeenshire Integration Joint Board (IJB)",
+      "expected_subsection": "B PERFORMANCE ANALYSIS",
+      "expected_pages": [
+        21
+      ],
+      "evidence_layout": "table",
+      "acceptable_evidence": [],
+      "filter_hints": {
+        "scope_doc_id": true,
+        "scope_year": true,
+        "prefer_evidence_layout": "table",
+        "prefer_table_chunks": true
+      },
+      "page_hit": 0,
+      "failure_type": "FP2_MISSED_TOP_RANK",
+      "failure_stage": "retrieval",
+      "per_k": {
+        "1": {
+          "retrieved_chunk_ids": [
+            "Grampian-2022-2023:p0022_004"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2022-2023"
+          ],
+          "retrieved_pages_ranked": [
+            22
+          ],
+          "page_recall_at_k": 0.0,
+          "page_precision_at_k": 0.0,
+          "page_mrr_at_k": 0.0,
+          "chunk_hit_at_k": 0.0,
+          "chunk_precision_at_k": 0.0,
+          "chunk_mrr_at_k": 0.0,
+          "chunk_hit_flags": [
+            0
+          ],
+          "failure_stage": "missed_top_ranked",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        },
+        "3": {
+          "retrieved_chunk_ids": [
+            "Grampian-2022-2023:p0022_004",
+            "Grampian-2022-2023:p0021_007",
+            "Grampian-2022-2023:p0021_004"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023"
+          ],
+          "retrieved_pages_ranked": [
+            22,
+            21
+          ],
+          "page_recall_at_k": 1.0,
+          "page_precision_at_k": 0.5,
+          "page_mrr_at_k": 0.5,
+          "chunk_hit_at_k": 1.0,
+          "chunk_precision_at_k": 0.6666666666666666,
+          "chunk_mrr_at_k": 0.5,
+          "chunk_hit_flags": [
+            0,
+            1,
+            1
+          ],
+          "failure_stage": "hit",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        },
+        "5": {
+          "retrieved_chunk_ids": [
+            "Grampian-2022-2023:p0022_004",
+            "Grampian-2022-2023:p0021_007",
+            "Grampian-2022-2023:p0021_004",
+            "Grampian-2022-2023:p0022_001",
+            "Grampian-2022-2023:p0022_002"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023"
+          ],
+          "retrieved_pages_ranked": [
+            22,
+            21
+          ],
+          "page_recall_at_k": 1.0,
+          "page_precision_at_k": 0.5,
+          "page_mrr_at_k": 0.5,
+          "chunk_hit_at_k": 1.0,
+          "chunk_precision_at_k": 0.4,
+          "chunk_mrr_at_k": 0.5,
+          "chunk_hit_flags": [
+            0,
+            1,
+            1,
+            0,
+            0
+          ],
+          "failure_stage": "hit",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        },
+        "10": {
+          "retrieved_chunk_ids": [
+            "Grampian-2022-2023:p0022_004",
+            "Grampian-2022-2023:p0021_007",
+            "Grampian-2022-2023:p0021_004",
+            "Grampian-2022-2023:p0022_001",
+            "Grampian-2022-2023:p0022_002",
+            "Grampian-2022-2023:p0148_001",
+            "Grampian-2022-2023:p0026_001",
+            "Grampian-2022-2023:p0070_008",
+            "Grampian-2022-2023:p0071_007",
+            "Grampian-2022-2023:p0035_001"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023"
+          ],
+          "retrieved_pages_ranked": [
+            22,
+            21,
+            148,
+            26,
+            70,
+            71,
+            35
+          ],
+          "page_recall_at_k": 1.0,
+          "page_precision_at_k": 0.14285714285714285,
+          "page_mrr_at_k": 0.5,
+          "chunk_hit_at_k": 1.0,
+          "chunk_precision_at_k": 0.2,
+          "chunk_mrr_at_k": 0.5,
+          "chunk_hit_flags": [
+            0,
+            1,
+            1,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "failure_stage": "hit",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        }
+      }
+    },
+    {
+      "query_id": "Q_REV_2023_01",
+      "topic": "REV",
+      "year": 2023,
+      "sequence": 1,
+      "question": "How much was allocated to purchase equipment for replacement of the NHS Grampian Wireless network across all sites?",
+      "answer_type": "number",
+      "doc_id": "Grampian-2022-2023",
+      "expected_section": "Performance Report, Performance Analysis",
+      "expected_subsection": "B PERFORMANCE ANALYSIS",
+      "expected_pages": [
+        28
+      ],
+      "evidence_layout": "table",
+      "acceptable_evidence": [],
+      "filter_hints": {
+        "scope_doc_id": true,
+        "scope_year": true,
+        "prefer_evidence_layout": "table",
+        "prefer_table_chunks": true
+      },
+      "page_hit": 1,
+      "failure_type": "HIT",
+      "failure_stage": "none",
+      "per_k": {
+        "1": {
+          "retrieved_chunk_ids": [
+            "Grampian-2022-2023:p0028_000"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2022-2023"
+          ],
+          "retrieved_pages_ranked": [
+            28
+          ],
+          "page_recall_at_k": 1.0,
+          "page_precision_at_k": 1.0,
+          "page_mrr_at_k": 1.0,
+          "chunk_hit_at_k": 1.0,
+          "chunk_precision_at_k": 1.0,
+          "chunk_mrr_at_k": 1.0,
+          "chunk_hit_flags": [
+            1
+          ],
+          "failure_stage": "hit",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        },
+        "3": {
+          "retrieved_chunk_ids": [
+            "Grampian-2022-2023:p0028_000",
+            "Grampian-2022-2023:p0132_000",
+            "Grampian-2022-2023:p0029_001"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023"
+          ],
+          "retrieved_pages_ranked": [
+            28,
+            132,
+            29
+          ],
+          "page_recall_at_k": 1.0,
+          "page_precision_at_k": 0.3333333333333333,
+          "page_mrr_at_k": 1.0,
+          "chunk_hit_at_k": 1.0,
+          "chunk_precision_at_k": 0.3333333333333333,
+          "chunk_mrr_at_k": 1.0,
+          "chunk_hit_flags": [
+            1,
+            0,
+            0
+          ],
+          "failure_stage": "hit",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        },
+        "5": {
+          "retrieved_chunk_ids": [
+            "Grampian-2022-2023:p0028_000",
+            "Grampian-2022-2023:p0132_000",
+            "Grampian-2022-2023:p0029_001",
+            "Grampian-2022-2023:p0100_000",
+            "Grampian-2022-2023:p0148_003"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023"
+          ],
+          "retrieved_pages_ranked": [
+            28,
+            132,
+            29,
+            100,
+            148
+          ],
+          "page_recall_at_k": 1.0,
+          "page_precision_at_k": 0.2,
+          "page_mrr_at_k": 1.0,
+          "chunk_hit_at_k": 1.0,
+          "chunk_precision_at_k": 0.2,
+          "chunk_mrr_at_k": 1.0,
+          "chunk_hit_flags": [
+            1,
+            0,
+            0,
+            0,
+            0
+          ],
+          "failure_stage": "hit",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        },
+        "10": {
+          "retrieved_chunk_ids": [
+            "Grampian-2022-2023:p0028_000",
+            "Grampian-2022-2023:p0132_000",
+            "Grampian-2022-2023:p0029_001",
+            "Grampian-2022-2023:p0100_000",
+            "Grampian-2022-2023:p0148_003",
+            "Grampian-2022-2023:p0061_001",
+            "Grampian-2022-2023:p0025_000",
+            "Grampian-2022-2023:p0024_002",
+            "Grampian-2022-2023:p0003_000",
+            "Grampian-2022-2023:p0078_000"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023"
+          ],
+          "retrieved_pages_ranked": [
+            28,
+            132,
+            29,
+            100,
+            148,
+            61,
+            25,
+            24,
+            3,
+            78
+          ],
+          "page_recall_at_k": 1.0,
+          "page_precision_at_k": 0.1,
+          "page_mrr_at_k": 1.0,
+          "chunk_hit_at_k": 1.0,
+          "chunk_precision_at_k": 0.1,
+          "chunk_mrr_at_k": 1.0,
+          "chunk_hit_flags": [
+            1,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "failure_stage": "hit",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        }
+      }
+    },
+    {
+      "query_id": "Q_DEF_2023_02",
+      "topic": "DEF",
+      "year": 2023,
+      "sequence": 2,
+      "question": "What does the independent auditor’s separate Annual Audit Report cover regarding risks of material misstatement?",
+      "answer_type": "text",
+      "doc_id": "Grampian-2022-2023",
+      "expected_section": "Independent auditor’s report, Risks of material misstatement",
+      "expected_subsection": "C PARLIAMENTARY ACCOUNTABILITY REPORT",
+      "expected_pages": [
+        82
+      ],
+      "evidence_layout": "table",
+      "acceptable_evidence": [],
+      "filter_hints": {
+        "scope_doc_id": true,
+        "scope_year": true,
+        "prefer_evidence_layout": "table",
+        "prefer_table_chunks": true
+      },
+      "page_hit": 0,
+      "failure_type": "FP2_MISSED_TOP_RANK",
+      "failure_stage": "retrieval",
+      "per_k": {
+        "1": {
+          "retrieved_chunk_ids": [
+            "Grampian-2022-2023:p0084_000"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2022-2023"
+          ],
+          "retrieved_pages_ranked": [
+            84
+          ],
+          "page_recall_at_k": 0.0,
+          "page_precision_at_k": 0.0,
+          "page_mrr_at_k": 0.0,
+          "chunk_hit_at_k": 0.0,
+          "chunk_precision_at_k": 0.0,
+          "chunk_mrr_at_k": 0.0,
+          "chunk_hit_flags": [
+            0
+          ],
+          "failure_stage": "missed_top_ranked",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        },
+        "3": {
+          "retrieved_chunk_ids": [
+            "Grampian-2022-2023:p0084_000",
+            "Grampian-2022-2023:p0082_000",
+            "Grampian-2022-2023:p0084_001"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023"
+          ],
+          "retrieved_pages_ranked": [
+            84,
+            82
+          ],
+          "page_recall_at_k": 1.0,
+          "page_precision_at_k": 0.5,
+          "page_mrr_at_k": 0.5,
+          "chunk_hit_at_k": 1.0,
+          "chunk_precision_at_k": 0.3333333333333333,
+          "chunk_mrr_at_k": 0.5,
+          "chunk_hit_flags": [
+            0,
+            1,
+            0
+          ],
+          "failure_stage": "hit",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        },
+        "5": {
+          "retrieved_chunk_ids": [
+            "Grampian-2022-2023:p0084_000",
+            "Grampian-2022-2023:p0082_000",
+            "Grampian-2022-2023:p0084_001",
+            "Grampian-2022-2023:p0055_002",
+            "Grampian-2022-2023:p0038_002"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023"
+          ],
+          "retrieved_pages_ranked": [
+            84,
+            82,
+            55,
+            38
+          ],
+          "page_recall_at_k": 1.0,
+          "page_precision_at_k": 0.25,
+          "page_mrr_at_k": 0.5,
+          "chunk_hit_at_k": 1.0,
+          "chunk_precision_at_k": 0.2,
+          "chunk_mrr_at_k": 0.5,
+          "chunk_hit_flags": [
+            0,
+            1,
+            0,
+            0,
+            0
+          ],
+          "failure_stage": "hit",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        },
+        "10": {
+          "retrieved_chunk_ids": [
+            "Grampian-2022-2023:p0084_000",
+            "Grampian-2022-2023:p0082_000",
+            "Grampian-2022-2023:p0084_001",
+            "Grampian-2022-2023:p0055_002",
+            "Grampian-2022-2023:p0038_002",
+            "Grampian-2022-2023:p0083_000",
+            "Grampian-2022-2023:p0082_001",
+            "Grampian-2022-2023:p0055_001",
+            "Grampian-2022-2023:p0081_001",
+            "Grampian-2022-2023:p0083_001"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023"
+          ],
+          "retrieved_pages_ranked": [
+            84,
+            82,
+            55,
+            38,
+            83,
+            81
+          ],
+          "page_recall_at_k": 1.0,
+          "page_precision_at_k": 0.16666666666666666,
+          "page_mrr_at_k": 0.5,
+          "chunk_hit_at_k": 1.0,
+          "chunk_precision_at_k": 0.2,
+          "chunk_mrr_at_k": 0.5,
+          "chunk_hit_flags": [
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            1,
+            0,
+            0,
+            0
+          ],
+          "failure_stage": "hit",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        }
+      }
+    },
+    {
+      "query_id": "Q_ACC_2023_01",
+      "topic": "ACC",
+      "year": 2023,
+      "sequence": 1,
+      "question": "Which report section covers staff wellbeing initiatives such as the We Care programme and occupational health enhancements?",
+      "answer_type": "text",
+      "doc_id": "Grampian-2022-2023",
+      "expected_section": "ACCOUNTABILITY REPORT | B REMUNERATION AND STAFF REPORT",
+      "expected_subsection": "B REMUNERATION AND STAFF REPORT",
+      "expected_pages": [
+        73
+      ],
+      "evidence_layout": "table",
+      "acceptable_evidence": [],
+      "filter_hints": {
+        "scope_doc_id": true,
+        "scope_year": true,
+        "prefer_evidence_layout": "table",
+        "prefer_table_chunks": true
+      },
+      "page_hit": 1,
+      "failure_type": "HIT",
+      "failure_stage": "none",
+      "per_k": {
+        "1": {
+          "retrieved_chunk_ids": [
+            "Grampian-2022-2023:p0073_000"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2022-2023"
+          ],
+          "retrieved_pages_ranked": [
+            73
+          ],
+          "page_recall_at_k": 1.0,
+          "page_precision_at_k": 1.0,
+          "page_mrr_at_k": 1.0,
+          "chunk_hit_at_k": 1.0,
+          "chunk_precision_at_k": 1.0,
+          "chunk_mrr_at_k": 1.0,
+          "chunk_hit_flags": [
+            1
+          ],
+          "failure_stage": "hit",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        },
+        "3": {
+          "retrieved_chunk_ids": [
+            "Grampian-2022-2023:p0073_000",
+            "Grampian-2022-2023:p0076_002",
+            "Grampian-2022-2023:p0006_002"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023"
+          ],
+          "retrieved_pages_ranked": [
+            73,
+            76,
+            6
+          ],
+          "page_recall_at_k": 1.0,
+          "page_precision_at_k": 0.3333333333333333,
+          "page_mrr_at_k": 1.0,
+          "chunk_hit_at_k": 1.0,
+          "chunk_precision_at_k": 0.3333333333333333,
+          "chunk_mrr_at_k": 1.0,
+          "chunk_hit_flags": [
+            1,
+            0,
+            0
+          ],
+          "failure_stage": "hit",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        },
+        "5": {
+          "retrieved_chunk_ids": [
+            "Grampian-2022-2023:p0073_000",
+            "Grampian-2022-2023:p0076_002",
+            "Grampian-2022-2023:p0006_002",
+            "Grampian-2022-2023:p0077_000",
+            "Grampian-2022-2023:p0073_001"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023"
+          ],
+          "retrieved_pages_ranked": [
+            73,
+            76,
+            6,
+            77
+          ],
+          "page_recall_at_k": 1.0,
+          "page_precision_at_k": 0.25,
+          "page_mrr_at_k": 1.0,
+          "chunk_hit_at_k": 1.0,
+          "chunk_precision_at_k": 0.4,
+          "chunk_mrr_at_k": 1.0,
+          "chunk_hit_flags": [
+            1,
+            0,
+            0,
+            0,
+            1
+          ],
+          "failure_stage": "hit",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        },
+        "10": {
+          "retrieved_chunk_ids": [
+            "Grampian-2022-2023:p0073_000",
+            "Grampian-2022-2023:p0076_002",
+            "Grampian-2022-2023:p0006_002",
+            "Grampian-2022-2023:p0077_000",
+            "Grampian-2022-2023:p0073_001",
+            "Grampian-2022-2023:p0004_001",
+            "Grampian-2022-2023:p0077_001",
+            "Grampian-2022-2023:p0072_001",
+            "Grampian-2022-2023:p0062_001",
+            "Grampian-2022-2023:p0072_000"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023"
+          ],
+          "retrieved_pages_ranked": [
+            73,
+            76,
+            6,
+            77,
+            4,
+            72,
+            62
+          ],
+          "page_recall_at_k": 1.0,
+          "page_precision_at_k": 0.14285714285714285,
+          "page_mrr_at_k": 1.0,
+          "chunk_hit_at_k": 1.0,
+          "chunk_precision_at_k": 0.2,
+          "chunk_mrr_at_k": 1.0,
+          "chunk_hit_flags": [
+            1,
+            0,
+            0,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "failure_stage": "hit",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        }
+      }
+    },
+    {
+      "query_id": "Q_ACC_2023_02",
+      "topic": "ACC",
+      "year": 2023,
+      "sequence": 2,
+      "question": "How many staff attended the Brew and Blether sessions held between February and April?",
+      "answer_type": "number",
+      "doc_id": "Grampian-2022-2023",
+      "expected_section": "ACCOUNTABILITY REPORT | B REMUNERATION AND STAFF REPORT",
+      "expected_subsection": "B REMUNERATION AND STAFF REPORT",
+      "expected_pages": [
+        73
+      ],
+      "evidence_layout": "table",
+      "acceptable_evidence": [],
+      "filter_hints": {
+        "scope_doc_id": true,
+        "scope_year": true,
+        "prefer_evidence_layout": "table",
+        "prefer_table_chunks": true
+      },
+      "page_hit": 0,
+      "failure_type": "FP2_MISSED_TOP_RANK",
+      "failure_stage": "retrieval",
+      "per_k": {
+        "1": {
+          "retrieved_chunk_ids": [
+            "Grampian-2022-2023:p0048_000"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2022-2023"
+          ],
+          "retrieved_pages_ranked": [
+            48
+          ],
+          "page_recall_at_k": 0.0,
+          "page_precision_at_k": 0.0,
+          "page_mrr_at_k": 0.0,
+          "chunk_hit_at_k": 0.0,
+          "chunk_precision_at_k": 0.0,
+          "chunk_mrr_at_k": 0.0,
+          "chunk_hit_flags": [
+            0
+          ],
+          "failure_stage": "missed_top_ranked",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        },
+        "3": {
+          "retrieved_chunk_ids": [
+            "Grampian-2022-2023:p0048_000",
+            "Grampian-2022-2023:p0031_000",
+            "Grampian-2022-2023:p0032_001"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023"
+          ],
+          "retrieved_pages_ranked": [
+            48,
+            31,
+            32
+          ],
+          "page_recall_at_k": 0.0,
+          "page_precision_at_k": 0.0,
+          "page_mrr_at_k": 0.0,
+          "chunk_hit_at_k": 0.0,
+          "chunk_precision_at_k": 0.0,
+          "chunk_mrr_at_k": 0.0,
+          "chunk_hit_flags": [
+            0,
+            0,
+            0
+          ],
+          "failure_stage": "missed_top_ranked",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        },
+        "5": {
+          "retrieved_chunk_ids": [
+            "Grampian-2022-2023:p0048_000",
+            "Grampian-2022-2023:p0031_000",
+            "Grampian-2022-2023:p0032_001",
+            "Grampian-2022-2023:p0005_000",
+            "Grampian-2022-2023:p0049_000"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023"
+          ],
+          "retrieved_pages_ranked": [
+            48,
+            31,
+            32,
+            5,
+            49
+          ],
+          "page_recall_at_k": 0.0,
+          "page_precision_at_k": 0.0,
+          "page_mrr_at_k": 0.0,
+          "chunk_hit_at_k": 0.0,
+          "chunk_precision_at_k": 0.0,
+          "chunk_mrr_at_k": 0.0,
+          "chunk_hit_flags": [
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "failure_stage": "missed_top_ranked",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        },
+        "10": {
+          "retrieved_chunk_ids": [
+            "Grampian-2022-2023:p0048_000",
+            "Grampian-2022-2023:p0031_000",
+            "Grampian-2022-2023:p0032_001",
+            "Grampian-2022-2023:p0005_000",
+            "Grampian-2022-2023:p0049_000",
+            "Grampian-2022-2023:p0031_001",
+            "Grampian-2022-2023:p0020_001",
+            "Grampian-2022-2023:p0073_000",
+            "Grampian-2022-2023:p0073_001",
+            "Grampian-2022-2023:p0003_000"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023"
+          ],
+          "retrieved_pages_ranked": [
+            48,
+            31,
+            32,
+            5,
+            49,
+            20,
+            73,
+            3
+          ],
+          "page_recall_at_k": 1.0,
+          "page_precision_at_k": 0.125,
+          "page_mrr_at_k": 0.14285714285714285,
+          "chunk_hit_at_k": 1.0,
+          "chunk_precision_at_k": 0.2,
+          "chunk_mrr_at_k": 0.125,
+          "chunk_hit_flags": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            1,
+            1,
+            0
+          ],
+          "failure_stage": "hit",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        }
+      }
+    },
+    {
+      "query_id": "Q_ACC_2023_03",
+      "topic": "ACC",
+      "year": 2023,
+      "sequence": 3,
+      "question": "What was the national benchmark time to hire that NHS Grampian remained below during the year?",
+      "answer_type": "number",
+      "doc_id": "Grampian-2022-2023",
+      "expected_section": "ACCOUNTABILITY REPORT | B REMUNERATION AND STAFF REPORT",
+      "expected_subsection": "B REMUNERATION AND STAFF REPORT",
+      "expected_pages": [
+        73
+      ],
+      "evidence_layout": "table",
+      "acceptable_evidence": [],
+      "filter_hints": {
+        "scope_doc_id": true,
+        "scope_year": true,
+        "prefer_evidence_layout": "table",
+        "prefer_table_chunks": true
+      },
+      "page_hit": 1,
+      "failure_type": "HIT",
+      "failure_stage": "none",
+      "per_k": {
+        "1": {
+          "retrieved_chunk_ids": [
+            "Grampian-2022-2023:p0073_001"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2022-2023"
+          ],
+          "retrieved_pages_ranked": [
+            73
+          ],
+          "page_recall_at_k": 1.0,
+          "page_precision_at_k": 1.0,
+          "page_mrr_at_k": 1.0,
+          "chunk_hit_at_k": 1.0,
+          "chunk_precision_at_k": 1.0,
+          "chunk_mrr_at_k": 1.0,
+          "chunk_hit_flags": [
+            1
+          ],
+          "failure_stage": "hit",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        },
+        "3": {
+          "retrieved_chunk_ids": [
+            "Grampian-2022-2023:p0073_001",
+            "Grampian-2022-2023:p0077_001",
+            "Grampian-2022-2023:p0029_001"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023"
+          ],
+          "retrieved_pages_ranked": [
+            73,
+            77,
+            29
+          ],
+          "page_recall_at_k": 1.0,
+          "page_precision_at_k": 0.3333333333333333,
+          "page_mrr_at_k": 1.0,
+          "chunk_hit_at_k": 1.0,
+          "chunk_precision_at_k": 0.3333333333333333,
+          "chunk_mrr_at_k": 1.0,
+          "chunk_hit_flags": [
+            1,
+            0,
+            0
+          ],
+          "failure_stage": "hit",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        },
+        "5": {
+          "retrieved_chunk_ids": [
+            "Grampian-2022-2023:p0073_001",
+            "Grampian-2022-2023:p0077_001",
+            "Grampian-2022-2023:p0029_001",
+            "Grampian-2022-2023:p0003_000",
+            "Grampian-2022-2023:p0010_000"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023"
+          ],
+          "retrieved_pages_ranked": [
+            73,
+            77,
+            29,
+            3,
+            10
+          ],
+          "page_recall_at_k": 1.0,
+          "page_precision_at_k": 0.2,
+          "page_mrr_at_k": 1.0,
+          "chunk_hit_at_k": 1.0,
+          "chunk_precision_at_k": 0.2,
+          "chunk_mrr_at_k": 1.0,
+          "chunk_hit_flags": [
+            1,
+            0,
+            0,
+            0,
+            0
+          ],
+          "failure_stage": "hit",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        },
+        "10": {
+          "retrieved_chunk_ids": [
+            "Grampian-2022-2023:p0073_001",
+            "Grampian-2022-2023:p0077_001",
+            "Grampian-2022-2023:p0029_001",
+            "Grampian-2022-2023:p0003_000",
+            "Grampian-2022-2023:p0010_000",
+            "Grampian-2022-2023:p0148_003",
+            "Grampian-2022-2023:p0078_000",
+            "Grampian-2022-2023:p0078_001",
+            "Grampian-2022-2023:p0070_008",
+            "Grampian-2022-2023:p0079_000"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023"
+          ],
+          "retrieved_pages_ranked": [
+            73,
+            77,
+            29,
+            3,
+            10,
+            148,
+            78,
+            70,
+            79
+          ],
+          "page_recall_at_k": 1.0,
+          "page_precision_at_k": 0.1111111111111111,
+          "page_mrr_at_k": 1.0,
+          "chunk_hit_at_k": 1.0,
+          "chunk_precision_at_k": 0.1,
+          "chunk_mrr_at_k": 1.0,
+          "chunk_hit_flags": [
+            1,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "failure_stage": "hit",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        }
+      }
+    },
+    {
+      "query_id": "Q_ACC_2023_04",
+      "topic": "ACC",
+      "year": 2023,
+      "sequence": 4,
+      "question": "How many international nurses were supported for recruitment to NHS Grampian during 2022/23?",
+      "answer_type": "number",
+      "doc_id": "Grampian-2022-2023",
+      "expected_section": "ACCOUNTABILITY REPORT | B REMUNERATION AND STAFF REPORT",
+      "expected_subsection": "B REMUNERATION AND STAFF REPORT",
+      "expected_pages": [
+        73
+      ],
+      "evidence_layout": "table",
+      "acceptable_evidence": [],
+      "filter_hints": {
+        "scope_doc_id": true,
+        "scope_year": true,
+        "prefer_evidence_layout": "table",
+        "prefer_table_chunks": true
+      },
+      "page_hit": 1,
+      "failure_type": "HIT",
+      "failure_stage": "none",
+      "per_k": {
+        "1": {
+          "retrieved_chunk_ids": [
+            "Grampian-2022-2023:p0073_002"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2022-2023"
+          ],
+          "retrieved_pages_ranked": [
+            73
+          ],
+          "page_recall_at_k": 1.0,
+          "page_precision_at_k": 1.0,
+          "page_mrr_at_k": 1.0,
+          "chunk_hit_at_k": 1.0,
+          "chunk_precision_at_k": 1.0,
+          "chunk_mrr_at_k": 1.0,
+          "chunk_hit_flags": [
+            1
+          ],
+          "failure_stage": "hit",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        },
+        "3": {
+          "retrieved_chunk_ids": [
+            "Grampian-2022-2023:p0073_002",
+            "Grampian-2022-2023:p0060_002",
+            "Grampian-2022-2023:p0073_001"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023"
+          ],
+          "retrieved_pages_ranked": [
+            73,
+            60
+          ],
+          "page_recall_at_k": 1.0,
+          "page_precision_at_k": 0.5,
+          "page_mrr_at_k": 1.0,
+          "chunk_hit_at_k": 1.0,
+          "chunk_precision_at_k": 0.6666666666666666,
+          "chunk_mrr_at_k": 1.0,
+          "chunk_hit_flags": [
+            1,
+            0,
+            1
+          ],
+          "failure_stage": "hit",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        },
+        "5": {
+          "retrieved_chunk_ids": [
+            "Grampian-2022-2023:p0073_002",
+            "Grampian-2022-2023:p0060_002",
+            "Grampian-2022-2023:p0073_001",
+            "Grampian-2022-2023:p0078_000",
+            "Grampian-2022-2023:p0077_001"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023"
+          ],
+          "retrieved_pages_ranked": [
+            73,
+            60,
+            78,
+            77
+          ],
+          "page_recall_at_k": 1.0,
+          "page_precision_at_k": 0.25,
+          "page_mrr_at_k": 1.0,
+          "chunk_hit_at_k": 1.0,
+          "chunk_precision_at_k": 0.4,
+          "chunk_mrr_at_k": 1.0,
+          "chunk_hit_flags": [
+            1,
+            0,
+            1,
+            0,
+            0
+          ],
+          "failure_stage": "hit",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        },
+        "10": {
+          "retrieved_chunk_ids": [
+            "Grampian-2022-2023:p0073_002",
+            "Grampian-2022-2023:p0060_002",
+            "Grampian-2022-2023:p0073_001",
+            "Grampian-2022-2023:p0078_000",
+            "Grampian-2022-2023:p0077_001",
+            "Grampian-2022-2023:p0078_001",
+            "Grampian-2022-2023:p0060_001",
+            "Grampian-2022-2023:p0148_003",
+            "Grampian-2022-2023:p0031_000",
+            "Grampian-2022-2023:p0030_001"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023"
+          ],
+          "retrieved_pages_ranked": [
+            73,
+            60,
+            78,
+            77,
+            148,
+            31,
+            30
+          ],
+          "page_recall_at_k": 1.0,
+          "page_precision_at_k": 0.14285714285714285,
+          "page_mrr_at_k": 1.0,
+          "chunk_hit_at_k": 1.0,
+          "chunk_precision_at_k": 0.2,
+          "chunk_mrr_at_k": 1.0,
+          "chunk_hit_flags": [
+            1,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "failure_stage": "hit",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        }
+      }
+    },
+    {
+      "query_id": "Q_ACC_2023_05",
+      "topic": "ACC",
+      "year": 2023,
+      "sequence": 5,
+      "question": "Which section introduces the workforce overview within the Remuneration and Staff Report?",
+      "answer_type": "text",
+      "doc_id": "Grampian-2022-2023",
+      "expected_section": "ACCOUNTABILITY REPORT | B REMUNERATION AND STAFF REPORT",
+      "expected_subsection": "B REMUNERATION AND STAFF REPORT",
+      "expected_pages": [
+        72
+      ],
+      "evidence_layout": "table",
+      "acceptable_evidence": [],
+      "filter_hints": {
+        "scope_doc_id": true,
+        "scope_year": true,
+        "prefer_evidence_layout": "table",
+        "prefer_table_chunks": true
+      },
+      "page_hit": 0,
+      "failure_type": "FP2_MISSED_TOP_RANK",
+      "failure_stage": "retrieval",
+      "per_k": {
+        "1": {
+          "retrieved_chunk_ids": [
+            "Grampian-2022-2023:p0066_001"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2022-2023"
+          ],
+          "retrieved_pages_ranked": [
+            66
+          ],
+          "page_recall_at_k": 0.0,
+          "page_precision_at_k": 0.0,
+          "page_mrr_at_k": 0.0,
+          "chunk_hit_at_k": 0.0,
+          "chunk_precision_at_k": 0.0,
+          "chunk_mrr_at_k": 0.0,
+          "chunk_hit_flags": [
+            0
+          ],
+          "failure_stage": "missed_top_ranked",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        },
+        "3": {
+          "retrieved_chunk_ids": [
+            "Grampian-2022-2023:p0066_001",
+            "Grampian-2022-2023:p0078_000",
+            "Grampian-2022-2023:p0002_000"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023"
+          ],
+          "retrieved_pages_ranked": [
+            66,
+            78,
+            2
+          ],
+          "page_recall_at_k": 0.0,
+          "page_precision_at_k": 0.0,
+          "page_mrr_at_k": 0.0,
+          "chunk_hit_at_k": 0.0,
+          "chunk_precision_at_k": 0.0,
+          "chunk_mrr_at_k": 0.0,
+          "chunk_hit_flags": [
+            0,
+            0,
+            0
+          ],
+          "failure_stage": "missed_top_ranked",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        },
+        "5": {
+          "retrieved_chunk_ids": [
+            "Grampian-2022-2023:p0066_001",
+            "Grampian-2022-2023:p0078_000",
+            "Grampian-2022-2023:p0002_000",
+            "Grampian-2022-2023:p0076_000",
+            "Grampian-2022-2023:p0065_000"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023"
+          ],
+          "retrieved_pages_ranked": [
+            66,
+            78,
+            2,
+            76,
+            65
+          ],
+          "page_recall_at_k": 0.0,
+          "page_precision_at_k": 0.0,
+          "page_mrr_at_k": 0.0,
+          "chunk_hit_at_k": 0.0,
+          "chunk_precision_at_k": 0.0,
+          "chunk_mrr_at_k": 0.0,
+          "chunk_hit_flags": [
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "failure_stage": "missed_top_ranked",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        },
+        "10": {
+          "retrieved_chunk_ids": [
+            "Grampian-2022-2023:p0066_001",
+            "Grampian-2022-2023:p0078_000",
+            "Grampian-2022-2023:p0002_000",
+            "Grampian-2022-2023:p0076_000",
+            "Grampian-2022-2023:p0065_000",
+            "Grampian-2022-2023:p0076_002",
+            "Grampian-2022-2023:p0006_002",
+            "Grampian-2022-2023:p0075_000",
+            "Grampian-2022-2023:p0073_001",
+            "Grampian-2022-2023:p0070_000"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023"
+          ],
+          "retrieved_pages_ranked": [
+            66,
+            78,
+            2,
+            76,
+            65,
+            6,
+            75,
+            73,
+            70
+          ],
+          "page_recall_at_k": 0.0,
+          "page_precision_at_k": 0.0,
+          "page_mrr_at_k": 0.0,
+          "chunk_hit_at_k": 0.0,
+          "chunk_precision_at_k": 0.0,
+          "chunk_mrr_at_k": 0.0,
+          "chunk_hit_flags": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "failure_stage": "missed_top_ranked",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        }
+      }
+    },
+    {
+      "query_id": "Q_ACC_2023_06",
+      "topic": "ACC",
+      "year": 2023,
+      "sequence": 6,
+      "question": "What standard does NHS Grampian work towards to ensure good staff governance?",
+      "answer_type": "text",
+      "doc_id": "Grampian-2022-2023",
+      "expected_section": "ACCOUNTABILITY REPORT | B REMUNERATION AND STAFF REPORT",
+      "expected_subsection": "B REMUNERATION AND STAFF REPORT",
+      "expected_pages": [
+        72
+      ],
+      "evidence_layout": "table",
+      "acceptable_evidence": [],
+      "filter_hints": {
+        "scope_doc_id": true,
+        "scope_year": true,
+        "prefer_evidence_layout": "table",
+        "prefer_table_chunks": true
+      },
+      "page_hit": 1,
+      "failure_type": "HIT",
+      "failure_stage": "none",
+      "per_k": {
+        "1": {
+          "retrieved_chunk_ids": [
+            "Grampian-2022-2023:p0072_000"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2022-2023"
+          ],
+          "retrieved_pages_ranked": [
+            72
+          ],
+          "page_recall_at_k": 1.0,
+          "page_precision_at_k": 1.0,
+          "page_mrr_at_k": 1.0,
+          "chunk_hit_at_k": 1.0,
+          "chunk_precision_at_k": 1.0,
+          "chunk_mrr_at_k": 1.0,
+          "chunk_hit_flags": [
+            1
+          ],
+          "failure_stage": "hit",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        },
+        "3": {
+          "retrieved_chunk_ids": [
+            "Grampian-2022-2023:p0072_000",
+            "Grampian-2022-2023:p0043_002",
+            "Grampian-2022-2023:p0060_000"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023"
+          ],
+          "retrieved_pages_ranked": [
+            72,
+            43,
+            60
+          ],
+          "page_recall_at_k": 1.0,
+          "page_precision_at_k": 0.3333333333333333,
+          "page_mrr_at_k": 1.0,
+          "chunk_hit_at_k": 1.0,
+          "chunk_precision_at_k": 0.3333333333333333,
+          "chunk_mrr_at_k": 1.0,
+          "chunk_hit_flags": [
+            1,
+            0,
+            0
+          ],
+          "failure_stage": "hit",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        },
+        "5": {
+          "retrieved_chunk_ids": [
+            "Grampian-2022-2023:p0072_000",
+            "Grampian-2022-2023:p0043_002",
+            "Grampian-2022-2023:p0060_000",
+            "Grampian-2022-2023:p0043_003",
+            "Grampian-2022-2023:p0072_001"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023"
+          ],
+          "retrieved_pages_ranked": [
+            72,
+            43,
+            60
+          ],
+          "page_recall_at_k": 1.0,
+          "page_precision_at_k": 0.3333333333333333,
+          "page_mrr_at_k": 1.0,
+          "chunk_hit_at_k": 1.0,
+          "chunk_precision_at_k": 0.4,
+          "chunk_mrr_at_k": 1.0,
+          "chunk_hit_flags": [
+            1,
+            0,
+            0,
+            0,
+            1
+          ],
+          "failure_stage": "hit",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        },
+        "10": {
+          "retrieved_chunk_ids": [
+            "Grampian-2022-2023:p0072_000",
+            "Grampian-2022-2023:p0043_002",
+            "Grampian-2022-2023:p0060_000",
+            "Grampian-2022-2023:p0043_003",
+            "Grampian-2022-2023:p0072_001",
+            "Grampian-2022-2023:p0060_001",
+            "Grampian-2022-2023:p0074_000",
+            "Grampian-2022-2023:p0050_000",
+            "Grampian-2022-2023:p0060_002",
+            "Grampian-2022-2023:p0058_000"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023"
+          ],
+          "retrieved_pages_ranked": [
+            72,
+            43,
+            60,
+            74,
+            50,
+            58
+          ],
+          "page_recall_at_k": 1.0,
+          "page_precision_at_k": 0.16666666666666666,
+          "page_mrr_at_k": 1.0,
+          "chunk_hit_at_k": 1.0,
+          "chunk_precision_at_k": 0.2,
+          "chunk_mrr_at_k": 1.0,
+          "chunk_hit_flags": [
+            1,
+            0,
+            0,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "failure_stage": "hit",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        }
+      }
+    },
+    {
+      "query_id": "Q_ACC_2023_07",
+      "topic": "ACC",
+      "year": 2023,
+      "sequence": 7,
+      "question": "Which three workforce priorities are referenced as agreed priorities for 2022/23?",
+      "answer_type": "list",
+      "doc_id": "Grampian-2022-2023",
+      "expected_section": "ACCOUNTABILITY REPORT | B REMUNERATION AND STAFF REPORT",
+      "expected_subsection": "B REMUNERATION AND STAFF REPORT",
+      "expected_pages": [
+        72
+      ],
+      "evidence_layout": "table",
+      "acceptable_evidence": [],
+      "filter_hints": {
+        "scope_doc_id": true,
+        "scope_year": true,
+        "prefer_evidence_layout": "table",
+        "prefer_table_chunks": true
+      },
+      "page_hit": 0,
+      "failure_type": "FP2_MISSED_TOP_RANK",
+      "failure_stage": "retrieval",
+      "per_k": {
+        "1": {
+          "retrieved_chunk_ids": [
+            "Grampian-2022-2023:p0006_001"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2022-2023"
+          ],
+          "retrieved_pages_ranked": [
+            6
+          ],
+          "page_recall_at_k": 0.0,
+          "page_precision_at_k": 0.0,
+          "page_mrr_at_k": 0.0,
+          "chunk_hit_at_k": 0.0,
+          "chunk_precision_at_k": 0.0,
+          "chunk_mrr_at_k": 0.0,
+          "chunk_hit_flags": [
+            0
+          ],
+          "failure_stage": "missed_top_ranked",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        },
+        "3": {
+          "retrieved_chunk_ids": [
+            "Grampian-2022-2023:p0006_001",
+            "Grampian-2022-2023:p0051_000",
+            "Grampian-2022-2023:p0072_001"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023"
+          ],
+          "retrieved_pages_ranked": [
+            6,
+            51,
+            72
+          ],
+          "page_recall_at_k": 1.0,
+          "page_precision_at_k": 0.3333333333333333,
+          "page_mrr_at_k": 0.3333333333333333,
+          "chunk_hit_at_k": 1.0,
+          "chunk_precision_at_k": 0.3333333333333333,
+          "chunk_mrr_at_k": 0.3333333333333333,
+          "chunk_hit_flags": [
+            0,
+            0,
+            1
+          ],
+          "failure_stage": "hit",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        },
+        "5": {
+          "retrieved_chunk_ids": [
+            "Grampian-2022-2023:p0006_001",
+            "Grampian-2022-2023:p0051_000",
+            "Grampian-2022-2023:p0072_001",
+            "Grampian-2022-2023:p0006_000",
+            "Grampian-2022-2023:p0008_000"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023"
+          ],
+          "retrieved_pages_ranked": [
+            6,
+            51,
+            72,
+            8
+          ],
+          "page_recall_at_k": 1.0,
+          "page_precision_at_k": 0.25,
+          "page_mrr_at_k": 0.3333333333333333,
+          "chunk_hit_at_k": 1.0,
+          "chunk_precision_at_k": 0.2,
+          "chunk_mrr_at_k": 0.3333333333333333,
+          "chunk_hit_flags": [
+            0,
+            0,
+            1,
+            0,
+            0
+          ],
+          "failure_stage": "hit",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        },
+        "10": {
+          "retrieved_chunk_ids": [
+            "Grampian-2022-2023:p0006_001",
+            "Grampian-2022-2023:p0051_000",
+            "Grampian-2022-2023:p0072_001",
+            "Grampian-2022-2023:p0006_000",
+            "Grampian-2022-2023:p0008_000",
+            "Grampian-2022-2023:p0073_001",
+            "Grampian-2022-2023:p0073_002",
+            "Grampian-2022-2023:p0006_002",
+            "Grampian-2022-2023:p0078_000",
+            "Grampian-2022-2023:p0074_000"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023"
+          ],
+          "retrieved_pages_ranked": [
+            6,
+            51,
+            72,
+            8,
+            73,
+            78,
+            74
+          ],
+          "page_recall_at_k": 1.0,
+          "page_precision_at_k": 0.14285714285714285,
+          "page_mrr_at_k": 0.3333333333333333,
+          "chunk_hit_at_k": 1.0,
+          "chunk_precision_at_k": 0.1,
+          "chunk_mrr_at_k": 0.3333333333333333,
+          "chunk_hit_flags": [
+            0,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "failure_stage": "hit",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        }
+      }
+    },
+    {
+      "query_id": "Q_ACC_2023_08",
+      "topic": "ACC",
+      "year": 2023,
+      "sequence": 8,
+      "question": "What staffing approach was used to support service demand and workforce gaps during 2022/23?",
+      "answer_type": "text",
+      "doc_id": "Grampian-2022-2023",
+      "expected_section": "ACCOUNTABILITY REPORT | B REMUNERATION AND STAFF REPORT",
+      "expected_subsection": "B REMUNERATION AND STAFF REPORT",
+      "expected_pages": [
+        72
+      ],
+      "evidence_layout": "table",
+      "acceptable_evidence": [],
+      "filter_hints": {
+        "scope_doc_id": true,
+        "scope_year": true,
+        "prefer_evidence_layout": "table",
+        "prefer_table_chunks": true
+      },
+      "page_hit": 1,
+      "failure_type": "HIT",
+      "failure_stage": "none",
+      "per_k": {
+        "1": {
+          "retrieved_chunk_ids": [
+            "Grampian-2022-2023:p0072_001"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2022-2023"
+          ],
+          "retrieved_pages_ranked": [
+            72
+          ],
+          "page_recall_at_k": 1.0,
+          "page_precision_at_k": 1.0,
+          "page_mrr_at_k": 1.0,
+          "chunk_hit_at_k": 1.0,
+          "chunk_precision_at_k": 1.0,
+          "chunk_mrr_at_k": 1.0,
+          "chunk_hit_flags": [
+            1
+          ],
+          "failure_stage": "hit",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        },
+        "3": {
+          "retrieved_chunk_ids": [
+            "Grampian-2022-2023:p0072_001",
+            "Grampian-2022-2023:p0073_001",
+            "Grampian-2022-2023:p0060_000"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023"
+          ],
+          "retrieved_pages_ranked": [
+            72,
+            73,
+            60
+          ],
+          "page_recall_at_k": 1.0,
+          "page_precision_at_k": 0.3333333333333333,
+          "page_mrr_at_k": 1.0,
+          "chunk_hit_at_k": 1.0,
+          "chunk_precision_at_k": 0.3333333333333333,
+          "chunk_mrr_at_k": 1.0,
+          "chunk_hit_flags": [
+            1,
+            0,
+            0
+          ],
+          "failure_stage": "hit",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        },
+        "5": {
+          "retrieved_chunk_ids": [
+            "Grampian-2022-2023:p0072_001",
+            "Grampian-2022-2023:p0073_001",
+            "Grampian-2022-2023:p0060_000",
+            "Grampian-2022-2023:p0072_000",
+            "Grampian-2022-2023:p0074_000"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023"
+          ],
+          "retrieved_pages_ranked": [
+            72,
+            73,
+            60,
+            74
+          ],
+          "page_recall_at_k": 1.0,
+          "page_precision_at_k": 0.25,
+          "page_mrr_at_k": 1.0,
+          "chunk_hit_at_k": 1.0,
+          "chunk_precision_at_k": 0.4,
+          "chunk_mrr_at_k": 1.0,
+          "chunk_hit_flags": [
+            1,
+            0,
+            0,
+            1,
+            0
+          ],
+          "failure_stage": "hit",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        },
+        "10": {
+          "retrieved_chunk_ids": [
+            "Grampian-2022-2023:p0072_001",
+            "Grampian-2022-2023:p0073_001",
+            "Grampian-2022-2023:p0060_000",
+            "Grampian-2022-2023:p0072_000",
+            "Grampian-2022-2023:p0074_000",
+            "Grampian-2022-2023:p0052_000",
+            "Grampian-2022-2023:p0073_002",
+            "Grampian-2022-2023:p0078_001",
+            "Grampian-2022-2023:p0073_000",
+            "Grampian-2022-2023:p0020_001"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023"
+          ],
+          "retrieved_pages_ranked": [
+            72,
+            73,
+            60,
+            74,
+            52,
+            78,
+            20
+          ],
+          "page_recall_at_k": 1.0,
+          "page_precision_at_k": 0.14285714285714285,
+          "page_mrr_at_k": 1.0,
+          "chunk_hit_at_k": 1.0,
+          "chunk_precision_at_k": 0.2,
+          "chunk_mrr_at_k": 1.0,
+          "chunk_hit_flags": [
+            1,
+            0,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "failure_stage": "hit",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        }
+      }
+    },
+    {
+      "query_id": "Q_TABLE_2023_01",
+      "topic": "TABLE",
+      "year": 2023,
+      "sequence": 1,
+      "question": "What were the Board members' remuneration details in 2022-23?",
+      "answer_type": "table",
+      "doc_id": "Grampian-2022-2023",
+      "expected_section": "FINANCIAL STATEMENTS",
+      "expected_subsection": "",
+      "expected_pages": [
+        116
+      ],
+      "evidence_layout": "table",
+      "acceptable_evidence": [],
+      "filter_hints": {
+        "scope_doc_id": true,
+        "scope_year": true,
+        "prefer_evidence_layout": "table",
+        "prefer_table_chunks": true
+      },
+      "page_hit": 0,
+      "failure_type": "FP2_MISSED_TOP_RANK",
+      "failure_stage": "retrieval",
+      "per_k": {
+        "1": {
+          "retrieved_chunk_ids": [
+            "Grampian-2022-2023:p0065_000"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2022-2023"
+          ],
+          "retrieved_pages_ranked": [
+            65
+          ],
+          "page_recall_at_k": 0.0,
+          "page_precision_at_k": 0.0,
+          "page_mrr_at_k": 0.0,
+          "chunk_hit_at_k": 0.0,
+          "chunk_precision_at_k": 0.0,
+          "chunk_mrr_at_k": 0.0,
+          "chunk_hit_flags": [
+            0
+          ],
+          "failure_stage": "missed_top_ranked",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        },
+        "3": {
+          "retrieved_chunk_ids": [
+            "Grampian-2022-2023:p0065_000",
+            "Grampian-2022-2023:p0075_000",
+            "Grampian-2022-2023:p0070_008"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023"
+          ],
+          "retrieved_pages_ranked": [
+            65,
+            75,
+            70
+          ],
+          "page_recall_at_k": 0.0,
+          "page_precision_at_k": 0.0,
+          "page_mrr_at_k": 0.0,
+          "chunk_hit_at_k": 0.0,
+          "chunk_precision_at_k": 0.0,
+          "chunk_mrr_at_k": 0.0,
+          "chunk_hit_flags": [
+            0,
+            0,
+            0
+          ],
+          "failure_stage": "missed_top_ranked",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        },
+        "5": {
+          "retrieved_chunk_ids": [
+            "Grampian-2022-2023:p0065_000",
+            "Grampian-2022-2023:p0075_000",
+            "Grampian-2022-2023:p0070_008",
+            "Grampian-2022-2023:p0070_009",
+            "Grampian-2022-2023:p0068_008"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023"
+          ],
+          "retrieved_pages_ranked": [
+            65,
+            75,
+            70,
+            68
+          ],
+          "page_recall_at_k": 0.0,
+          "page_precision_at_k": 0.0,
+          "page_mrr_at_k": 0.0,
+          "chunk_hit_at_k": 0.0,
+          "chunk_precision_at_k": 0.0,
+          "chunk_mrr_at_k": 0.0,
+          "chunk_hit_flags": [
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "failure_stage": "missed_top_ranked",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        },
+        "10": {
+          "retrieved_chunk_ids": [
+            "Grampian-2022-2023:p0065_000",
+            "Grampian-2022-2023:p0075_000",
+            "Grampian-2022-2023:p0070_008",
+            "Grampian-2022-2023:p0070_009",
+            "Grampian-2022-2023:p0068_008",
+            "Grampian-2022-2023:p0075_002",
+            "Grampian-2022-2023:p0068_000",
+            "Grampian-2022-2023:p0048_000",
+            "Grampian-2022-2023:p0070_000",
+            "Grampian-2022-2023:p0070_010"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023"
+          ],
+          "retrieved_pages_ranked": [
+            65,
+            75,
+            70,
+            68,
+            48
+          ],
+          "page_recall_at_k": 0.0,
+          "page_precision_at_k": 0.0,
+          "page_mrr_at_k": 0.0,
+          "chunk_hit_at_k": 0.0,
+          "chunk_precision_at_k": 0.0,
+          "chunk_mrr_at_k": 0.0,
+          "chunk_hit_flags": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "failure_stage": "missed_top_ranked",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        }
+      }
+    },
+    {
+      "query_id": "Q_TABLE_2023_02",
+      "topic": "TABLE",
+      "year": 2023,
+      "sequence": 2,
+      "question": "What is the total income reported in the income statement?",
+      "answer_type": "number",
+      "doc_id": "Grampian-2022-2023",
+      "expected_section": "FINANCIAL STATEMENTS",
+      "expected_subsection": "",
+      "expected_pages": [
+        86
+      ],
+      "evidence_layout": "table",
+      "acceptable_evidence": [],
+      "filter_hints": {
+        "scope_doc_id": true,
+        "scope_year": true,
+        "prefer_evidence_layout": "table",
+        "prefer_table_chunks": true
+      },
+      "page_hit": 1,
+      "failure_type": "HIT",
+      "failure_stage": "none",
+      "per_k": {
+        "1": {
+          "retrieved_chunk_ids": [
+            "Grampian-2022-2023:p0086_001"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2022-2023"
+          ],
+          "retrieved_pages_ranked": [
+            86
+          ],
+          "page_recall_at_k": 1.0,
+          "page_precision_at_k": 1.0,
+          "page_mrr_at_k": 1.0,
+          "chunk_hit_at_k": 1.0,
+          "chunk_precision_at_k": 1.0,
+          "chunk_mrr_at_k": 1.0,
+          "chunk_hit_flags": [
+            1
+          ],
+          "failure_stage": "hit",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        },
+        "3": {
+          "retrieved_chunk_ids": [
+            "Grampian-2022-2023:p0086_001",
+            "Grampian-2022-2023:p0112_002",
+            "Grampian-2022-2023:table_ocr_p0090"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023"
+          ],
+          "retrieved_pages_ranked": [
+            86,
+            112,
+            90
+          ],
+          "page_recall_at_k": 1.0,
+          "page_precision_at_k": 0.3333333333333333,
+          "page_mrr_at_k": 1.0,
+          "chunk_hit_at_k": 1.0,
+          "chunk_precision_at_k": 0.3333333333333333,
+          "chunk_mrr_at_k": 1.0,
+          "chunk_hit_flags": [
+            1,
+            0,
+            0
+          ],
+          "failure_stage": "hit",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        },
+        "5": {
+          "retrieved_chunk_ids": [
+            "Grampian-2022-2023:p0086_001",
+            "Grampian-2022-2023:p0112_002",
+            "Grampian-2022-2023:table_ocr_p0090",
+            "Grampian-2022-2023:p0086_002",
+            "Grampian-2022-2023:table_ocr_p0149"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023"
+          ],
+          "retrieved_pages_ranked": [
+            86,
+            112,
+            90,
+            149
+          ],
+          "page_recall_at_k": 1.0,
+          "page_precision_at_k": 0.25,
+          "page_mrr_at_k": 1.0,
+          "chunk_hit_at_k": 1.0,
+          "chunk_precision_at_k": 0.4,
+          "chunk_mrr_at_k": 1.0,
+          "chunk_hit_flags": [
+            1,
+            0,
+            0,
+            1,
+            0
+          ],
+          "failure_stage": "hit",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        },
+        "10": {
+          "retrieved_chunk_ids": [
+            "Grampian-2022-2023:p0086_001",
+            "Grampian-2022-2023:p0112_002",
+            "Grampian-2022-2023:table_ocr_p0090",
+            "Grampian-2022-2023:p0086_002",
+            "Grampian-2022-2023:table_ocr_p0149",
+            "Grampian-2022-2023:p0149_000",
+            "Grampian-2022-2023:p0089_000",
+            "Grampian-2022-2023:table_ocr_p0144",
+            "Grampian-2022-2023:table_ocr_p0125",
+            "Grampian-2022-2023:p0095_001"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023"
+          ],
+          "retrieved_pages_ranked": [
+            86,
+            112,
+            90,
+            149,
+            89,
+            144,
+            125,
+            95
+          ],
+          "page_recall_at_k": 1.0,
+          "page_precision_at_k": 0.125,
+          "page_mrr_at_k": 1.0,
+          "chunk_hit_at_k": 1.0,
+          "chunk_precision_at_k": 0.2,
+          "chunk_mrr_at_k": 1.0,
+          "chunk_hit_flags": [
+            1,
+            0,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "failure_stage": "hit",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        }
+      }
+    },
+    {
+      "query_id": "Q_TABLE_2023_03",
+      "topic": "TABLE",
+      "year": 2023,
+      "sequence": 3,
+      "question": "What is the total assets figure in the balance sheet?",
+      "answer_type": "number",
+      "doc_id": "Grampian-2022-2023",
+      "expected_section": "FINANCIAL STATEMENTS",
+      "expected_subsection": "",
+      "expected_pages": [
+        87
+      ],
+      "evidence_layout": "table",
+      "acceptable_evidence": [],
+      "filter_hints": {
+        "scope_doc_id": true,
+        "scope_year": true,
+        "prefer_evidence_layout": "table",
+        "prefer_table_chunks": true
+      },
+      "page_hit": 0,
+      "failure_type": "FP2_MISSED_TOP_RANK",
+      "failure_stage": "retrieval",
+      "per_k": {
+        "1": {
+          "retrieved_chunk_ids": [
+            "Grampian-2022-2023:table_ocr_p0114"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2022-2023"
+          ],
+          "retrieved_pages_ranked": [
+            114
+          ],
+          "page_recall_at_k": 0.0,
+          "page_precision_at_k": 0.0,
+          "page_mrr_at_k": 0.0,
+          "chunk_hit_at_k": 0.0,
+          "chunk_precision_at_k": 0.0,
+          "chunk_mrr_at_k": 0.0,
+          "chunk_hit_flags": [
+            0
+          ],
+          "failure_stage": "missed_top_ranked",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        },
+        "3": {
+          "retrieved_chunk_ids": [
+            "Grampian-2022-2023:table_ocr_p0114",
+            "Grampian-2022-2023:p0137_001",
+            "Grampian-2022-2023:table_ocr_p0150"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023"
+          ],
+          "retrieved_pages_ranked": [
+            114,
+            137,
+            150
+          ],
+          "page_recall_at_k": 0.0,
+          "page_precision_at_k": 0.0,
+          "page_mrr_at_k": 0.0,
+          "chunk_hit_at_k": 0.0,
+          "chunk_precision_at_k": 0.0,
+          "chunk_mrr_at_k": 0.0,
+          "chunk_hit_flags": [
+            0,
+            0,
+            0
+          ],
+          "failure_stage": "missed_top_ranked",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        },
+        "5": {
+          "retrieved_chunk_ids": [
+            "Grampian-2022-2023:table_ocr_p0114",
+            "Grampian-2022-2023:p0137_001",
+            "Grampian-2022-2023:table_ocr_p0150",
+            "Grampian-2022-2023:p0124_003",
+            "Grampian-2022-2023:p0109_000"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023"
+          ],
+          "retrieved_pages_ranked": [
+            114,
+            137,
+            150,
+            124,
+            109
+          ],
+          "page_recall_at_k": 0.0,
+          "page_precision_at_k": 0.0,
+          "page_mrr_at_k": 0.0,
+          "chunk_hit_at_k": 0.0,
+          "chunk_precision_at_k": 0.0,
+          "chunk_mrr_at_k": 0.0,
+          "chunk_hit_flags": [
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "failure_stage": "missed_top_ranked",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        },
+        "10": {
+          "retrieved_chunk_ids": [
+            "Grampian-2022-2023:table_ocr_p0114",
+            "Grampian-2022-2023:p0137_001",
+            "Grampian-2022-2023:table_ocr_p0150",
+            "Grampian-2022-2023:p0124_003",
+            "Grampian-2022-2023:p0109_000",
+            "Grampian-2022-2023:table_ocr_p0113",
+            "Grampian-2022-2023:table_ocr_p0090",
+            "Grampian-2022-2023:table_ocr_p0119",
+            "Grampian-2022-2023:table_ocr_p0120",
+            "Grampian-2022-2023:table_ocr_p0144"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023"
+          ],
+          "retrieved_pages_ranked": [
+            114,
+            137,
+            150,
+            124,
+            109,
+            113,
+            90,
+            119,
+            120,
+            144
+          ],
+          "page_recall_at_k": 0.0,
+          "page_precision_at_k": 0.0,
+          "page_mrr_at_k": 0.0,
+          "chunk_hit_at_k": 0.0,
+          "chunk_precision_at_k": 0.0,
+          "chunk_mrr_at_k": 0.0,
+          "chunk_hit_flags": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "failure_stage": "missed_top_ranked",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        }
+      }
+    },
+    {
+      "query_id": "Q_TABLE_2023_04",
+      "topic": "TABLE",
+      "year": 2023,
+      "sequence": 4,
+      "question": "What is the net assets figure reported in the balance sheet?",
+      "answer_type": "number",
+      "doc_id": "Grampian-2022-2023",
+      "expected_section": "FINANCIAL STATEMENTS",
+      "expected_subsection": "",
+      "expected_pages": [
+        87
+      ],
+      "evidence_layout": "table",
+      "acceptable_evidence": [],
+      "filter_hints": {
+        "scope_doc_id": true,
+        "scope_year": true,
+        "prefer_evidence_layout": "table",
+        "prefer_table_chunks": true
+      },
+      "page_hit": 0,
+      "failure_type": "FP2_MISSED_TOP_RANK",
+      "failure_stage": "retrieval",
+      "per_k": {
+        "1": {
+          "retrieved_chunk_ids": [
+            "Grampian-2022-2023:table_ocr_p0114"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2022-2023"
+          ],
+          "retrieved_pages_ranked": [
+            114
+          ],
+          "page_recall_at_k": 0.0,
+          "page_precision_at_k": 0.0,
+          "page_mrr_at_k": 0.0,
+          "chunk_hit_at_k": 0.0,
+          "chunk_precision_at_k": 0.0,
+          "chunk_mrr_at_k": 0.0,
+          "chunk_hit_flags": [
+            0
+          ],
+          "failure_stage": "missed_top_ranked",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        },
+        "3": {
+          "retrieved_chunk_ids": [
+            "Grampian-2022-2023:table_ocr_p0114",
+            "Grampian-2022-2023:p0095_002",
+            "Grampian-2022-2023:table_ocr_p0113"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023"
+          ],
+          "retrieved_pages_ranked": [
+            114,
+            95,
+            113
+          ],
+          "page_recall_at_k": 0.0,
+          "page_precision_at_k": 0.0,
+          "page_mrr_at_k": 0.0,
+          "chunk_hit_at_k": 0.0,
+          "chunk_precision_at_k": 0.0,
+          "chunk_mrr_at_k": 0.0,
+          "chunk_hit_flags": [
+            0,
+            0,
+            0
+          ],
+          "failure_stage": "missed_top_ranked",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        },
+        "5": {
+          "retrieved_chunk_ids": [
+            "Grampian-2022-2023:table_ocr_p0114",
+            "Grampian-2022-2023:p0095_002",
+            "Grampian-2022-2023:table_ocr_p0113",
+            "Grampian-2022-2023:p0113_002",
+            "Grampian-2022-2023:p0114_002"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023"
+          ],
+          "retrieved_pages_ranked": [
+            114,
+            95,
+            113
+          ],
+          "page_recall_at_k": 0.0,
+          "page_precision_at_k": 0.0,
+          "page_mrr_at_k": 0.0,
+          "chunk_hit_at_k": 0.0,
+          "chunk_precision_at_k": 0.0,
+          "chunk_mrr_at_k": 0.0,
+          "chunk_hit_flags": [
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "failure_stage": "missed_top_ranked",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        },
+        "10": {
+          "retrieved_chunk_ids": [
+            "Grampian-2022-2023:table_ocr_p0114",
+            "Grampian-2022-2023:p0095_002",
+            "Grampian-2022-2023:table_ocr_p0113",
+            "Grampian-2022-2023:p0113_002",
+            "Grampian-2022-2023:p0114_002",
+            "Grampian-2022-2023:p0107_001",
+            "Grampian-2022-2023:table_ocr_p0120",
+            "Grampian-2022-2023:table_ocr_p0090",
+            "Grampian-2022-2023:table_ocr_p0119",
+            "Grampian-2022-2023:p0137_001"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023"
+          ],
+          "retrieved_pages_ranked": [
+            114,
+            95,
+            113,
+            107,
+            120,
+            90,
+            119,
+            137
+          ],
+          "page_recall_at_k": 0.0,
+          "page_precision_at_k": 0.0,
+          "page_mrr_at_k": 0.0,
+          "chunk_hit_at_k": 0.0,
+          "chunk_precision_at_k": 0.0,
+          "chunk_mrr_at_k": 0.0,
+          "chunk_hit_flags": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "failure_stage": "missed_top_ranked",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        }
+      }
+    },
+    {
+      "query_id": "Q_TABLE_2023_05",
+      "topic": "TABLE",
+      "year": 2023,
+      "sequence": 5,
+      "question": "What is the net cash from operating activities in the cash flow statement?",
+      "answer_type": "number",
+      "doc_id": "Grampian-2022-2023",
+      "expected_section": "FINANCIAL STATEMENTS",
+      "expected_subsection": "",
+      "expected_pages": [
+        112
+      ],
+      "evidence_layout": "table",
+      "acceptable_evidence": [],
+      "filter_hints": {
+        "scope_doc_id": true,
+        "scope_year": true,
+        "prefer_evidence_layout": "table",
+        "prefer_table_chunks": true
+      },
+      "page_hit": 0,
+      "failure_type": "FP2_MISSED_TOP_RANK",
+      "failure_stage": "retrieval",
+      "per_k": {
+        "1": {
+          "retrieved_chunk_ids": [
+            "Grampian-2022-2023:table_ocr_p0151"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2022-2023"
+          ],
+          "retrieved_pages_ranked": [
+            151
+          ],
+          "page_recall_at_k": 0.0,
+          "page_precision_at_k": 0.0,
+          "page_mrr_at_k": 0.0,
+          "chunk_hit_at_k": 0.0,
+          "chunk_precision_at_k": 0.0,
+          "chunk_mrr_at_k": 0.0,
+          "chunk_hit_flags": [
+            0
+          ],
+          "failure_stage": "missed_top_ranked",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        },
+        "3": {
+          "retrieved_chunk_ids": [
+            "Grampian-2022-2023:table_ocr_p0151",
+            "Grampian-2022-2023:p0151_000",
+            "Grampian-2022-2023:p0112_002"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023"
+          ],
+          "retrieved_pages_ranked": [
+            151,
+            112
+          ],
+          "page_recall_at_k": 1.0,
+          "page_precision_at_k": 0.5,
+          "page_mrr_at_k": 0.5,
+          "chunk_hit_at_k": 1.0,
+          "chunk_precision_at_k": 0.3333333333333333,
+          "chunk_mrr_at_k": 0.3333333333333333,
+          "chunk_hit_flags": [
+            0,
+            0,
+            1
+          ],
+          "failure_stage": "hit",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        },
+        "5": {
+          "retrieved_chunk_ids": [
+            "Grampian-2022-2023:table_ocr_p0151",
+            "Grampian-2022-2023:p0151_000",
+            "Grampian-2022-2023:p0112_002",
+            "Grampian-2022-2023:p0089_000",
+            "Grampian-2022-2023:p0103_001"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023"
+          ],
+          "retrieved_pages_ranked": [
+            151,
+            112,
+            89,
+            103
+          ],
+          "page_recall_at_k": 1.0,
+          "page_precision_at_k": 0.25,
+          "page_mrr_at_k": 0.5,
+          "chunk_hit_at_k": 1.0,
+          "chunk_precision_at_k": 0.2,
+          "chunk_mrr_at_k": 0.3333333333333333,
+          "chunk_hit_flags": [
+            0,
+            0,
+            1,
+            0,
+            0
+          ],
+          "failure_stage": "hit",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        },
+        "10": {
+          "retrieved_chunk_ids": [
+            "Grampian-2022-2023:table_ocr_p0151",
+            "Grampian-2022-2023:p0151_000",
+            "Grampian-2022-2023:p0112_002",
+            "Grampian-2022-2023:p0089_000",
+            "Grampian-2022-2023:p0103_001",
+            "Grampian-2022-2023:p0103_000",
+            "Grampian-2022-2023:p0089_001",
+            "Grampian-2022-2023:p0151_001",
+            "Grampian-2022-2023:p0089_002",
+            "Grampian-2022-2023:p0089_003"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023"
+          ],
+          "retrieved_pages_ranked": [
+            151,
+            112,
+            89,
+            103
+          ],
+          "page_recall_at_k": 1.0,
+          "page_precision_at_k": 0.25,
+          "page_mrr_at_k": 0.5,
+          "chunk_hit_at_k": 1.0,
+          "chunk_precision_at_k": 0.1,
+          "chunk_mrr_at_k": 0.3333333333333333,
+          "chunk_hit_flags": [
+            0,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "failure_stage": "hit",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        }
+      }
+    },
+    {
+      "query_id": "Q_TABLE_2023_06",
+      "topic": "TABLE",
+      "year": 2023,
+      "sequence": 6,
+      "question": "What is the total cash and cash equivalents reported in the cash flow statement?",
+      "answer_type": "number",
+      "doc_id": "Grampian-2022-2023",
+      "expected_section": "FINANCIAL STATEMENTS",
+      "expected_subsection": "",
+      "expected_pages": [
+        89
+      ],
+      "evidence_layout": "table",
+      "acceptable_evidence": [],
+      "filter_hints": {
+        "scope_doc_id": true,
+        "scope_year": true,
+        "prefer_evidence_layout": "table",
+        "prefer_table_chunks": true
+      },
+      "page_hit": 0,
+      "failure_type": "FP2_MISSED_TOP_RANK",
+      "failure_stage": "retrieval",
+      "per_k": {
+        "1": {
+          "retrieved_chunk_ids": [
+            "Grampian-2022-2023:table_ocr_p0151"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2022-2023"
+          ],
+          "retrieved_pages_ranked": [
+            151
+          ],
+          "page_recall_at_k": 0.0,
+          "page_precision_at_k": 0.0,
+          "page_mrr_at_k": 0.0,
+          "chunk_hit_at_k": 0.0,
+          "chunk_precision_at_k": 0.0,
+          "chunk_mrr_at_k": 0.0,
+          "chunk_hit_flags": [
+            0
+          ],
+          "failure_stage": "missed_top_ranked",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        },
+        "3": {
+          "retrieved_chunk_ids": [
+            "Grampian-2022-2023:table_ocr_p0151",
+            "Grampian-2022-2023:p0089_003",
+            "Grampian-2022-2023:p0112_002"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023"
+          ],
+          "retrieved_pages_ranked": [
+            151,
+            89,
+            112
+          ],
+          "page_recall_at_k": 1.0,
+          "page_precision_at_k": 0.3333333333333333,
+          "page_mrr_at_k": 0.5,
+          "chunk_hit_at_k": 1.0,
+          "chunk_precision_at_k": 0.3333333333333333,
+          "chunk_mrr_at_k": 0.5,
+          "chunk_hit_flags": [
+            0,
+            1,
+            0
+          ],
+          "failure_stage": "hit",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        },
+        "5": {
+          "retrieved_chunk_ids": [
+            "Grampian-2022-2023:table_ocr_p0151",
+            "Grampian-2022-2023:p0089_003",
+            "Grampian-2022-2023:p0112_002",
+            "Grampian-2022-2023:p0151_000",
+            "Grampian-2022-2023:p0151_001"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023"
+          ],
+          "retrieved_pages_ranked": [
+            151,
+            89,
+            112
+          ],
+          "page_recall_at_k": 1.0,
+          "page_precision_at_k": 0.3333333333333333,
+          "page_mrr_at_k": 0.5,
+          "chunk_hit_at_k": 1.0,
+          "chunk_precision_at_k": 0.2,
+          "chunk_mrr_at_k": 0.5,
+          "chunk_hit_flags": [
+            0,
+            1,
+            0,
+            0,
+            0
+          ],
+          "failure_stage": "hit",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        },
+        "10": {
+          "retrieved_chunk_ids": [
+            "Grampian-2022-2023:table_ocr_p0151",
+            "Grampian-2022-2023:p0089_003",
+            "Grampian-2022-2023:p0112_002",
+            "Grampian-2022-2023:p0151_000",
+            "Grampian-2022-2023:p0151_001",
+            "Grampian-2022-2023:p0089_004",
+            "Grampian-2022-2023:p0126_000",
+            "Grampian-2022-2023:table_ocr_p0137",
+            "Grampian-2022-2023:table_ocr_p0126",
+            "Grampian-2022-2023:p0103_000"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023",
+            "Grampian-2022-2023"
+          ],
+          "retrieved_pages_ranked": [
+            151,
+            89,
+            112,
+            126,
+            137,
+            103
+          ],
+          "page_recall_at_k": 1.0,
+          "page_precision_at_k": 0.16666666666666666,
+          "page_mrr_at_k": 0.5,
+          "chunk_hit_at_k": 1.0,
+          "chunk_precision_at_k": 0.2,
+          "chunk_mrr_at_k": 0.5,
+          "chunk_hit_flags": [
+            0,
+            1,
+            0,
+            0,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0
+          ],
+          "failure_stage": "hit",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        }
+      }
+    }
+  ]
+}

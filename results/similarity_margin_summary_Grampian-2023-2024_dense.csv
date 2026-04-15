@@ -1,0 +1,2 @@
+doc_id,n_queries,mean_margin,median_margin,min_margin,max_margin,prop_margin_lt_005,prop_margin_lt_010
+Grampian-2023-2024,50,0.03975141227245331,0.028061598539352417,0.0006891489028930664,0.15102866291999817,0.76,0.9

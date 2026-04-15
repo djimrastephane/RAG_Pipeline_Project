@@ -1,0 +1,485 @@
+[
+  {
+    "query_id": "Q_FIN_2024_01",
+    "question": "What was the net operating cost for NHS Grampian in 2024/25?",
+    "expected_pages": [
+      105
+    ],
+    "expected_subsection": "CONSOLIDATED CASHFLOW STATEMENT FOR YEAR ENDED 31 MARCH 2025",
+    "answer_type": "number",
+    "expected_answer": "£1,681,546",
+    "doc_id": "Grampian-2024-2025",
+    "year": 2024,
+    "evidence_layout": "table",
+    "expected_section": "FINANCIAL STATEMENTS",
+    "difficulty": "LEX",
+    "filter_hints": {
+      "scope_doc_id": true,
+      "scope_year": true,
+      "prefer_evidence_layout": "table",
+      "prefer_table_chunks": true
+    }
+  },
+  {
+    "query_id": "Q_FIN_2024_02",
+    "question": "What was the total programme of infrastructure investment delivered during 2024/25?",
+    "expected_pages": [
+      33
+    ],
+    "expected_subsection": "B PERFORMANCE ANALYSIS",
+    "answer_type": "number",
+    "expected_answer": "£88.9 million",
+    "doc_id": "Grampian-2024-2025",
+    "year": 2024,
+    "evidence_layout": "paragraph",
+    "expected_section": "PERFORMANCE REPORT",
+    "difficulty": "LEX",
+    "filter_hints": {
+      "scope_doc_id": true,
+      "scope_year": true
+    }
+  },
+  {
+    "query_id": "Q_FIN_2024_03",
+    "question": "How much capital expenditure was incurred during 2024/25?",
+    "expected_pages": [
+      33
+    ],
+    "expected_subsection": "B PERFORMANCE ANALYSIS",
+    "answer_type": "number",
+    "expected_answer": "£84.42 million",
+    "doc_id": "Grampian-2024-2025",
+    "year": 2024,
+    "evidence_layout": "paragraph",
+    "expected_section": "PERFORMANCE REPORT",
+    "difficulty": "LEX",
+    "filter_hints": {
+      "scope_doc_id": true,
+      "scope_year": true
+    }
+  },
+  {
+    "query_id": "Q_FIN_2024_04",
+    "question": "What was the value of contingent liabilities for clinical and medical compensation payments in 2024/25?",
+    "expected_pages": [
+      149
+    ],
+    "expected_subsection": "Note 14. CONTINGENT LIABILITIES AND ASSETS",
+    "answer_type": "number",
+    "expected_answer": "51,763",
+    "doc_id": "Grampian-2024-2025",
+    "year": 2024,
+    "evidence_layout": "table",
+    "expected_section": "FINANCIAL STATEMENTS",
+    "difficulty": "LEX",
+    "filter_hints": {
+      "scope_doc_id": true,
+      "scope_year": true,
+      "prefer_evidence_layout": "table",
+      "prefer_table_chunks": true
+    }
+  },
+  {
+    "query_id": "Q_FIN_2024_05",
+    "question": "What was the value of contingent assets for clinical and medical compensation payments in 2024/25?",
+    "expected_pages": [
+      149
+    ],
+    "expected_subsection": "Note 14. CONTINGENT LIABILITIES AND ASSETS",
+    "answer_type": "number",
+    "expected_answer": "49,617",
+    "doc_id": "Grampian-2024-2025",
+    "year": 2024,
+    "evidence_layout": "table",
+    "expected_section": "FINANCIAL STATEMENTS",
+    "difficulty": "LEX",
+    "filter_hints": {
+      "scope_doc_id": true,
+      "scope_year": true,
+      "prefer_evidence_layout": "table",
+      "prefer_table_chunks": true
+    }
+  },
+  {
+    "query_id": "Q_FIN_2024_06",
+    "question": "What annual cost range is stated for the Band 5 Nursing Regrade contingent liability?",
+    "expected_pages": [
+      150
+    ],
+    "expected_subsection": "Band 5 Nursing Regrade",
+    "answer_type": "text",
+    "expected_answer": "£0 to £13.2m",
+    "doc_id": "Grampian-2024-2025",
+    "year": 2024,
+    "evidence_layout": "paragraph",
+    "expected_section": "FINANCIAL STATEMENTS",
+    "difficulty": "LEX",
+    "filter_hints": {
+      "scope_doc_id": true,
+      "scope_year": true
+    }
+  },
+  {
+    "query_id": "Q_FIN_2024_07",
+    "question": "What is the Treasury discount rate stated for early retirement pension liabilities in 2024/25?",
+    "expected_pages": [
+      146
+    ],
+    "expected_subsection": "Pensions and similar obligations",
+    "answer_type": "number",
+    "expected_answer": "2.4%",
+    "doc_id": "Grampian-2024-2025",
+    "year": 2024,
+    "evidence_layout": "paragraph",
+    "expected_section": "FINANCIAL STATEMENTS",
+    "difficulty": "LEX",
+    "filter_hints": {
+      "scope_doc_id": true,
+      "scope_year": true
+    }
+  },
+  {
+    "query_id": "Q_FIN_2024_08",
+    "question": "How does the report describe the accounting treatment of the NHS Superannuation Scheme for Scotland under IAS 19?",
+    "expected_pages": [
+      119
+    ],
+    "expected_subsection": "17(b) Pension Costs",
+    "answer_type": "text",
+    "expected_answer": "The Board is unable to identify its share of the underlying notional assets and liabilities of the scheme on a consistent and reasonable basis and therefore accounts for the scheme as if it were a defined contribution scheme, as required by IAS 19 Employee Benefits.",
+    "doc_id": "Grampian-2024-2025",
+    "year": 2024,
+    "evidence_layout": "paragraph",
+    "expected_section": "FINANCIAL STATEMENTS",
+    "difficulty": "MOD",
+    "filter_hints": {
+      "scope_doc_id": true,
+      "scope_year": true
+    }
+  },
+  {
+    "query_id": "Q_FIN_2024_09",
+    "question": "What factors are listed as resourcing the infrastructure investment programme during 2024/25?",
+    "expected_pages": [
+      33
+    ],
+    "expected_subsection": "3.2.7 Infrastructure and Non-Current Assets",
+    "answer_type": "list",
+    "expected_answer": "The overall programme was resourced using a combination of capital funding from the SGHSCD (£83.469 million, see note 7d), income from donations (£0.41 million), benefit from disposal of assets (£0.02 million) and various revenue funding sources (£5 million)",
+    "doc_id": "Grampian-2024-2025",
+    "year": 2024,
+    "evidence_layout": "paragraph",
+    "expected_section": "PERFORMANCE REPORT",
+    "difficulty": "MOD",
+    "filter_hints": {
+      "scope_doc_id": true,
+      "scope_year": true
+    }
+  },
+  {
+    "query_id": "Q_FIN_2024_10",
+    "question": "What contingent liabilities did NHS Grampian disclose at 31 March 2025?",
+    "expected_pages": [
+      149
+    ],
+    "expected_subsection": "Note 14. CONTINGENT LIABILITIES AND ASSETS",
+    "answer_type": "list",
+    "expected_answer": "Clinical and medical compensation payments, Employers Liability payments, Band 5 to 6 Nursing Review",
+    "doc_id": "Grampian-2024-2025",
+    "year": 2024,
+    "evidence_layout": "table",
+    "expected_section": "FINANCIAL STATEMENTS",
+    "difficulty": "MOD",
+    "filter_hints": {
+      "scope_doc_id": true,
+      "scope_year": true,
+      "prefer_evidence_layout": "table",
+      "prefer_table_chunks": true
+    }
+  },
+  {
+    "query_id": "Q_GOV_2024_01",
+    "question": "How many Mental Welfare Commission visits to NHS Grampian are reported up to 31 March 2025?",
+    "expected_pages": [
+      72
+    ],
+    "expected_subsection": "A CORPORATE GOVERNANCE REPORT",
+    "answer_type": "number",
+    "expected_answer": "13",
+    "doc_id": "Grampian-2024-2025",
+    "year": 2024,
+    "evidence_layout": "paragraph",
+    "expected_section": "ACCOUNTABILITY REPORT",
+    "difficulty": "LEX",
+    "filter_hints": {
+      "scope_doc_id": true,
+      "scope_year": true
+    }
+  },
+  {
+    "query_id": "Q_GOV_2024_02",
+    "question": "How many Mental Welfare Commission recommendations are reported up to 31 March 2025?",
+    "expected_pages": [
+      72
+    ],
+    "expected_subsection": "A CORPORATE GOVERNANCE REPORT",
+    "answer_type": "number",
+    "expected_answer": "55",
+    "doc_id": "Grampian-2024-2025",
+    "year": 2024,
+    "evidence_layout": "paragraph",
+    "expected_section": "ACCOUNTABILITY REPORT",
+    "difficulty": "LEX",
+    "filter_hints": {
+      "scope_doc_id": true,
+      "scope_year": true
+    }
+  },
+  {
+    "query_id": "Q_GOV_2024_03",
+    "question": "How many INWO referrals were upheld between 1 April 2024 and 31 March 2025?",
+    "expected_pages": [
+      72
+    ],
+    "expected_subsection": "A CORPORATE GOVERNANCE REPORT",
+    "answer_type": "number",
+    "expected_answer": "2",
+    "doc_id": "Grampian-2024-2025",
+    "year": 2024,
+    "evidence_layout": "paragraph",
+    "expected_section": "ACCOUNTABILITY REPORT",
+    "difficulty": "LEX",
+    "filter_hints": {
+      "scope_doc_id": true,
+      "scope_year": true
+    }
+  },
+  {
+    "query_id": "Q_GOV_2024_04",
+    "question": "How many SPSO cases were fully upheld and partly upheld in the trend data shown?",
+    "expected_pages": [
+      72
+    ],
+    "expected_subsection": "A CORPORATE GOVERNANCE REPORT",
+    "answer_type": "text",
+    "expected_answer": "Fully upheld: 12, Partly upheld: 1",
+    "doc_id": "Grampian-2024-2025",
+    "year": 2024,
+    "evidence_layout": "paragraph",
+    "expected_section": "ACCOUNTABILITY REPORT",
+    "difficulty": "LEX",
+    "filter_hints": {
+      "scope_doc_id": true,
+      "scope_year": true
+    }
+  },
+  {
+    "query_id": "Q_OP_2024_01",
+    "question": "How many patients were recorded as delayed discharge at the March 2025 census date?",
+    "expected_pages": [
+      16
+    ],
+    "expected_subsection": "B PERFORMANCE ANALYSIS",
+    "answer_type": "number",
+    "expected_answer": "181",
+    "doc_id": "Grampian-2024-2025",
+    "year": 2024,
+    "evidence_layout": "paragraph",
+    "expected_section": "PERFORMANCE REPORT",
+    "difficulty": "LEX",
+    "filter_hints": {
+      "scope_doc_id": true,
+      "scope_year": true
+    }
+  },
+  {
+    "query_id": "Q_OP_2024_02",
+    "question": "How many delayed discharge patients were more than 3 days delayed at the March 2025 census date?",
+    "expected_pages": [
+      16
+    ],
+    "expected_subsection": "B PERFORMANCE ANALYSIS",
+    "answer_type": "number",
+    "expected_answer": "160",
+    "doc_id": "Grampian-2024-2025",
+    "year": 2024,
+    "evidence_layout": "paragraph",
+    "expected_section": "PERFORMANCE REPORT",
+    "difficulty": "LEX",
+    "filter_hints": {
+      "scope_doc_id": true,
+      "scope_year": true
+    }
+  },
+  {
+    "query_id": "Q_OP_2024_03",
+    "question": "How many days did patients spend in hospital due to delays in discharge in March 2025?",
+    "expected_pages": [
+      16
+    ],
+    "expected_subsection": "B PERFORMANCE ANALYSIS",
+    "answer_type": "number",
+    "expected_answer": "5,237",
+    "doc_id": "Grampian-2024-2025",
+    "year": 2024,
+    "evidence_layout": "paragraph",
+    "expected_section": "PERFORMANCE REPORT",
+    "difficulty": "LEX",
+    "filter_hints": {
+      "scope_doc_id": true,
+      "scope_year": true
+    }
+  },
+  {
+    "query_id": "Q_OP_2024_04",
+    "question": "What proportion of in-patient/daycase patients were waiting over 12 weeks at the end of 2024/25?",
+    "expected_pages": [
+      16
+    ],
+    "expected_subsection": "B PERFORMANCE ANALYSIS",
+    "answer_type": "number",
+    "expected_answer": "73.1%",
+    "doc_id": "Grampian-2024-2025",
+    "year": 2024,
+    "evidence_layout": "paragraph",
+    "expected_section": "PERFORMANCE REPORT",
+    "difficulty": "LEX",
+    "filter_hints": {
+      "scope_doc_id": true,
+      "scope_year": true
+    }
+  },
+  {
+    "query_id": "Q_OP_2024_05",
+    "question": "What proportion of new outpatient patients were waiting over 12 weeks at the end of 2024/25?",
+    "expected_pages": [
+      16
+    ],
+    "expected_subsection": "B PERFORMANCE ANALYSIS",
+    "answer_type": "number",
+    "expected_answer": "58.1%",
+    "doc_id": "Grampian-2024-2025",
+    "year": 2024,
+    "evidence_layout": "paragraph",
+    "expected_section": "PERFORMANCE REPORT",
+    "difficulty": "LEX",
+    "filter_hints": {
+      "scope_doc_id": true,
+      "scope_year": true
+    }
+  },
+  {
+    "query_id": "Q_OP_2024_06",
+    "question": "How many TTG patients were waiting over 104 weeks at the end of 2024/25?",
+    "expected_pages": [
+      18
+    ],
+    "expected_subsection": "B PERFORMANCE ANALYSIS",
+    "answer_type": "number",
+    "expected_answer": "1,948",
+    "doc_id": "Grampian-2024-2025",
+    "year": 2024,
+    "evidence_layout": "paragraph",
+    "expected_section": "PERFORMANCE REPORT",
+    "difficulty": "LEX",
+    "filter_hints": {
+      "scope_doc_id": true,
+      "scope_year": true
+    }
+  },
+  {
+    "query_id": "Q_STR_2024_01",
+    "question": "What are the four main themes of the sustainability strategy framework described?",
+    "expected_pages": [
+      42
+    ],
+    "expected_subsection": "B PERFORMANCE ANALYSIS",
+    "answer_type": "list",
+    "expected_answer": "Delivery of Net-Zero; Greening Health Systems; Greening Places & Communities; Collaboration across local and national systems",
+    "doc_id": "Grampian-2024-2025",
+    "year": 2024,
+    "evidence_layout": "paragraph",
+    "expected_section": "PERFORMANCE REPORT",
+    "difficulty": "LEX",
+    "filter_hints": {
+      "scope_doc_id": true,
+      "scope_year": true
+    }
+  },
+  {
+    "query_id": "Q_STR_2024_02",
+    "question": "What sustainability strategies are named that support progress towards net zero?",
+    "expected_pages": [
+      42
+    ],
+    "expected_subsection": "B PERFORMANCE ANALYSIS",
+    "answer_type": "list",
+    "expected_answer": "Heat & Power Strategy; Biodiversity Strategy",
+    "doc_id": "Grampian-2024-2025",
+    "year": 2024,
+    "evidence_layout": "paragraph",
+    "expected_section": "PERFORMANCE REPORT",
+    "difficulty": "LEX",
+    "filter_hints": {
+      "scope_doc_id": true,
+      "scope_year": true
+    }
+  },
+  {
+    "query_id": "Q_STR_2024_03",
+    "question": "What year is stated for completion of the Climate Change Risk Assessment (CCRA)?",
+    "expected_pages": [
+      42
+    ],
+    "expected_subsection": "B PERFORMANCE ANALYSIS",
+    "answer_type": "number",
+    "expected_answer": "2023",
+    "doc_id": "Grampian-2024-2025",
+    "year": 2024,
+    "evidence_layout": "paragraph",
+    "expected_section": "PERFORMANCE REPORT",
+    "difficulty": "LEX",
+    "filter_hints": {
+      "scope_doc_id": true,
+      "scope_year": true
+    }
+  },
+  {
+    "query_id": "Q_STR_2024_04",
+    "question": "What is described as a key obstacle to achieving net zero in the sustainability section?",
+    "expected_pages": [
+      42
+    ],
+    "expected_subsection": "B PERFORMANCE ANALYSIS",
+    "answer_type": "text",
+    "expected_answer": "High cost of transition during financial constraints",
+    "doc_id": "Grampian-2024-2025",
+    "year": 2024,
+    "evidence_layout": "paragraph",
+    "expected_section": "PERFORMANCE REPORT",
+    "difficulty": "MOD",
+    "filter_hints": {
+      "scope_doc_id": true,
+      "scope_year": true
+    }
+  },
+  {
+    "query_id": "Q_STR_2024_07",
+    "question": "What does the report say is required to achieve carbon zero at the Foresterhill site?",
+    "expected_pages": [
+      42
+    ],
+    "expected_subsection": "B PERFORMANCE ANALYSIS",
+    "answer_type": "text",
+    "expected_answer": "Energy and utility strategy and significant investment in infrastructure and retrofit",
+    "doc_id": "Grampian-2024-2025",
+    "year": 2024,
+    "evidence_layout": "paragraph",
+    "expected_section": "PERFORMANCE REPORT",
+    "difficulty": "STR",
+    "filter_hints": {
+      "scope_doc_id": true,
+      "scope_year": true
+    }
+  }
+]

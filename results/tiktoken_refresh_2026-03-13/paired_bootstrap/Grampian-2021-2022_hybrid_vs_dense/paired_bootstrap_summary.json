@@ -1,0 +1,30 @@
+{
+  "inputs": {
+    "system_a": "/Users/djimra/MSc Data Science Jan 2025/Thesis documents/RAG_Pipeline_Project/data_processed_tiktoken_5docs/Grampian-2021-2022/retrieval_results_hybrid.json",
+    "system_b": "/Users/djimra/MSc Data Science Jan 2025/Thesis documents/RAG_Pipeline_Project/data_processed_tiktoken_5docs/Grampian-2021-2022/retrieval_results.json",
+    "n_common_queries": 50,
+    "mrr_k": 10,
+    "n_bootstrap": 5000,
+    "seed": 42
+  },
+  "metrics": {
+    "hit_at_1": {
+      "observed_delta": 0.0,
+      "mean_delta": -0.0011559999999999993,
+      "ci95_low": -0.12,
+      "ci95_high": 0.12
+    },
+    "hit_at_3": {
+      "observed_delta": -0.05999999999999994,
+      "mean_delta": -0.05985599999999999,
+      "ci95_low": -0.14,
+      "ci95_high": 0.020000000000000018
+    },
+    "mrr_at_10": {
+      "observed_delta": -0.026476190476190542,
+      "mean_delta": -0.02548181904761904,
+      "ci95_low": -0.10695714285714292,
+      "ci95_high": 0.047622619047619046
+    }
+  }
+}

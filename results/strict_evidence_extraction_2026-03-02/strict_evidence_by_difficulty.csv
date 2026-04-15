@@ -1,0 +1,4 @@
+difficulty,n,answer_accuracy,quote_support_rate,strict_accuracy,retrieval_hit_at_k
+LEX,25,0.0,0.0,0.0,0.92
+MOD,11,0.0,0.0,0.0,0.9090909090909091
+STR,14,0.0,0.0,0.0,0.9285714285714286

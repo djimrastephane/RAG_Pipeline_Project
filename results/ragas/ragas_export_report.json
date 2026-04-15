@@ -1,0 +1,18 @@
+{
+  "report": {
+    "rows": 75,
+    "errors": 0,
+    "include_generated_answer": true,
+    "docs": [
+      "Grampian-2020-2021",
+      "Grampian-2021-2022",
+      "Grampian-2022-2023",
+      "Grampian-2023-2024",
+      "Grampian-2024-2025"
+    ],
+    "k": 8,
+    "out_jsonl": "results/ragas/ragas_input_75q_k8_280_generated.jsonl",
+    "out_csv": "results/ragas/ragas_input_75q_k8_280_generated.csv"
+  },
+  "errors": []
+}

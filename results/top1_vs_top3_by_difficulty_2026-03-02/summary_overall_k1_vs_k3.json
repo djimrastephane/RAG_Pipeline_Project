@@ -1,0 +1,6 @@
+{
+  "n_pairs": 50,
+  "acc_k1": 0.08,
+  "acc_k3": 0.08,
+  "delta_k3_minus_k1": 0.0
+}

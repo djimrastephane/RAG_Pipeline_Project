@@ -1,0 +1,366 @@
+{
+  "_meta": {
+    "difficulty_definition": {
+      "LEX": "High lexical overlap with document phrasing. Minimal semantic abstraction required.",
+      "MOD": "Moderate paraphrase. Synonyms or minor phrasing changes require semantic matching.",
+      "STR": "Strong paraphrase or conceptual query. Requires abstraction, aggregation, or non-trivial semantic mapping."
+    }
+  },
+  "queries": [
+    {
+      "query_id": "Q_DEF_2023_01",
+      "question": "What deficit did Aberdeenshire IJB report for the year?",
+      "expected_pages": [
+        21
+      ],
+      "answer_type": "number",
+      "doc_id": "Grampian-2022-2023",
+      "expected_section": "3.1.2.2 Aberdeenshire Integration Joint Board (IJB)",
+      "expected_answer": "£27.934",
+      "expected_subsection": "B PERFORMANCE ANALYSIS",
+      "difficulty": "LEX",
+      "year": 2023,
+      "evidence_layout": "table",
+      "filter_hints": {
+        "scope_doc_id": true,
+        "scope_year": true,
+        "prefer_evidence_layout": "table",
+        "prefer_table_chunks": true
+      }
+    },
+    {
+      "query_id": "Q_REV_2023_01",
+      "question": "How much was allocated to purchase equipment for replacement of the NHS Grampian Wireless network across all sites?",
+      "expected_pages": [
+        28
+      ],
+      "answer_type": "number",
+      "doc_id": "Grampian-2022-2023",
+      "expected_section": "Performance Report, Performance Analysis",
+      "expected_answer": "£1.6 million",
+      "expected_subsection": "B PERFORMANCE ANALYSIS",
+      "difficulty": "LEX",
+      "year": 2023,
+      "evidence_layout": "table",
+      "filter_hints": {
+        "scope_doc_id": true,
+        "scope_year": true,
+        "prefer_evidence_layout": "table",
+        "prefer_table_chunks": true
+      }
+    },
+    {
+      "query_id": "Q_DEF_2023_02",
+      "question": "What does the independent auditor’s separate Annual Audit Report cover regarding risks of material misstatement?",
+      "expected_pages": [
+        82
+      ],
+      "answer_type": "text",
+      "doc_id": "Grampian-2022-2023",
+      "expected_section": "Independent auditor’s report, Risks of material misstatement",
+      "expected_answer": "The most significant assessed risks of material misstatement that we identified and our judgements thereon.",
+      "expected_subsection": "C PARLIAMENTARY ACCOUNTABILITY REPORT",
+      "difficulty": "STR",
+      "year": 2023,
+      "evidence_layout": "table",
+      "filter_hints": {
+        "scope_doc_id": true,
+        "scope_year": true,
+        "prefer_evidence_layout": "table",
+        "prefer_table_chunks": true
+      }
+    },
+    {
+      "query_id": "Q_ACC_2023_01",
+      "question": "Which report section covers staff wellbeing initiatives such as the We Care programme and occupational health enhancements?",
+      "expected_pages": [
+        73
+      ],
+      "answer_type": "text",
+      "doc_id": "Grampian-2022-2023",
+      "expected_section": "ACCOUNTABILITY REPORT | B REMUNERATION AND STAFF REPORT",
+      "expected_answer": "B Remuneration and Staff Report",
+      "expected_subsection": "B REMUNERATION AND STAFF REPORT",
+      "difficulty": "MOD",
+      "year": 2023,
+      "evidence_layout": "table",
+      "filter_hints": {
+        "scope_doc_id": true,
+        "scope_year": true,
+        "prefer_evidence_layout": "table",
+        "prefer_table_chunks": true
+      }
+    },
+    {
+      "query_id": "Q_ACC_2023_02",
+      "question": "How many staff attended the Brew and Blether sessions held between February and April?",
+      "expected_pages": [
+        73
+      ],
+      "answer_type": "number",
+      "doc_id": "Grampian-2022-2023",
+      "expected_section": "ACCOUNTABILITY REPORT | B REMUNERATION AND STAFF REPORT",
+      "expected_answer": "over 250",
+      "expected_subsection": "B REMUNERATION AND STAFF REPORT",
+      "difficulty": "LEX",
+      "year": 2023,
+      "evidence_layout": "table",
+      "filter_hints": {
+        "scope_doc_id": true,
+        "scope_year": true,
+        "prefer_evidence_layout": "table",
+        "prefer_table_chunks": true
+      }
+    },
+    {
+      "query_id": "Q_ACC_2023_03",
+      "question": "What was the national benchmark time to hire that NHS Grampian remained below during the year?",
+      "expected_pages": [
+        73
+      ],
+      "answer_type": "number",
+      "doc_id": "Grampian-2022-2023",
+      "expected_section": "ACCOUNTABILITY REPORT | B REMUNERATION AND STAFF REPORT",
+      "expected_answer": "116 days",
+      "expected_subsection": "B REMUNERATION AND STAFF REPORT",
+      "difficulty": "MOD",
+      "year": 2023,
+      "evidence_layout": "table",
+      "filter_hints": {
+        "scope_doc_id": true,
+        "scope_year": true,
+        "prefer_evidence_layout": "table",
+        "prefer_table_chunks": true
+      }
+    },
+    {
+      "query_id": "Q_ACC_2023_04",
+      "question": "How many international nurses were supported for recruitment to NHS Grampian during 2022/23?",
+      "expected_pages": [
+        73
+      ],
+      "answer_type": "number",
+      "doc_id": "Grampian-2022-2023",
+      "expected_section": "ACCOUNTABILITY REPORT | B REMUNERATION AND STAFF REPORT",
+      "expected_answer": "93",
+      "expected_subsection": "B REMUNERATION AND STAFF REPORT",
+      "difficulty": "LEX",
+      "year": 2023,
+      "evidence_layout": "table",
+      "filter_hints": {
+        "scope_doc_id": true,
+        "scope_year": true,
+        "prefer_evidence_layout": "table",
+        "prefer_table_chunks": true
+      }
+    },
+    {
+      "query_id": "Q_ACC_2023_05",
+      "question": "Which section introduces the workforce overview within the Remuneration and Staff Report?",
+      "expected_pages": [
+        72
+      ],
+      "answer_type": "text",
+      "doc_id": "Grampian-2022-2023",
+      "expected_section": "ACCOUNTABILITY REPORT | B REMUNERATION AND STAFF REPORT",
+      "expected_answer": "The Workforce",
+      "expected_subsection": "B REMUNERATION AND STAFF REPORT",
+      "difficulty": "MOD",
+      "year": 2023,
+      "evidence_layout": "table",
+      "filter_hints": {
+        "scope_doc_id": true,
+        "scope_year": true,
+        "prefer_evidence_layout": "table",
+        "prefer_table_chunks": true
+      }
+    },
+    {
+      "query_id": "Q_ACC_2023_06",
+      "question": "What standard does NHS Grampian work towards to ensure good staff governance?",
+      "expected_pages": [
+        72
+      ],
+      "answer_type": "text",
+      "doc_id": "Grampian-2022-2023",
+      "expected_section": "ACCOUNTABILITY REPORT | B REMUNERATION AND STAFF REPORT",
+      "expected_answer": "NHS Scotland Staff Governance Standard",
+      "expected_subsection": "B REMUNERATION AND STAFF REPORT",
+      "difficulty": "LEX",
+      "year": 2023,
+      "evidence_layout": "table",
+      "filter_hints": {
+        "scope_doc_id": true,
+        "scope_year": true,
+        "prefer_evidence_layout": "table",
+        "prefer_table_chunks": true
+      }
+    },
+    {
+      "query_id": "Q_ACC_2023_07",
+      "question": "Which three workforce priorities are referenced as agreed priorities for 2022/23?",
+      "expected_pages": [
+        72
+      ],
+      "answer_type": "list",
+      "doc_id": "Grampian-2022-2023",
+      "expected_section": "ACCOUNTABILITY REPORT | B REMUNERATION AND STAFF REPORT",
+      "expected_answer": [
+        "Reducing delays to accessing care",
+        "Supporting colleagues to be safe and well at work",
+        "Creating the conditions for sustainable change"
+      ],
+      "expected_subsection": "B REMUNERATION AND STAFF REPORT",
+      "difficulty": "STR",
+      "year": 2023,
+      "evidence_layout": "table",
+      "filter_hints": {
+        "scope_doc_id": true,
+        "scope_year": true,
+        "prefer_evidence_layout": "table",
+        "prefer_table_chunks": true
+      }
+    },
+    {
+      "query_id": "Q_ACC_2023_08",
+      "question": "What staffing approach was used to support service demand and workforce gaps during 2022/23?",
+      "expected_pages": [
+        72
+      ],
+      "answer_type": "text",
+      "doc_id": "Grampian-2022-2023",
+      "expected_section": "ACCOUNTABILITY REPORT | B REMUNERATION AND STAFF REPORT",
+      "expected_answer": "The use of supplementary staff to provide support across the organisation",
+      "expected_subsection": "B REMUNERATION AND STAFF REPORT",
+      "difficulty": "MOD",
+      "year": 2023,
+      "evidence_layout": "table",
+      "filter_hints": {
+        "scope_doc_id": true,
+        "scope_year": true,
+        "prefer_evidence_layout": "table",
+        "prefer_table_chunks": true
+      }
+    },
+    {
+      "query_id": "Q_TABLE_2023_01",
+      "question": "What were the Board members' remuneration details in 2022-23?",
+      "expected_pages": [
+        116
+      ],
+      "query_type": "table",
+      "answer_type": "table",
+      "doc_id": "Grampian-2022-2023",
+      "difficulty": "MOD",
+      "year": 2023,
+      "evidence_layout": "table",
+      "expected_section": "FINANCIAL STATEMENTS",
+      "filter_hints": {
+        "scope_doc_id": true,
+        "scope_year": true,
+        "prefer_evidence_layout": "table",
+        "prefer_table_chunks": true
+      }
+    },
+    {
+      "query_id": "Q_TABLE_2023_02",
+      "question": "What is the total income reported in the income statement?",
+      "expected_pages": [
+        86
+      ],
+      "query_type": "table",
+      "answer_type": "number",
+      "doc_id": "Grampian-2022-2023",
+      "difficulty": "LEX",
+      "year": 2023,
+      "evidence_layout": "table",
+      "expected_section": "FINANCIAL STATEMENTS",
+      "filter_hints": {
+        "scope_doc_id": true,
+        "scope_year": true,
+        "prefer_evidence_layout": "table",
+        "prefer_table_chunks": true
+      }
+    },
+    {
+      "query_id": "Q_TABLE_2023_03",
+      "question": "What is the total assets figure in the balance sheet?",
+      "expected_pages": [
+        87
+      ],
+      "query_type": "table",
+      "answer_type": "number",
+      "doc_id": "Grampian-2022-2023",
+      "difficulty": "LEX",
+      "year": 2023,
+      "evidence_layout": "table",
+      "expected_section": "FINANCIAL STATEMENTS",
+      "filter_hints": {
+        "scope_doc_id": true,
+        "scope_year": true,
+        "prefer_evidence_layout": "table",
+        "prefer_table_chunks": true
+      }
+    },
+    {
+      "query_id": "Q_TABLE_2023_04",
+      "question": "What is the net assets figure reported in the balance sheet?",
+      "expected_pages": [
+        87
+      ],
+      "query_type": "table",
+      "answer_type": "number",
+      "doc_id": "Grampian-2022-2023",
+      "difficulty": "LEX",
+      "year": 2023,
+      "evidence_layout": "table",
+      "expected_section": "FINANCIAL STATEMENTS",
+      "filter_hints": {
+        "scope_doc_id": true,
+        "scope_year": true,
+        "prefer_evidence_layout": "table",
+        "prefer_table_chunks": true
+      }
+    },
+    {
+      "query_id": "Q_TABLE_2023_05",
+      "question": "What is the net cash from operating activities in the cash flow statement?",
+      "expected_pages": [
+        112
+      ],
+      "query_type": "table",
+      "answer_type": "number",
+      "doc_id": "Grampian-2022-2023",
+      "difficulty": "LEX",
+      "year": 2023,
+      "evidence_layout": "table",
+      "expected_section": "FINANCIAL STATEMENTS",
+      "filter_hints": {
+        "scope_doc_id": true,
+        "scope_year": true,
+        "prefer_evidence_layout": "table",
+        "prefer_table_chunks": true
+      }
+    },
+    {
+      "query_id": "Q_TABLE_2023_06",
+      "question": "What is the total cash and cash equivalents reported in the cash flow statement?",
+      "expected_pages": [
+        89
+      ],
+      "query_type": "table",
+      "answer_type": "number",
+      "doc_id": "Grampian-2022-2023",
+      "difficulty": "LEX",
+      "year": 2023,
+      "evidence_layout": "table",
+      "expected_section": "FINANCIAL STATEMENTS",
+      "filter_hints": {
+        "scope_doc_id": true,
+        "scope_year": true,
+        "prefer_evidence_layout": "table",
+        "prefer_table_chunks": true
+      }
+    }
+  ]
+}

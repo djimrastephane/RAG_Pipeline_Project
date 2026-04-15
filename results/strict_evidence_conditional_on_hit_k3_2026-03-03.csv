@@ -1,0 +1,9 @@
+model,difficulty,n_hit,strict_given_hit
+Model_A_qwen2.5_7b,ALL,41,0.4878048780487805
+Model_A_qwen2.5_7b,LEX,20,0.6
+Model_A_qwen2.5_7b,MOD,10,0.7
+Model_A_qwen2.5_7b,STR,11,0.09090909090909091
+Model_B_llama3,ALL,41,0.5121951219512195
+Model_B_llama3,LEX,20,0.55
+Model_B_llama3,MOD,10,0.7
+Model_B_llama3,STR,11,0.2727272727272727

@@ -1,0 +1,2 @@
+old_era,new_era,old_mean_similarity,new_mean_similarity,old_variance,new_variance,ks_statistic,p_value,sample_size_pairs_each_era,seed
+old_2004_2021,new_2022_2025,0.3954574763774872,0.41281068325042725,0.02160295471549034,0.022089477628469467,0.04730000000000001,7.00214066339913e-20,20000,42

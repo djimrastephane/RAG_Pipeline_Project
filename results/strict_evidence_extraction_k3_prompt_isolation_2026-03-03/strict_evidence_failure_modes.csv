@@ -1,0 +1,3 @@
+failure_mode,count,pct
+did_not_identify_gold,30,0.6
+strict_correct,20,0.4

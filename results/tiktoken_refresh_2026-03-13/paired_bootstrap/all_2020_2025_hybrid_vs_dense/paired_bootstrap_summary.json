@@ -1,0 +1,30 @@
+{
+  "inputs": {
+    "system_a": "/Users/djimra/MSc Data Science Jan 2025/Thesis documents/RAG_Pipeline_Project/results/tiktoken_refresh_2026-03-13/paired_bootstrap/all_2020_2025_hybrid_vs_dense/retrieval_results_hybrid_all.json",
+    "system_b": "/Users/djimra/MSc Data Science Jan 2025/Thesis documents/RAG_Pipeline_Project/results/tiktoken_refresh_2026-03-13/paired_bootstrap/all_2020_2025_hybrid_vs_dense/retrieval_results_dense_all.json",
+    "n_common_queries": 250,
+    "mrr_k": 10,
+    "n_bootstrap": 5000,
+    "seed": 42
+  },
+  "metrics": {
+    "hit_at_1": {
+      "observed_delta": 0.0,
+      "mean_delta": -0.0008176000000000001,
+      "ci95_low": -0.05599999999999994,
+      "ci95_high": 0.05599999999999994
+    },
+    "hit_at_3": {
+      "observed_delta": -0.016000000000000014,
+      "mean_delta": -0.016041599999999993,
+      "ci95_low": -0.06399999999999995,
+      "ci95_high": 0.03200000000000003
+    },
+    "mrr_at_10": {
+      "observed_delta": -0.00925079365079362,
+      "mean_delta": -0.009223514285714282,
+      "ci95_low": -0.04650523809523813,
+      "ci95_high": 0.02900857142857134
+    }
+  }
+}

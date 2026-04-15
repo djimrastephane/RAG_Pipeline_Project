@@ -1,0 +1,4 @@
+variant,n_queries,hit3_rate,failures
+baseline,250,0.844,39
+fix1_only,250,0.828,43
+fix2_only,250,0.848,38

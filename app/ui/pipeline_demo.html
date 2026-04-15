@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RAG Pipeline Architecture</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0d1117;
+    --surface: #161b22;
+    --border: #30363d;
+    --accent: #58a6ff;
+    --accent2: #3fb950;
+    --accent3: #f0883e;
+    --accent4: #bc8cff;
+    --accent5: #39d353;
+    --muted: #8b949e;
+    --text: #e6edf3;
+    --text-dim: #c9d1d9;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    font-family: 'IBM Plex Sans', sans-serif;
+    color: var(--text);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 20px;
+  }
+
+  .title-block {
+    text-align: center;
+    margin-bottom: 48px;
+  }
+
+  .title-block h1 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 6px;
+  }
+
+  .title-block p {
+    font-size: 0.85rem;
+    color: var(--muted);
+    letter-spacing: 0.04em;
+    font-family: 'IBM Plex Mono', monospace;
+  }
+
+  /* Pipeline Row */
+  .pipeline {
+    display: flex;
+    align-items: flex-start;
+    gap: 0;
+    width: 100%;
+    max-width: 1300px;
+    position: relative;
+  }
+
+  /* Stage Card */
+  .stage {
+    flex: 1;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 20px 16px;
+    position: relative;
+    transition: border-color 0.3s, box-shadow 0.3s;
+    animation: fadeUp 0.6s ease both;
+  }
+
+  .stage:nth-child(1)  { animation-delay: 0.0s; }
+  .stage:nth-child(3)  { animation-delay: 0.15s; }
+  .stage:nth-child(5)  { animation-delay: 0.30s; }
+  .stage:nth-child(7)  { animation-delay: 0.45s; }
+  .stage:nth-child(9)  { animation-delay: 0.60s; }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .stage:hover {
+    border-color: var(--stage-color, var(--accent));
+    box-shadow: 0 0 20px -4px var(--stage-color, var(--accent));
+  }
+
+  .stage-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1rem;
+    margin-bottom: 12px;
+    background: color-mix(in srgb, var(--stage-color, var(--accent)) 15%, transparent);
+    border: 1px solid color-mix(in srgb, var(--stage-color, var(--accent)) 40%, transparent);
+  }
+
+  .stage-num {
+    position: absolute;
+    top: 10px;
+    right: 12px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.65rem;
+    color: var(--muted);
+    letter-spacing: 0.06em;
+  }
+
+  .stage-label {
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--stage-color, var(--accent));
+    margin-bottom: 6px;
+    font-family: 'IBM Plex Mono', monospace;
+  }
+
+  .stage-title {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 12px;
+    line-height: 1.3;
+  }
+
+  .tag-list {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+
+  .tag {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.68rem;
+    color: var(--text-dim);
+    background: rgba(255,255,255,0.04);
+    border-radius: 4px;
+    padding: 3px 7px;
+    border-left: 2px solid color-mix(in srgb, var(--stage-color, var(--accent)) 60%, transparent);
+    line-height: 1.5;
+  }
+
+  .tag strong {
+    color: var(--stage-color, var(--accent));
+    font-weight: 600;
+  }
+
+  /* Arrow */
+  .arrow {
+    display: flex;
+    align-items: center;
+    padding: 0 4px;
+    flex-shrink: 0;
+    margin-top: 28px;
+    animation: fadeIn 0.4s ease both;
+    animation-delay: 0.5s;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; } to { opacity: 1; }
+  }
+
+  .arrow svg {
+    width: 32px;
+    height: 24px;
+    overflow: visible;
+  }
+
+  .arrow-line {
+    stroke: var(--border);
+    stroke-width: 1.5;
+    fill: none;
+    stroke-dasharray: 200;
+    stroke-dashoffset: 200;
+    animation: drawLine 0.8s ease 0.8s both;
+  }
+
+  @keyframes drawLine {
+    to { stroke-dashoffset: 0; }
+  }
+
+  /* Fork block (embedding splits into 2) */
+  .fork-container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 0;
+    animation: fadeUp 0.6s ease 0.6s both;
+  }
+
+  .fork-stage {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 16px;
+    transition: border-color 0.3s, box-shadow 0.3s;
+  }
+
+  .fork-stage:hover {
+    border-color: var(--stage-color, var(--accent4));
+    box-shadow: 0 0 16px -4px var(--stage-color, var(--accent4));
+  }
+
+  /* Arrow fork */
+  .fork-arrow {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    padding: 0 4px;
+    flex-shrink: 0;
+    gap: 0;
+    margin-top: 0;
+  }
+
+  .fork-arrow svg {
+    width: 32px;
+    height: 60px;
+  }
+
+  /* Color themes per stage */
+  .s1 { --stage-color: #58a6ff; }
+  .s2 { --stage-color: #3fb950; }
+  .s3 { --stage-color: #f0883e; }
+  .s4 { --stage-color: #d2a8ff; }
+  .s5a { --stage-color: #79c0ff; }
+  .s5b { --stage-color: #56d364; }
+
+  /* Bottom legend */
+  .legend {
+    margin-top: 44px;
+    display: flex;
+    gap: 28px;
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    font-size: 0.72rem;
+    color: var(--muted);
+    font-family: 'IBM Plex Mono', monospace;
+  }
+
+  .legend-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+  }
+
+  /* Hover tooltip note */
+  .stage-note {
+    margin-top: 10px;
+    padding: 7px 8px;
+    border-radius: 6px;
+    background: rgba(255,255,255,0.03);
+    border: 1px dashed rgba(255,255,255,0.08);
+    font-size: 0.65rem;
+    color: var(--muted);
+    font-family: 'IBM Plex Mono', monospace;
+    line-height: 1.5;
+    display: none;
+  }
+
+  .stage:hover .stage-note,
+  .fork-stage:hover .stage-note {
+    display: block;
+  }
+
+  .section-divider {
+    width: 100%;
+    max-width: 1300px;
+    margin: 40px 0 18px 0;
+    border-top: 1px solid var(--border);
+    opacity: 0.85;
+  }
+
+  .section-title {
+    width: 100%;
+    max-width: 1300px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.9rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 12px;
+  }
+
+  .query-pipeline {
+    display: flex;
+    align-items: flex-start;
+    width: 100%;
+    max-width: 1300px;
+  }
+
+</style>
+</head>
+<body>
+
+<div class="title-block">
+  <h1>RAG Indexing Pipeline</h1>
+  <p>NHS Annual Reports 2005–2024 · Document Ingestion &amp; Vector Store Construction</p>
+</div>
+
+<div class="pipeline">
+
+  <!-- Stage 1: Input -->
+  <div class="stage s1">
+    <span class="stage-num">01</span>
+    <div class="stage-icon">📄</div>
+    <div class="stage-label">Input</div>
+    <div class="stage-title">PDF Files</div>
+    <div class="tag-list">
+      <div class="tag">NHS annual reports</div>
+      <div class="tag">2005 – 2024</div>
+      <div class="tag">Mixed: digital + scanned</div>
+    </div>
+    <div class="stage-note">20 years of NHS board-level reporting. Includes both digitally-born PDFs and scanned legacy documents.</div>
+  </div>
+
+  <!-- Arrow -->
+  <div class="arrow">
+    <svg viewBox="0 0 32 24"><path class="arrow-line" d="M0,12 H24 M18,6 L26,12 L18,18"/></svg>
+  </div>
+
+  <!-- Stage 2: Preprocessing -->
+  <div class="stage s2">
+    <span class="stage-num">02</span>
+    <div class="stage-icon">⚙️</div>
+    <div class="stage-label">Preprocessing</div>
+    <div class="stage-title">Text Extraction &amp; Cleaning</div>
+    <div class="tag-list">
+      <div class="tag"><strong>PyMuPDF</strong> — text per page</div>
+      <div class="tag"><strong>OCR fallback</strong> — scanned pages</div>
+      <div class="tag">Remove repeated headers/footers</div>
+      <div class="tag">Infer section boundaries</div>
+    </div>
+    <div class="stage-note">Section inference uses heuristic heading detection. OCR is triggered when text yield is below threshold.</div>
+  </div>
+
+  <!-- Arrow -->
+  <div class="arrow">
+    <svg viewBox="0 0 32 24"><path class="arrow-line" d="M0,12 H24 M18,6 L26,12 L18,18"/></svg>
+  </div>
+
+  <!-- Stage 3: Chunking -->
+  <div class="stage s3">
+    <span class="stage-num">03</span>
+    <div class="stage-icon">✂️</div>
+    <div class="stage-label">Chunking</div>
+    <div class="stage-title">Sliding Window Segmentation</div>
+    <div class="tag-list">
+      <div class="tag"><strong>224 tokens</strong> per chunk</div>
+      <div class="tag"><strong>56 tokens</strong> overlap</div>
+      <div class="tag"><strong>tiktoken</strong> — cl100k_base</div>
+      <div class="tag">Section-aware boundaries</div>
+      <div class="tag">Page provenance preserved</div>
+    </div>
+    <div class="stage-note">25% overlap preserves local context across chunk boundaries. Chunking uses tiktoken exact token counting during preprocessing.</div>
+  </div>
+
+  <!-- Arrow -->
+  <div class="arrow">
+    <svg viewBox="0 0 32 24"><path class="arrow-line" d="M0,12 H24 M18,6 L26,12 L18,18"/></svg>
+  </div>
+
+  <!-- Stage 4: Embedding -->
+  <div class="stage s4">
+    <span class="stage-num">04</span>
+    <div class="stage-icon">🧠</div>
+    <div class="stage-label">Embedding</div>
+    <div class="stage-title">Sentence Transformer Encoding</div>
+    <div class="tag-list">
+      <div class="tag"><strong>all-MiniLM-L6-v2</strong></div>
+      <div class="tag">384-dim dense vectors</div>
+      <div class="tag">Normalised for cosine sim</div>
+    </div>
+    <div class="stage-note">Lightweight 22M param model. Sufficient for semantic retrieval on structured reports; faster than larger alternatives.</div>
+  </div>
+
+  <!-- Fork arrow -->
+  <div class="fork-arrow">
+    <svg viewBox="0 0 32 120">
+      <!-- top branch -->
+      <path stroke="#30363d" stroke-width="1.5" fill="none" d="M0,60 H10 Q16,60 16,48 H32"/>
+      <!-- bottom branch -->
+      <path stroke="#30363d" stroke-width="1.5" fill="none" d="M0,60 H10 Q16,60 16,72 H32"/>
+      <!-- arrowheads -->
+      <path stroke="#30363d" stroke-width="1.5" fill="none" d="M26,42 L32,48 L26,54"/>
+      <path stroke="#30363d" stroke-width="1.5" fill="none" d="M26,66 L32,72 L26,78"/>
+    </svg>
+  </div>
+
+  <!-- Fork outputs -->
+  <div class="fork-container">
+
+    <div class="fork-stage s5a">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px;">
+        <div class="stage-icon" style="width:28px;height:28px;font-size:0.9rem;margin-bottom:0;">🗂️</div>
+        <div>
+          <div class="stage-label">Vector Index</div>
+          <div class="stage-title" style="font-size:0.88rem;">FAISS IndexFlatIP</div>
+        </div>
+      </div>
+      <div class="tag-list">
+        <div class="tag">Exact inner-product search</div>
+        <div class="tag">In-memory at query time</div>
+        <div class="tag">Supports hybrid BM25 + dense</div>
+      </div>
+      <div class="stage-note">IndexFlatIP is exact (no approximation). Suitable for corpus size — no need for IVF/HNSW at this scale.</div>
+    </div>
+
+    <div class="fork-stage s5b">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px;">
+        <div class="stage-icon" style="width:28px;height:28px;font-size:0.9rem;margin-bottom:0;">💾</div>
+        <div>
+          <div class="stage-label">Persistent Storage</div>
+          <div class="stage-title" style="font-size:0.88rem;">Embedding Vector Store</div>
+        </div>
+      </div>
+      <div class="tag-list">
+        <div class="tag"><strong>.npy</strong> per document</div>
+        <div class="tag"><code style="font-size:0.63rem;">data_processed/doc_id/embeddings.npy</code></div>
+        <div class="tag">Paired with chunk metadata</div>
+      </div>
+      <div class="stage-note">Parquet for metadata, .npy for vectors. Dual-storage enables re-indexing without re-embedding.</div>
+    </div>
+
+  </div>
+
+</div>
+
+<!-- Legend -->
+<div class="legend">
+  <div class="legend-item"><div class="legend-dot" style="background:#58a6ff"></div> Input</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#3fb950"></div> Preprocessing</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#f0883e"></div> Chunking</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#d2a8ff"></div> Embedding</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#79c0ff"></div> FAISS Index</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#56d364"></div> Vector Storage</div>
+  <div class="legend-item" style="border-left:1px solid #30363d;padding-left:20px;">
+    Hover each stage for implementation notes
+  </div>
+</div>
+
+<div class="section-divider"></div>
+<div class="section-title">Query Time Retrieval and Generation</div>
+
+<div class="query-pipeline">
+  <div class="stage s1">
+    <span class="stage-num">Q1</span>
+    <div class="stage-icon">❓</div>
+    <div class="stage-label">Query</div>
+    <div class="stage-title">User Question</div>
+    <div class="tag-list">
+      <div class="tag">Natural language prompt</div>
+      <div class="tag">Optional filters year section</div>
+    </div>
+  </div>
+
+  <div class="arrow">
+    <svg viewBox="0 0 32 24"><path class="arrow-line" d="M0,12 H24 M18,6 L26,12 L18,18"/></svg>
+  </div>
+
+  <div class="stage s4">
+    <span class="stage-num">Q2</span>
+    <div class="stage-icon">🧩</div>
+    <div class="stage-label">Retrieval</div>
+    <div class="stage-title">Hybrid Search</div>
+    <div class="tag-list">
+      <div class="tag">Dense FAISS search</div>
+      <div class="tag">BM25 sparse retrieval</div>
+      <div class="tag">RRF rank fusion top-k</div>
+    </div>
+  </div>
+
+  <div class="arrow">
+    <svg viewBox="0 0 32 24"><path class="arrow-line" d="M0,12 H24 M18,6 L26,12 L18,18"/></svg>
+  </div>
+
+  <div class="stage s3">
+    <span class="stage-num">Q3</span>
+    <div class="stage-icon">📚</div>
+    <div class="stage-label">Context</div>
+    <div class="stage-title">Evidence Assembly</div>
+    <div class="tag-list">
+      <div class="tag">Select top supporting chunks</div>
+      <div class="tag">Attach page metadata</div>
+      <div class="tag">Build grounded prompt context</div>
+    </div>
+  </div>
+
+  <div class="arrow">
+    <svg viewBox="0 0 32 24"><path class="arrow-line" d="M0,12 H24 M18,6 L26,12 L18,18"/></svg>
+  </div>
+
+  <div class="stage s5b">
+    <span class="stage-num">Q4</span>
+    <div class="stage-icon">🤖</div>
+    <div class="stage-label">Generation</div>
+    <div class="stage-title">LLM Answer Synthesis</div>
+    <div class="tag-list">
+      <div class="tag">Answer from retrieved evidence only</div>
+      <div class="tag">Return citations page chunk ids</div>
+      <div class="tag">Fallback when evidence is weak</div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

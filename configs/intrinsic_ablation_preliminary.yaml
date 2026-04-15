@@ -1,0 +1,47 @@
+python_bin: .venv/bin/python
+embed_model: models/all-MiniLM-L6-v2
+run_index: false
+pdf_dir: Data/Annual Accounts NHS Grampian/Preliminary_Test
+pdf_glob: "*.pdf"
+out_root: results/ablations/ablation_intrinsic
+summary_out_dir: results/ablations/ablation_intrinsic
+
+variants:
+  - name: chunk_280_90_seg_off
+    chunking:
+      size_tokens: 280
+      overlap_tokens: 90
+      segment_aware: false
+
+  - name: chunk_320_90_seg_off
+    chunking:
+      size_tokens: 320
+      overlap_tokens: 90
+      segment_aware: false
+
+  - name: chunk_500_100_seg_off
+    chunking:
+      size_tokens: 500
+      overlap_tokens: 100
+      segment_aware: false
+
+  - name: chunk_700_120_seg_off
+    chunking:
+      size_tokens: 700
+      overlap_tokens: 120
+      segment_aware: false
+
+  - name: chunk_280_90_seg_on
+    chunking:
+      size_tokens: 280
+      overlap_tokens: 90
+      segment_aware: true
+
+  - name: chunk_280_90_seg_on_wholemd
+    chunking:
+      size_tokens: 280
+      overlap_tokens: 90
+      segment_aware: true
+      whole_doc_markdown_mode: true
+      markdown_header_carry_forward: true
+      markdown_table_injection: true

@@ -1,0 +1,15 @@
+{
+  "n_manual_reviewed": 20,
+  "manual_counts": {
+    "model_extraction_error": 10,
+    "ambiguous_question": 5,
+    "gold_mismatch": 5
+  },
+  "manual_rates": {
+    "model_extraction_error": 0.5,
+    "ambiguous_question": 0.25,
+    "gold_mismatch": 0.25
+  },
+  "gold_mismatch_is_large": false,
+  "note": "Threshold for large set at >=30% (>=6/20) in this manual subset."
+}

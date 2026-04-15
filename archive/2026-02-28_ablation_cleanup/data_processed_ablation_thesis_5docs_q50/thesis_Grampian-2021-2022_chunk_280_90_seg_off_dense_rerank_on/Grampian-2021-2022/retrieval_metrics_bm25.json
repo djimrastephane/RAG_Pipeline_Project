@@ -1,0 +1,104 @@
+{
+  "run_info": {
+    "run_utc": "2026-02-26T23:39:00+00:00",
+    "data_dir": "/Users/djimra/MSc Data Science Jan 2025/Thesis documents/RAG_Pipeline_Project/data_processed_ablation_thesis_5docs_q50/thesis_Grampian-2021-2022_chunk_280_90_seg_off_dense_rerank_on/Grampian-2021-2022",
+    "method": "bm25",
+    "bm25_k1": 1.5,
+    "bm25_b": 0.75,
+    "k_list": [
+      1,
+      3,
+      5,
+      10
+    ],
+    "num_queries": 50
+  },
+  "metrics_by_k": {
+    "1": {
+      "num_queries": 50,
+      "page_hit_rate_at_k": 0.72,
+      "mean_page_recall_at_k": 0.72,
+      "mean_page_precision_at_k": 0.72,
+      "mean_page_mrr_at_k": 0.72,
+      "chunk_hit_rate_at_k": 0.72,
+      "mean_chunk_precision_at_k": 0.72,
+      "mean_chunk_mrr_at_k": 0.72
+    },
+    "3": {
+      "num_queries": 50,
+      "page_hit_rate_at_k": 0.82,
+      "mean_page_recall_at_k": 0.82,
+      "mean_page_precision_at_k": 0.4233333333333333,
+      "mean_page_mrr_at_k": 0.76,
+      "chunk_hit_rate_at_k": 0.82,
+      "mean_chunk_precision_at_k": 0.48,
+      "mean_chunk_mrr_at_k": 0.76
+    },
+    "5": {
+      "num_queries": 50,
+      "page_hit_rate_at_k": 0.84,
+      "mean_page_recall_at_k": 0.84,
+      "mean_page_precision_at_k": 0.2243333333333333,
+      "mean_page_mrr_at_k": 0.764,
+      "chunk_hit_rate_at_k": 0.84,
+      "mean_chunk_precision_at_k": 0.316,
+      "mean_chunk_mrr_at_k": 0.764
+    },
+    "10": {
+      "num_queries": 50,
+      "page_hit_rate_at_k": 0.86,
+      "mean_page_recall_at_k": 0.86,
+      "mean_page_precision_at_k": 0.11847619047619048,
+      "mean_page_mrr_at_k": 0.7662222222222222,
+      "chunk_hit_rate_at_k": 0.86,
+      "mean_chunk_precision_at_k": 0.18200000000000002,
+      "mean_chunk_mrr_at_k": 0.7662222222222222
+    }
+  },
+  "failure_counts_by_k": {
+    "1": {
+      "hit": 36,
+      "missed_top_ranked": 14
+    },
+    "3": {
+      "hit": 41,
+      "missed_top_ranked": 9
+    },
+    "5": {
+      "hit": 42,
+      "missed_top_ranked": 8
+    },
+    "10": {
+      "hit": 43,
+      "missed_top_ranked": 7
+    }
+  },
+  "leakage_counts_by_k": {
+    "1": {
+      "num_queries": 50,
+      "any_leakage_rate_at_k": 0.0,
+      "mean_leakage_rate_at_k": 0.0
+    },
+    "3": {
+      "num_queries": 50,
+      "any_leakage_rate_at_k": 0.0,
+      "mean_leakage_rate_at_k": 0.0
+    },
+    "5": {
+      "num_queries": 50,
+      "any_leakage_rate_at_k": 0.0,
+      "mean_leakage_rate_at_k": 0.0
+    },
+    "10": {
+      "num_queries": 50,
+      "any_leakage_rate_at_k": 0.0,
+      "mean_leakage_rate_at_k": 0.0
+    }
+  },
+  "answer_scoring": {
+    "num_queries_total": 50,
+    "num_queries_scored": 0,
+    "answer_accuracy": null,
+    "answer_status_counts": {}
+  }
+}

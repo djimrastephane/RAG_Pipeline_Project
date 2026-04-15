@@ -1,0 +1,22 @@
+{
+  "n_queries": 75,
+  "metrics_mean": {
+    "answer_relevancy": 0.3489438386506413,
+    "faithfulness": 0.550228310502283,
+    "context_precision": 0.7391891891381889,
+    "context_recall": 0.8648648648648649
+  },
+  "metrics_non_null": {
+    "answer_relevancy": 75,
+    "faithfulness": 73,
+    "context_precision": 74,
+    "context_recall": 74
+  },
+  "charts": [
+    "ragas_metric_means.png",
+    "ragas_metric_boxplot.png",
+    "ragas_metric_violin_jitter.png",
+    "ragas_metric_coverage.png",
+    "ragas_by_doc_heatmap.png"
+  ]
+}

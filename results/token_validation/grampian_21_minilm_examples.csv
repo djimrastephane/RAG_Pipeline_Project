@@ -1,0 +1,4 @@
+doc_id,chunk_id,tiktoken_tokens,minilm_tokens,result
+Grampian-2013-2014,p0069_000,260,235,OK
+Grampian-2024-2025,p0004_000,260,257,truncated to 256
+Grampian-2018-2019,p0023_001,260,258,truncated to 256

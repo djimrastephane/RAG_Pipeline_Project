@@ -1,0 +1,7 @@
+{
+  "n_total": 250,
+  "improved_fail_to_hit": 3,
+  "regressed_hit_to_fail": 6,
+  "unchanged": 241,
+  "net_hit3_delta": -0.01200000000000001
+}

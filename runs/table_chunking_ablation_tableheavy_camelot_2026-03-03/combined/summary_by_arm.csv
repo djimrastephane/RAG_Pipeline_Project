@@ -1,0 +1,7 @@
+arm,scope,n,hit_at_3,strict_accuracy,quote_support_rate,p_strict_given_hit3,failure_mode_counts
+baseline,all,43,0.9069767441860465,0.6046511627906976,0.6046511627906976,0.6666666666666666,"{""did_not_identify_gold"": 17, ""strict_correct"": 26}"
+baseline,table_query,43,0.9069767441860465,0.6046511627906976,0.6046511627906976,0.6666666666666666,"{""did_not_identify_gold"": 17, ""strict_correct"": 26}"
+row_preserving,all,43,0.9302325581395349,0.5116279069767442,0.5348837209302325,0.55,"{""did_not_identify_gold"": 20, ""saw_gold_but_answer_incorrect"": 1, ""strict_correct"": 22}"
+row_preserving,table_query,43,0.9302325581395349,0.5116279069767442,0.5348837209302325,0.55,"{""did_not_identify_gold"": 20, ""saw_gold_but_answer_incorrect"": 1, ""strict_correct"": 22}"
+two_stage,all,43,0.9302325581395349,0.5116279069767442,0.5348837209302325,0.55,"{""did_not_identify_gold"": 20, ""saw_gold_but_answer_incorrect"": 1, ""strict_correct"": 22}"
+two_stage,table_query,43,0.9302325581395349,0.5116279069767442,0.5348837209302325,0.55,"{""did_not_identify_gold"": 20, ""saw_gold_but_answer_incorrect"": 1, ""strict_correct"": 22}"

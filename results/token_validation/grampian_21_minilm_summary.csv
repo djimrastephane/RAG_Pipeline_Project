@@ -1,0 +1,2 @@
+scope,documents,total_chunks,max_token_length,mean_length,p95_length,chunks_exceeding_256,truncation_rate
+"data_processed/Grampian-* (21 docs, 2004-2025)",21,4423,8810,461.5107393172055,1995.8999999999996,2114,0.4779561383676238

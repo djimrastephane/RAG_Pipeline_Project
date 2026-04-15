@@ -1,0 +1,38 @@
+{
+  "docs": [
+    "Grampian-2020-2021",
+    "Grampian-2021-2022",
+    "Grampian-2022-2023",
+    "Grampian-2023-2024",
+    "Grampian-2024-2025"
+  ],
+  "queries_per_doc": 3,
+  "k": 5,
+  "seed": 42,
+  "arms": [
+    "baseline",
+    "grounded_reasoning",
+    "quote_then_answer",
+    "constrained_extraction"
+  ],
+  "total_evals": 60,
+  "best_arm": {
+    "arm": "baseline",
+    "n_queries": 15,
+    "answer_accuracy": 0.4,
+    "generation_ok_rate": 0.6666666666666666,
+    "insufficient_evidence_rate": 0.3333333333333333,
+    "context_truncated_rate": 0.0,
+    "citation_valid_rate": 0.6666666666666666,
+    "json_parse_success_rate": 1.0,
+    "latency_mean_ms": 5122.889866666666,
+    "latency_p50_ms": 5216.039,
+    "latency_p95_ms": 6547.614199999998,
+    "prompt_chars_mean": 6860.733333333334
+  },
+  "chart_paths": [
+    "results/generation_prompt_ablation_2026-03-13/charts/prompt_ablation_quality_metrics.png",
+    "results/generation_prompt_ablation_2026-03-13/charts/prompt_ablation_accuracy_vs_latency.png",
+    "results/generation_prompt_ablation_2026-03-13/charts/prompt_ablation_status_mix.png"
+  ]
+}

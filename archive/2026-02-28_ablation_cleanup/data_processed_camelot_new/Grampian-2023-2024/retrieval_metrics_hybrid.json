@@ -1,0 +1,109 @@
+{
+  "run_info": {
+    "run_utc": "2026-02-18T10:47:37+00:00",
+    "data_dir": "/Users/djimra/MSc Data Science Jan 2025/Thesis documents/RAG_Pipeline_Project/data_processed_camelot_new/Grampian-2023-2024",
+    "method": "hybrid_rrf_dense_bm25",
+    "embedding_model": "models/all-MiniLM-L6-v2",
+    "bm25_k1": 1.5,
+    "bm25_b": 0.75,
+    "rrf_k": 60,
+    "dense_weight": 1.0,
+    "bm25_weight": 1.0,
+    "k_list": [
+      1,
+      3,
+      5,
+      10
+    ],
+    "num_queries": 35,
+    "num_chunks_indexed": 273
+  },
+  "metrics_by_k": {
+    "1": {
+      "num_queries": 35,
+      "page_hit_rate_at_k": 0.6,
+      "mean_page_recall_at_k": 0.6,
+      "mean_page_precision_at_k": 0.6,
+      "mean_page_mrr_at_k": 0.6,
+      "chunk_hit_rate_at_k": 0.6,
+      "mean_chunk_precision_at_k": 0.6,
+      "mean_chunk_mrr_at_k": 0.6
+    },
+    "3": {
+      "num_queries": 35,
+      "page_hit_rate_at_k": 0.7142857142857143,
+      "mean_page_recall_at_k": 0.7142857142857143,
+      "mean_page_precision_at_k": 0.29047619047619044,
+      "mean_page_mrr_at_k": 0.6428571428571429,
+      "chunk_hit_rate_at_k": 0.7142857142857143,
+      "mean_chunk_precision_at_k": 0.3333333333333333,
+      "mean_chunk_mrr_at_k": 0.6428571428571429
+    },
+    "5": {
+      "num_queries": 35,
+      "page_hit_rate_at_k": 0.7714285714285715,
+      "mean_page_recall_at_k": 0.7714285714285715,
+      "mean_page_precision_at_k": 0.18571428571428572,
+      "mean_page_mrr_at_k": 0.6571428571428571,
+      "chunk_hit_rate_at_k": 0.7714285714285715,
+      "mean_chunk_precision_at_k": 0.22857142857142856,
+      "mean_chunk_mrr_at_k": 0.6571428571428571
+    },
+    "10": {
+      "num_queries": 35,
+      "page_hit_rate_at_k": 0.9428571428571428,
+      "mean_page_recall_at_k": 0.9428571428571428,
+      "mean_page_precision_at_k": 0.11361678004535147,
+      "mean_page_mrr_at_k": 0.6902721088435374,
+      "chunk_hit_rate_at_k": 0.9428571428571428,
+      "mean_chunk_precision_at_k": 0.1457142857142857,
+      "mean_chunk_mrr_at_k": 0.683843537414966
+    }
+  },
+  "failure_counts_by_k": {
+    "1": {
+      "hit": 21,
+      "missed_top_ranked": 14
+    },
+    "3": {
+      "hit": 25,
+      "missed_top_ranked": 10
+    },
+    "5": {
+      "hit": 27,
+      "missed_top_ranked": 8
+    },
+    "10": {
+      "hit": 33,
+      "missed_top_ranked": 2
+    }
+  },
+  "leakage_counts_by_k": {
+    "1": {
+      "num_queries": 35,
+      "any_leakage_rate_at_k": 0.0,
+      "mean_leakage_rate_at_k": 0.0
+    },
+    "3": {
+      "num_queries": 35,
+      "any_leakage_rate_at_k": 0.0,
+      "mean_leakage_rate_at_k": 0.0
+    },
+    "5": {
+      "num_queries": 35,
+      "any_leakage_rate_at_k": 0.0,
+      "mean_leakage_rate_at_k": 0.0
+    },
+    "10": {
+      "num_queries": 35,
+      "any_leakage_rate_at_k": 0.0,
+      "mean_leakage_rate_at_k": 0.0
+    }
+  },
+  "answer_scoring": {
+    "num_queries_total": 35,
+    "num_queries_scored": 0,
+    "answer_accuracy": null,
+    "answer_status_counts": {}
+  }
+}

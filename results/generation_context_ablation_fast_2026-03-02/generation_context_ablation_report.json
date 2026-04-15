@@ -1,0 +1,27 @@
+{
+  "docs": [
+    "Grampian-2020-2021",
+    "Grampian-2021-2022",
+    "Grampian-2022-2023",
+    "Grampian-2023-2024",
+    "Grampian-2024-2025"
+  ],
+  "queries_per_doc": 1,
+  "k": 5,
+  "seed": 42,
+  "total_evals": 45,
+  "best_config": {
+    "max_context_chunks": 3.0,
+    "max_context_chars": 9000.0,
+    "n_queries": 5.0,
+    "answer_accuracy": 0.8,
+    "generation_ok_rate": 0.8,
+    "insufficient_evidence_rate": 0.2,
+    "context_truncated_rate": 1.0,
+    "latency_mean_ms": 3377.8059999999996,
+    "latency_p50_ms": 3429.581,
+    "latency_p95_ms": 4140.981,
+    "context_chunks_used_mean": 3.0,
+    "context_chars_used_mean": 3647.4
+  }
+}

@@ -1,0 +1,28 @@
+ARM: row_preserving
+DOC: Grampian-2024-2025
+PAGE: 91
+CHUNKS: 2
+
+====================================================================================================
+chunk_id: table_p0091_s00
+chunk_id_global: Grampian-2024-2025:table_p0091_s00
+length_chars: 832
+----------------------------------------------------------------------------------------------------
+TABLE | page=91 | Financial table on page 91 (Staff Costs) Contains 8 line items across 9 columns. Column headers: STAFF COSTS | Notes | E
+COLUMNS: STAFF COSTS | Notes | Executive Board Members £000's | Non Executive Board Members £000's | Permanent Staff £000's | Inward Secondees £000's | Other Staff £000's | Outward Secondees £000's | 2024/25 Total £000's
+Salaries and wages | - | 816 | 588 | 830,267 | 0 | 0 | 0 | 831,671
+Taxation & Social Security costs | - | 106 | 62 | 87,477 | 0 | 0 | 0 | 87,645
+NHS scheme employers' costs | - | 130 | 43 | 153,404 | 0 | 0 | 0 | 153,577
+Secondees | - | 0 | 0 | 0 | 890 | 0 | (63,965) | (63,075)
+Agency staff | - | 0 | 0 | 0 | 0 | 28,827 | 0 | 28,827
+TOTAL | - | 1,052 | 693 | 1,071,148 | 890 | 28,827 | (63,965) | 1,038,645
+Compensation for loss of office | - | 0 | 0 | 80 | 0 | 0 | 0 | 80
+
+====================================================================================================
+chunk_id: table_p0091_s01
+chunk_id_global: Grampian-2024-2025:table_p0091_s01
+length_chars: 445
+----------------------------------------------------------------------------------------------------
+TABLE | page=91 | Financial table on page 91 (Staff Costs) Contains 8 line items across 9 columns. Column headers: STAFF COSTS | Notes | E
+COLUMNS: STAFF COSTS | Notes | Executive Board Members £000's | Non Executive Board Members £000's | Permanent Staff £000's | Inward Secondees £000's | Other Staff £000's | Outward Secondees £000's | 2024/25 Total £000's
+TOTAL STAFF COSTS | b | 1,052 | 693 | 1,071,228 | 890 | 28,827 | (63,965) | 1,038,725

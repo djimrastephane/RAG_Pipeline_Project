@@ -1,0 +1,39 @@
+{
+  "docs_used": [
+    "Grampian-2004-2005",
+    "Grampian-2005-2006",
+    "Grampian-2010-2011",
+    "Grampian-2014-2015",
+    "Grampian-2016-2017",
+    "Grampian-2017-2018",
+    "Grampian-2018-2019",
+    "Grampian-2019-2020",
+    "Grampian-2020-2021",
+    "Grampian-2021-2022",
+    "Grampian-2022-2023",
+    "Grampian-2023-2024",
+    "Grampian-2024-2025"
+  ],
+  "docs_missing_or_skipped": [],
+  "n_docs_used": 13,
+  "n_points_total": 3263,
+  "years_present": [
+    2005,
+    2006,
+    2011,
+    2015,
+    2017,
+    2018,
+    2019,
+    2020,
+    2021,
+    2022,
+    2023,
+    2024,
+    2025
+  ],
+  "out_csv": "results/wizmap/grampian_temporal_joint_umap.csv",
+  "out_json": "results/wizmap/grampian_temporal_joint_umap.json",
+  "out_png": "results/wizmap/grampian_temporal_joint_preview.png",
+  "out_gif": "results/wizmap/grampian_temporal_joint_animation.gif"
+}

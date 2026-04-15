@@ -1,0 +1,3774 @@
+{
+  "run_info": {
+    "run_utc": "2026-02-25T09:01:47+00:00",
+    "data_dir": "/Users/djimra/MSc Data Science Jan 2025/Thesis documents/RAG_Pipeline_Project/data_processed_ablation_thesis_all_docs/thesis_Grampian-2024-2025_chunk_280_90_seg_off_rewrite_rerank_on/Grampian-2024-2025",
+    "index_path": "/Users/djimra/MSc Data Science Jan 2025/Thesis documents/RAG_Pipeline_Project/data_processed_ablation_thesis_all_docs/thesis_Grampian-2024-2025_chunk_280_90_seg_off_rewrite_rerank_on/Grampian-2024-2025/faiss.index",
+    "meta_path": "/Users/djimra/MSc Data Science Jan 2025/Thesis documents/RAG_Pipeline_Project/data_processed_ablation_thesis_all_docs/thesis_Grampian-2024-2025_chunk_280_90_seg_off_rewrite_rerank_on/Grampian-2024-2025/chunk_meta.parquet",
+    "eval_set_path": "/Users/djimra/MSc Data Science Jan 2025/Thesis documents/RAG_Pipeline_Project/data_processed_ablation_thesis_all_docs/thesis_Grampian-2024-2025_chunk_280_90_seg_off_rewrite_rerank_on/Grampian-2024-2025/eval_set_rewrites.json",
+    "embedding_model": "models/all-MiniLM-L6-v2",
+    "k_list": [
+      1,
+      3,
+      5,
+      10
+    ],
+    "max_k_per_variant": 20,
+    "num_queries": 25,
+    "num_chunks_indexed": 340,
+    "merge_strategy": "max_score_per_chunk_across_variants"
+  },
+  "results": [
+    {
+      "query_id": "Q_FIN_2024_01",
+      "question": "What was the net operating cost for NHS Grampian in 2024/25?",
+      "answer_type": "number",
+      "expected_pages": [
+        105
+      ],
+      "query_variants": [
+        "What was the net operating cost for NHS Grampian in 2024/25?"
+      ],
+      "per_k": {
+        "1": {
+          "query_variants": [
+            "What was the net operating cost for NHS Grampian in 2024/25?"
+          ],
+          "retrieved_chunk_ids": [
+            "p0165_002"
+          ],
+          "retrieved_pages_ranked": [
+            165
+          ],
+          "retrieved_scores": [
+            0.6315626502037048
+          ],
+          "best_variant_per_chunk": [
+            "What was the net operating cost for NHS Grampian in 2024/25?"
+          ],
+          "recall_at_k": 0.0,
+          "precision_at_k": 0.0,
+          "mrr_at_k": 0.0
+        },
+        "3": {
+          "query_variants": [
+            "What was the net operating cost for NHS Grampian in 2024/25?"
+          ],
+          "retrieved_chunk_ids": [
+            "p0165_002",
+            "p0031_001",
+            "p0132_002"
+          ],
+          "retrieved_pages_ranked": [
+            165,
+            31,
+            132
+          ],
+          "retrieved_scores": [
+            0.6315626502037048,
+            0.6281831860542297,
+            0.609157145023346
+          ],
+          "best_variant_per_chunk": [
+            "What was the net operating cost for NHS Grampian in 2024/25?",
+            "What was the net operating cost for NHS Grampian in 2024/25?",
+            "What was the net operating cost for NHS Grampian in 2024/25?"
+          ],
+          "recall_at_k": 0.0,
+          "precision_at_k": 0.0,
+          "mrr_at_k": 0.0
+        },
+        "5": {
+          "query_variants": [
+            "What was the net operating cost for NHS Grampian in 2024/25?"
+          ],
+          "retrieved_chunk_ids": [
+            "p0165_002",
+            "p0031_001",
+            "p0132_002",
+            "p0031_002",
+            "p0004_002"
+          ],
+          "retrieved_pages_ranked": [
+            165,
+            31,
+            132,
+            4
+          ],
+          "retrieved_scores": [
+            0.6315626502037048,
+            0.6281831860542297,
+            0.609157145023346,
+            0.6064561009407043,
+            0.6032294631004333
+          ],
+          "best_variant_per_chunk": [
+            "What was the net operating cost for NHS Grampian in 2024/25?",
+            "What was the net operating cost for NHS Grampian in 2024/25?",
+            "What was the net operating cost for NHS Grampian in 2024/25?",
+            "What was the net operating cost for NHS Grampian in 2024/25?",
+            "What was the net operating cost for NHS Grampian in 2024/25?"
+          ],
+          "recall_at_k": 0.0,
+          "precision_at_k": 0.0,
+          "mrr_at_k": 0.0
+        },
+        "10": {
+          "query_variants": [
+            "What was the net operating cost for NHS Grampian in 2024/25?"
+          ],
+          "retrieved_chunk_ids": [
+            "p0165_002",
+            "p0031_001",
+            "p0132_002",
+            "p0031_002",
+            "p0004_002",
+            "p0132_000",
+            "p0030_002",
+            "p0158_001",
+            "p0132_001",
+            "p0095_000"
+          ],
+          "retrieved_pages_ranked": [
+            165,
+            31,
+            132,
+            4,
+            30,
+            158,
+            95
+          ],
+          "retrieved_scores": [
+            0.6315626502037048,
+            0.6281831860542297,
+            0.609157145023346,
+            0.6064561009407043,
+            0.6032294631004333,
+            0.5998157262802124,
+            0.585338294506073,
+            0.5851806402206421,
+            0.5819095373153687,
+            0.5738879442214966
+          ],
+          "best_variant_per_chunk": [
+            "What was the net operating cost for NHS Grampian in 2024/25?",
+            "What was the net operating cost for NHS Grampian in 2024/25?",
+            "What was the net operating cost for NHS Grampian in 2024/25?",
+            "What was the net operating cost for NHS Grampian in 2024/25?",
+            "What was the net operating cost for NHS Grampian in 2024/25?",
+            "What was the net operating cost for NHS Grampian in 2024/25?",
+            "What was the net operating cost for NHS Grampian in 2024/25?",
+            "What was the net operating cost for NHS Grampian in 2024/25?",
+            "What was the net operating cost for NHS Grampian in 2024/25?",
+            "What was the net operating cost for NHS Grampian in 2024/25?"
+          ],
+          "recall_at_k": 0.0,
+          "precision_at_k": 0.0,
+          "mrr_at_k": 0.0
+        }
+      }
+    },
+    {
+      "query_id": "Q_FIN_2024_02",
+      "question": "What was the total programme of infrastructure investment delivered during 2024/25?",
+      "answer_type": "number",
+      "expected_pages": [
+        33
+      ],
+      "query_variants": [
+        "What was the total programme of infrastructure investment delivered during 2024/25?"
+      ],
+      "per_k": {
+        "1": {
+          "query_variants": [
+            "What was the total programme of infrastructure investment delivered during 2024/25?"
+          ],
+          "retrieved_chunk_ids": [
+            "p0033_002"
+          ],
+          "retrieved_pages_ranked": [
+            33
+          ],
+          "retrieved_scores": [
+            0.5199202299118042
+          ],
+          "best_variant_per_chunk": [
+            "What was the total programme of infrastructure investment delivered during 2024/25?"
+          ],
+          "recall_at_k": 1.0,
+          "precision_at_k": 1.0,
+          "mrr_at_k": 1.0
+        },
+        "3": {
+          "query_variants": [
+            "What was the total programme of infrastructure investment delivered during 2024/25?"
+          ],
+          "retrieved_chunk_ids": [
+            "p0033_002",
+            "p0126_001",
+            "p0041_001"
+          ],
+          "retrieved_pages_ranked": [
+            33,
+            126,
+            41
+          ],
+          "retrieved_scores": [
+            0.5199202299118042,
+            0.41406702995300293,
+            0.40971243381500244
+          ],
+          "best_variant_per_chunk": [
+            "What was the total programme of infrastructure investment delivered during 2024/25?",
+            "What was the total programme of infrastructure investment delivered during 2024/25?",
+            "What was the total programme of infrastructure investment delivered during 2024/25?"
+          ],
+          "recall_at_k": 1.0,
+          "precision_at_k": 0.3333333333333333,
+          "mrr_at_k": 1.0
+        },
+        "5": {
+          "query_variants": [
+            "What was the total programme of infrastructure investment delivered during 2024/25?"
+          ],
+          "retrieved_chunk_ids": [
+            "p0033_002",
+            "p0126_001",
+            "p0041_001",
+            "p0062_000",
+            "p0029_000"
+          ],
+          "retrieved_pages_ranked": [
+            33,
+            126,
+            41,
+            62,
+            29
+          ],
+          "retrieved_scores": [
+            0.5199202299118042,
+            0.41406702995300293,
+            0.40971243381500244,
+            0.3968679904937744,
+            0.39499691128730774
+          ],
+          "best_variant_per_chunk": [
+            "What was the total programme of infrastructure investment delivered during 2024/25?",
+            "What was the total programme of infrastructure investment delivered during 2024/25?",
+            "What was the total programme of infrastructure investment delivered during 2024/25?",
+            "What was the total programme of infrastructure investment delivered during 2024/25?",
+            "What was the total programme of infrastructure investment delivered during 2024/25?"
+          ],
+          "recall_at_k": 1.0,
+          "precision_at_k": 0.2,
+          "mrr_at_k": 1.0
+        },
+        "10": {
+          "query_variants": [
+            "What was the total programme of infrastructure investment delivered during 2024/25?"
+          ],
+          "retrieved_chunk_ids": [
+            "p0033_002",
+            "p0126_001",
+            "p0041_001",
+            "p0062_000",
+            "p0029_000",
+            "p0127_000",
+            "p0034_001",
+            "p0095_000",
+            "p0027_000",
+            "p0030_001"
+          ],
+          "retrieved_pages_ranked": [
+            33,
+            126,
+            41,
+            62,
+            29,
+            127,
+            34,
+            95,
+            27,
+            30
+          ],
+          "retrieved_scores": [
+            0.5199202299118042,
+            0.41406702995300293,
+            0.40971243381500244,
+            0.3968679904937744,
+            0.39499691128730774,
+            0.39396655559539795,
+            0.385147362947464,
+            0.38072651624679565,
+            0.37470224499702454,
+            0.3713017404079437
+          ],
+          "best_variant_per_chunk": [
+            "What was the total programme of infrastructure investment delivered during 2024/25?",
+            "What was the total programme of infrastructure investment delivered during 2024/25?",
+            "What was the total programme of infrastructure investment delivered during 2024/25?",
+            "What was the total programme of infrastructure investment delivered during 2024/25?",
+            "What was the total programme of infrastructure investment delivered during 2024/25?",
+            "What was the total programme of infrastructure investment delivered during 2024/25?",
+            "What was the total programme of infrastructure investment delivered during 2024/25?",
+            "What was the total programme of infrastructure investment delivered during 2024/25?",
+            "What was the total programme of infrastructure investment delivered during 2024/25?",
+            "What was the total programme of infrastructure investment delivered during 2024/25?"
+          ],
+          "recall_at_k": 1.0,
+          "precision_at_k": 0.1,
+          "mrr_at_k": 1.0
+        }
+      }
+    },
+    {
+      "query_id": "Q_FIN_2024_03",
+      "question": "How much capital expenditure was incurred during 2024/25?",
+      "answer_type": "number",
+      "expected_pages": [
+        33
+      ],
+      "query_variants": [
+        "How much capital expenditure was incurred during 2024/25?"
+      ],
+      "per_k": {
+        "1": {
+          "query_variants": [
+            "How much capital expenditure was incurred during 2024/25?"
+          ],
+          "retrieved_chunk_ids": [
+            "p0033_002"
+          ],
+          "retrieved_pages_ranked": [
+            33
+          ],
+          "retrieved_scores": [
+            0.5248156785964966
+          ],
+          "best_variant_per_chunk": [
+            "How much capital expenditure was incurred during 2024/25?"
+          ],
+          "recall_at_k": 1.0,
+          "precision_at_k": 1.0,
+          "mrr_at_k": 1.0
+        },
+        "3": {
+          "query_variants": [
+            "How much capital expenditure was incurred during 2024/25?"
+          ],
+          "retrieved_chunk_ids": [
+            "p0033_002",
+            "p0031_001",
+            "p0033_001"
+          ],
+          "retrieved_pages_ranked": [
+            33,
+            31
+          ],
+          "retrieved_scores": [
+            0.5248156785964966,
+            0.48179200291633606,
+            0.43405473232269287
+          ],
+          "best_variant_per_chunk": [
+            "How much capital expenditure was incurred during 2024/25?",
+            "How much capital expenditure was incurred during 2024/25?",
+            "How much capital expenditure was incurred during 2024/25?"
+          ],
+          "recall_at_k": 1.0,
+          "precision_at_k": 0.5,
+          "mrr_at_k": 1.0
+        },
+        "5": {
+          "query_variants": [
+            "How much capital expenditure was incurred during 2024/25?"
+          ],
+          "retrieved_chunk_ids": [
+            "p0033_002",
+            "p0031_001",
+            "p0033_001",
+            "p0029_000",
+            "p0156_002"
+          ],
+          "retrieved_pages_ranked": [
+            33,
+            31,
+            29,
+            156
+          ],
+          "retrieved_scores": [
+            0.5248156785964966,
+            0.48179200291633606,
+            0.43405473232269287,
+            0.4304966330528259,
+            0.42104142904281616
+          ],
+          "best_variant_per_chunk": [
+            "How much capital expenditure was incurred during 2024/25?",
+            "How much capital expenditure was incurred during 2024/25?",
+            "How much capital expenditure was incurred during 2024/25?",
+            "How much capital expenditure was incurred during 2024/25?",
+            "How much capital expenditure was incurred during 2024/25?"
+          ],
+          "recall_at_k": 1.0,
+          "precision_at_k": 0.25,
+          "mrr_at_k": 1.0
+        },
+        "10": {
+          "query_variants": [
+            "How much capital expenditure was incurred during 2024/25?"
+          ],
+          "retrieved_chunk_ids": [
+            "p0033_002",
+            "p0031_001",
+            "p0033_001",
+            "p0029_000",
+            "p0156_002",
+            "p0126_001",
+            "p0027_000",
+            "p0139_000",
+            "p0028_001",
+            "p0029_002"
+          ],
+          "retrieved_pages_ranked": [
+            33,
+            31,
+            29,
+            156,
+            126,
+            27,
+            139,
+            28
+          ],
+          "retrieved_scores": [
+            0.5248156785964966,
+            0.48179200291633606,
+            0.43405473232269287,
+            0.4304966330528259,
+            0.42104142904281616,
+            0.4159514605998993,
+            0.41575515270233154,
+            0.4149295389652252,
+            0.4140743613243103,
+            0.4024120569229126
+          ],
+          "best_variant_per_chunk": [
+            "How much capital expenditure was incurred during 2024/25?",
+            "How much capital expenditure was incurred during 2024/25?",
+            "How much capital expenditure was incurred during 2024/25?",
+            "How much capital expenditure was incurred during 2024/25?",
+            "How much capital expenditure was incurred during 2024/25?",
+            "How much capital expenditure was incurred during 2024/25?",
+            "How much capital expenditure was incurred during 2024/25?",
+            "How much capital expenditure was incurred during 2024/25?",
+            "How much capital expenditure was incurred during 2024/25?",
+            "How much capital expenditure was incurred during 2024/25?"
+          ],
+          "recall_at_k": 1.0,
+          "precision_at_k": 0.125,
+          "mrr_at_k": 1.0
+        }
+      }
+    },
+    {
+      "query_id": "Q_FIN_2024_04",
+      "question": "What was the value of contingent liabilities for clinical and medical compensation payments in 2024/25?",
+      "answer_type": "number",
+      "expected_pages": [
+        149
+      ],
+      "query_variants": [
+        "What was the value of contingent liabilities for clinical and medical compensation payments in 2024/25?"
+      ],
+      "per_k": {
+        "1": {
+          "query_variants": [
+            "What was the value of contingent liabilities for clinical and medical compensation payments in 2024/25?"
+          ],
+          "retrieved_chunk_ids": [
+            "p0149_000"
+          ],
+          "retrieved_pages_ranked": [
+            149
+          ],
+          "retrieved_scores": [
+            0.6865142583847046
+          ],
+          "best_variant_per_chunk": [
+            "What was the value of contingent liabilities for clinical and medical compensation payments in 2024/25?"
+          ],
+          "recall_at_k": 1.0,
+          "precision_at_k": 1.0,
+          "mrr_at_k": 1.0
+        },
+        "3": {
+          "query_variants": [
+            "What was the value of contingent liabilities for clinical and medical compensation payments in 2024/25?"
+          ],
+          "retrieved_chunk_ids": [
+            "p0149_000",
+            "p0119_002",
+            "p0119_003"
+          ],
+          "retrieved_pages_ranked": [
+            149,
+            119
+          ],
+          "retrieved_scores": [
+            0.6865142583847046,
+            0.6501690745353699,
+            0.6312604546546936
+          ],
+          "best_variant_per_chunk": [
+            "What was the value of contingent liabilities for clinical and medical compensation payments in 2024/25?",
+            "What was the value of contingent liabilities for clinical and medical compensation payments in 2024/25?",
+            "What was the value of contingent liabilities for clinical and medical compensation payments in 2024/25?"
+          ],
+          "recall_at_k": 1.0,
+          "precision_at_k": 0.5,
+          "mrr_at_k": 1.0
+        },
+        "5": {
+          "query_variants": [
+            "What was the value of contingent liabilities for clinical and medical compensation payments in 2024/25?"
+          ],
+          "retrieved_chunk_ids": [
+            "p0149_000",
+            "p0119_002",
+            "p0119_003",
+            "p0125_000",
+            "p0096_001"
+          ],
+          "retrieved_pages_ranked": [
+            149,
+            119,
+            125,
+            96
+          ],
+          "retrieved_scores": [
+            0.6865142583847046,
+            0.6501690745353699,
+            0.6312604546546936,
+            0.6209888458251953,
+            0.6042196154594421
+          ],
+          "best_variant_per_chunk": [
+            "What was the value of contingent liabilities for clinical and medical compensation payments in 2024/25?",
+            "What was the value of contingent liabilities for clinical and medical compensation payments in 2024/25?",
+            "What was the value of contingent liabilities for clinical and medical compensation payments in 2024/25?",
+            "What was the value of contingent liabilities for clinical and medical compensation payments in 2024/25?",
+            "What was the value of contingent liabilities for clinical and medical compensation payments in 2024/25?"
+          ],
+          "recall_at_k": 1.0,
+          "precision_at_k": 0.25,
+          "mrr_at_k": 1.0
+        },
+        "10": {
+          "query_variants": [
+            "What was the value of contingent liabilities for clinical and medical compensation payments in 2024/25?"
+          ],
+          "retrieved_chunk_ids": [
+            "p0149_000",
+            "p0119_002",
+            "p0119_003",
+            "p0125_000",
+            "p0096_001",
+            "p0097_000",
+            "p0149_001",
+            "p0126_001",
+            "p0156_002",
+            "p0148_001"
+          ],
+          "retrieved_pages_ranked": [
+            149,
+            119,
+            125,
+            96,
+            97,
+            126,
+            156,
+            148
+          ],
+          "retrieved_scores": [
+            0.6865142583847046,
+            0.6501690745353699,
+            0.6312604546546936,
+            0.6209888458251953,
+            0.6042196154594421,
+            0.5962458848953247,
+            0.591416597366333,
+            0.5905262231826782,
+            0.5754157900810242,
+            0.5741927623748779
+          ],
+          "best_variant_per_chunk": [
+            "What was the value of contingent liabilities for clinical and medical compensation payments in 2024/25?",
+            "What was the value of contingent liabilities for clinical and medical compensation payments in 2024/25?",
+            "What was the value of contingent liabilities for clinical and medical compensation payments in 2024/25?",
+            "What was the value of contingent liabilities for clinical and medical compensation payments in 2024/25?",
+            "What was the value of contingent liabilities for clinical and medical compensation payments in 2024/25?",
+            "What was the value of contingent liabilities for clinical and medical compensation payments in 2024/25?",
+            "What was the value of contingent liabilities for clinical and medical compensation payments in 2024/25?",
+            "What was the value of contingent liabilities for clinical and medical compensation payments in 2024/25?",
+            "What was the value of contingent liabilities for clinical and medical compensation payments in 2024/25?",
+            "What was the value of contingent liabilities for clinical and medical compensation payments in 2024/25?"
+          ],
+          "recall_at_k": 1.0,
+          "precision_at_k": 0.125,
+          "mrr_at_k": 1.0
+        }
+      }
+    },
+    {
+      "query_id": "Q_FIN_2024_05",
+      "question": "What was the value of contingent assets for clinical and medical compensation payments in 2024/25?",
+      "answer_type": "number",
+      "expected_pages": [
+        149
+      ],
+      "query_variants": [
+        "What was the value of contingent assets for clinical and medical compensation payments in 2024/25?"
+      ],
+      "per_k": {
+        "1": {
+          "query_variants": [
+            "What was the value of contingent assets for clinical and medical compensation payments in 2024/25?"
+          ],
+          "retrieved_chunk_ids": [
+            "p0149_000"
+          ],
+          "retrieved_pages_ranked": [
+            149
+          ],
+          "retrieved_scores": [
+            0.635637104511261
+          ],
+          "best_variant_per_chunk": [
+            "What was the value of contingent assets for clinical and medical compensation payments in 2024/25?"
+          ],
+          "recall_at_k": 1.0,
+          "precision_at_k": 1.0,
+          "mrr_at_k": 1.0
+        },
+        "3": {
+          "query_variants": [
+            "What was the value of contingent assets for clinical and medical compensation payments in 2024/25?"
+          ],
+          "retrieved_chunk_ids": [
+            "p0149_000",
+            "p0119_003",
+            "p0126_001"
+          ],
+          "retrieved_pages_ranked": [
+            149,
+            119,
+            126
+          ],
+          "retrieved_scores": [
+            0.635637104511261,
+            0.5891221761703491,
+            0.5698578357696533
+          ],
+          "best_variant_per_chunk": [
+            "What was the value of contingent assets for clinical and medical compensation payments in 2024/25?",
+            "What was the value of contingent assets for clinical and medical compensation payments in 2024/25?",
+            "What was the value of contingent assets for clinical and medical compensation payments in 2024/25?"
+          ],
+          "recall_at_k": 1.0,
+          "precision_at_k": 0.3333333333333333,
+          "mrr_at_k": 1.0
+        },
+        "5": {
+          "query_variants": [
+            "What was the value of contingent assets for clinical and medical compensation payments in 2024/25?"
+          ],
+          "retrieved_chunk_ids": [
+            "p0149_000",
+            "p0119_003",
+            "p0126_001",
+            "p0119_002",
+            "p0150_000"
+          ],
+          "retrieved_pages_ranked": [
+            149,
+            119,
+            126,
+            150
+          ],
+          "retrieved_scores": [
+            0.635637104511261,
+            0.5891221761703491,
+            0.5698578357696533,
+            0.5595695972442627,
+            0.5585398077964783
+          ],
+          "best_variant_per_chunk": [
+            "What was the value of contingent assets for clinical and medical compensation payments in 2024/25?",
+            "What was the value of contingent assets for clinical and medical compensation payments in 2024/25?",
+            "What was the value of contingent assets for clinical and medical compensation payments in 2024/25?",
+            "What was the value of contingent assets for clinical and medical compensation payments in 2024/25?",
+            "What was the value of contingent assets for clinical and medical compensation payments in 2024/25?"
+          ],
+          "recall_at_k": 1.0,
+          "precision_at_k": 0.25,
+          "mrr_at_k": 1.0
+        },
+        "10": {
+          "query_variants": [
+            "What was the value of contingent assets for clinical and medical compensation payments in 2024/25?"
+          ],
+          "retrieved_chunk_ids": [
+            "p0149_000",
+            "p0119_003",
+            "p0126_001",
+            "p0119_002",
+            "p0150_000",
+            "p0125_000",
+            "p0150_001",
+            "p0097_000",
+            "p0158_002",
+            "p0126_000"
+          ],
+          "retrieved_pages_ranked": [
+            149,
+            119,
+            126,
+            150,
+            125,
+            97,
+            158
+          ],
+          "retrieved_scores": [
+            0.635637104511261,
+            0.5891221761703491,
+            0.5698578357696533,
+            0.5595695972442627,
+            0.5585398077964783,
+            0.5512299537658691,
+            0.5490767955780029,
+            0.5378358960151672,
+            0.5338003635406494,
+            0.5270230174064636
+          ],
+          "best_variant_per_chunk": [
+            "What was the value of contingent assets for clinical and medical compensation payments in 2024/25?",
+            "What was the value of contingent assets for clinical and medical compensation payments in 2024/25?",
+            "What was the value of contingent assets for clinical and medical compensation payments in 2024/25?",
+            "What was the value of contingent assets for clinical and medical compensation payments in 2024/25?",
+            "What was the value of contingent assets for clinical and medical compensation payments in 2024/25?",
+            "What was the value of contingent assets for clinical and medical compensation payments in 2024/25?",
+            "What was the value of contingent assets for clinical and medical compensation payments in 2024/25?",
+            "What was the value of contingent assets for clinical and medical compensation payments in 2024/25?",
+            "What was the value of contingent assets for clinical and medical compensation payments in 2024/25?",
+            "What was the value of contingent assets for clinical and medical compensation payments in 2024/25?"
+          ],
+          "recall_at_k": 1.0,
+          "precision_at_k": 0.14285714285714285,
+          "mrr_at_k": 1.0
+        }
+      }
+    },
+    {
+      "query_id": "Q_FIN_2024_06",
+      "question": "What annual cost range is stated for the Band 5 Nursing Regrade contingent liability?",
+      "answer_type": "text",
+      "expected_pages": [
+        150
+      ],
+      "query_variants": [
+        "What annual cost range is stated for the Band 5 Nursing Regrade contingent liability?"
+      ],
+      "per_k": {
+        "1": {
+          "query_variants": [
+            "What annual cost range is stated for the Band 5 Nursing Regrade contingent liability?"
+          ],
+          "retrieved_chunk_ids": [
+            "p0150_000"
+          ],
+          "retrieved_pages_ranked": [
+            150
+          ],
+          "retrieved_scores": [
+            0.5928530097007751
+          ],
+          "best_variant_per_chunk": [
+            "What annual cost range is stated for the Band 5 Nursing Regrade contingent liability?"
+          ],
+          "recall_at_k": 1.0,
+          "precision_at_k": 1.0,
+          "mrr_at_k": 1.0
+        },
+        "3": {
+          "query_variants": [
+            "What annual cost range is stated for the Band 5 Nursing Regrade contingent liability?"
+          ],
+          "retrieved_chunk_ids": [
+            "p0150_000",
+            "p0119_002",
+            "p0096_001"
+          ],
+          "retrieved_pages_ranked": [
+            150,
+            119,
+            96
+          ],
+          "retrieved_scores": [
+            0.5928530097007751,
+            0.5352596044540405,
+            0.526981770992279
+          ],
+          "best_variant_per_chunk": [
+            "What annual cost range is stated for the Band 5 Nursing Regrade contingent liability?",
+            "What annual cost range is stated for the Band 5 Nursing Regrade contingent liability?",
+            "What annual cost range is stated for the Band 5 Nursing Regrade contingent liability?"
+          ],
+          "recall_at_k": 1.0,
+          "precision_at_k": 0.3333333333333333,
+          "mrr_at_k": 1.0
+        },
+        "5": {
+          "query_variants": [
+            "What annual cost range is stated for the Band 5 Nursing Regrade contingent liability?"
+          ],
+          "retrieved_chunk_ids": [
+            "p0150_000",
+            "p0119_002",
+            "p0096_001",
+            "p0148_001",
+            "p0126_000"
+          ],
+          "retrieved_pages_ranked": [
+            150,
+            119,
+            96,
+            148,
+            126
+          ],
+          "retrieved_scores": [
+            0.5928530097007751,
+            0.5352596044540405,
+            0.526981770992279,
+            0.5230122804641724,
+            0.5175857543945312
+          ],
+          "best_variant_per_chunk": [
+            "What annual cost range is stated for the Band 5 Nursing Regrade contingent liability?",
+            "What annual cost range is stated for the Band 5 Nursing Regrade contingent liability?",
+            "What annual cost range is stated for the Band 5 Nursing Regrade contingent liability?",
+            "What annual cost range is stated for the Band 5 Nursing Regrade contingent liability?",
+            "What annual cost range is stated for the Band 5 Nursing Regrade contingent liability?"
+          ],
+          "recall_at_k": 1.0,
+          "precision_at_k": 0.2,
+          "mrr_at_k": 1.0
+        },
+        "10": {
+          "query_variants": [
+            "What annual cost range is stated for the Band 5 Nursing Regrade contingent liability?"
+          ],
+          "retrieved_chunk_ids": [
+            "p0150_000",
+            "p0119_002",
+            "p0096_001",
+            "p0148_001",
+            "p0126_000",
+            "p0149_000",
+            "p0125_000",
+            "p0156_002",
+            "p0149_001",
+            "p0148_000"
+          ],
+          "retrieved_pages_ranked": [
+            150,
+            119,
+            96,
+            148,
+            126,
+            149,
+            125,
+            156
+          ],
+          "retrieved_scores": [
+            0.5928530097007751,
+            0.5352596044540405,
+            0.526981770992279,
+            0.5230122804641724,
+            0.5175857543945312,
+            0.5141623616218567,
+            0.5026004910469055,
+            0.4948588013648987,
+            0.4838036298751831,
+            0.4792267680168152
+          ],
+          "best_variant_per_chunk": [
+            "What annual cost range is stated for the Band 5 Nursing Regrade contingent liability?",
+            "What annual cost range is stated for the Band 5 Nursing Regrade contingent liability?",
+            "What annual cost range is stated for the Band 5 Nursing Regrade contingent liability?",
+            "What annual cost range is stated for the Band 5 Nursing Regrade contingent liability?",
+            "What annual cost range is stated for the Band 5 Nursing Regrade contingent liability?",
+            "What annual cost range is stated for the Band 5 Nursing Regrade contingent liability?",
+            "What annual cost range is stated for the Band 5 Nursing Regrade contingent liability?",
+            "What annual cost range is stated for the Band 5 Nursing Regrade contingent liability?",
+            "What annual cost range is stated for the Band 5 Nursing Regrade contingent liability?",
+            "What annual cost range is stated for the Band 5 Nursing Regrade contingent liability?"
+          ],
+          "recall_at_k": 1.0,
+          "precision_at_k": 0.125,
+          "mrr_at_k": 1.0
+        }
+      }
+    },
+    {
+      "query_id": "Q_FIN_2024_07",
+      "question": "What is the Treasury discount rate stated for early retirement pension liabilities in 2024/25?",
+      "answer_type": "number",
+      "expected_pages": [
+        146
+      ],
+      "query_variants": [
+        "What is the Treasury discount rate stated for early retirement pension liabilities in 2024/25?"
+      ],
+      "per_k": {
+        "1": {
+          "query_variants": [
+            "What is the Treasury discount rate stated for early retirement pension liabilities in 2024/25?"
+          ],
+          "retrieved_chunk_ids": [
+            "p0125_002"
+          ],
+          "retrieved_pages_ranked": [
+            125
+          ],
+          "retrieved_scores": [
+            0.5864380598068237
+          ],
+          "best_variant_per_chunk": [
+            "What is the Treasury discount rate stated for early retirement pension liabilities in 2024/25?"
+          ],
+          "recall_at_k": 0.0,
+          "precision_at_k": 0.0,
+          "mrr_at_k": 0.0
+        },
+        "3": {
+          "query_variants": [
+            "What is the Treasury discount rate stated for early retirement pension liabilities in 2024/25?"
+          ],
+          "retrieved_chunk_ids": [
+            "p0125_002",
+            "p0158_000",
+            "p0164_000"
+          ],
+          "retrieved_pages_ranked": [
+            125,
+            158,
+            164
+          ],
+          "retrieved_scores": [
+            0.5864380598068237,
+            0.5460106134414673,
+            0.5426780581474304
+          ],
+          "best_variant_per_chunk": [
+            "What is the Treasury discount rate stated for early retirement pension liabilities in 2024/25?",
+            "What is the Treasury discount rate stated for early retirement pension liabilities in 2024/25?",
+            "What is the Treasury discount rate stated for early retirement pension liabilities in 2024/25?"
+          ],
+          "recall_at_k": 0.0,
+          "precision_at_k": 0.0,
+          "mrr_at_k": 0.0
+        },
+        "5": {
+          "query_variants": [
+            "What is the Treasury discount rate stated for early retirement pension liabilities in 2024/25?"
+          ],
+          "retrieved_chunk_ids": [
+            "p0125_002",
+            "p0158_000",
+            "p0164_000",
+            "p0086_000",
+            "p0159_000"
+          ],
+          "retrieved_pages_ranked": [
+            125,
+            158,
+            164,
+            86,
+            159
+          ],
+          "retrieved_scores": [
+            0.5864380598068237,
+            0.5460106134414673,
+            0.5426780581474304,
+            0.5059248208999634,
+            0.480721652507782
+          ],
+          "best_variant_per_chunk": [
+            "What is the Treasury discount rate stated for early retirement pension liabilities in 2024/25?",
+            "What is the Treasury discount rate stated for early retirement pension liabilities in 2024/25?",
+            "What is the Treasury discount rate stated for early retirement pension liabilities in 2024/25?",
+            "What is the Treasury discount rate stated for early retirement pension liabilities in 2024/25?",
+            "What is the Treasury discount rate stated for early retirement pension liabilities in 2024/25?"
+          ],
+          "recall_at_k": 0.0,
+          "precision_at_k": 0.0,
+          "mrr_at_k": 0.0
+        },
+        "10": {
+          "query_variants": [
+            "What is the Treasury discount rate stated for early retirement pension liabilities in 2024/25?"
+          ],
+          "retrieved_chunk_ids": [
+            "p0125_002",
+            "p0158_000",
+            "p0164_000",
+            "p0086_000",
+            "p0159_000",
+            "p0142_003",
+            "p0125_001",
+            "p0033_001",
+            "p0126_000",
+            "p0158_003"
+          ],
+          "retrieved_pages_ranked": [
+            125,
+            158,
+            164,
+            86,
+            159,
+            142,
+            33,
+            126
+          ],
+          "retrieved_scores": [
+            0.5864380598068237,
+            0.5460106134414673,
+            0.5426780581474304,
+            0.5059248208999634,
+            0.480721652507782,
+            0.47987982630729675,
+            0.4707620143890381,
+            0.4702511429786682,
+            0.4636691212654114,
+            0.46330562233924866
+          ],
+          "best_variant_per_chunk": [
+            "What is the Treasury discount rate stated for early retirement pension liabilities in 2024/25?",
+            "What is the Treasury discount rate stated for early retirement pension liabilities in 2024/25?",
+            "What is the Treasury discount rate stated for early retirement pension liabilities in 2024/25?",
+            "What is the Treasury discount rate stated for early retirement pension liabilities in 2024/25?",
+            "What is the Treasury discount rate stated for early retirement pension liabilities in 2024/25?",
+            "What is the Treasury discount rate stated for early retirement pension liabilities in 2024/25?",
+            "What is the Treasury discount rate stated for early retirement pension liabilities in 2024/25?",
+            "What is the Treasury discount rate stated for early retirement pension liabilities in 2024/25?",
+            "What is the Treasury discount rate stated for early retirement pension liabilities in 2024/25?",
+            "What is the Treasury discount rate stated for early retirement pension liabilities in 2024/25?"
+          ],
+          "recall_at_k": 0.0,
+          "precision_at_k": 0.0,
+          "mrr_at_k": 0.0
+        }
+      }
+    },
+    {
+      "query_id": "Q_FIN_2024_08",
+      "question": "How does the report describe the accounting treatment of the NHS Superannuation Scheme for Scotland under IAS 19?",
+      "answer_type": "text",
+      "expected_pages": [
+        119
+      ],
+      "query_variants": [
+        "How does the report describe the accounting treatment of the NHS Superannuation Scheme for Scotland under IAS 19?"
+      ],
+      "per_k": {
+        "1": {
+          "query_variants": [
+            "How does the report describe the accounting treatment of the NHS Superannuation Scheme for Scotland under IAS 19?"
+          ],
+          "retrieved_chunk_ids": [
+            "p0159_000"
+          ],
+          "retrieved_pages_ranked": [
+            159
+          ],
+          "retrieved_scores": [
+            0.6894514560699463
+          ],
+          "best_variant_per_chunk": [
+            "How does the report describe the accounting treatment of the NHS Superannuation Scheme for Scotland under IAS 19?"
+          ],
+          "recall_at_k": 0.0,
+          "precision_at_k": 0.0,
+          "mrr_at_k": 0.0
+        },
+        "3": {
+          "query_variants": [
+            "How does the report describe the accounting treatment of the NHS Superannuation Scheme for Scotland under IAS 19?"
+          ],
+          "retrieved_chunk_ids": [
+            "p0159_000",
+            "p0119_000",
+            "p0047_001"
+          ],
+          "retrieved_pages_ranked": [
+            159,
+            119,
+            47
+          ],
+          "retrieved_scores": [
+            0.6894514560699463,
+            0.6872485876083374,
+            0.6701198816299438
+          ],
+          "best_variant_per_chunk": [
+            "How does the report describe the accounting treatment of the NHS Superannuation Scheme for Scotland under IAS 19?",
+            "How does the report describe the accounting treatment of the NHS Superannuation Scheme for Scotland under IAS 19?",
+            "How does the report describe the accounting treatment of the NHS Superannuation Scheme for Scotland under IAS 19?"
+          ],
+          "recall_at_k": 1.0,
+          "precision_at_k": 0.3333333333333333,
+          "mrr_at_k": 0.5
+        },
+        "5": {
+          "query_variants": [
+            "How does the report describe the accounting treatment of the NHS Superannuation Scheme for Scotland under IAS 19?"
+          ],
+          "retrieved_chunk_ids": [
+            "p0159_000",
+            "p0119_000",
+            "p0047_001",
+            "p0172_000",
+            "p0098_000"
+          ],
+          "retrieved_pages_ranked": [
+            159,
+            119,
+            47,
+            172,
+            98
+          ],
+          "retrieved_scores": [
+            0.6894514560699463,
+            0.6872485876083374,
+            0.6701198816299438,
+            0.664007842540741,
+            0.6620387434959412
+          ],
+          "best_variant_per_chunk": [
+            "How does the report describe the accounting treatment of the NHS Superannuation Scheme for Scotland under IAS 19?",
+            "How does the report describe the accounting treatment of the NHS Superannuation Scheme for Scotland under IAS 19?",
+            "How does the report describe the accounting treatment of the NHS Superannuation Scheme for Scotland under IAS 19?",
+            "How does the report describe the accounting treatment of the NHS Superannuation Scheme for Scotland under IAS 19?",
+            "How does the report describe the accounting treatment of the NHS Superannuation Scheme for Scotland under IAS 19?"
+          ],
+          "recall_at_k": 1.0,
+          "precision_at_k": 0.2,
+          "mrr_at_k": 0.5
+        },
+        "10": {
+          "query_variants": [
+            "How does the report describe the accounting treatment of the NHS Superannuation Scheme for Scotland under IAS 19?"
+          ],
+          "retrieved_chunk_ids": [
+            "p0159_000",
+            "p0119_000",
+            "p0047_001",
+            "p0172_000",
+            "p0098_000",
+            "p0171_001",
+            "p0027_000",
+            "p0171_000",
+            "p0108_001",
+            "p0108_000"
+          ],
+          "retrieved_pages_ranked": [
+            159,
+            119,
+            47,
+            172,
+            98,
+            171,
+            27,
+            108
+          ],
+          "retrieved_scores": [
+            0.6894514560699463,
+            0.6872485876083374,
+            0.6701198816299438,
+            0.664007842540741,
+            0.6620387434959412,
+            0.6552028656005859,
+            0.6512793302536011,
+            0.6413164138793945,
+            0.6406694650650024,
+            0.6396656036376953
+          ],
+          "best_variant_per_chunk": [
+            "How does the report describe the accounting treatment of the NHS Superannuation Scheme for Scotland under IAS 19?",
+            "How does the report describe the accounting treatment of the NHS Superannuation Scheme for Scotland under IAS 19?",
+            "How does the report describe the accounting treatment of the NHS Superannuation Scheme for Scotland under IAS 19?",
+            "How does the report describe the accounting treatment of the NHS Superannuation Scheme for Scotland under IAS 19?",
+            "How does the report describe the accounting treatment of the NHS Superannuation Scheme for Scotland under IAS 19?",
+            "How does the report describe the accounting treatment of the NHS Superannuation Scheme for Scotland under IAS 19?",
+            "How does the report describe the accounting treatment of the NHS Superannuation Scheme for Scotland under IAS 19?",
+            "How does the report describe the accounting treatment of the NHS Superannuation Scheme for Scotland under IAS 19?",
+            "How does the report describe the accounting treatment of the NHS Superannuation Scheme for Scotland under IAS 19?",
+            "How does the report describe the accounting treatment of the NHS Superannuation Scheme for Scotland under IAS 19?"
+          ],
+          "recall_at_k": 1.0,
+          "precision_at_k": 0.125,
+          "mrr_at_k": 0.5
+        }
+      }
+    },
+    {
+      "query_id": "Q_FIN_2024_09",
+      "question": "What factors are listed as resourcing the infrastructure investment programme during 2024/25?",
+      "answer_type": "list",
+      "expected_pages": [
+        33
+      ],
+      "query_variants": [
+        "What factors are listed as resourcing the infrastructure investment programme during 2024/25?"
+      ],
+      "per_k": {
+        "1": {
+          "query_variants": [
+            "What factors are listed as resourcing the infrastructure investment programme during 2024/25?"
+          ],
+          "retrieved_chunk_ids": [
+            "p0033_002"
+          ],
+          "retrieved_pages_ranked": [
+            33
+          ],
+          "retrieved_scores": [
+            0.499438613653183
+          ],
+          "best_variant_per_chunk": [
+            "What factors are listed as resourcing the infrastructure investment programme during 2024/25?"
+          ],
+          "recall_at_k": 1.0,
+          "precision_at_k": 1.0,
+          "mrr_at_k": 1.0
+        },
+        "3": {
+          "query_variants": [
+            "What factors are listed as resourcing the infrastructure investment programme during 2024/25?"
+          ],
+          "retrieved_chunk_ids": [
+            "p0033_002",
+            "p0095_000",
+            "p0127_000"
+          ],
+          "retrieved_pages_ranked": [
+            33,
+            95,
+            127
+          ],
+          "retrieved_scores": [
+            0.499438613653183,
+            0.44974249601364136,
+            0.44244474172592163
+          ],
+          "best_variant_per_chunk": [
+            "What factors are listed as resourcing the infrastructure investment programme during 2024/25?",
+            "What factors are listed as resourcing the infrastructure investment programme during 2024/25?",
+            "What factors are listed as resourcing the infrastructure investment programme during 2024/25?"
+          ],
+          "recall_at_k": 1.0,
+          "precision_at_k": 0.3333333333333333,
+          "mrr_at_k": 1.0
+        },
+        "5": {
+          "query_variants": [
+            "What factors are listed as resourcing the infrastructure investment programme during 2024/25?"
+          ],
+          "retrieved_chunk_ids": [
+            "p0033_002",
+            "p0095_000",
+            "p0127_000",
+            "p0041_001",
+            "p0029_000"
+          ],
+          "retrieved_pages_ranked": [
+            33,
+            95,
+            127,
+            41,
+            29
+          ],
+          "retrieved_scores": [
+            0.499438613653183,
+            0.44974249601364136,
+            0.44244474172592163,
+            0.43778398633003235,
+            0.4268205463886261
+          ],
+          "best_variant_per_chunk": [
+            "What factors are listed as resourcing the infrastructure investment programme during 2024/25?",
+            "What factors are listed as resourcing the infrastructure investment programme during 2024/25?",
+            "What factors are listed as resourcing the infrastructure investment programme during 2024/25?",
+            "What factors are listed as resourcing the infrastructure investment programme during 2024/25?",
+            "What factors are listed as resourcing the infrastructure investment programme during 2024/25?"
+          ],
+          "recall_at_k": 1.0,
+          "precision_at_k": 0.2,
+          "mrr_at_k": 1.0
+        },
+        "10": {
+          "query_variants": [
+            "What factors are listed as resourcing the infrastructure investment programme during 2024/25?"
+          ],
+          "retrieved_chunk_ids": [
+            "p0033_002",
+            "p0095_000",
+            "p0127_000",
+            "p0041_001",
+            "p0029_000",
+            "p0062_000",
+            "p0040_000",
+            "p0074_000",
+            "p0110_001",
+            "p0074_001"
+          ],
+          "retrieved_pages_ranked": [
+            33,
+            95,
+            127,
+            41,
+            29,
+            62,
+            40,
+            74,
+            110
+          ],
+          "retrieved_scores": [
+            0.499438613653183,
+            0.44974249601364136,
+            0.44244474172592163,
+            0.43778398633003235,
+            0.4268205463886261,
+            0.4171844720840454,
+            0.41550642251968384,
+            0.4071422219276428,
+            0.40674322843551636,
+            0.4036181569099426
+          ],
+          "best_variant_per_chunk": [
+            "What factors are listed as resourcing the infrastructure investment programme during 2024/25?",
+            "What factors are listed as resourcing the infrastructure investment programme during 2024/25?",
+            "What factors are listed as resourcing the infrastructure investment programme during 2024/25?",
+            "What factors are listed as resourcing the infrastructure investment programme during 2024/25?",
+            "What factors are listed as resourcing the infrastructure investment programme during 2024/25?",
+            "What factors are listed as resourcing the infrastructure investment programme during 2024/25?",
+            "What factors are listed as resourcing the infrastructure investment programme during 2024/25?",
+            "What factors are listed as resourcing the infrastructure investment programme during 2024/25?",
+            "What factors are listed as resourcing the infrastructure investment programme during 2024/25?",
+            "What factors are listed as resourcing the infrastructure investment programme during 2024/25?"
+          ],
+          "recall_at_k": 1.0,
+          "precision_at_k": 0.1111111111111111,
+          "mrr_at_k": 1.0
+        }
+      }
+    },
+    {
+      "query_id": "Q_FIN_2024_10",
+      "question": "What contingent liabilities did NHS Grampian disclose at 31 March 2025?",
+      "answer_type": "list",
+      "expected_pages": [
+        149
+      ],
+      "query_variants": [
+        "What contingent liabilities did NHS Grampian disclose at 31 March 2025?"
+      ],
+      "per_k": {
+        "1": {
+          "query_variants": [
+            "What contingent liabilities did NHS Grampian disclose at 31 March 2025?"
+          ],
+          "retrieved_chunk_ids": [
+            "p0149_000"
+          ],
+          "retrieved_pages_ranked": [
+            149
+          ],
+          "retrieved_scores": [
+            0.7142251133918762
+          ],
+          "best_variant_per_chunk": [
+            "What contingent liabilities did NHS Grampian disclose at 31 March 2025?"
+          ],
+          "recall_at_k": 1.0,
+          "precision_at_k": 1.0,
+          "mrr_at_k": 1.0
+        },
+        "3": {
+          "query_variants": [
+            "What contingent liabilities did NHS Grampian disclose at 31 March 2025?"
+          ],
+          "retrieved_chunk_ids": [
+            "p0149_000",
+            "p0125_000",
+            "p0149_001"
+          ],
+          "retrieved_pages_ranked": [
+            149,
+            125
+          ],
+          "retrieved_scores": [
+            0.7142251133918762,
+            0.7140105366706848,
+            0.7102377414703369
+          ],
+          "best_variant_per_chunk": [
+            "What contingent liabilities did NHS Grampian disclose at 31 March 2025?",
+            "What contingent liabilities did NHS Grampian disclose at 31 March 2025?",
+            "What contingent liabilities did NHS Grampian disclose at 31 March 2025?"
+          ],
+          "recall_at_k": 1.0,
+          "precision_at_k": 0.5,
+          "mrr_at_k": 1.0
+        },
+        "5": {
+          "query_variants": [
+            "What contingent liabilities did NHS Grampian disclose at 31 March 2025?"
+          ],
+          "retrieved_chunk_ids": [
+            "p0149_000",
+            "p0125_000",
+            "p0149_001",
+            "p0097_000",
+            "p0032_001"
+          ],
+          "retrieved_pages_ranked": [
+            149,
+            125,
+            97,
+            32
+          ],
+          "retrieved_scores": [
+            0.7142251133918762,
+            0.7140105366706848,
+            0.7102377414703369,
+            0.7025389671325684,
+            0.669441819190979
+          ],
+          "best_variant_per_chunk": [
+            "What contingent liabilities did NHS Grampian disclose at 31 March 2025?",
+            "What contingent liabilities did NHS Grampian disclose at 31 March 2025?",
+            "What contingent liabilities did NHS Grampian disclose at 31 March 2025?",
+            "What contingent liabilities did NHS Grampian disclose at 31 March 2025?",
+            "What contingent liabilities did NHS Grampian disclose at 31 March 2025?"
+          ],
+          "recall_at_k": 1.0,
+          "precision_at_k": 0.25,
+          "mrr_at_k": 1.0
+        },
+        "10": {
+          "query_variants": [
+            "What contingent liabilities did NHS Grampian disclose at 31 March 2025?"
+          ],
+          "retrieved_chunk_ids": [
+            "p0149_000",
+            "p0125_000",
+            "p0149_001",
+            "p0097_000",
+            "p0032_001",
+            "p0119_002",
+            "p0125_001",
+            "p0051_000",
+            "p0126_001",
+            "p0047_000"
+          ],
+          "retrieved_pages_ranked": [
+            149,
+            125,
+            97,
+            32,
+            119,
+            51,
+            126,
+            47
+          ],
+          "retrieved_scores": [
+            0.7142251133918762,
+            0.7140105366706848,
+            0.7102377414703369,
+            0.7025389671325684,
+            0.669441819190979,
+            0.6689603328704834,
+            0.6630918979644775,
+            0.6506287455558777,
+            0.643487811088562,
+            0.6419107913970947
+          ],
+          "best_variant_per_chunk": [
+            "What contingent liabilities did NHS Grampian disclose at 31 March 2025?",
+            "What contingent liabilities did NHS Grampian disclose at 31 March 2025?",
+            "What contingent liabilities did NHS Grampian disclose at 31 March 2025?",
+            "What contingent liabilities did NHS Grampian disclose at 31 March 2025?",
+            "What contingent liabilities did NHS Grampian disclose at 31 March 2025?",
+            "What contingent liabilities did NHS Grampian disclose at 31 March 2025?",
+            "What contingent liabilities did NHS Grampian disclose at 31 March 2025?",
+            "What contingent liabilities did NHS Grampian disclose at 31 March 2025?",
+            "What contingent liabilities did NHS Grampian disclose at 31 March 2025?",
+            "What contingent liabilities did NHS Grampian disclose at 31 March 2025?"
+          ],
+          "recall_at_k": 1.0,
+          "precision_at_k": 0.125,
+          "mrr_at_k": 1.0
+        }
+      }
+    },
+    {
+      "query_id": "Q_GOV_2024_01",
+      "question": "How many Mental Welfare Commission visits to NHS Grampian are reported up to 31 March 2025?",
+      "answer_type": "number",
+      "expected_pages": [
+        72
+      ],
+      "query_variants": [
+        "How many Mental Welfare Commission visits to NHS Grampian are reported up to 31 March 2025?"
+      ],
+      "per_k": {
+        "1": {
+          "query_variants": [
+            "How many Mental Welfare Commission visits to NHS Grampian are reported up to 31 March 2025?"
+          ],
+          "retrieved_chunk_ids": [
+            "p0073_000"
+          ],
+          "retrieved_pages_ranked": [
+            73
+          ],
+          "retrieved_scores": [
+            0.6611126065254211
+          ],
+          "best_variant_per_chunk": [
+            "How many Mental Welfare Commission visits to NHS Grampian are reported up to 31 March 2025?"
+          ],
+          "recall_at_k": 0.0,
+          "precision_at_k": 0.0,
+          "mrr_at_k": 0.0
+        },
+        "3": {
+          "query_variants": [
+            "How many Mental Welfare Commission visits to NHS Grampian are reported up to 31 March 2025?"
+          ],
+          "retrieved_chunk_ids": [
+            "p0073_000",
+            "p0058_000",
+            "p0093_002"
+          ],
+          "retrieved_pages_ranked": [
+            73,
+            58,
+            93
+          ],
+          "retrieved_scores": [
+            0.6611126065254211,
+            0.6051173806190491,
+            0.5881085395812988
+          ],
+          "best_variant_per_chunk": [
+            "How many Mental Welfare Commission visits to NHS Grampian are reported up to 31 March 2025?",
+            "How many Mental Welfare Commission visits to NHS Grampian are reported up to 31 March 2025?",
+            "How many Mental Welfare Commission visits to NHS Grampian are reported up to 31 March 2025?"
+          ],
+          "recall_at_k": 0.0,
+          "precision_at_k": 0.0,
+          "mrr_at_k": 0.0
+        },
+        "5": {
+          "query_variants": [
+            "How many Mental Welfare Commission visits to NHS Grampian are reported up to 31 March 2025?"
+          ],
+          "retrieved_chunk_ids": [
+            "p0073_000",
+            "p0058_000",
+            "p0093_002",
+            "p0090_000",
+            "p0165_002"
+          ],
+          "retrieved_pages_ranked": [
+            73,
+            58,
+            93,
+            90,
+            165
+          ],
+          "retrieved_scores": [
+            0.6611126065254211,
+            0.6051173806190491,
+            0.5881085395812988,
+            0.57896888256073,
+            0.5782145261764526
+          ],
+          "best_variant_per_chunk": [
+            "How many Mental Welfare Commission visits to NHS Grampian are reported up to 31 March 2025?",
+            "How many Mental Welfare Commission visits to NHS Grampian are reported up to 31 March 2025?",
+            "How many Mental Welfare Commission visits to NHS Grampian are reported up to 31 March 2025?",
+            "How many Mental Welfare Commission visits to NHS Grampian are reported up to 31 March 2025?",
+            "How many Mental Welfare Commission visits to NHS Grampian are reported up to 31 March 2025?"
+          ],
+          "recall_at_k": 0.0,
+          "precision_at_k": 0.0,
+          "mrr_at_k": 0.0
+        },
+        "10": {
+          "query_variants": [
+            "How many Mental Welfare Commission visits to NHS Grampian are reported up to 31 March 2025?"
+          ],
+          "retrieved_chunk_ids": [
+            "p0073_000",
+            "p0058_000",
+            "p0093_002",
+            "p0090_000",
+            "p0165_002",
+            "p0158_003",
+            "p0090_001",
+            "p0025_000",
+            "p0095_000",
+            "p0014_000"
+          ],
+          "retrieved_pages_ranked": [
+            73,
+            58,
+            93,
+            90,
+            165,
+            158,
+            25,
+            95,
+            14
+          ],
+          "retrieved_scores": [
+            0.6611126065254211,
+            0.6051173806190491,
+            0.5881085395812988,
+            0.57896888256073,
+            0.5782145261764526,
+            0.5763720273971558,
+            0.5728091597557068,
+            0.5667071342468262,
+            0.5601098537445068,
+            0.5580862760543823
+          ],
+          "best_variant_per_chunk": [
+            "How many Mental Welfare Commission visits to NHS Grampian are reported up to 31 March 2025?",
+            "How many Mental Welfare Commission visits to NHS Grampian are reported up to 31 March 2025?",
+            "How many Mental Welfare Commission visits to NHS Grampian are reported up to 31 March 2025?",
+            "How many Mental Welfare Commission visits to NHS Grampian are reported up to 31 March 2025?",
+            "How many Mental Welfare Commission visits to NHS Grampian are reported up to 31 March 2025?",
+            "How many Mental Welfare Commission visits to NHS Grampian are reported up to 31 March 2025?",
+            "How many Mental Welfare Commission visits to NHS Grampian are reported up to 31 March 2025?",
+            "How many Mental Welfare Commission visits to NHS Grampian are reported up to 31 March 2025?",
+            "How many Mental Welfare Commission visits to NHS Grampian are reported up to 31 March 2025?",
+            "How many Mental Welfare Commission visits to NHS Grampian are reported up to 31 March 2025?"
+          ],
+          "recall_at_k": 0.0,
+          "precision_at_k": 0.0,
+          "mrr_at_k": 0.0
+        }
+      }
+    },
+    {
+      "query_id": "Q_GOV_2024_02",
+      "question": "How many Mental Welfare Commission recommendations are reported up to 31 March 2025?",
+      "answer_type": "number",
+      "expected_pages": [
+        72
+      ],
+      "query_variants": [
+        "How many Mental Welfare Commission recommendations are reported up to 31 March 2025?"
+      ],
+      "per_k": {
+        "1": {
+          "query_variants": [
+            "How many Mental Welfare Commission recommendations are reported up to 31 March 2025?"
+          ],
+          "retrieved_chunk_ids": [
+            "p0073_000"
+          ],
+          "retrieved_pages_ranked": [
+            73
+          ],
+          "retrieved_scores": [
+            0.5710090398788452
+          ],
+          "best_variant_per_chunk": [
+            "How many Mental Welfare Commission recommendations are reported up to 31 March 2025?"
+          ],
+          "recall_at_k": 0.0,
+          "precision_at_k": 0.0,
+          "mrr_at_k": 0.0
+        },
+        "3": {
+          "query_variants": [
+            "How many Mental Welfare Commission recommendations are reported up to 31 March 2025?"
+          ],
+          "retrieved_chunk_ids": [
+            "p0073_000",
+            "p0020_000",
+            "p0158_002"
+          ],
+          "retrieved_pages_ranked": [
+            73,
+            20,
+            158
+          ],
+          "retrieved_scores": [
+            0.5710090398788452,
+            0.5050629377365112,
+            0.44490694999694824
+          ],
+          "best_variant_per_chunk": [
+            "How many Mental Welfare Commission recommendations are reported up to 31 March 2025?",
+            "How many Mental Welfare Commission recommendations are reported up to 31 March 2025?",
+            "How many Mental Welfare Commission recommendations are reported up to 31 March 2025?"
+          ],
+          "recall_at_k": 0.0,
+          "precision_at_k": 0.0,
+          "mrr_at_k": 0.0
+        },
+        "5": {
+          "query_variants": [
+            "How many Mental Welfare Commission recommendations are reported up to 31 March 2025?"
+          ],
+          "retrieved_chunk_ids": [
+            "p0073_000",
+            "p0020_000",
+            "p0158_002",
+            "p0086_001",
+            "p0158_003"
+          ],
+          "retrieved_pages_ranked": [
+            73,
+            20,
+            158,
+            86
+          ],
+          "retrieved_scores": [
+            0.5710090398788452,
+            0.5050629377365112,
+            0.44490694999694824,
+            0.43953773379325867,
+            0.410871684551239
+          ],
+          "best_variant_per_chunk": [
+            "How many Mental Welfare Commission recommendations are reported up to 31 March 2025?",
+            "How many Mental Welfare Commission recommendations are reported up to 31 March 2025?",
+            "How many Mental Welfare Commission recommendations are reported up to 31 March 2025?",
+            "How many Mental Welfare Commission recommendations are reported up to 31 March 2025?",
+            "How many Mental Welfare Commission recommendations are reported up to 31 March 2025?"
+          ],
+          "recall_at_k": 0.0,
+          "precision_at_k": 0.0,
+          "mrr_at_k": 0.0
+        },
+        "10": {
+          "query_variants": [
+            "How many Mental Welfare Commission recommendations are reported up to 31 March 2025?"
+          ],
+          "retrieved_chunk_ids": [
+            "p0073_000",
+            "p0020_000",
+            "p0158_002",
+            "p0086_001",
+            "p0158_003",
+            "p0097_000",
+            "p0019_000",
+            "p0081_001",
+            "p0089_001",
+            "p0086_002"
+          ],
+          "retrieved_pages_ranked": [
+            73,
+            20,
+            158,
+            86,
+            97,
+            19,
+            81,
+            89
+          ],
+          "retrieved_scores": [
+            0.5710090398788452,
+            0.5050629377365112,
+            0.44490694999694824,
+            0.43953773379325867,
+            0.410871684551239,
+            0.40599772334098816,
+            0.40345361828804016,
+            0.39990657567977905,
+            0.3941991329193115,
+            0.39324063062667847
+          ],
+          "best_variant_per_chunk": [
+            "How many Mental Welfare Commission recommendations are reported up to 31 March 2025?",
+            "How many Mental Welfare Commission recommendations are reported up to 31 March 2025?",
+            "How many Mental Welfare Commission recommendations are reported up to 31 March 2025?",
+            "How many Mental Welfare Commission recommendations are reported up to 31 March 2025?",
+            "How many Mental Welfare Commission recommendations are reported up to 31 March 2025?",
+            "How many Mental Welfare Commission recommendations are reported up to 31 March 2025?",
+            "How many Mental Welfare Commission recommendations are reported up to 31 March 2025?",
+            "How many Mental Welfare Commission recommendations are reported up to 31 March 2025?",
+            "How many Mental Welfare Commission recommendations are reported up to 31 March 2025?",
+            "How many Mental Welfare Commission recommendations are reported up to 31 March 2025?"
+          ],
+          "recall_at_k": 0.0,
+          "precision_at_k": 0.0,
+          "mrr_at_k": 0.0
+        }
+      }
+    },
+    {
+      "query_id": "Q_GOV_2024_03",
+      "question": "How many INWO referrals were upheld between 1 April 2024 and 31 March 2025?",
+      "answer_type": "number",
+      "expected_pages": [
+        72
+      ],
+      "query_variants": [
+        "How many INWO referrals were upheld between 1 April 2024 and 31 March 2025?"
+      ],
+      "per_k": {
+        "1": {
+          "query_variants": [
+            "How many INWO referrals were upheld between 1 April 2024 and 31 March 2025?"
+          ],
+          "retrieved_chunk_ids": [
+            "p0158_002"
+          ],
+          "retrieved_pages_ranked": [
+            158
+          ],
+          "retrieved_scores": [
+            0.40149858593940735
+          ],
+          "best_variant_per_chunk": [
+            "How many INWO referrals were upheld between 1 April 2024 and 31 March 2025?"
+          ],
+          "recall_at_k": 0.0,
+          "precision_at_k": 0.0,
+          "mrr_at_k": 0.0
+        },
+        "3": {
+          "query_variants": [
+            "How many INWO referrals were upheld between 1 April 2024 and 31 March 2025?"
+          ],
+          "retrieved_chunk_ids": [
+            "p0158_002",
+            "p0020_000",
+            "p0097_000"
+          ],
+          "retrieved_pages_ranked": [
+            158,
+            20,
+            97
+          ],
+          "retrieved_scores": [
+            0.40149858593940735,
+            0.399042010307312,
+            0.38045534491539
+          ],
+          "best_variant_per_chunk": [
+            "How many INWO referrals were upheld between 1 April 2024 and 31 March 2025?",
+            "How many INWO referrals were upheld between 1 April 2024 and 31 March 2025?",
+            "How many INWO referrals were upheld between 1 April 2024 and 31 March 2025?"
+          ],
+          "recall_at_k": 0.0,
+          "precision_at_k": 0.0,
+          "mrr_at_k": 0.0
+        },
+        "5": {
+          "query_variants": [
+            "How many INWO referrals were upheld between 1 April 2024 and 31 March 2025?"
+          ],
+          "retrieved_chunk_ids": [
+            "p0158_002",
+            "p0020_000",
+            "p0097_000",
+            "p0073_001",
+            "p0073_000"
+          ],
+          "retrieved_pages_ranked": [
+            158,
+            20,
+            97,
+            73
+          ],
+          "retrieved_scores": [
+            0.40149858593940735,
+            0.399042010307312,
+            0.38045534491539,
+            0.3701803684234619,
+            0.3534221947193146
+          ],
+          "best_variant_per_chunk": [
+            "How many INWO referrals were upheld between 1 April 2024 and 31 March 2025?",
+            "How many INWO referrals were upheld between 1 April 2024 and 31 March 2025?",
+            "How many INWO referrals were upheld between 1 April 2024 and 31 March 2025?",
+            "How many INWO referrals were upheld between 1 April 2024 and 31 March 2025?",
+            "How many INWO referrals were upheld between 1 April 2024 and 31 March 2025?"
+          ],
+          "recall_at_k": 0.0,
+          "precision_at_k": 0.0,
+          "mrr_at_k": 0.0
+        },
+        "10": {
+          "query_variants": [
+            "How many INWO referrals were upheld between 1 April 2024 and 31 March 2025?"
+          ],
+          "retrieved_chunk_ids": [
+            "p0158_002",
+            "p0020_000",
+            "p0097_000",
+            "p0073_001",
+            "p0073_000",
+            "p0126_001",
+            "p0158_003",
+            "p0069_001",
+            "p0142_002",
+            "p0170_000"
+          ],
+          "retrieved_pages_ranked": [
+            158,
+            20,
+            97,
+            73,
+            126,
+            69,
+            142,
+            170
+          ],
+          "retrieved_scores": [
+            0.40149858593940735,
+            0.399042010307312,
+            0.38045534491539,
+            0.3701803684234619,
+            0.3534221947193146,
+            0.3528444468975067,
+            0.34632423520088196,
+            0.3441053032875061,
+            0.34292662143707275,
+            0.3353273272514343
+          ],
+          "best_variant_per_chunk": [
+            "How many INWO referrals were upheld between 1 April 2024 and 31 March 2025?",
+            "How many INWO referrals were upheld between 1 April 2024 and 31 March 2025?",
+            "How many INWO referrals were upheld between 1 April 2024 and 31 March 2025?",
+            "How many INWO referrals were upheld between 1 April 2024 and 31 March 2025?",
+            "How many INWO referrals were upheld between 1 April 2024 and 31 March 2025?",
+            "How many INWO referrals were upheld between 1 April 2024 and 31 March 2025?",
+            "How many INWO referrals were upheld between 1 April 2024 and 31 March 2025?",
+            "How many INWO referrals were upheld between 1 April 2024 and 31 March 2025?",
+            "How many INWO referrals were upheld between 1 April 2024 and 31 March 2025?",
+            "How many INWO referrals were upheld between 1 April 2024 and 31 March 2025?"
+          ],
+          "recall_at_k": 0.0,
+          "precision_at_k": 0.0,
+          "mrr_at_k": 0.0
+        }
+      }
+    },
+    {
+      "query_id": "Q_GOV_2024_04",
+      "question": "How many SPSO cases were fully upheld and partly upheld in the trend data shown?",
+      "answer_type": "text",
+      "expected_pages": [
+        72
+      ],
+      "query_variants": [
+        "How many SPSO cases were fully upheld and partly upheld in the trend data shown?"
+      ],
+      "per_k": {
+        "1": {
+          "query_variants": [
+            "How many SPSO cases were fully upheld and partly upheld in the trend data shown?"
+          ],
+          "retrieved_chunk_ids": [
+            "p0073_001"
+          ],
+          "retrieved_pages_ranked": [
+            73
+          ],
+          "retrieved_scores": [
+            0.41304823756217957
+          ],
+          "best_variant_per_chunk": [
+            "How many SPSO cases were fully upheld and partly upheld in the trend data shown?"
+          ],
+          "recall_at_k": 0.0,
+          "precision_at_k": 0.0,
+          "mrr_at_k": 0.0
+        },
+        "3": {
+          "query_variants": [
+            "How many SPSO cases were fully upheld and partly upheld in the trend data shown?"
+          ],
+          "retrieved_chunk_ids": [
+            "p0073_001",
+            "p0058_002",
+            "p0046_000"
+          ],
+          "retrieved_pages_ranked": [
+            73,
+            58,
+            46
+          ],
+          "retrieved_scores": [
+            0.41304823756217957,
+            0.33592289686203003,
+            0.3251628279685974
+          ],
+          "best_variant_per_chunk": [
+            "How many SPSO cases were fully upheld and partly upheld in the trend data shown?",
+            "How many SPSO cases were fully upheld and partly upheld in the trend data shown?",
+            "How many SPSO cases were fully upheld and partly upheld in the trend data shown?"
+          ],
+          "recall_at_k": 0.0,
+          "precision_at_k": 0.0,
+          "mrr_at_k": 0.0
+        },
+        "5": {
+          "query_variants": [
+            "How many SPSO cases were fully upheld and partly upheld in the trend data shown?"
+          ],
+          "retrieved_chunk_ids": [
+            "p0073_001",
+            "p0058_002",
+            "p0046_000",
+            "p0051_001",
+            "p0142_002"
+          ],
+          "retrieved_pages_ranked": [
+            73,
+            58,
+            46,
+            51,
+            142
+          ],
+          "retrieved_scores": [
+            0.41304823756217957,
+            0.33592289686203003,
+            0.3251628279685974,
+            0.31670135259628296,
+            0.31356480717658997
+          ],
+          "best_variant_per_chunk": [
+            "How many SPSO cases were fully upheld and partly upheld in the trend data shown?",
+            "How many SPSO cases were fully upheld and partly upheld in the trend data shown?",
+            "How many SPSO cases were fully upheld and partly upheld in the trend data shown?",
+            "How many SPSO cases were fully upheld and partly upheld in the trend data shown?",
+            "How many SPSO cases were fully upheld and partly upheld in the trend data shown?"
+          ],
+          "recall_at_k": 0.0,
+          "precision_at_k": 0.0,
+          "mrr_at_k": 0.0
+        },
+        "10": {
+          "query_variants": [
+            "How many SPSO cases were fully upheld and partly upheld in the trend data shown?"
+          ],
+          "retrieved_chunk_ids": [
+            "p0073_001",
+            "p0058_002",
+            "p0046_000",
+            "p0051_001",
+            "p0142_002",
+            "table_p0092",
+            "p0158_002",
+            "p0072_000",
+            "table_p0012",
+            "table_p0144"
+          ],
+          "retrieved_pages_ranked": [
+            73,
+            58,
+            46,
+            51,
+            142,
+            92,
+            158,
+            72,
+            12,
+            144
+          ],
+          "retrieved_scores": [
+            0.41304823756217957,
+            0.33592289686203003,
+            0.3251628279685974,
+            0.31670135259628296,
+            0.31356480717658997,
+            0.3005843758583069,
+            0.29823142290115356,
+            0.29229968786239624,
+            0.2917880117893219,
+            0.2899967432022095
+          ],
+          "best_variant_per_chunk": [
+            "How many SPSO cases were fully upheld and partly upheld in the trend data shown?",
+            "How many SPSO cases were fully upheld and partly upheld in the trend data shown?",
+            "How many SPSO cases were fully upheld and partly upheld in the trend data shown?",
+            "How many SPSO cases were fully upheld and partly upheld in the trend data shown?",
+            "How many SPSO cases were fully upheld and partly upheld in the trend data shown?",
+            "How many SPSO cases were fully upheld and partly upheld in the trend data shown?",
+            "How many SPSO cases were fully upheld and partly upheld in the trend data shown?",
+            "How many SPSO cases were fully upheld and partly upheld in the trend data shown?",
+            "How many SPSO cases were fully upheld and partly upheld in the trend data shown?",
+            "How many SPSO cases were fully upheld and partly upheld in the trend data shown?"
+          ],
+          "recall_at_k": 1.0,
+          "precision_at_k": 0.1,
+          "mrr_at_k": 0.125
+        }
+      }
+    },
+    {
+      "query_id": "Q_OP_2024_01",
+      "question": "How many patients were recorded as delayed discharge at the March 2025 census date?",
+      "answer_type": "number",
+      "expected_pages": [
+        16
+      ],
+      "query_variants": [
+        "How many patients were recorded as delayed discharge at the March 2025 census date?"
+      ],
+      "per_k": {
+        "1": {
+          "query_variants": [
+            "How many patients were recorded as delayed discharge at the March 2025 census date?"
+          ],
+          "retrieved_chunk_ids": [
+            "p0015_000"
+          ],
+          "retrieved_pages_ranked": [
+            15
+          ],
+          "retrieved_scores": [
+            0.5242156982421875
+          ],
+          "best_variant_per_chunk": [
+            "How many patients were recorded as delayed discharge at the March 2025 census date?"
+          ],
+          "recall_at_k": 0.0,
+          "precision_at_k": 0.0,
+          "mrr_at_k": 0.0
+        },
+        "3": {
+          "query_variants": [
+            "How many patients were recorded as delayed discharge at the March 2025 census date?"
+          ],
+          "retrieved_chunk_ids": [
+            "p0015_000",
+            "p0014_000",
+            "p0016_000"
+          ],
+          "retrieved_pages_ranked": [
+            15,
+            14,
+            16
+          ],
+          "retrieved_scores": [
+            0.5242156982421875,
+            0.4328784942626953,
+            0.4294257164001465
+          ],
+          "best_variant_per_chunk": [
+            "How many patients were recorded as delayed discharge at the March 2025 census date?",
+            "How many patients were recorded as delayed discharge at the March 2025 census date?",
+            "How many patients were recorded as delayed discharge at the March 2025 census date?"
+          ],
+          "recall_at_k": 1.0,
+          "precision_at_k": 0.3333333333333333,
+          "mrr_at_k": 0.3333333333333333
+        },
+        "5": {
+          "query_variants": [
+            "How many patients were recorded as delayed discharge at the March 2025 census date?"
+          ],
+          "retrieved_chunk_ids": [
+            "p0015_000",
+            "p0014_000",
+            "p0016_000",
+            "p0016_001",
+            "p0097_000"
+          ],
+          "retrieved_pages_ranked": [
+            15,
+            14,
+            16,
+            97
+          ],
+          "retrieved_scores": [
+            0.5242156982421875,
+            0.4328784942626953,
+            0.4294257164001465,
+            0.41332367062568665,
+            0.4033069908618927
+          ],
+          "best_variant_per_chunk": [
+            "How many patients were recorded as delayed discharge at the March 2025 census date?",
+            "How many patients were recorded as delayed discharge at the March 2025 census date?",
+            "How many patients were recorded as delayed discharge at the March 2025 census date?",
+            "How many patients were recorded as delayed discharge at the March 2025 census date?",
+            "How many patients were recorded as delayed discharge at the March 2025 census date?"
+          ],
+          "recall_at_k": 1.0,
+          "precision_at_k": 0.25,
+          "mrr_at_k": 0.3333333333333333
+        },
+        "10": {
+          "query_variants": [
+            "How many patients were recorded as delayed discharge at the March 2025 census date?"
+          ],
+          "retrieved_chunk_ids": [
+            "p0015_000",
+            "p0014_000",
+            "p0016_000",
+            "p0016_001",
+            "p0097_000",
+            "p0018_000",
+            "p0009_000",
+            "p0046_000",
+            "p0142_001",
+            "p0005_000"
+          ],
+          "retrieved_pages_ranked": [
+            15,
+            14,
+            16,
+            97,
+            18,
+            9,
+            46,
+            142,
+            5
+          ],
+          "retrieved_scores": [
+            0.5242156982421875,
+            0.4328784942626953,
+            0.4294257164001465,
+            0.41332367062568665,
+            0.4033069908618927,
+            0.3965858519077301,
+            0.36923450231552124,
+            0.3651305139064789,
+            0.3623114824295044,
+            0.34879207611083984
+          ],
+          "best_variant_per_chunk": [
+            "How many patients were recorded as delayed discharge at the March 2025 census date?",
+            "How many patients were recorded as delayed discharge at the March 2025 census date?",
+            "How many patients were recorded as delayed discharge at the March 2025 census date?",
+            "How many patients were recorded as delayed discharge at the March 2025 census date?",
+            "How many patients were recorded as delayed discharge at the March 2025 census date?",
+            "How many patients were recorded as delayed discharge at the March 2025 census date?",
+            "How many patients were recorded as delayed discharge at the March 2025 census date?",
+            "How many patients were recorded as delayed discharge at the March 2025 census date?",
+            "How many patients were recorded as delayed discharge at the March 2025 census date?",
+            "How many patients were recorded as delayed discharge at the March 2025 census date?"
+          ],
+          "recall_at_k": 1.0,
+          "precision_at_k": 0.1111111111111111,
+          "mrr_at_k": 0.3333333333333333
+        }
+      }
+    },
+    {
+      "query_id": "Q_OP_2024_02",
+      "question": "How many delayed discharge patients were more than 3 days delayed at the March 2025 census date?",
+      "answer_type": "number",
+      "expected_pages": [
+        16
+      ],
+      "query_variants": [
+        "How many delayed discharge patients were more than 3 days delayed at the March 2025 census date?"
+      ],
+      "per_k": {
+        "1": {
+          "query_variants": [
+            "How many delayed discharge patients were more than 3 days delayed at the March 2025 census date?"
+          ],
+          "retrieved_chunk_ids": [
+            "p0015_000"
+          ],
+          "retrieved_pages_ranked": [
+            15
+          ],
+          "retrieved_scores": [
+            0.5271199941635132
+          ],
+          "best_variant_per_chunk": [
+            "How many delayed discharge patients were more than 3 days delayed at the March 2025 census date?"
+          ],
+          "recall_at_k": 0.0,
+          "precision_at_k": 0.0,
+          "mrr_at_k": 0.0
+        },
+        "3": {
+          "query_variants": [
+            "How many delayed discharge patients were more than 3 days delayed at the March 2025 census date?"
+          ],
+          "retrieved_chunk_ids": [
+            "p0015_000",
+            "p0016_000",
+            "p0016_001"
+          ],
+          "retrieved_pages_ranked": [
+            15,
+            16
+          ],
+          "retrieved_scores": [
+            0.5271199941635132,
+            0.45031705498695374,
+            0.4499353766441345
+          ],
+          "best_variant_per_chunk": [
+            "How many delayed discharge patients were more than 3 days delayed at the March 2025 census date?",
+            "How many delayed discharge patients were more than 3 days delayed at the March 2025 census date?",
+            "How many delayed discharge patients were more than 3 days delayed at the March 2025 census date?"
+          ],
+          "recall_at_k": 1.0,
+          "precision_at_k": 0.5,
+          "mrr_at_k": 0.5
+        },
+        "5": {
+          "query_variants": [
+            "How many delayed discharge patients were more than 3 days delayed at the March 2025 census date?"
+          ],
+          "retrieved_chunk_ids": [
+            "p0015_000",
+            "p0016_000",
+            "p0016_001",
+            "p0014_000",
+            "p0018_000"
+          ],
+          "retrieved_pages_ranked": [
+            15,
+            16,
+            14,
+            18
+          ],
+          "retrieved_scores": [
+            0.5271199941635132,
+            0.45031705498695374,
+            0.4499353766441345,
+            0.4275762736797333,
+            0.3972885012626648
+          ],
+          "best_variant_per_chunk": [
+            "How many delayed discharge patients were more than 3 days delayed at the March 2025 census date?",
+            "How many delayed discharge patients were more than 3 days delayed at the March 2025 census date?",
+            "How many delayed discharge patients were more than 3 days delayed at the March 2025 census date?",
+            "How many delayed discharge patients were more than 3 days delayed at the March 2025 census date?",
+            "How many delayed discharge patients were more than 3 days delayed at the March 2025 census date?"
+          ],
+          "recall_at_k": 1.0,
+          "precision_at_k": 0.25,
+          "mrr_at_k": 0.5
+        },
+        "10": {
+          "query_variants": [
+            "How many delayed discharge patients were more than 3 days delayed at the March 2025 census date?"
+          ],
+          "retrieved_chunk_ids": [
+            "p0015_000",
+            "p0016_000",
+            "p0016_001",
+            "p0014_000",
+            "p0018_000",
+            "p0097_000",
+            "p0009_000",
+            "p0046_000",
+            "p0093_001",
+            "p0005_000"
+          ],
+          "retrieved_pages_ranked": [
+            15,
+            16,
+            14,
+            18,
+            97,
+            9,
+            46,
+            93,
+            5
+          ],
+          "retrieved_scores": [
+            0.5271199941635132,
+            0.45031705498695374,
+            0.4499353766441345,
+            0.4275762736797333,
+            0.3972885012626648,
+            0.3654400110244751,
+            0.3508348762989044,
+            0.3436720669269562,
+            0.3310260474681854,
+            0.32449811697006226
+          ],
+          "best_variant_per_chunk": [
+            "How many delayed discharge patients were more than 3 days delayed at the March 2025 census date?",
+            "How many delayed discharge patients were more than 3 days delayed at the March 2025 census date?",
+            "How many delayed discharge patients were more than 3 days delayed at the March 2025 census date?",
+            "How many delayed discharge patients were more than 3 days delayed at the March 2025 census date?",
+            "How many delayed discharge patients were more than 3 days delayed at the March 2025 census date?",
+            "How many delayed discharge patients were more than 3 days delayed at the March 2025 census date?",
+            "How many delayed discharge patients were more than 3 days delayed at the March 2025 census date?",
+            "How many delayed discharge patients were more than 3 days delayed at the March 2025 census date?",
+            "How many delayed discharge patients were more than 3 days delayed at the March 2025 census date?",
+            "How many delayed discharge patients were more than 3 days delayed at the March 2025 census date?"
+          ],
+          "recall_at_k": 1.0,
+          "precision_at_k": 0.1111111111111111,
+          "mrr_at_k": 0.5
+        }
+      }
+    },
+    {
+      "query_id": "Q_OP_2024_03",
+      "question": "How many days did patients spend in hospital due to delays in discharge in March 2025?",
+      "answer_type": "number",
+      "expected_pages": [
+        16
+      ],
+      "query_variants": [
+        "How many days did patients spend in hospital due to delays in discharge in March 2025?"
+      ],
+      "per_k": {
+        "1": {
+          "query_variants": [
+            "How many days did patients spend in hospital due to delays in discharge in March 2025?"
+          ],
+          "retrieved_chunk_ids": [
+            "p0016_000"
+          ],
+          "retrieved_pages_ranked": [
+            16
+          ],
+          "retrieved_scores": [
+            0.5764453411102295
+          ],
+          "best_variant_per_chunk": [
+            "How many days did patients spend in hospital due to delays in discharge in March 2025?"
+          ],
+          "recall_at_k": 1.0,
+          "precision_at_k": 1.0,
+          "mrr_at_k": 1.0
+        },
+        "3": {
+          "query_variants": [
+            "How many days did patients spend in hospital due to delays in discharge in March 2025?"
+          ],
+          "retrieved_chunk_ids": [
+            "p0016_000",
+            "p0015_000",
+            "p0016_001"
+          ],
+          "retrieved_pages_ranked": [
+            16,
+            15
+          ],
+          "retrieved_scores": [
+            0.5764453411102295,
+            0.5756444334983826,
+            0.5744839310646057
+          ],
+          "best_variant_per_chunk": [
+            "How many days did patients spend in hospital due to delays in discharge in March 2025?",
+            "How many days did patients spend in hospital due to delays in discharge in March 2025?",
+            "How many days did patients spend in hospital due to delays in discharge in March 2025?"
+          ],
+          "recall_at_k": 1.0,
+          "precision_at_k": 0.5,
+          "mrr_at_k": 1.0
+        },
+        "5": {
+          "query_variants": [
+            "How many days did patients spend in hospital due to delays in discharge in March 2025?"
+          ],
+          "retrieved_chunk_ids": [
+            "p0016_000",
+            "p0015_000",
+            "p0016_001",
+            "p0009_000",
+            "p0014_000"
+          ],
+          "retrieved_pages_ranked": [
+            16,
+            15,
+            9,
+            14
+          ],
+          "retrieved_scores": [
+            0.5764453411102295,
+            0.5756444334983826,
+            0.5744839310646057,
+            0.48293179273605347,
+            0.47688770294189453
+          ],
+          "best_variant_per_chunk": [
+            "How many days did patients spend in hospital due to delays in discharge in March 2025?",
+            "How many days did patients spend in hospital due to delays in discharge in March 2025?",
+            "How many days did patients spend in hospital due to delays in discharge in March 2025?",
+            "How many days did patients spend in hospital due to delays in discharge in March 2025?",
+            "How many days did patients spend in hospital due to delays in discharge in March 2025?"
+          ],
+          "recall_at_k": 1.0,
+          "precision_at_k": 0.25,
+          "mrr_at_k": 1.0
+        },
+        "10": {
+          "query_variants": [
+            "How many days did patients spend in hospital due to delays in discharge in March 2025?"
+          ],
+          "retrieved_chunk_ids": [
+            "p0016_000",
+            "p0015_000",
+            "p0016_001",
+            "p0009_000",
+            "p0014_000",
+            "p0018_000",
+            "p0097_000",
+            "p0093_001",
+            "p0093_000",
+            "p0046_000"
+          ],
+          "retrieved_pages_ranked": [
+            16,
+            15,
+            9,
+            14,
+            18,
+            97,
+            93,
+            46
+          ],
+          "retrieved_scores": [
+            0.5764453411102295,
+            0.5756444334983826,
+            0.5744839310646057,
+            0.48293179273605347,
+            0.47688770294189453,
+            0.43938136100769043,
+            0.4250681698322296,
+            0.41223421692848206,
+            0.4103543758392334,
+            0.40370607376098633
+          ],
+          "best_variant_per_chunk": [
+            "How many days did patients spend in hospital due to delays in discharge in March 2025?",
+            "How many days did patients spend in hospital due to delays in discharge in March 2025?",
+            "How many days did patients spend in hospital due to delays in discharge in March 2025?",
+            "How many days did patients spend in hospital due to delays in discharge in March 2025?",
+            "How many days did patients spend in hospital due to delays in discharge in March 2025?",
+            "How many days did patients spend in hospital due to delays in discharge in March 2025?",
+            "How many days did patients spend in hospital due to delays in discharge in March 2025?",
+            "How many days did patients spend in hospital due to delays in discharge in March 2025?",
+            "How many days did patients spend in hospital due to delays in discharge in March 2025?",
+            "How many days did patients spend in hospital due to delays in discharge in March 2025?"
+          ],
+          "recall_at_k": 1.0,
+          "precision_at_k": 0.125,
+          "mrr_at_k": 1.0
+        }
+      }
+    },
+    {
+      "query_id": "Q_OP_2024_04",
+      "question": "What proportion of in-patient/daycase patients were waiting over 12 weeks at the end of 2024/25?",
+      "answer_type": "number",
+      "expected_pages": [
+        16
+      ],
+      "query_variants": [
+        "What proportion of in-patient/daycase patients were waiting over 12 weeks at the end of 2024/25?"
+      ],
+      "per_k": {
+        "1": {
+          "query_variants": [
+            "What proportion of in-patient/daycase patients were waiting over 12 weeks at the end of 2024/25?"
+          ],
+          "retrieved_chunk_ids": [
+            "p0016_001"
+          ],
+          "retrieved_pages_ranked": [
+            16
+          ],
+          "retrieved_scores": [
+            0.7790365219116211
+          ],
+          "best_variant_per_chunk": [
+            "What proportion of in-patient/daycase patients were waiting over 12 weeks at the end of 2024/25?"
+          ],
+          "recall_at_k": 1.0,
+          "precision_at_k": 1.0,
+          "mrr_at_k": 1.0
+        },
+        "3": {
+          "query_variants": [
+            "What proportion of in-patient/daycase patients were waiting over 12 weeks at the end of 2024/25?"
+          ],
+          "retrieved_chunk_ids": [
+            "p0016_001",
+            "p0016_000",
+            "p0015_000"
+          ],
+          "retrieved_pages_ranked": [
+            16,
+            15
+          ],
+          "retrieved_scores": [
+            0.7790365219116211,
+            0.6548352241516113,
+            0.5087621212005615
+          ],
+          "best_variant_per_chunk": [
+            "What proportion of in-patient/daycase patients were waiting over 12 weeks at the end of 2024/25?",
+            "What proportion of in-patient/daycase patients were waiting over 12 weeks at the end of 2024/25?",
+            "What proportion of in-patient/daycase patients were waiting over 12 weeks at the end of 2024/25?"
+          ],
+          "recall_at_k": 1.0,
+          "precision_at_k": 0.5,
+          "mrr_at_k": 1.0
+        },
+        "5": {
+          "query_variants": [
+            "What proportion of in-patient/daycase patients were waiting over 12 weeks at the end of 2024/25?"
+          ],
+          "retrieved_chunk_ids": [
+            "p0016_001",
+            "p0016_000",
+            "p0015_000",
+            "p0018_000",
+            "p0014_000"
+          ],
+          "retrieved_pages_ranked": [
+            16,
+            15,
+            18,
+            14
+          ],
+          "retrieved_scores": [
+            0.7790365219116211,
+            0.6548352241516113,
+            0.5087621212005615,
+            0.504075288772583,
+            0.48380041122436523
+          ],
+          "best_variant_per_chunk": [
+            "What proportion of in-patient/daycase patients were waiting over 12 weeks at the end of 2024/25?",
+            "What proportion of in-patient/daycase patients were waiting over 12 weeks at the end of 2024/25?",
+            "What proportion of in-patient/daycase patients were waiting over 12 weeks at the end of 2024/25?",
+            "What proportion of in-patient/daycase patients were waiting over 12 weeks at the end of 2024/25?",
+            "What proportion of in-patient/daycase patients were waiting over 12 weeks at the end of 2024/25?"
+          ],
+          "recall_at_k": 1.0,
+          "precision_at_k": 0.25,
+          "mrr_at_k": 1.0
+        },
+        "10": {
+          "query_variants": [
+            "What proportion of in-patient/daycase patients were waiting over 12 weeks at the end of 2024/25?"
+          ],
+          "retrieved_chunk_ids": [
+            "p0016_001",
+            "p0016_000",
+            "p0015_000",
+            "p0018_000",
+            "p0014_000",
+            "p0009_000",
+            "p0046_000",
+            "p0021_000",
+            "p0097_000",
+            "p0031_002"
+          ],
+          "retrieved_pages_ranked": [
+            16,
+            15,
+            18,
+            14,
+            9,
+            46,
+            21,
+            97,
+            31
+          ],
+          "retrieved_scores": [
+            0.7790365219116211,
+            0.6548352241516113,
+            0.5087621212005615,
+            0.504075288772583,
+            0.48380041122436523,
+            0.42654526233673096,
+            0.42124804854393005,
+            0.41093653440475464,
+            0.374927282333374,
+            0.37344110012054443
+          ],
+          "best_variant_per_chunk": [
+            "What proportion of in-patient/daycase patients were waiting over 12 weeks at the end of 2024/25?",
+            "What proportion of in-patient/daycase patients were waiting over 12 weeks at the end of 2024/25?",
+            "What proportion of in-patient/daycase patients were waiting over 12 weeks at the end of 2024/25?",
+            "What proportion of in-patient/daycase patients were waiting over 12 weeks at the end of 2024/25?",
+            "What proportion of in-patient/daycase patients were waiting over 12 weeks at the end of 2024/25?",
+            "What proportion of in-patient/daycase patients were waiting over 12 weeks at the end of 2024/25?",
+            "What proportion of in-patient/daycase patients were waiting over 12 weeks at the end of 2024/25?",
+            "What proportion of in-patient/daycase patients were waiting over 12 weeks at the end of 2024/25?",
+            "What proportion of in-patient/daycase patients were waiting over 12 weeks at the end of 2024/25?",
+            "What proportion of in-patient/daycase patients were waiting over 12 weeks at the end of 2024/25?"
+          ],
+          "recall_at_k": 1.0,
+          "precision_at_k": 0.1111111111111111,
+          "mrr_at_k": 1.0
+        }
+      }
+    },
+    {
+      "query_id": "Q_OP_2024_05",
+      "question": "What proportion of new outpatient patients were waiting over 12 weeks at the end of 2024/25?",
+      "answer_type": "number",
+      "expected_pages": [
+        16
+      ],
+      "query_variants": [
+        "What proportion of new outpatient patients were waiting over 12 weeks at the end of 2024/25?"
+      ],
+      "per_k": {
+        "1": {
+          "query_variants": [
+            "What proportion of new outpatient patients were waiting over 12 weeks at the end of 2024/25?"
+          ],
+          "retrieved_chunk_ids": [
+            "p0016_001"
+          ],
+          "retrieved_pages_ranked": [
+            16
+          ],
+          "retrieved_scores": [
+            0.7235876321792603
+          ],
+          "best_variant_per_chunk": [
+            "What proportion of new outpatient patients were waiting over 12 weeks at the end of 2024/25?"
+          ],
+          "recall_at_k": 1.0,
+          "precision_at_k": 1.0,
+          "mrr_at_k": 1.0
+        },
+        "3": {
+          "query_variants": [
+            "What proportion of new outpatient patients were waiting over 12 weeks at the end of 2024/25?"
+          ],
+          "retrieved_chunk_ids": [
+            "p0016_001",
+            "p0016_000",
+            "p0015_000"
+          ],
+          "retrieved_pages_ranked": [
+            16,
+            15
+          ],
+          "retrieved_scores": [
+            0.7235876321792603,
+            0.6536341309547424,
+            0.5359821319580078
+          ],
+          "best_variant_per_chunk": [
+            "What proportion of new outpatient patients were waiting over 12 weeks at the end of 2024/25?",
+            "What proportion of new outpatient patients were waiting over 12 weeks at the end of 2024/25?",
+            "What proportion of new outpatient patients were waiting over 12 weeks at the end of 2024/25?"
+          ],
+          "recall_at_k": 1.0,
+          "precision_at_k": 0.5,
+          "mrr_at_k": 1.0
+        },
+        "5": {
+          "query_variants": [
+            "What proportion of new outpatient patients were waiting over 12 weeks at the end of 2024/25?"
+          ],
+          "retrieved_chunk_ids": [
+            "p0016_001",
+            "p0016_000",
+            "p0015_000",
+            "p0018_000",
+            "p0014_000"
+          ],
+          "retrieved_pages_ranked": [
+            16,
+            15,
+            18,
+            14
+          ],
+          "retrieved_scores": [
+            0.7235876321792603,
+            0.6536341309547424,
+            0.5359821319580078,
+            0.5126125812530518,
+            0.5116886496543884
+          ],
+          "best_variant_per_chunk": [
+            "What proportion of new outpatient patients were waiting over 12 weeks at the end of 2024/25?",
+            "What proportion of new outpatient patients were waiting over 12 weeks at the end of 2024/25?",
+            "What proportion of new outpatient patients were waiting over 12 weeks at the end of 2024/25?",
+            "What proportion of new outpatient patients were waiting over 12 weeks at the end of 2024/25?",
+            "What proportion of new outpatient patients were waiting over 12 weeks at the end of 2024/25?"
+          ],
+          "recall_at_k": 1.0,
+          "precision_at_k": 0.25,
+          "mrr_at_k": 1.0
+        },
+        "10": {
+          "query_variants": [
+            "What proportion of new outpatient patients were waiting over 12 weeks at the end of 2024/25?"
+          ],
+          "retrieved_chunk_ids": [
+            "p0016_001",
+            "p0016_000",
+            "p0015_000",
+            "p0018_000",
+            "p0014_000",
+            "p0021_000",
+            "p0009_000",
+            "p0031_002",
+            "p0020_000",
+            "p0046_000"
+          ],
+          "retrieved_pages_ranked": [
+            16,
+            15,
+            18,
+            14,
+            21,
+            9,
+            31,
+            20,
+            46
+          ],
+          "retrieved_scores": [
+            0.7235876321792603,
+            0.6536341309547424,
+            0.5359821319580078,
+            0.5126125812530518,
+            0.5116886496543884,
+            0.4512849748134613,
+            0.4438255727291107,
+            0.42168110609054565,
+            0.42134618759155273,
+            0.40216419100761414
+          ],
+          "best_variant_per_chunk": [
+            "What proportion of new outpatient patients were waiting over 12 weeks at the end of 2024/25?",
+            "What proportion of new outpatient patients were waiting over 12 weeks at the end of 2024/25?",
+            "What proportion of new outpatient patients were waiting over 12 weeks at the end of 2024/25?",
+            "What proportion of new outpatient patients were waiting over 12 weeks at the end of 2024/25?",
+            "What proportion of new outpatient patients were waiting over 12 weeks at the end of 2024/25?",
+            "What proportion of new outpatient patients were waiting over 12 weeks at the end of 2024/25?",
+            "What proportion of new outpatient patients were waiting over 12 weeks at the end of 2024/25?",
+            "What proportion of new outpatient patients were waiting over 12 weeks at the end of 2024/25?",
+            "What proportion of new outpatient patients were waiting over 12 weeks at the end of 2024/25?",
+            "What proportion of new outpatient patients were waiting over 12 weeks at the end of 2024/25?"
+          ],
+          "recall_at_k": 1.0,
+          "precision_at_k": 0.1111111111111111,
+          "mrr_at_k": 1.0
+        }
+      }
+    },
+    {
+      "query_id": "Q_OP_2024_06",
+      "question": "How many TTG patients were waiting over 104 weeks at the end of 2024/25?",
+      "answer_type": "number",
+      "expected_pages": [
+        18
+      ],
+      "query_variants": [
+        "How many TTG patients were waiting over 104 weeks at the end of 2024/25?"
+      ],
+      "per_k": {
+        "1": {
+          "query_variants": [
+            "How many TTG patients were waiting over 104 weeks at the end of 2024/25?"
+          ],
+          "retrieved_chunk_ids": [
+            "p0018_000"
+          ],
+          "retrieved_pages_ranked": [
+            18
+          ],
+          "retrieved_scores": [
+            0.538929283618927
+          ],
+          "best_variant_per_chunk": [
+            "How many TTG patients were waiting over 104 weeks at the end of 2024/25?"
+          ],
+          "recall_at_k": 1.0,
+          "precision_at_k": 1.0,
+          "mrr_at_k": 1.0
+        },
+        "3": {
+          "query_variants": [
+            "How many TTG patients were waiting over 104 weeks at the end of 2024/25?"
+          ],
+          "retrieved_chunk_ids": [
+            "p0018_000",
+            "p0016_000",
+            "p0016_001"
+          ],
+          "retrieved_pages_ranked": [
+            18,
+            16
+          ],
+          "retrieved_scores": [
+            0.538929283618927,
+            0.507939875125885,
+            0.5071402788162231
+          ],
+          "best_variant_per_chunk": [
+            "How many TTG patients were waiting over 104 weeks at the end of 2024/25?",
+            "How many TTG patients were waiting over 104 weeks at the end of 2024/25?",
+            "How many TTG patients were waiting over 104 weeks at the end of 2024/25?"
+          ],
+          "recall_at_k": 1.0,
+          "precision_at_k": 0.5,
+          "mrr_at_k": 1.0
+        },
+        "5": {
+          "query_variants": [
+            "How many TTG patients were waiting over 104 weeks at the end of 2024/25?"
+          ],
+          "retrieved_chunk_ids": [
+            "p0018_000",
+            "p0016_000",
+            "p0016_001",
+            "p0014_000",
+            "p0015_000"
+          ],
+          "retrieved_pages_ranked": [
+            18,
+            16,
+            14,
+            15
+          ],
+          "retrieved_scores": [
+            0.538929283618927,
+            0.507939875125885,
+            0.5071402788162231,
+            0.41365286707878113,
+            0.4028060734272003
+          ],
+          "best_variant_per_chunk": [
+            "How many TTG patients were waiting over 104 weeks at the end of 2024/25?",
+            "How many TTG patients were waiting over 104 weeks at the end of 2024/25?",
+            "How many TTG patients were waiting over 104 weeks at the end of 2024/25?",
+            "How many TTG patients were waiting over 104 weeks at the end of 2024/25?",
+            "How many TTG patients were waiting over 104 weeks at the end of 2024/25?"
+          ],
+          "recall_at_k": 1.0,
+          "precision_at_k": 0.25,
+          "mrr_at_k": 1.0
+        },
+        "10": {
+          "query_variants": [
+            "How many TTG patients were waiting over 104 weeks at the end of 2024/25?"
+          ],
+          "retrieved_chunk_ids": [
+            "p0018_000",
+            "p0016_000",
+            "p0016_001",
+            "p0014_000",
+            "p0015_000",
+            "p0046_000",
+            "p0097_000",
+            "p0020_000",
+            "p0009_000",
+            "p0005_000"
+          ],
+          "retrieved_pages_ranked": [
+            18,
+            16,
+            14,
+            15,
+            46,
+            97,
+            20,
+            9,
+            5
+          ],
+          "retrieved_scores": [
+            0.538929283618927,
+            0.507939875125885,
+            0.5071402788162231,
+            0.41365286707878113,
+            0.4028060734272003,
+            0.3852870464324951,
+            0.37050995230674744,
+            0.35015207529067993,
+            0.3263881802558899,
+            0.3183080852031708
+          ],
+          "best_variant_per_chunk": [
+            "How many TTG patients were waiting over 104 weeks at the end of 2024/25?",
+            "How many TTG patients were waiting over 104 weeks at the end of 2024/25?",
+            "How many TTG patients were waiting over 104 weeks at the end of 2024/25?",
+            "How many TTG patients were waiting over 104 weeks at the end of 2024/25?",
+            "How many TTG patients were waiting over 104 weeks at the end of 2024/25?",
+            "How many TTG patients were waiting over 104 weeks at the end of 2024/25?",
+            "How many TTG patients were waiting over 104 weeks at the end of 2024/25?",
+            "How many TTG patients were waiting over 104 weeks at the end of 2024/25?",
+            "How many TTG patients were waiting over 104 weeks at the end of 2024/25?",
+            "How many TTG patients were waiting over 104 weeks at the end of 2024/25?"
+          ],
+          "recall_at_k": 1.0,
+          "precision_at_k": 0.1111111111111111,
+          "mrr_at_k": 1.0
+        }
+      }
+    },
+    {
+      "query_id": "Q_STR_2024_01",
+      "question": "What are the four main themes of the sustainability strategy framework described?",
+      "answer_type": "list",
+      "expected_pages": [
+        42
+      ],
+      "query_variants": [
+        "What are the four main themes of the sustainability strategy framework described?"
+      ],
+      "per_k": {
+        "1": {
+          "query_variants": [
+            "What are the four main themes of the sustainability strategy framework described?"
+          ],
+          "retrieved_chunk_ids": [
+            "p0041_000"
+          ],
+          "retrieved_pages_ranked": [
+            41
+          ],
+          "retrieved_scores": [
+            0.5270357728004456
+          ],
+          "best_variant_per_chunk": [
+            "What are the four main themes of the sustainability strategy framework described?"
+          ],
+          "recall_at_k": 0.0,
+          "precision_at_k": 0.0,
+          "mrr_at_k": 0.0
+        },
+        "3": {
+          "query_variants": [
+            "What are the four main themes of the sustainability strategy framework described?"
+          ],
+          "retrieved_chunk_ids": [
+            "p0041_000",
+            "p0040_000",
+            "p0042_000"
+          ],
+          "retrieved_pages_ranked": [
+            41,
+            40,
+            42
+          ],
+          "retrieved_scores": [
+            0.5270357728004456,
+            0.4843388795852661,
+            0.4762830436229706
+          ],
+          "best_variant_per_chunk": [
+            "What are the four main themes of the sustainability strategy framework described?",
+            "What are the four main themes of the sustainability strategy framework described?",
+            "What are the four main themes of the sustainability strategy framework described?"
+          ],
+          "recall_at_k": 1.0,
+          "precision_at_k": 0.3333333333333333,
+          "mrr_at_k": 0.3333333333333333
+        },
+        "5": {
+          "query_variants": [
+            "What are the four main themes of the sustainability strategy framework described?"
+          ],
+          "retrieved_chunk_ids": [
+            "p0041_000",
+            "p0040_000",
+            "p0042_000",
+            "p0043_000",
+            "p0074_001"
+          ],
+          "retrieved_pages_ranked": [
+            41,
+            40,
+            42,
+            43,
+            74
+          ],
+          "retrieved_scores": [
+            0.5270357728004456,
+            0.4843388795852661,
+            0.4762830436229706,
+            0.39030545949935913,
+            0.3884842097759247
+          ],
+          "best_variant_per_chunk": [
+            "What are the four main themes of the sustainability strategy framework described?",
+            "What are the four main themes of the sustainability strategy framework described?",
+            "What are the four main themes of the sustainability strategy framework described?",
+            "What are the four main themes of the sustainability strategy framework described?",
+            "What are the four main themes of the sustainability strategy framework described?"
+          ],
+          "recall_at_k": 1.0,
+          "precision_at_k": 0.2,
+          "mrr_at_k": 0.3333333333333333
+        },
+        "10": {
+          "query_variants": [
+            "What are the four main themes of the sustainability strategy framework described?"
+          ],
+          "retrieved_chunk_ids": [
+            "p0041_000",
+            "p0040_000",
+            "p0042_000",
+            "p0043_000",
+            "p0074_001",
+            "p0043_001",
+            "p0004_001",
+            "p0041_001",
+            "p0057_001",
+            "p0031_000"
+          ],
+          "retrieved_pages_ranked": [
+            41,
+            40,
+            42,
+            43,
+            74,
+            4,
+            57,
+            31
+          ],
+          "retrieved_scores": [
+            0.5270357728004456,
+            0.4843388795852661,
+            0.4762830436229706,
+            0.39030545949935913,
+            0.3884842097759247,
+            0.3837610185146332,
+            0.37731942534446716,
+            0.36645272374153137,
+            0.3663410544395447,
+            0.3571622967720032
+          ],
+          "best_variant_per_chunk": [
+            "What are the four main themes of the sustainability strategy framework described?",
+            "What are the four main themes of the sustainability strategy framework described?",
+            "What are the four main themes of the sustainability strategy framework described?",
+            "What are the four main themes of the sustainability strategy framework described?",
+            "What are the four main themes of the sustainability strategy framework described?",
+            "What are the four main themes of the sustainability strategy framework described?",
+            "What are the four main themes of the sustainability strategy framework described?",
+            "What are the four main themes of the sustainability strategy framework described?",
+            "What are the four main themes of the sustainability strategy framework described?",
+            "What are the four main themes of the sustainability strategy framework described?"
+          ],
+          "recall_at_k": 1.0,
+          "precision_at_k": 0.125,
+          "mrr_at_k": 0.3333333333333333
+        }
+      }
+    },
+    {
+      "query_id": "Q_STR_2024_02",
+      "question": "What sustainability strategies are named that support progress towards net zero?",
+      "answer_type": "list",
+      "expected_pages": [
+        42
+      ],
+      "query_variants": [
+        "What sustainability strategies are named that support progress towards net zero?"
+      ],
+      "per_k": {
+        "1": {
+          "query_variants": [
+            "What sustainability strategies are named that support progress towards net zero?"
+          ],
+          "retrieved_chunk_ids": [
+            "p0041_001"
+          ],
+          "retrieved_pages_ranked": [
+            41
+          ],
+          "retrieved_scores": [
+            0.59434974193573
+          ],
+          "best_variant_per_chunk": [
+            "What sustainability strategies are named that support progress towards net zero?"
+          ],
+          "recall_at_k": 0.0,
+          "precision_at_k": 0.0,
+          "mrr_at_k": 0.0
+        },
+        "3": {
+          "query_variants": [
+            "What sustainability strategies are named that support progress towards net zero?"
+          ],
+          "retrieved_chunk_ids": [
+            "p0041_001",
+            "p0041_000",
+            "p0043_001"
+          ],
+          "retrieved_pages_ranked": [
+            41,
+            43
+          ],
+          "retrieved_scores": [
+            0.59434974193573,
+            0.5699084997177124,
+            0.5188747048377991
+          ],
+          "best_variant_per_chunk": [
+            "What sustainability strategies are named that support progress towards net zero?",
+            "What sustainability strategies are named that support progress towards net zero?",
+            "What sustainability strategies are named that support progress towards net zero?"
+          ],
+          "recall_at_k": 0.0,
+          "precision_at_k": 0.0,
+          "mrr_at_k": 0.0
+        },
+        "5": {
+          "query_variants": [
+            "What sustainability strategies are named that support progress towards net zero?"
+          ],
+          "retrieved_chunk_ids": [
+            "p0041_001",
+            "p0041_000",
+            "p0043_001",
+            "p0042_000",
+            "p0043_000"
+          ],
+          "retrieved_pages_ranked": [
+            41,
+            43,
+            42
+          ],
+          "retrieved_scores": [
+            0.59434974193573,
+            0.5699084997177124,
+            0.5188747048377991,
+            0.465553879737854,
+            0.4421616792678833
+          ],
+          "best_variant_per_chunk": [
+            "What sustainability strategies are named that support progress towards net zero?",
+            "What sustainability strategies are named that support progress towards net zero?",
+            "What sustainability strategies are named that support progress towards net zero?",
+            "What sustainability strategies are named that support progress towards net zero?",
+            "What sustainability strategies are named that support progress towards net zero?"
+          ],
+          "recall_at_k": 1.0,
+          "precision_at_k": 0.3333333333333333,
+          "mrr_at_k": 0.3333333333333333
+        },
+        "10": {
+          "query_variants": [
+            "What sustainability strategies are named that support progress towards net zero?"
+          ],
+          "retrieved_chunk_ids": [
+            "p0041_001",
+            "p0041_000",
+            "p0043_001",
+            "p0042_000",
+            "p0043_000",
+            "p0040_000",
+            "p0074_001",
+            "p0039_001",
+            "p0062_000",
+            "p0039_000"
+          ],
+          "retrieved_pages_ranked": [
+            41,
+            43,
+            42,
+            40,
+            74,
+            39,
+            62
+          ],
+          "retrieved_scores": [
+            0.59434974193573,
+            0.5699084997177124,
+            0.5188747048377991,
+            0.465553879737854,
+            0.4421616792678833,
+            0.436311811208725,
+            0.4241847097873688,
+            0.38392528891563416,
+            0.32003745436668396,
+            0.31958431005477905
+          ],
+          "best_variant_per_chunk": [
+            "What sustainability strategies are named that support progress towards net zero?",
+            "What sustainability strategies are named that support progress towards net zero?",
+            "What sustainability strategies are named that support progress towards net zero?",
+            "What sustainability strategies are named that support progress towards net zero?",
+            "What sustainability strategies are named that support progress towards net zero?",
+            "What sustainability strategies are named that support progress towards net zero?",
+            "What sustainability strategies are named that support progress towards net zero?",
+            "What sustainability strategies are named that support progress towards net zero?",
+            "What sustainability strategies are named that support progress towards net zero?",
+            "What sustainability strategies are named that support progress towards net zero?"
+          ],
+          "recall_at_k": 1.0,
+          "precision_at_k": 0.14285714285714285,
+          "mrr_at_k": 0.3333333333333333
+        }
+      }
+    },
+    {
+      "query_id": "Q_STR_2024_03",
+      "question": "What year is stated for completion of the Climate Change Risk Assessment (CCRA)?",
+      "answer_type": "number",
+      "expected_pages": [
+        42
+      ],
+      "query_variants": [
+        "What year is stated for completion of the Climate Change Risk Assessment (CCRA)?"
+      ],
+      "per_k": {
+        "1": {
+          "query_variants": [
+            "What year is stated for completion of the Climate Change Risk Assessment (CCRA)?"
+          ],
+          "retrieved_chunk_ids": [
+            "p0042_001"
+          ],
+          "retrieved_pages_ranked": [
+            42
+          ],
+          "retrieved_scores": [
+            0.5298134088516235
+          ],
+          "best_variant_per_chunk": [
+            "What year is stated for completion of the Climate Change Risk Assessment (CCRA)?"
+          ],
+          "recall_at_k": 1.0,
+          "precision_at_k": 1.0,
+          "mrr_at_k": 1.0
+        },
+        "3": {
+          "query_variants": [
+            "What year is stated for completion of the Climate Change Risk Assessment (CCRA)?"
+          ],
+          "retrieved_chunk_ids": [
+            "p0042_001",
+            "p0042_000",
+            "p0039_000"
+          ],
+          "retrieved_pages_ranked": [
+            42,
+            39
+          ],
+          "retrieved_scores": [
+            0.5298134088516235,
+            0.5135557651519775,
+            0.4605603814125061
+          ],
+          "best_variant_per_chunk": [
+            "What year is stated for completion of the Climate Change Risk Assessment (CCRA)?",
+            "What year is stated for completion of the Climate Change Risk Assessment (CCRA)?",
+            "What year is stated for completion of the Climate Change Risk Assessment (CCRA)?"
+          ],
+          "recall_at_k": 1.0,
+          "precision_at_k": 0.5,
+          "mrr_at_k": 1.0
+        },
+        "5": {
+          "query_variants": [
+            "What year is stated for completion of the Climate Change Risk Assessment (CCRA)?"
+          ],
+          "retrieved_chunk_ids": [
+            "p0042_001",
+            "p0042_000",
+            "p0039_000",
+            "p0043_001",
+            "p0039_001"
+          ],
+          "retrieved_pages_ranked": [
+            42,
+            39,
+            43
+          ],
+          "retrieved_scores": [
+            0.5298134088516235,
+            0.5135557651519775,
+            0.4605603814125061,
+            0.42780372500419617,
+            0.412409245967865
+          ],
+          "best_variant_per_chunk": [
+            "What year is stated for completion of the Climate Change Risk Assessment (CCRA)?",
+            "What year is stated for completion of the Climate Change Risk Assessment (CCRA)?",
+            "What year is stated for completion of the Climate Change Risk Assessment (CCRA)?",
+            "What year is stated for completion of the Climate Change Risk Assessment (CCRA)?",
+            "What year is stated for completion of the Climate Change Risk Assessment (CCRA)?"
+          ],
+          "recall_at_k": 1.0,
+          "precision_at_k": 0.3333333333333333,
+          "mrr_at_k": 1.0
+        },
+        "10": {
+          "query_variants": [
+            "What year is stated for completion of the Climate Change Risk Assessment (CCRA)?"
+          ],
+          "retrieved_chunk_ids": [
+            "p0042_001",
+            "p0042_000",
+            "p0039_000",
+            "p0043_001",
+            "p0039_001",
+            "p0097_000",
+            "p0040_000",
+            "p0043_000",
+            "p0067_002",
+            "p0068_002"
+          ],
+          "retrieved_pages_ranked": [
+            42,
+            39,
+            43,
+            97,
+            40,
+            67,
+            68
+          ],
+          "retrieved_scores": [
+            0.5298134088516235,
+            0.5135557651519775,
+            0.4605603814125061,
+            0.42780372500419617,
+            0.412409245967865,
+            0.411048948764801,
+            0.39306509494781494,
+            0.37585872411727905,
+            0.37439075112342834,
+            0.3555331826210022
+          ],
+          "best_variant_per_chunk": [
+            "What year is stated for completion of the Climate Change Risk Assessment (CCRA)?",
+            "What year is stated for completion of the Climate Change Risk Assessment (CCRA)?",
+            "What year is stated for completion of the Climate Change Risk Assessment (CCRA)?",
+            "What year is stated for completion of the Climate Change Risk Assessment (CCRA)?",
+            "What year is stated for completion of the Climate Change Risk Assessment (CCRA)?",
+            "What year is stated for completion of the Climate Change Risk Assessment (CCRA)?",
+            "What year is stated for completion of the Climate Change Risk Assessment (CCRA)?",
+            "What year is stated for completion of the Climate Change Risk Assessment (CCRA)?",
+            "What year is stated for completion of the Climate Change Risk Assessment (CCRA)?",
+            "What year is stated for completion of the Climate Change Risk Assessment (CCRA)?"
+          ],
+          "recall_at_k": 1.0,
+          "precision_at_k": 0.14285714285714285,
+          "mrr_at_k": 1.0
+        }
+      }
+    },
+    {
+      "query_id": "Q_STR_2024_04",
+      "question": "What is described as a key obstacle to achieving net zero in the sustainability section?",
+      "answer_type": "text",
+      "expected_pages": [
+        42
+      ],
+      "query_variants": [
+        "What is described as a key obstacle to achieving net zero in the sustainability section?"
+      ],
+      "per_k": {
+        "1": {
+          "query_variants": [
+            "What is described as a key obstacle to achieving net zero in the sustainability section?"
+          ],
+          "retrieved_chunk_ids": [
+            "p0041_001"
+          ],
+          "retrieved_pages_ranked": [
+            41
+          ],
+          "retrieved_scores": [
+            0.6317203044891357
+          ],
+          "best_variant_per_chunk": [
+            "What is described as a key obstacle to achieving net zero in the sustainability section?"
+          ],
+          "recall_at_k": 0.0,
+          "precision_at_k": 0.0,
+          "mrr_at_k": 0.0
+        },
+        "3": {
+          "query_variants": [
+            "What is described as a key obstacle to achieving net zero in the sustainability section?"
+          ],
+          "retrieved_chunk_ids": [
+            "p0041_001",
+            "p0041_000",
+            "p0043_001"
+          ],
+          "retrieved_pages_ranked": [
+            41,
+            43
+          ],
+          "retrieved_scores": [
+            0.6317203044891357,
+            0.579840898513794,
+            0.5298761129379272
+          ],
+          "best_variant_per_chunk": [
+            "What is described as a key obstacle to achieving net zero in the sustainability section?",
+            "What is described as a key obstacle to achieving net zero in the sustainability section?",
+            "What is described as a key obstacle to achieving net zero in the sustainability section?"
+          ],
+          "recall_at_k": 0.0,
+          "precision_at_k": 0.0,
+          "mrr_at_k": 0.0
+        },
+        "5": {
+          "query_variants": [
+            "What is described as a key obstacle to achieving net zero in the sustainability section?"
+          ],
+          "retrieved_chunk_ids": [
+            "p0041_001",
+            "p0041_000",
+            "p0043_001",
+            "p0043_000",
+            "p0042_000"
+          ],
+          "retrieved_pages_ranked": [
+            41,
+            43,
+            42
+          ],
+          "retrieved_scores": [
+            0.6317203044891357,
+            0.579840898513794,
+            0.5298761129379272,
+            0.47940173745155334,
+            0.47140592336654663
+          ],
+          "best_variant_per_chunk": [
+            "What is described as a key obstacle to achieving net zero in the sustainability section?",
+            "What is described as a key obstacle to achieving net zero in the sustainability section?",
+            "What is described as a key obstacle to achieving net zero in the sustainability section?",
+            "What is described as a key obstacle to achieving net zero in the sustainability section?",
+            "What is described as a key obstacle to achieving net zero in the sustainability section?"
+          ],
+          "recall_at_k": 1.0,
+          "precision_at_k": 0.3333333333333333,
+          "mrr_at_k": 0.3333333333333333
+        },
+        "10": {
+          "query_variants": [
+            "What is described as a key obstacle to achieving net zero in the sustainability section?"
+          ],
+          "retrieved_chunk_ids": [
+            "p0041_001",
+            "p0041_000",
+            "p0043_001",
+            "p0043_000",
+            "p0042_000",
+            "p0040_000",
+            "p0039_001",
+            "p0074_001",
+            "p0039_000",
+            "p0112_000"
+          ],
+          "retrieved_pages_ranked": [
+            41,
+            43,
+            42,
+            40,
+            39,
+            74,
+            112
+          ],
+          "retrieved_scores": [
+            0.6317203044891357,
+            0.579840898513794,
+            0.5298761129379272,
+            0.47940173745155334,
+            0.47140592336654663,
+            0.45934081077575684,
+            0.4110325872898102,
+            0.3736061751842499,
+            0.34795111417770386,
+            0.3097665011882782
+          ],
+          "best_variant_per_chunk": [
+            "What is described as a key obstacle to achieving net zero in the sustainability section?",
+            "What is described as a key obstacle to achieving net zero in the sustainability section?",
+            "What is described as a key obstacle to achieving net zero in the sustainability section?",
+            "What is described as a key obstacle to achieving net zero in the sustainability section?",
+            "What is described as a key obstacle to achieving net zero in the sustainability section?",
+            "What is described as a key obstacle to achieving net zero in the sustainability section?",
+            "What is described as a key obstacle to achieving net zero in the sustainability section?",
+            "What is described as a key obstacle to achieving net zero in the sustainability section?",
+            "What is described as a key obstacle to achieving net zero in the sustainability section?",
+            "What is described as a key obstacle to achieving net zero in the sustainability section?"
+          ],
+          "recall_at_k": 1.0,
+          "precision_at_k": 0.14285714285714285,
+          "mrr_at_k": 0.3333333333333333
+        }
+      }
+    },
+    {
+      "query_id": "Q_STR_2024_07",
+      "question": "What does the report say is required to achieve carbon zero at the Foresterhill site?",
+      "answer_type": "text",
+      "expected_pages": [
+        42
+      ],
+      "query_variants": [
+        "What does the report say is required to achieve carbon zero at the Foresterhill site?",
+        "What does the report say is required to achieve carbon zero at the Foresterhill site? in emissions table (target emissions, percentage change)"
+      ],
+      "per_k": {
+        "1": {
+          "query_variants": [
+            "What does the report say is required to achieve carbon zero at the Foresterhill site?",
+            "What does the report say is required to achieve carbon zero at the Foresterhill site? in emissions table (target emissions, percentage change)"
+          ],
+          "retrieved_chunk_ids": [
+            "p0041_001"
+          ],
+          "retrieved_pages_ranked": [
+            41
+          ],
+          "retrieved_scores": [
+            0.6011955142021179
+          ],
+          "best_variant_per_chunk": [
+            "What does the report say is required to achieve carbon zero at the Foresterhill site? in emissions table (target emissions, percentage change)"
+          ],
+          "recall_at_k": 0.0,
+          "precision_at_k": 0.0,
+          "mrr_at_k": 0.0
+        },
+        "3": {
+          "query_variants": [
+            "What does the report say is required to achieve carbon zero at the Foresterhill site?",
+            "What does the report say is required to achieve carbon zero at the Foresterhill site? in emissions table (target emissions, percentage change)"
+          ],
+          "retrieved_chunk_ids": [
+            "p0041_001",
+            "p0043_001",
+            "p0041_000"
+          ],
+          "retrieved_pages_ranked": [
+            41,
+            43
+          ],
+          "retrieved_scores": [
+            0.6011955142021179,
+            0.5412566661834717,
+            0.5023956298828125
+          ],
+          "best_variant_per_chunk": [
+            "What does the report say is required to achieve carbon zero at the Foresterhill site? in emissions table (target emissions, percentage change)",
+            "What does the report say is required to achieve carbon zero at the Foresterhill site? in emissions table (target emissions, percentage change)",
+            "What does the report say is required to achieve carbon zero at the Foresterhill site? in emissions table (target emissions, percentage change)"
+          ],
+          "recall_at_k": 0.0,
+          "precision_at_k": 0.0,
+          "mrr_at_k": 0.0
+        },
+        "5": {
+          "query_variants": [
+            "What does the report say is required to achieve carbon zero at the Foresterhill site?",
+            "What does the report say is required to achieve carbon zero at the Foresterhill site? in emissions table (target emissions, percentage change)"
+          ],
+          "retrieved_chunk_ids": [
+            "p0041_001",
+            "p0043_001",
+            "p0041_000",
+            "p0039_001",
+            "p0043_000"
+          ],
+          "retrieved_pages_ranked": [
+            41,
+            43,
+            39
+          ],
+          "retrieved_scores": [
+            0.6011955142021179,
+            0.5412566661834717,
+            0.5023956298828125,
+            0.47635626792907715,
+            0.4537730813026428
+          ],
+          "best_variant_per_chunk": [
+            "What does the report say is required to achieve carbon zero at the Foresterhill site? in emissions table (target emissions, percentage change)",
+            "What does the report say is required to achieve carbon zero at the Foresterhill site? in emissions table (target emissions, percentage change)",
+            "What does the report say is required to achieve carbon zero at the Foresterhill site? in emissions table (target emissions, percentage change)",
+            "What does the report say is required to achieve carbon zero at the Foresterhill site? in emissions table (target emissions, percentage change)",
+            "What does the report say is required to achieve carbon zero at the Foresterhill site? in emissions table (target emissions, percentage change)"
+          ],
+          "recall_at_k": 0.0,
+          "precision_at_k": 0.0,
+          "mrr_at_k": 0.0
+        },
+        "10": {
+          "query_variants": [
+            "What does the report say is required to achieve carbon zero at the Foresterhill site?",
+            "What does the report say is required to achieve carbon zero at the Foresterhill site? in emissions table (target emissions, percentage change)"
+          ],
+          "retrieved_chunk_ids": [
+            "p0041_001",
+            "p0043_001",
+            "p0041_000",
+            "p0039_001",
+            "p0043_000",
+            "p0039_000",
+            "table_p0044",
+            "p0042_000",
+            "p0040_000",
+            "p0073_000"
+          ],
+          "retrieved_pages_ranked": [
+            41,
+            43,
+            39,
+            44,
+            42,
+            40,
+            73
+          ],
+          "retrieved_scores": [
+            0.6011955142021179,
+            0.5412566661834717,
+            0.5023956298828125,
+            0.47635626792907715,
+            0.4537730813026428,
+            0.429258793592453,
+            0.40553563833236694,
+            0.35226941108703613,
+            0.337076872587204,
+            0.3281623423099518
+          ],
+          "best_variant_per_chunk": [
+            "What does the report say is required to achieve carbon zero at the Foresterhill site? in emissions table (target emissions, percentage change)",
+            "What does the report say is required to achieve carbon zero at the Foresterhill site? in emissions table (target emissions, percentage change)",
+            "What does the report say is required to achieve carbon zero at the Foresterhill site? in emissions table (target emissions, percentage change)",
+            "What does the report say is required to achieve carbon zero at the Foresterhill site? in emissions table (target emissions, percentage change)",
+            "What does the report say is required to achieve carbon zero at the Foresterhill site? in emissions table (target emissions, percentage change)",
+            "What does the report say is required to achieve carbon zero at the Foresterhill site? in emissions table (target emissions, percentage change)",
+            "What does the report say is required to achieve carbon zero at the Foresterhill site? in emissions table (target emissions, percentage change)",
+            "What does the report say is required to achieve carbon zero at the Foresterhill site? in emissions table (target emissions, percentage change)",
+            "What does the report say is required to achieve carbon zero at the Foresterhill site? in emissions table (target emissions, percentage change)",
+            "What does the report say is required to achieve carbon zero at the Foresterhill site? in emissions table (target emissions, percentage change)"
+          ],
+          "recall_at_k": 1.0,
+          "precision_at_k": 0.14285714285714285,
+          "mrr_at_k": 0.2
+        }
+      }
+    }
+  ]
+}

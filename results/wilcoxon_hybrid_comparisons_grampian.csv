@@ -1,0 +1,2 @@
+doc_id,comparison,metric,k,n_queries,mean_a,mean_b,mean_delta,p_value,wilcoxon_statistic
+Grampian-2023-2024,hybrid_vs_dense,page_recall_at_k,3,24,0.9166666666666666,0.875,0.041666666666666664,0.32736042300928847,9.0

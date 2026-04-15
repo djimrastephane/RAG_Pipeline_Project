@@ -1,0 +1,16 @@
+{
+  "overall_before_unknown_pages": 1767,
+  "overall_after_unknown_pages": 1563,
+  "overall_before_unknown_rate": 0.8315294117647059,
+  "overall_after_unknown_rate": 0.5880361173814899,
+  "overall_delta_unknown_pages": -204,
+  "overall_delta_unknown_rate": -0.24349329438321599,
+  "financial_statements": {
+    "before_pages": 201,
+    "before_unknown": 197,
+    "before_rate": 0.9800995024875622,
+    "after_pages": 256,
+    "after_unknown": 138,
+    "after_rate": 0.5390625
+  }
+}

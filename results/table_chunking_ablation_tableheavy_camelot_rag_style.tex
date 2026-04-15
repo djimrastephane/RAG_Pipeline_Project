@@ -1,0 +1,23 @@
+\begin{table*}[t]
+\centering
+\small
+\setlength{\tabcolsep}{6pt}
+\caption{Table-chunking ablations on the table-heavy dev subset (43 queries) with Camelot-based extraction. Best values are bold; ties are all bolded.}
+\label{tab:table_chunking_ablation_tableheavy_camelot_rag_style}
+\begin{tabular}{lcccc}
+\toprule
+\textbf{Model} &
+\textbf{Hit@3} &
+\textbf{Strict Accuracy} &
+\textbf{Quote Support Rate} &
+$\mathbf{P(\text{Strict} \mid \text{Hit@3})}$ \\
+\midrule
+Baseline (fixed chunking)                & 90.70          & \textbf{60.47} & \textbf{60.47} & \textbf{66.67} \\
+Row-preserving table chunking            & \textbf{93.02} & 51.16          & 53.49          & 55.00          \\
+Two-stage table-aware chunking           & \textbf{93.02} & 51.16          & 53.49          & 55.00          \\
+\bottomrule
+\end{tabular}
+\end{table*}
+
+% Source:
+% runs/table_chunking_ablation_tableheavy_camelot_2026-03-03/combined/summary_by_arm.csv (scope = "all")

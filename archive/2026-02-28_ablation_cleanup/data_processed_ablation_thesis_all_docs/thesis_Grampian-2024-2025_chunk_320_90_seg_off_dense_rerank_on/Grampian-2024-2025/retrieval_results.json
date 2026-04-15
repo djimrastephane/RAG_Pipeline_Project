@@ -1,0 +1,5514 @@
+{
+  "run_info": {
+    "run_utc": "2026-02-25T08:57:28+00:00",
+    "data_dir": "/Users/djimra/MSc Data Science Jan 2025/Thesis documents/RAG_Pipeline_Project/data_processed_ablation_thesis_all_docs/thesis_Grampian-2024-2025_chunk_320_90_seg_off_dense_rerank_on/Grampian-2024-2025",
+    "index_path": "/Users/djimra/MSc Data Science Jan 2025/Thesis documents/RAG_Pipeline_Project/data_processed_ablation_thesis_all_docs/thesis_Grampian-2024-2025_chunk_320_90_seg_off_dense_rerank_on/Grampian-2024-2025/faiss.index",
+    "meta_path": "/Users/djimra/MSc Data Science Jan 2025/Thesis documents/RAG_Pipeline_Project/data_processed_ablation_thesis_all_docs/thesis_Grampian-2024-2025_chunk_320_90_seg_off_dense_rerank_on/Grampian-2024-2025/chunk_meta.parquet",
+    "table_facts_path": "/Users/djimra/MSc Data Science Jan 2025/Thesis documents/RAG_Pipeline_Project/data_processed_ablation_thesis_all_docs/thesis_Grampian-2024-2025_chunk_320_90_seg_off_dense_rerank_on/Grampian-2024-2025/table_facts.parquet",
+    "eval_set_path": "/Users/djimra/MSc Data Science Jan 2025/Thesis documents/RAG_Pipeline_Project/data_processed_ablation_thesis_all_docs/thesis_Grampian-2024-2025_chunk_320_90_seg_off_dense_rerank_on/Grampian-2024-2025/eval_set.json",
+    "embedding_model": "models/all-MiniLM-L6-v2",
+    "k_list": [
+      1,
+      3,
+      5,
+      10
+    ],
+    "subsection_boost": 0.05,
+    "table_chunk_boost": 0.08,
+    "milestone_text_boost": 0.08,
+    "entity_match_boost": 0.04,
+    "numeric_density_boost": 0.03,
+    "max_entity_matches": 4,
+    "enable_lexical_rerank": true,
+    "enable_subsection_boost": true,
+    "max_k_search": 100,
+    "num_queries": 25,
+    "num_chunks_indexed": 298,
+    "num_table_facts": 3865,
+    "meta_doc_ids": [
+      "Grampian-2024-2025"
+    ],
+    "query_id_nomenclature": "Q_<TOPIC>_<YEAR>_<NN> with TOPIC in [REV,EFF,DEF,STAFF,ACC,GOV,TABLE]",
+    "failure_attribution": {
+      "retrieval_stages": [
+        "hit",
+        "missed_top_ranked",
+        "missing_content"
+      ],
+      "failure_types": [
+        "FP1_MISSING_CONTENT",
+        "FP2_MISSED_TOP_RANK",
+        "FP3_NOT_IN_CONTEXT",
+        "FP4_NOT_EXTRACTED",
+        "FP5_WRONG_FORMAT",
+        "FP6_INCORRECT_SPECIFICITY",
+        "FP7_INCOMPLETE",
+        "HIT"
+      ],
+      "scope": "retrieval_and_generation"
+    },
+    "leakage_detection": {
+      "enabled": true,
+      "requires_expected_doc_id": true,
+      "fields": [
+        "retrieved_doc_ids_top_k",
+        "leakage_count_top_k",
+        "leakage_doc_ids_top_k",
+        "leakage_rate_top_k"
+      ]
+    },
+    "pipeline_settings": {
+      "source_metrics_path": "/Users/djimra/MSc Data Science Jan 2025/Thesis documents/RAG_Pipeline_Project/data_processed_ablation_thesis_all_docs/thesis_Grampian-2024-2025_chunk_320_90_seg_off_dense_rerank_on/Grampian-2024-2025/metrics.json",
+      "source_metrics_exists": true,
+      "doc_id": "Grampian-2024-2025",
+      "corpus_id": "Grampian-2024-2025",
+      "report_year": "2024-2025",
+      "preprocess_run_utc": "2026-02-25T08:56:46+00:00",
+      "preprocess_git_commit_short": "1da05af",
+      "embedding_model_preprocess": "sentence-transformers/all-MiniLM-L6-v2",
+      "chunk_size_tokens": 320,
+      "chunk_overlap_tokens": 90,
+      "segment_aware_chunking": false,
+      "whole_doc_markdown_mode": false,
+      "markdown_header_carry_forward": true,
+      "markdown_table_injection": true,
+      "primary_extractor": "pymupdf",
+      "min_chunk_words": 20
+    },
+    "eval_set": {
+      "path": "/Users/djimra/MSc Data Science Jan 2025/Thesis documents/RAG_Pipeline_Project/data_processed_ablation_thesis_all_docs/thesis_Grampian-2024-2025_chunk_320_90_seg_off_dense_rerank_on/Grampian-2024-2025/eval_set.json",
+      "sha1": "54dc899efedac55895d10d1e7c84bb0aaf801dc8",
+      "size_bytes": 14977,
+      "modified_utc": "2026-02-25T08:23:32+00:00",
+      "query_count": 25,
+      "meta_dataset_name": null,
+      "meta_doc_id": null,
+      "meta_version": null
+    }
+  },
+  "results": [
+    {
+      "query_id": "Q_FIN_2024_01",
+      "topic": "FIN",
+      "year": 2024,
+      "sequence": 1,
+      "question": "What was the net operating cost for NHS Grampian in 2024/25?",
+      "answer_type": "number",
+      "doc_id": "Grampian-2024-2025",
+      "expected_section": "FINANCIAL STATEMENTS",
+      "expected_pages": [
+        105
+      ],
+      "route_intent": "unknown",
+      "route_confidence": 0.5,
+      "page_hit": 0,
+      "failure_type": "FP2_MISSED_TOP_RANK",
+      "failure_stage": "retrieval",
+      "expected_answer": "£1,681,546",
+      "extracted_answer": ",775 Notes: a) Further detail and analysis of the Board's financial performance including an explanation of key variances can be found in the performance report on Pages 10 to 45.",
+      "extracted_answer_label": "Snippet",
+      "answer_correct": false,
+      "answer_status": "incorrect",
+      "extracted_answer_chunk_id": "Grampian-2024-2025:p0132_002",
+      "gold_presence": {
+        "gold_exists": true,
+        "gold_chunk_count": 1,
+        "gold_pages_found": [
+          105
+        ]
+      },
+      "per_k": {
+        "1": {
+          "retrieved_chunk_ids": [
+            "Grampian-2024-2025:p0132_002"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2024-2025"
+          ],
+          "retrieved_pages_ranked": [
+            132
+          ],
+          "retrieved_scores": [
+            0.8520472383499146
+          ],
+          "expected_subsection": "CONSOLIDATED CASHFLOW STATEMENT FOR YEAR ENDED 31 MARCH 2025",
+          "page_recall_at_k": 0.0,
+          "page_precision_at_k": 0.0,
+          "page_mrr_at_k": 0.0,
+          "chunk_hit_at_k": 0.0,
+          "chunk_precision_at_k": 0.0,
+          "chunk_mrr_at_k": 0.0,
+          "chunk_hit_flags": [
+            0
+          ],
+          "failure_stage": "missed_top_ranked",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        },
+        "3": {
+          "retrieved_chunk_ids": [
+            "Grampian-2024-2025:p0132_002",
+            "Grampian-2024-2025:p0132_000",
+            "Grampian-2024-2025:p0095_000"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025"
+          ],
+          "retrieved_pages_ranked": [
+            132,
+            95
+          ],
+          "retrieved_scores": [
+            0.8520472383499146,
+            0.7898157262802125,
+            0.7638879442214966
+          ],
+          "expected_subsection": "CONSOLIDATED CASHFLOW STATEMENT FOR YEAR ENDED 31 MARCH 2025",
+          "page_recall_at_k": 0.0,
+          "page_precision_at_k": 0.0,
+          "page_mrr_at_k": 0.0,
+          "chunk_hit_at_k": 0.0,
+          "chunk_precision_at_k": 0.0,
+          "chunk_mrr_at_k": 0.0,
+          "chunk_hit_flags": [
+            0,
+            0,
+            0
+          ],
+          "failure_stage": "missed_top_ranked",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        },
+        "5": {
+          "retrieved_chunk_ids": [
+            "Grampian-2024-2025:p0132_002",
+            "Grampian-2024-2025:p0132_000",
+            "Grampian-2024-2025:p0095_000",
+            "Grampian-2024-2025:p0094_001",
+            "Grampian-2024-2025:p0031_001"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025"
+          ],
+          "retrieved_pages_ranked": [
+            132,
+            95,
+            94,
+            31
+          ],
+          "retrieved_scores": [
+            0.8520472383499146,
+            0.7898157262802125,
+            0.7638879442214966,
+            0.7544933295249939,
+            0.7471078491210937
+          ],
+          "expected_subsection": "CONSOLIDATED CASHFLOW STATEMENT FOR YEAR ENDED 31 MARCH 2025",
+          "page_recall_at_k": 0.0,
+          "page_precision_at_k": 0.0,
+          "page_mrr_at_k": 0.0,
+          "chunk_hit_at_k": 0.0,
+          "chunk_precision_at_k": 0.0,
+          "chunk_mrr_at_k": 0.0,
+          "chunk_hit_flags": [
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "failure_stage": "missed_top_ranked",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        },
+        "10": {
+          "retrieved_chunk_ids": [
+            "Grampian-2024-2025:p0132_002",
+            "Grampian-2024-2025:p0132_000",
+            "Grampian-2024-2025:p0095_000",
+            "Grampian-2024-2025:p0094_001",
+            "Grampian-2024-2025:p0031_001",
+            "Grampian-2024-2025:p0025_000",
+            "Grampian-2024-2025:p0025_001",
+            "Grampian-2024-2025:p0165_001",
+            "Grampian-2024-2025:p0024_001",
+            "Grampian-2024-2025:p0031_000"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025"
+          ],
+          "retrieved_pages_ranked": [
+            132,
+            95,
+            94,
+            31,
+            25,
+            165,
+            24
+          ],
+          "retrieved_scores": [
+            0.8520472383499146,
+            0.7898157262802125,
+            0.7638879442214966,
+            0.7544933295249939,
+            0.7471078491210937,
+            0.7349004769325257,
+            0.7319539213180543,
+            0.724556827545166,
+            0.7093593502044678,
+            0.7039592003822327
+          ],
+          "expected_subsection": "CONSOLIDATED CASHFLOW STATEMENT FOR YEAR ENDED 31 MARCH 2025",
+          "page_recall_at_k": 0.0,
+          "page_precision_at_k": 0.0,
+          "page_mrr_at_k": 0.0,
+          "chunk_hit_at_k": 0.0,
+          "chunk_precision_at_k": 0.0,
+          "chunk_mrr_at_k": 0.0,
+          "chunk_hit_flags": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "failure_stage": "missed_top_ranked",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        }
+      }
+    },
+    {
+      "query_id": "Q_FIN_2024_02",
+      "topic": "FIN",
+      "year": 2024,
+      "sequence": 2,
+      "question": "What was the total programme of infrastructure investment delivered during 2024/25?",
+      "answer_type": "number",
+      "doc_id": "Grampian-2024-2025",
+      "expected_section": "PERFORMANCE REPORT",
+      "expected_pages": [
+        33
+      ],
+      "route_intent": "unknown",
+      "route_confidence": 0.5,
+      "page_hit": 1,
+      "failure_type": "FP6_INCORRECT_SPECIFICITY",
+      "failure_stage": "generation",
+      "expected_answer": "£88.9 million",
+      "extracted_answer": "791 million increase).",
+      "extracted_answer_label": "Snippet",
+      "answer_correct": false,
+      "answer_status": "incorrect",
+      "extracted_answer_chunk_id": "Grampian-2024-2025:p0033_001",
+      "gold_presence": {
+        "gold_exists": true,
+        "gold_chunk_count": 3,
+        "gold_pages_found": [
+          33
+        ]
+      },
+      "per_k": {
+        "1": {
+          "retrieved_chunk_ids": [
+            "Grampian-2024-2025:p0033_001"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2024-2025"
+          ],
+          "retrieved_pages_ranked": [
+            33
+          ],
+          "retrieved_scores": [
+            0.7202532505989075
+          ],
+          "expected_subsection": "B PERFORMANCE ANALYSIS",
+          "page_recall_at_k": 1.0,
+          "page_precision_at_k": 1.0,
+          "page_mrr_at_k": 1.0,
+          "chunk_hit_at_k": 1.0,
+          "chunk_precision_at_k": 1.0,
+          "chunk_mrr_at_k": 1.0,
+          "chunk_hit_flags": [
+            1
+          ],
+          "failure_stage": "hit",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        },
+        "3": {
+          "retrieved_chunk_ids": [
+            "Grampian-2024-2025:p0033_001",
+            "Grampian-2024-2025:p0025_001",
+            "Grampian-2024-2025:p0033_002"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025"
+          ],
+          "retrieved_pages_ranked": [
+            33,
+            25
+          ],
+          "retrieved_scores": [
+            0.7202532505989075,
+            0.601048163175583,
+            0.5728283143043519
+          ],
+          "expected_subsection": "B PERFORMANCE ANALYSIS",
+          "page_recall_at_k": 1.0,
+          "page_precision_at_k": 0.5,
+          "page_mrr_at_k": 1.0,
+          "chunk_hit_at_k": 1.0,
+          "chunk_precision_at_k": 0.6666666666666666,
+          "chunk_mrr_at_k": 1.0,
+          "chunk_hit_flags": [
+            1,
+            0,
+            1
+          ],
+          "failure_stage": "hit",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        },
+        "5": {
+          "retrieved_chunk_ids": [
+            "Grampian-2024-2025:p0033_001",
+            "Grampian-2024-2025:p0025_001",
+            "Grampian-2024-2025:p0033_002",
+            "Grampian-2024-2025:p0029_000",
+            "Grampian-2024-2025:p0025_000"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025"
+          ],
+          "retrieved_pages_ranked": [
+            33,
+            25,
+            29
+          ],
+          "retrieved_scores": [
+            0.7202532505989075,
+            0.601048163175583,
+            0.5728283143043519,
+            0.5649969112873078,
+            0.5447634673118592
+          ],
+          "expected_subsection": "B PERFORMANCE ANALYSIS",
+          "page_recall_at_k": 1.0,
+          "page_precision_at_k": 0.3333333333333333,
+          "page_mrr_at_k": 1.0,
+          "chunk_hit_at_k": 1.0,
+          "chunk_precision_at_k": 0.4,
+          "chunk_mrr_at_k": 1.0,
+          "chunk_hit_flags": [
+            1,
+            0,
+            1,
+            0,
+            0
+          ],
+          "failure_stage": "hit",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        },
+        "10": {
+          "retrieved_chunk_ids": [
+            "Grampian-2024-2025:p0033_001",
+            "Grampian-2024-2025:p0025_001",
+            "Grampian-2024-2025:p0033_002",
+            "Grampian-2024-2025:p0029_000",
+            "Grampian-2024-2025:p0025_000",
+            "Grampian-2024-2025:p0095_000",
+            "Grampian-2024-2025:p0041_001",
+            "Grampian-2024-2025:p0062_000",
+            "Grampian-2024-2025:p0027_000",
+            "Grampian-2024-2025:p0043_001"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025"
+          ],
+          "retrieved_pages_ranked": [
+            33,
+            25,
+            29,
+            95,
+            41,
+            62,
+            27,
+            43
+          ],
+          "retrieved_scores": [
+            0.7202532505989075,
+            0.601048163175583,
+            0.5728283143043519,
+            0.5649969112873078,
+            0.5447634673118592,
+            0.5407265162467957,
+            0.5366103184223175,
+            0.5168679904937744,
+            0.5047022449970245,
+            0.5039913403987885
+          ],
+          "expected_subsection": "B PERFORMANCE ANALYSIS",
+          "page_recall_at_k": 1.0,
+          "page_precision_at_k": 0.125,
+          "page_mrr_at_k": 1.0,
+          "chunk_hit_at_k": 1.0,
+          "chunk_precision_at_k": 0.2,
+          "chunk_mrr_at_k": 1.0,
+          "chunk_hit_flags": [
+            1,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "failure_stage": "hit",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        }
+      }
+    },
+    {
+      "query_id": "Q_FIN_2024_03",
+      "topic": "FIN",
+      "year": 2024,
+      "sequence": 3,
+      "question": "How much capital expenditure was incurred during 2024/25?",
+      "answer_type": "number",
+      "doc_id": "Grampian-2024-2025",
+      "expected_section": "PERFORMANCE REPORT",
+      "expected_pages": [
+        33
+      ],
+      "route_intent": "unknown",
+      "route_confidence": 0.5,
+      "page_hit": 1,
+      "failure_type": "FP6_INCORRECT_SPECIFICITY",
+      "failure_stage": "generation",
+      "expected_answer": "£84.42 million",
+      "extracted_answer": "791 million increase).",
+      "extracted_answer_label": "Snippet",
+      "answer_correct": false,
+      "answer_status": "incorrect",
+      "extracted_answer_chunk_id": "Grampian-2024-2025:p0033_001",
+      "gold_presence": {
+        "gold_exists": true,
+        "gold_chunk_count": 3,
+        "gold_pages_found": [
+          33
+        ]
+      },
+      "per_k": {
+        "1": {
+          "retrieved_chunk_ids": [
+            "Grampian-2024-2025:p0033_001"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2024-2025"
+          ],
+          "retrieved_pages_ranked": [
+            33
+          ],
+          "retrieved_scores": [
+            0.7076122677326203
+          ],
+          "expected_subsection": "B PERFORMANCE ANALYSIS",
+          "page_recall_at_k": 1.0,
+          "page_precision_at_k": 1.0,
+          "page_mrr_at_k": 1.0,
+          "chunk_hit_at_k": 1.0,
+          "chunk_precision_at_k": 1.0,
+          "chunk_mrr_at_k": 1.0,
+          "chunk_hit_flags": [
+            1
+          ],
+          "failure_stage": "hit",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        },
+        "3": {
+          "retrieved_chunk_ids": [
+            "Grampian-2024-2025:p0033_001",
+            "Grampian-2024-2025:p0033_002",
+            "Grampian-2024-2025:p0025_000"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025"
+          ],
+          "retrieved_pages_ranked": [
+            33,
+            25
+          ],
+          "retrieved_scores": [
+            0.7076122677326203,
+            0.6495162749290467,
+            0.6254750394821168
+          ],
+          "expected_subsection": "B PERFORMANCE ANALYSIS",
+          "page_recall_at_k": 1.0,
+          "page_precision_at_k": 0.5,
+          "page_mrr_at_k": 1.0,
+          "chunk_hit_at_k": 1.0,
+          "chunk_precision_at_k": 0.6666666666666666,
+          "chunk_mrr_at_k": 1.0,
+          "chunk_hit_flags": [
+            1,
+            1,
+            0
+          ],
+          "failure_stage": "hit",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        },
+        "5": {
+          "retrieved_chunk_ids": [
+            "Grampian-2024-2025:p0033_001",
+            "Grampian-2024-2025:p0033_002",
+            "Grampian-2024-2025:p0025_000",
+            "Grampian-2024-2025:p0027_000",
+            "Grampian-2024-2025:p0156_002"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025"
+          ],
+          "retrieved_pages_ranked": [
+            33,
+            25,
+            27,
+            156
+          ],
+          "retrieved_scores": [
+            0.7076122677326203,
+            0.6495162749290467,
+            0.6254750394821168,
+            0.6157551527023316,
+            0.6033032870292664
+          ],
+          "expected_subsection": "B PERFORMANCE ANALYSIS",
+          "page_recall_at_k": 1.0,
+          "page_precision_at_k": 0.25,
+          "page_mrr_at_k": 1.0,
+          "chunk_hit_at_k": 1.0,
+          "chunk_precision_at_k": 0.4,
+          "chunk_mrr_at_k": 1.0,
+          "chunk_hit_flags": [
+            1,
+            1,
+            0,
+            0,
+            0
+          ],
+          "failure_stage": "hit",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        },
+        "10": {
+          "retrieved_chunk_ids": [
+            "Grampian-2024-2025:p0033_001",
+            "Grampian-2024-2025:p0033_002",
+            "Grampian-2024-2025:p0025_000",
+            "Grampian-2024-2025:p0027_000",
+            "Grampian-2024-2025:p0156_002",
+            "Grampian-2024-2025:p0029_000",
+            "Grampian-2024-2025:p0032_000",
+            "Grampian-2024-2025:p0095_000",
+            "Grampian-2024-2025:p0031_001",
+            "Grampian-2024-2025:p0025_001"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025"
+          ],
+          "retrieved_pages_ranked": [
+            33,
+            25,
+            27,
+            156,
+            29,
+            32,
+            95,
+            31
+          ],
+          "retrieved_scores": [
+            0.7076122677326203,
+            0.6495162749290467,
+            0.6254750394821168,
+            0.6157551527023316,
+            0.6033032870292664,
+            0.600496633052826,
+            0.5814203238487244,
+            0.5508114123344422,
+            0.5448663485050201,
+            0.5282242417335511
+          ],
+          "expected_subsection": "B PERFORMANCE ANALYSIS",
+          "page_recall_at_k": 1.0,
+          "page_precision_at_k": 0.125,
+          "page_mrr_at_k": 1.0,
+          "chunk_hit_at_k": 1.0,
+          "chunk_precision_at_k": 0.2,
+          "chunk_mrr_at_k": 1.0,
+          "chunk_hit_flags": [
+            1,
+            1,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "failure_stage": "hit",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        }
+      }
+    },
+    {
+      "query_id": "Q_FIN_2024_04",
+      "topic": "FIN",
+      "year": 2024,
+      "sequence": 4,
+      "question": "What was the value of contingent liabilities for clinical and medical compensation payments in 2024/25?",
+      "answer_type": "number",
+      "doc_id": "Grampian-2024-2025",
+      "expected_section": "FINANCIAL STATEMENTS",
+      "expected_pages": [
+        149
+      ],
+      "route_intent": "unknown",
+      "route_confidence": 0.5,
+      "page_hit": 1,
+      "failure_type": "FP6_INCORRECT_SPECIFICITY",
+      "failure_stage": "generation",
+      "expected_answer": "51,763",
+      "extracted_answer": "FINANCIAL STATEMENTS Note 14.",
+      "extracted_answer_label": "Snippet",
+      "answer_correct": false,
+      "answer_status": "incorrect",
+      "extracted_answer_chunk_id": "Grampian-2024-2025:p0149_000",
+      "gold_presence": {
+        "gold_exists": true,
+        "gold_chunk_count": 2,
+        "gold_pages_found": [
+          149
+        ]
+      },
+      "per_k": {
+        "1": {
+          "retrieved_chunk_ids": [
+            "Grampian-2024-2025:p0149_000"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2024-2025"
+          ],
+          "retrieved_pages_ranked": [
+            149
+          ],
+          "retrieved_scores": [
+            0.8465142583847046
+          ],
+          "expected_subsection": "Note 14. CONTINGENT LIABILITIES AND ASSETS",
+          "page_recall_at_k": 1.0,
+          "page_precision_at_k": 1.0,
+          "page_mrr_at_k": 1.0,
+          "chunk_hit_at_k": 1.0,
+          "chunk_precision_at_k": 1.0,
+          "chunk_mrr_at_k": 1.0,
+          "chunk_hit_flags": [
+            1
+          ],
+          "failure_stage": "hit",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        },
+        "3": {
+          "retrieved_chunk_ids": [
+            "Grampian-2024-2025:p0149_000",
+            "Grampian-2024-2025:p0119_002",
+            "Grampian-2024-2025:p0125_000"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025"
+          ],
+          "retrieved_pages_ranked": [
+            149,
+            119,
+            125
+          ],
+          "retrieved_scores": [
+            0.8465142583847046,
+            0.8233353233337403,
+            0.7809888458251953
+          ],
+          "expected_subsection": "Note 14. CONTINGENT LIABILITIES AND ASSETS",
+          "page_recall_at_k": 1.0,
+          "page_precision_at_k": 0.3333333333333333,
+          "page_mrr_at_k": 1.0,
+          "chunk_hit_at_k": 1.0,
+          "chunk_precision_at_k": 0.3333333333333333,
+          "chunk_mrr_at_k": 1.0,
+          "chunk_hit_flags": [
+            1,
+            0,
+            0
+          ],
+          "failure_stage": "hit",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        },
+        "5": {
+          "retrieved_chunk_ids": [
+            "Grampian-2024-2025:p0149_000",
+            "Grampian-2024-2025:p0119_002",
+            "Grampian-2024-2025:p0125_000",
+            "Grampian-2024-2025:p0096_001",
+            "Grampian-2024-2025:p0125_001"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025"
+          ],
+          "retrieved_pages_ranked": [
+            149,
+            119,
+            125,
+            96
+          ],
+          "retrieved_scores": [
+            0.8465142583847046,
+            0.8233353233337403,
+            0.7809888458251953,
+            0.73837890625,
+            0.7106001710891724
+          ],
+          "expected_subsection": "Note 14. CONTINGENT LIABILITIES AND ASSETS",
+          "page_recall_at_k": 1.0,
+          "page_precision_at_k": 0.25,
+          "page_mrr_at_k": 1.0,
+          "chunk_hit_at_k": 1.0,
+          "chunk_precision_at_k": 0.2,
+          "chunk_mrr_at_k": 1.0,
+          "chunk_hit_flags": [
+            1,
+            0,
+            0,
+            0,
+            0
+          ],
+          "failure_stage": "hit",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        },
+        "10": {
+          "retrieved_chunk_ids": [
+            "Grampian-2024-2025:p0149_000",
+            "Grampian-2024-2025:p0119_002",
+            "Grampian-2024-2025:p0125_000",
+            "Grampian-2024-2025:p0096_001",
+            "Grampian-2024-2025:p0125_001",
+            "Grampian-2024-2025:p0097_000",
+            "Grampian-2024-2025:p0119_001",
+            "Grampian-2024-2025:p0126_000",
+            "Grampian-2024-2025:p0096_000",
+            "Grampian-2024-2025:p0150_000"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025"
+          ],
+          "retrieved_pages_ranked": [
+            149,
+            119,
+            125,
+            96,
+            97,
+            126,
+            150
+          ],
+          "retrieved_scores": [
+            0.8465142583847046,
+            0.8233353233337403,
+            0.7809888458251953,
+            0.73837890625,
+            0.7106001710891724,
+            0.7062458848953247,
+            0.6974811887741089,
+            0.6706019592285156,
+            0.6680615568161011,
+            0.661964054107666
+          ],
+          "expected_subsection": "Note 14. CONTINGENT LIABILITIES AND ASSETS",
+          "page_recall_at_k": 1.0,
+          "page_precision_at_k": 0.14285714285714285,
+          "page_mrr_at_k": 1.0,
+          "chunk_hit_at_k": 1.0,
+          "chunk_precision_at_k": 0.1,
+          "chunk_mrr_at_k": 1.0,
+          "chunk_hit_flags": [
+            1,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "failure_stage": "hit",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        }
+      }
+    },
+    {
+      "query_id": "Q_FIN_2024_05",
+      "topic": "FIN",
+      "year": 2024,
+      "sequence": 5,
+      "question": "What was the value of contingent assets for clinical and medical compensation payments in 2024/25?",
+      "answer_type": "number",
+      "doc_id": "Grampian-2024-2025",
+      "expected_section": "FINANCIAL STATEMENTS",
+      "expected_pages": [
+        149
+      ],
+      "route_intent": "unknown",
+      "route_confidence": 0.5,
+      "page_hit": 1,
+      "failure_type": "FP6_INCORRECT_SPECIFICITY",
+      "failure_stage": "generation",
+      "expected_answer": "49,617",
+      "extracted_answer": "FINANCIAL STATEMENTS Note 14.",
+      "extracted_answer_label": "Snippet",
+      "answer_correct": false,
+      "answer_status": "incorrect",
+      "extracted_answer_chunk_id": "Grampian-2024-2025:p0149_000",
+      "gold_presence": {
+        "gold_exists": true,
+        "gold_chunk_count": 2,
+        "gold_pages_found": [
+          149
+        ]
+      },
+      "per_k": {
+        "1": {
+          "retrieved_chunk_ids": [
+            "Grampian-2024-2025:p0149_000"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2024-2025"
+          ],
+          "retrieved_pages_ranked": [
+            149
+          ],
+          "retrieved_scores": [
+            0.795637104511261
+          ],
+          "expected_subsection": "Note 14. CONTINGENT LIABILITIES AND ASSETS",
+          "page_recall_at_k": 1.0,
+          "page_precision_at_k": 1.0,
+          "page_mrr_at_k": 1.0,
+          "chunk_hit_at_k": 1.0,
+          "chunk_precision_at_k": 1.0,
+          "chunk_mrr_at_k": 1.0,
+          "chunk_hit_flags": [
+            1
+          ],
+          "failure_stage": "hit",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        },
+        "3": {
+          "retrieved_chunk_ids": [
+            "Grampian-2024-2025:p0149_000",
+            "Grampian-2024-2025:p0119_002",
+            "Grampian-2024-2025:p0125_000"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025"
+          ],
+          "retrieved_pages_ranked": [
+            149,
+            119,
+            125
+          ],
+          "retrieved_scores": [
+            0.795637104511261,
+            0.7515564298629761,
+            0.7112299537658692
+          ],
+          "expected_subsection": "Note 14. CONTINGENT LIABILITIES AND ASSETS",
+          "page_recall_at_k": 1.0,
+          "page_precision_at_k": 0.3333333333333333,
+          "page_mrr_at_k": 1.0,
+          "chunk_hit_at_k": 1.0,
+          "chunk_precision_at_k": 0.3333333333333333,
+          "chunk_mrr_at_k": 1.0,
+          "chunk_hit_flags": [
+            1,
+            0,
+            0
+          ],
+          "failure_stage": "hit",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        },
+        "5": {
+          "retrieved_chunk_ids": [
+            "Grampian-2024-2025:p0149_000",
+            "Grampian-2024-2025:p0119_002",
+            "Grampian-2024-2025:p0125_000",
+            "Grampian-2024-2025:p0125_001",
+            "Grampian-2024-2025:p0127_000"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025"
+          ],
+          "retrieved_pages_ranked": [
+            149,
+            119,
+            125,
+            127
+          ],
+          "retrieved_scores": [
+            0.795637104511261,
+            0.7515564298629761,
+            0.7112299537658692,
+            0.6849284505844117,
+            0.6815579271316529
+          ],
+          "expected_subsection": "Note 14. CONTINGENT LIABILITIES AND ASSETS",
+          "page_recall_at_k": 1.0,
+          "page_precision_at_k": 0.25,
+          "page_mrr_at_k": 1.0,
+          "chunk_hit_at_k": 1.0,
+          "chunk_precision_at_k": 0.2,
+          "chunk_mrr_at_k": 1.0,
+          "chunk_hit_flags": [
+            1,
+            0,
+            0,
+            0,
+            0
+          ],
+          "failure_stage": "hit",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        },
+        "10": {
+          "retrieved_chunk_ids": [
+            "Grampian-2024-2025:p0149_000",
+            "Grampian-2024-2025:p0119_002",
+            "Grampian-2024-2025:p0125_000",
+            "Grampian-2024-2025:p0125_001",
+            "Grampian-2024-2025:p0127_000",
+            "Grampian-2024-2025:p0150_000",
+            "Grampian-2024-2025:p0096_001",
+            "Grampian-2024-2025:p0119_001",
+            "Grampian-2024-2025:p0150_001",
+            "Grampian-2024-2025:p0132_000"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025"
+          ],
+          "retrieved_pages_ranked": [
+            149,
+            119,
+            125,
+            127,
+            150,
+            96,
+            132
+          ],
+          "retrieved_scores": [
+            0.795637104511261,
+            0.7515564298629761,
+            0.7112299537658692,
+            0.6849284505844117,
+            0.6815579271316529,
+            0.6785398077964783,
+            0.677695894241333,
+            0.6511472797393799,
+            0.6463862609863281,
+            0.641458215713501
+          ],
+          "expected_subsection": "Note 14. CONTINGENT LIABILITIES AND ASSETS",
+          "page_recall_at_k": 1.0,
+          "page_precision_at_k": 0.14285714285714285,
+          "page_mrr_at_k": 1.0,
+          "chunk_hit_at_k": 1.0,
+          "chunk_precision_at_k": 0.1,
+          "chunk_mrr_at_k": 1.0,
+          "chunk_hit_flags": [
+            1,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "failure_stage": "hit",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        }
+      }
+    },
+    {
+      "query_id": "Q_FIN_2024_06",
+      "topic": "FIN",
+      "year": 2024,
+      "sequence": 6,
+      "question": "What annual cost range is stated for the Band 5 Nursing Regrade contingent liability?",
+      "answer_type": "text",
+      "doc_id": "Grampian-2024-2025",
+      "expected_section": "FINANCIAL STATEMENTS",
+      "expected_pages": [
+        150
+      ],
+      "route_intent": "unknown",
+      "route_confidence": 0.5,
+      "page_hit": 1,
+      "failure_type": "FP3_NOT_IN_CONTEXT",
+      "failure_stage": "retrieval",
+      "expected_answer": "£0 to £13.2m",
+      "extracted_answer": "FINANCIAL STATEMENTS Band 5 Nursing Regrade: There is a degree of uncertainty in relation to this contingent liability, in relation to the impact of these reviews as it relates to nurses who have yet",
+      "extracted_answer_label": "Snippet",
+      "answer_correct": false,
+      "answer_status": "incorrect",
+      "extracted_answer_chunk_id": "Grampian-2024-2025:p0150_000",
+      "gold_presence": {
+        "gold_exists": true,
+        "gold_chunk_count": 2,
+        "gold_pages_found": [
+          150
+        ]
+      },
+      "per_k": {
+        "1": {
+          "retrieved_chunk_ids": [
+            "Grampian-2024-2025:p0150_000"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2024-2025"
+          ],
+          "retrieved_pages_ranked": [
+            150
+          ],
+          "retrieved_scores": [
+            0.7528530097007752
+          ],
+          "expected_subsection": "Band 5 Nursing Regrade",
+          "page_recall_at_k": 1.0,
+          "page_precision_at_k": 1.0,
+          "page_mrr_at_k": 1.0,
+          "chunk_hit_at_k": 1.0,
+          "chunk_precision_at_k": 1.0,
+          "chunk_mrr_at_k": 1.0,
+          "chunk_hit_flags": [
+            1
+          ],
+          "failure_stage": "hit",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        },
+        "3": {
+          "retrieved_chunk_ids": [
+            "Grampian-2024-2025:p0150_000",
+            "Grampian-2024-2025:p0096_001",
+            "Grampian-2024-2025:p0126_000"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025"
+          ],
+          "retrieved_pages_ranked": [
+            150,
+            96,
+            126
+          ],
+          "retrieved_scores": [
+            0.7528530097007752,
+            0.682113254070282,
+            0.6775857543945313
+          ],
+          "expected_subsection": "Band 5 Nursing Regrade",
+          "page_recall_at_k": 1.0,
+          "page_precision_at_k": 0.3333333333333333,
+          "page_mrr_at_k": 1.0,
+          "chunk_hit_at_k": 1.0,
+          "chunk_precision_at_k": 0.3333333333333333,
+          "chunk_mrr_at_k": 1.0,
+          "chunk_hit_flags": [
+            1,
+            0,
+            0
+          ],
+          "failure_stage": "hit",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        },
+        "5": {
+          "retrieved_chunk_ids": [
+            "Grampian-2024-2025:p0150_000",
+            "Grampian-2024-2025:p0096_001",
+            "Grampian-2024-2025:p0126_000",
+            "Grampian-2024-2025:p0149_000",
+            "Grampian-2024-2025:p0132_001"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025"
+          ],
+          "retrieved_pages_ranked": [
+            150,
+            96,
+            126,
+            149,
+            132
+          ],
+          "retrieved_scores": [
+            0.7528530097007752,
+            0.682113254070282,
+            0.6775857543945313,
+            0.6741623616218567,
+            0.6323995447158813
+          ],
+          "expected_subsection": "Band 5 Nursing Regrade",
+          "page_recall_at_k": 1.0,
+          "page_precision_at_k": 0.2,
+          "page_mrr_at_k": 1.0,
+          "chunk_hit_at_k": 1.0,
+          "chunk_precision_at_k": 0.2,
+          "chunk_mrr_at_k": 1.0,
+          "chunk_hit_flags": [
+            1,
+            0,
+            0,
+            0,
+            0
+          ],
+          "failure_stage": "hit",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        },
+        "10": {
+          "retrieved_chunk_ids": [
+            "Grampian-2024-2025:p0150_000",
+            "Grampian-2024-2025:p0096_001",
+            "Grampian-2024-2025:p0126_000",
+            "Grampian-2024-2025:p0149_000",
+            "Grampian-2024-2025:p0132_001",
+            "Grampian-2024-2025:p0119_002",
+            "Grampian-2024-2025:p0094_001",
+            "Grampian-2024-2025:p0125_000",
+            "Grampian-2024-2025:p0120_000",
+            "Grampian-2024-2025:p0119_001"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025"
+          ],
+          "retrieved_pages_ranked": [
+            150,
+            96,
+            126,
+            149,
+            132,
+            119,
+            94,
+            125,
+            120
+          ],
+          "retrieved_scores": [
+            0.7528530097007752,
+            0.682113254070282,
+            0.6775857543945313,
+            0.6741623616218567,
+            0.6323995447158813,
+            0.6302267265319824,
+            0.6115447235107422,
+            0.5826004910469055,
+            0.574720356464386,
+            0.5672834086418151
+          ],
+          "expected_subsection": "Band 5 Nursing Regrade",
+          "page_recall_at_k": 1.0,
+          "page_precision_at_k": 0.1111111111111111,
+          "page_mrr_at_k": 1.0,
+          "chunk_hit_at_k": 1.0,
+          "chunk_precision_at_k": 0.1,
+          "chunk_mrr_at_k": 1.0,
+          "chunk_hit_flags": [
+            1,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "failure_stage": "hit",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        }
+      }
+    },
+    {
+      "query_id": "Q_FIN_2024_07",
+      "topic": "FIN",
+      "year": 2024,
+      "sequence": 7,
+      "question": "What is the Treasury discount rate stated for early retirement pension liabilities in 2024/25?",
+      "answer_type": "number",
+      "doc_id": "Grampian-2024-2025",
+      "expected_section": "FINANCIAL STATEMENTS",
+      "expected_pages": [
+        146
+      ],
+      "route_intent": "unknown",
+      "route_confidence": 0.5,
+      "page_hit": 0,
+      "failure_type": "FP2_MISSED_TOP_RANK",
+      "failure_stage": "retrieval",
+      "expected_answer": "2.4%",
+      "extracted_answer": "Stocks and Bonds as disclosed in Note 10 have been assessed as level 1 in the fair value hierarchy defined in IFRS 13 i.e.",
+      "extracted_answer_label": "Snippet",
+      "answer_correct": false,
+      "answer_status": "incorrect",
+      "extracted_answer_chunk_id": "Grampian-2024-2025:p0164_000",
+      "gold_presence": {
+        "gold_exists": true,
+        "gold_chunk_count": 1,
+        "gold_pages_found": [
+          146
+        ]
+      },
+      "per_k": {
+        "1": {
+          "retrieved_chunk_ids": [
+            "Grampian-2024-2025:p0164_000"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2024-2025"
+          ],
+          "retrieved_pages_ranked": [
+            164
+          ],
+          "retrieved_scores": [
+            0.7026780581474305
+          ],
+          "expected_subsection": "Pensions and similar obligations",
+          "page_recall_at_k": 0.0,
+          "page_precision_at_k": 0.0,
+          "page_mrr_at_k": 0.0,
+          "chunk_hit_at_k": 0.0,
+          "chunk_precision_at_k": 0.0,
+          "chunk_mrr_at_k": 0.0,
+          "chunk_hit_flags": [
+            0
+          ],
+          "failure_stage": "missed_top_ranked",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        },
+        "3": {
+          "retrieved_chunk_ids": [
+            "Grampian-2024-2025:p0164_000",
+            "Grampian-2024-2025:p0158_000",
+            "Grampian-2024-2025:p0125_001"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025"
+          ],
+          "retrieved_pages_ranked": [
+            164,
+            158,
+            125
+          ],
+          "retrieved_scores": [
+            0.7026780581474305,
+            0.7026538586616516,
+            0.6538397109508515
+          ],
+          "expected_subsection": "Pensions and similar obligations",
+          "page_recall_at_k": 0.0,
+          "page_precision_at_k": 0.0,
+          "page_mrr_at_k": 0.0,
+          "chunk_hit_at_k": 0.0,
+          "chunk_precision_at_k": 0.0,
+          "chunk_mrr_at_k": 0.0,
+          "chunk_hit_flags": [
+            0,
+            0,
+            0
+          ],
+          "failure_stage": "missed_top_ranked",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        },
+        "5": {
+          "retrieved_chunk_ids": [
+            "Grampian-2024-2025:p0164_000",
+            "Grampian-2024-2025:p0158_000",
+            "Grampian-2024-2025:p0125_001",
+            "Grampian-2024-2025:p0159_000",
+            "Grampian-2024-2025:p0086_000"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025"
+          ],
+          "retrieved_pages_ranked": [
+            164,
+            158,
+            125,
+            159,
+            86
+          ],
+          "retrieved_scores": [
+            0.7026780581474305,
+            0.7026538586616516,
+            0.6538397109508515,
+            0.640721652507782,
+            0.6259248208999634
+          ],
+          "expected_subsection": "Pensions and similar obligations",
+          "page_recall_at_k": 0.0,
+          "page_precision_at_k": 0.0,
+          "page_mrr_at_k": 0.0,
+          "chunk_hit_at_k": 0.0,
+          "chunk_precision_at_k": 0.0,
+          "chunk_mrr_at_k": 0.0,
+          "chunk_hit_flags": [
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "failure_stage": "missed_top_ranked",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        },
+        "10": {
+          "retrieved_chunk_ids": [
+            "Grampian-2024-2025:p0164_000",
+            "Grampian-2024-2025:p0158_000",
+            "Grampian-2024-2025:p0125_001",
+            "Grampian-2024-2025:p0159_000",
+            "Grampian-2024-2025:p0086_000",
+            "Grampian-2024-2025:p0126_000",
+            "Grampian-2024-2025:p0158_001",
+            "Grampian-2024-2025:p0159_002",
+            "Grampian-2024-2025:p0033_001",
+            "Grampian-2024-2025:p0158_002"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025"
+          ],
+          "retrieved_pages_ranked": [
+            164,
+            158,
+            125,
+            159,
+            86,
+            126,
+            33
+          ],
+          "retrieved_scores": [
+            0.7026780581474305,
+            0.7026538586616516,
+            0.6538397109508515,
+            0.640721652507782,
+            0.6259248208999634,
+            0.6236691212654114,
+            0.6162516808509827,
+            0.5933488261699676,
+            0.5875593376159668,
+            0.584594155550003
+          ],
+          "expected_subsection": "Pensions and similar obligations",
+          "page_recall_at_k": 0.0,
+          "page_precision_at_k": 0.0,
+          "page_mrr_at_k": 0.0,
+          "chunk_hit_at_k": 0.0,
+          "chunk_precision_at_k": 0.0,
+          "chunk_mrr_at_k": 0.0,
+          "chunk_hit_flags": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "failure_stage": "missed_top_ranked",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        }
+      }
+    },
+    {
+      "query_id": "Q_FIN_2024_08",
+      "topic": "FIN",
+      "year": 2024,
+      "sequence": 8,
+      "question": "How does the report describe the accounting treatment of the NHS Superannuation Scheme for Scotland under IAS 19?",
+      "answer_type": "text",
+      "doc_id": "Grampian-2024-2025",
+      "expected_section": "FINANCIAL STATEMENTS",
+      "expected_pages": [
+        119
+      ],
+      "route_intent": "unknown",
+      "route_confidence": 0.5,
+      "page_hit": 0,
+      "failure_type": "FP2_MISSED_TOP_RANK",
+      "failure_stage": "retrieval",
+      "expected_answer": "The Board is unable to identify its share of the underlying notional assets and liabilities of the scheme on a consistent and reasonable basis and therefore accounts for the scheme as if it were a defined contribution scheme, as required by IAS 19 Employee Benefits.",
+      "extracted_answer": "The new NHS Pension Scheme (Scotland) 2015 From 1 April 2015 the NHS Pension Scheme (Scotland) 2015 was introduced.",
+      "extracted_answer_label": "Snippet",
+      "answer_correct": false,
+      "answer_status": "partial",
+      "extracted_answer_chunk_id": "Grampian-2024-2025:p0159_000",
+      "gold_presence": {
+        "gold_exists": true,
+        "gold_chunk_count": 3,
+        "gold_pages_found": [
+          119
+        ]
+      },
+      "per_k": {
+        "1": {
+          "retrieved_chunk_ids": [
+            "Grampian-2024-2025:p0159_000"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2024-2025"
+          ],
+          "retrieved_pages_ranked": [
+            159
+          ],
+          "retrieved_scores": [
+            0.8494514560699463
+          ],
+          "expected_subsection": "17(b) Pension Costs",
+          "page_recall_at_k": 0.0,
+          "page_precision_at_k": 0.0,
+          "page_mrr_at_k": 0.0,
+          "chunk_hit_at_k": 0.0,
+          "chunk_precision_at_k": 0.0,
+          "chunk_mrr_at_k": 0.0,
+          "chunk_hit_flags": [
+            0
+          ],
+          "failure_stage": "missed_top_ranked",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        },
+        "3": {
+          "retrieved_chunk_ids": [
+            "Grampian-2024-2025:p0159_000",
+            "Grampian-2024-2025:p0119_000",
+            "Grampian-2024-2025:p0047_001"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025"
+          ],
+          "retrieved_pages_ranked": [
+            159,
+            119,
+            47
+          ],
+          "retrieved_scores": [
+            0.8494514560699463,
+            0.8472485876083374,
+            0.824143443107605
+          ],
+          "expected_subsection": "17(b) Pension Costs",
+          "page_recall_at_k": 1.0,
+          "page_precision_at_k": 0.3333333333333333,
+          "page_mrr_at_k": 0.5,
+          "chunk_hit_at_k": 1.0,
+          "chunk_precision_at_k": 0.3333333333333333,
+          "chunk_mrr_at_k": 0.5,
+          "chunk_hit_flags": [
+            0,
+            1,
+            0
+          ],
+          "failure_stage": "hit",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        },
+        "5": {
+          "retrieved_chunk_ids": [
+            "Grampian-2024-2025:p0159_000",
+            "Grampian-2024-2025:p0119_000",
+            "Grampian-2024-2025:p0047_001",
+            "Grampian-2024-2025:p0172_000",
+            "Grampian-2024-2025:p0098_000"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025"
+          ],
+          "retrieved_pages_ranked": [
+            159,
+            119,
+            47,
+            172,
+            98
+          ],
+          "retrieved_scores": [
+            0.8494514560699463,
+            0.8472485876083374,
+            0.824143443107605,
+            0.824007842540741,
+            0.8220387434959412
+          ],
+          "expected_subsection": "17(b) Pension Costs",
+          "page_recall_at_k": 1.0,
+          "page_precision_at_k": 0.2,
+          "page_mrr_at_k": 0.5,
+          "chunk_hit_at_k": 1.0,
+          "chunk_precision_at_k": 0.2,
+          "chunk_mrr_at_k": 0.5,
+          "chunk_hit_flags": [
+            0,
+            1,
+            0,
+            0,
+            0
+          ],
+          "failure_stage": "hit",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        },
+        "10": {
+          "retrieved_chunk_ids": [
+            "Grampian-2024-2025:p0159_000",
+            "Grampian-2024-2025:p0119_000",
+            "Grampian-2024-2025:p0047_001",
+            "Grampian-2024-2025:p0172_000",
+            "Grampian-2024-2025:p0098_000",
+            "Grampian-2024-2025:p0171_001",
+            "Grampian-2024-2025:p0108_001",
+            "Grampian-2024-2025:p0171_000",
+            "Grampian-2024-2025:p0030_001",
+            "Grampian-2024-2025:p0108_000"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025"
+          ],
+          "retrieved_pages_ranked": [
+            159,
+            119,
+            47,
+            172,
+            98,
+            171,
+            108,
+            30
+          ],
+          "retrieved_scores": [
+            0.8494514560699463,
+            0.8472485876083374,
+            0.824143443107605,
+            0.824007842540741,
+            0.8220387434959412,
+            0.8203816747665406,
+            0.8154144620895386,
+            0.8013164138793946,
+            0.7959755992889405,
+            0.7915505504608155
+          ],
+          "expected_subsection": "17(b) Pension Costs",
+          "page_recall_at_k": 1.0,
+          "page_precision_at_k": 0.125,
+          "page_mrr_at_k": 0.5,
+          "chunk_hit_at_k": 1.0,
+          "chunk_precision_at_k": 0.1,
+          "chunk_mrr_at_k": 0.5,
+          "chunk_hit_flags": [
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "failure_stage": "hit",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        }
+      }
+    },
+    {
+      "query_id": "Q_FIN_2024_09",
+      "topic": "FIN",
+      "year": 2024,
+      "sequence": 9,
+      "question": "What factors are listed as resourcing the infrastructure investment programme during 2024/25?",
+      "answer_type": "list",
+      "doc_id": "Grampian-2024-2025",
+      "expected_section": "PERFORMANCE REPORT",
+      "expected_pages": [
+        33
+      ],
+      "route_intent": "unknown",
+      "route_confidence": 0.5,
+      "page_hit": 1,
+      "failure_type": "FP3_NOT_IN_CONTEXT",
+      "failure_stage": "retrieval",
+      "expected_answer": "The overall programme was resourced using a combination of capital funding from the SGHSCD (£83.469 million, see note 7d), income from donations (£0.41 million), benefit from disposal of assets (£0.02 million) and various revenue funding sources (£5 million)",
+      "extracted_answer": "791 million increase).",
+      "extracted_answer_label": "Snippet",
+      "answer_correct": false,
+      "answer_status": "partial",
+      "extracted_answer_chunk_id": "Grampian-2024-2025:p0033_001",
+      "gold_presence": {
+        "gold_exists": true,
+        "gold_chunk_count": 3,
+        "gold_pages_found": [
+          33
+        ]
+      },
+      "per_k": {
+        "1": {
+          "retrieved_chunk_ids": [
+            "Grampian-2024-2025:p0033_001"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2024-2025"
+          ],
+          "retrieved_pages_ranked": [
+            33
+          ],
+          "retrieved_scores": [
+            0.6641770339012146
+          ],
+          "expected_subsection": "3.2.7 Infrastructure and Non-Current Assets",
+          "page_recall_at_k": 1.0,
+          "page_precision_at_k": 1.0,
+          "page_mrr_at_k": 1.0,
+          "chunk_hit_at_k": 1.0,
+          "chunk_precision_at_k": 1.0,
+          "chunk_mrr_at_k": 1.0,
+          "chunk_hit_flags": [
+            1
+          ],
+          "failure_stage": "hit",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        },
+        "3": {
+          "retrieved_chunk_ids": [
+            "Grampian-2024-2025:p0033_001",
+            "Grampian-2024-2025:p0095_000",
+            "Grampian-2024-2025:p0041_001"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025"
+          ],
+          "retrieved_pages_ranked": [
+            33,
+            95,
+            41
+          ],
+          "retrieved_scores": [
+            0.6641770339012146,
+            0.5697424960136414,
+            0.5503313493728638
+          ],
+          "expected_subsection": "3.2.7 Infrastructure and Non-Current Assets",
+          "page_recall_at_k": 1.0,
+          "page_precision_at_k": 0.3333333333333333,
+          "page_mrr_at_k": 1.0,
+          "chunk_hit_at_k": 1.0,
+          "chunk_precision_at_k": 0.3333333333333333,
+          "chunk_mrr_at_k": 1.0,
+          "chunk_hit_flags": [
+            1,
+            0,
+            0
+          ],
+          "failure_stage": "hit",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        },
+        "5": {
+          "retrieved_chunk_ids": [
+            "Grampian-2024-2025:p0033_001",
+            "Grampian-2024-2025:p0095_000",
+            "Grampian-2024-2025:p0041_001",
+            "Grampian-2024-2025:p0025_001",
+            "Grampian-2024-2025:p0057_001"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025"
+          ],
+          "retrieved_pages_ranked": [
+            33,
+            95,
+            41,
+            25,
+            57
+          ],
+          "retrieved_scores": [
+            0.6641770339012146,
+            0.5697424960136414,
+            0.5503313493728638,
+            0.5396711778640747,
+            0.5276566994190216
+          ],
+          "expected_subsection": "3.2.7 Infrastructure and Non-Current Assets",
+          "page_recall_at_k": 1.0,
+          "page_precision_at_k": 0.2,
+          "page_mrr_at_k": 1.0,
+          "chunk_hit_at_k": 1.0,
+          "chunk_precision_at_k": 0.2,
+          "chunk_mrr_at_k": 1.0,
+          "chunk_hit_flags": [
+            1,
+            0,
+            0,
+            0,
+            0
+          ],
+          "failure_stage": "hit",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        },
+        "10": {
+          "retrieved_chunk_ids": [
+            "Grampian-2024-2025:p0033_001",
+            "Grampian-2024-2025:p0095_000",
+            "Grampian-2024-2025:p0041_001",
+            "Grampian-2024-2025:p0025_001",
+            "Grampian-2024-2025:p0057_001",
+            "Grampian-2024-2025:p0074_000",
+            "Grampian-2024-2025:p0127_000",
+            "Grampian-2024-2025:p0029_000",
+            "Grampian-2024-2025:p0062_000",
+            "Grampian-2024-2025:p0033_002"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025"
+          ],
+          "retrieved_pages_ranked": [
+            33,
+            95,
+            41,
+            25,
+            57,
+            74,
+            127,
+            29,
+            62
+          ],
+          "retrieved_scores": [
+            0.6641770339012146,
+            0.5697424960136414,
+            0.5503313493728638,
+            0.5396711778640747,
+            0.5276566994190216,
+            0.5271422219276428,
+            0.5224447417259216,
+            0.5068205463886261,
+            0.4971844720840454,
+            0.495852324962616
+          ],
+          "expected_subsection": "3.2.7 Infrastructure and Non-Current Assets",
+          "page_recall_at_k": 1.0,
+          "page_precision_at_k": 0.1111111111111111,
+          "page_mrr_at_k": 1.0,
+          "chunk_hit_at_k": 1.0,
+          "chunk_precision_at_k": 0.2,
+          "chunk_mrr_at_k": 1.0,
+          "chunk_hit_flags": [
+            1,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            1
+          ],
+          "failure_stage": "hit",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        }
+      }
+    },
+    {
+      "query_id": "Q_FIN_2024_10",
+      "topic": "FIN",
+      "year": 2024,
+      "sequence": 10,
+      "question": "What contingent liabilities did NHS Grampian disclose at 31 March 2025?",
+      "answer_type": "list",
+      "doc_id": "Grampian-2024-2025",
+      "expected_section": "FINANCIAL STATEMENTS",
+      "expected_pages": [
+        149
+      ],
+      "route_intent": "unknown",
+      "route_confidence": 0.5,
+      "page_hit": 1,
+      "failure_type": "FP3_NOT_IN_CONTEXT",
+      "failure_stage": "retrieval",
+      "expected_answer": "Clinical and medical compensation payments, Employers Liability payments, Band 5 to 6 Nursing Review",
+      "extracted_answer": "13 above.",
+      "extracted_answer_label": "Snippet",
+      "answer_correct": false,
+      "answer_status": "incorrect",
+      "extracted_answer_chunk_id": "Grampian-2024-2025:p0149_001",
+      "gold_presence": {
+        "gold_exists": true,
+        "gold_chunk_count": 2,
+        "gold_pages_found": [
+          149
+        ]
+      },
+      "per_k": {
+        "1": {
+          "retrieved_chunk_ids": [
+            "Grampian-2024-2025:p0149_001"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2024-2025"
+          ],
+          "retrieved_pages_ranked": [
+            149
+          ],
+          "retrieved_scores": [
+            0.8807970023155213
+          ],
+          "expected_subsection": "Note 14. CONTINGENT LIABILITIES AND ASSETS",
+          "page_recall_at_k": 1.0,
+          "page_precision_at_k": 1.0,
+          "page_mrr_at_k": 1.0,
+          "chunk_hit_at_k": 1.0,
+          "chunk_precision_at_k": 1.0,
+          "chunk_mrr_at_k": 1.0,
+          "chunk_hit_flags": [
+            1
+          ],
+          "failure_stage": "hit",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        },
+        "3": {
+          "retrieved_chunk_ids": [
+            "Grampian-2024-2025:p0149_001",
+            "Grampian-2024-2025:p0149_000",
+            "Grampian-2024-2025:p0125_000"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025"
+          ],
+          "retrieved_pages_ranked": [
+            149,
+            125
+          ],
+          "retrieved_scores": [
+            0.8807970023155213,
+            0.8742251133918763,
+            0.8740105366706848
+          ],
+          "expected_subsection": "Note 14. CONTINGENT LIABILITIES AND ASSETS",
+          "page_recall_at_k": 1.0,
+          "page_precision_at_k": 0.5,
+          "page_mrr_at_k": 1.0,
+          "chunk_hit_at_k": 1.0,
+          "chunk_precision_at_k": 0.6666666666666666,
+          "chunk_mrr_at_k": 1.0,
+          "chunk_hit_flags": [
+            1,
+            1,
+            0
+          ],
+          "failure_stage": "hit",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        },
+        "5": {
+          "retrieved_chunk_ids": [
+            "Grampian-2024-2025:p0149_001",
+            "Grampian-2024-2025:p0149_000",
+            "Grampian-2024-2025:p0125_000",
+            "Grampian-2024-2025:p0097_000",
+            "Grampian-2024-2025:p0119_002"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025"
+          ],
+          "retrieved_pages_ranked": [
+            149,
+            125,
+            97,
+            119
+          ],
+          "retrieved_scores": [
+            0.8807970023155213,
+            0.8742251133918763,
+            0.8740105366706848,
+            0.8625389671325684,
+            0.8486034607887268
+          ],
+          "expected_subsection": "Note 14. CONTINGENT LIABILITIES AND ASSETS",
+          "page_recall_at_k": 1.0,
+          "page_precision_at_k": 0.25,
+          "page_mrr_at_k": 1.0,
+          "chunk_hit_at_k": 1.0,
+          "chunk_precision_at_k": 0.4,
+          "chunk_mrr_at_k": 1.0,
+          "chunk_hit_flags": [
+            1,
+            1,
+            0,
+            0,
+            0
+          ],
+          "failure_stage": "hit",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        },
+        "10": {
+          "retrieved_chunk_ids": [
+            "Grampian-2024-2025:p0149_001",
+            "Grampian-2024-2025:p0149_000",
+            "Grampian-2024-2025:p0125_000",
+            "Grampian-2024-2025:p0097_000",
+            "Grampian-2024-2025:p0119_002",
+            "Grampian-2024-2025:p0125_001",
+            "Grampian-2024-2025:p0009_001",
+            "Grampian-2024-2025:p0051_000",
+            "Grampian-2024-2025:p0058_000",
+            "Grampian-2024-2025:p0030_001"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025"
+          ],
+          "retrieved_pages_ranked": [
+            149,
+            125,
+            97,
+            119,
+            9,
+            51,
+            58,
+            30
+          ],
+          "retrieved_scores": [
+            0.8807970023155213,
+            0.8742251133918763,
+            0.8740105366706848,
+            0.8625389671325684,
+            0.8486034607887268,
+            0.8193418121337891,
+            0.7879891729354859,
+            0.7706287455558777,
+            0.7689936494827271,
+            0.7641333675384522
+          ],
+          "expected_subsection": "Note 14. CONTINGENT LIABILITIES AND ASSETS",
+          "page_recall_at_k": 1.0,
+          "page_precision_at_k": 0.125,
+          "page_mrr_at_k": 1.0,
+          "chunk_hit_at_k": 1.0,
+          "chunk_precision_at_k": 0.2,
+          "chunk_mrr_at_k": 1.0,
+          "chunk_hit_flags": [
+            1,
+            1,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "failure_stage": "hit",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        }
+      }
+    },
+    {
+      "query_id": "Q_GOV_2024_01",
+      "topic": "GOV",
+      "year": 2024,
+      "sequence": 1,
+      "question": "How many Mental Welfare Commission visits to NHS Grampian are reported up to 31 March 2025?",
+      "answer_type": "number",
+      "doc_id": "Grampian-2024-2025",
+      "expected_section": "ACCOUNTABILITY REPORT",
+      "expected_pages": [
+        72
+      ],
+      "route_intent": "unknown",
+      "route_confidence": 0.5,
+      "page_hit": 0,
+      "failure_type": "FP2_MISSED_TOP_RANK",
+      "failure_stage": "retrieval",
+      "expected_answer": "13",
+      "extracted_answer": "A CORPORATE GOVERNANCE REPORT  Mental Welfare Commission (MWC) The MWC has published reports on 13 visits to NHS Grampian up to 31 March 2025, 12 have been “announced” visits, and 1 has been “unannou",
+      "extracted_answer_label": "Snippet",
+      "answer_correct": true,
+      "answer_status": "correct",
+      "extracted_answer_chunk_id": "Grampian-2024-2025:p0073_000",
+      "gold_presence": {
+        "gold_exists": true,
+        "gold_chunk_count": 3,
+        "gold_pages_found": [
+          72
+        ]
+      },
+      "per_k": {
+        "1": {
+          "retrieved_chunk_ids": [
+            "Grampian-2024-2025:p0073_000"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2024-2025"
+          ],
+          "retrieved_pages_ranked": [
+            73
+          ],
+          "retrieved_scores": [
+            0.8711126065254212
+          ],
+          "expected_subsection": "A CORPORATE GOVERNANCE REPORT",
+          "page_recall_at_k": 0.0,
+          "page_precision_at_k": 0.0,
+          "page_mrr_at_k": 0.0,
+          "chunk_hit_at_k": 0.0,
+          "chunk_precision_at_k": 0.0,
+          "chunk_mrr_at_k": 0.0,
+          "chunk_hit_flags": [
+            0
+          ],
+          "failure_stage": "missed_top_ranked",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        },
+        "3": {
+          "retrieved_chunk_ids": [
+            "Grampian-2024-2025:p0073_000",
+            "Grampian-2024-2025:p0058_000",
+            "Grampian-2024-2025:p0095_000"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025"
+          ],
+          "retrieved_pages_ranked": [
+            73,
+            58,
+            95
+          ],
+          "retrieved_scores": [
+            0.8711126065254212,
+            0.8151173806190491,
+            0.7501098537445069
+          ],
+          "expected_subsection": "A CORPORATE GOVERNANCE REPORT",
+          "page_recall_at_k": 0.0,
+          "page_precision_at_k": 0.0,
+          "page_mrr_at_k": 0.0,
+          "chunk_hit_at_k": 0.0,
+          "chunk_precision_at_k": 0.0,
+          "chunk_mrr_at_k": 0.0,
+          "chunk_hit_flags": [
+            0,
+            0,
+            0
+          ],
+          "failure_stage": "missed_top_ranked",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        },
+        "5": {
+          "retrieved_chunk_ids": [
+            "Grampian-2024-2025:p0073_000",
+            "Grampian-2024-2025:p0058_000",
+            "Grampian-2024-2025:p0095_000",
+            "Grampian-2024-2025:p0014_000",
+            "Grampian-2024-2025:p0072_001"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025"
+          ],
+          "retrieved_pages_ranked": [
+            73,
+            58,
+            95,
+            14,
+            72
+          ],
+          "retrieved_scores": [
+            0.8711126065254212,
+            0.8151173806190491,
+            0.7501098537445069,
+            0.7480862760543824,
+            0.7477930998802186
+          ],
+          "expected_subsection": "A CORPORATE GOVERNANCE REPORT",
+          "page_recall_at_k": 1.0,
+          "page_precision_at_k": 0.2,
+          "page_mrr_at_k": 0.2,
+          "chunk_hit_at_k": 1.0,
+          "chunk_precision_at_k": 0.2,
+          "chunk_mrr_at_k": 0.2,
+          "chunk_hit_flags": [
+            0,
+            0,
+            0,
+            0,
+            1
+          ],
+          "failure_stage": "hit",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        },
+        "10": {
+          "retrieved_chunk_ids": [
+            "Grampian-2024-2025:p0073_000",
+            "Grampian-2024-2025:p0058_000",
+            "Grampian-2024-2025:p0095_000",
+            "Grampian-2024-2025:p0014_000",
+            "Grampian-2024-2025:p0072_001",
+            "Grampian-2024-2025:p0060_001",
+            "Grampian-2024-2025:p0049_000",
+            "Grampian-2024-2025:p0073_001",
+            "Grampian-2024-2025:p0072_002",
+            "Grampian-2024-2025:p0051_000"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025"
+          ],
+          "retrieved_pages_ranked": [
+            73,
+            58,
+            95,
+            14,
+            72,
+            60,
+            49,
+            51
+          ],
+          "retrieved_scores": [
+            0.8711126065254212,
+            0.8151173806190491,
+            0.7501098537445069,
+            0.7480862760543824,
+            0.7477930998802186,
+            0.7404470658302308,
+            0.7379385447502137,
+            0.7344604945182801,
+            0.7341039991378785,
+            0.7297414159774781
+          ],
+          "expected_subsection": "A CORPORATE GOVERNANCE REPORT",
+          "page_recall_at_k": 1.0,
+          "page_precision_at_k": 0.125,
+          "page_mrr_at_k": 0.2,
+          "chunk_hit_at_k": 1.0,
+          "chunk_precision_at_k": 0.2,
+          "chunk_mrr_at_k": 0.2,
+          "chunk_hit_flags": [
+            0,
+            0,
+            0,
+            0,
+            1,
+            0,
+            0,
+            0,
+            1,
+            0
+          ],
+          "failure_stage": "hit",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        }
+      }
+    },
+    {
+      "query_id": "Q_GOV_2024_02",
+      "topic": "GOV",
+      "year": 2024,
+      "sequence": 2,
+      "question": "How many Mental Welfare Commission recommendations are reported up to 31 March 2025?",
+      "answer_type": "number",
+      "doc_id": "Grampian-2024-2025",
+      "expected_section": "ACCOUNTABILITY REPORT",
+      "expected_pages": [
+        72
+      ],
+      "route_intent": "unknown",
+      "route_confidence": 0.5,
+      "page_hit": 0,
+      "failure_type": "FP2_MISSED_TOP_RANK",
+      "failure_stage": "retrieval",
+      "expected_answer": "55",
+      "extracted_answer": "A CORPORATE GOVERNANCE REPORT  Mental Welfare Commission (MWC) The MWC has published reports on 13 visits to NHS Grampian up to 31 March 2025, 12 have been “announced” visits, and 1 has been “unannou",
+      "extracted_answer_label": "Snippet",
+      "answer_correct": false,
+      "answer_status": "incorrect",
+      "extracted_answer_chunk_id": "Grampian-2024-2025:p0073_000",
+      "gold_presence": {
+        "gold_exists": true,
+        "gold_chunk_count": 3,
+        "gold_pages_found": [
+          72
+        ]
+      },
+      "per_k": {
+        "1": {
+          "retrieved_chunk_ids": [
+            "Grampian-2024-2025:p0073_000"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2024-2025"
+          ],
+          "retrieved_pages_ranked": [
+            73
+          ],
+          "retrieved_scores": [
+            0.7810090398788453
+          ],
+          "expected_subsection": "A CORPORATE GOVERNANCE REPORT",
+          "page_recall_at_k": 0.0,
+          "page_precision_at_k": 0.0,
+          "page_mrr_at_k": 0.0,
+          "chunk_hit_at_k": 0.0,
+          "chunk_precision_at_k": 0.0,
+          "chunk_mrr_at_k": 0.0,
+          "chunk_hit_flags": [
+            0
+          ],
+          "failure_stage": "missed_top_ranked",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        },
+        "3": {
+          "retrieved_chunk_ids": [
+            "Grampian-2024-2025:p0073_000",
+            "Grampian-2024-2025:p0020_000",
+            "Grampian-2024-2025:p0072_002"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025"
+          ],
+          "retrieved_pages_ranked": [
+            73,
+            20,
+            72
+          ],
+          "retrieved_scores": [
+            0.7810090398788453,
+            0.5750629377365113,
+            0.5506305229663849
+          ],
+          "expected_subsection": "A CORPORATE GOVERNANCE REPORT",
+          "page_recall_at_k": 1.0,
+          "page_precision_at_k": 0.3333333333333333,
+          "page_mrr_at_k": 0.3333333333333333,
+          "chunk_hit_at_k": 1.0,
+          "chunk_precision_at_k": 0.3333333333333333,
+          "chunk_mrr_at_k": 0.3333333333333333,
+          "chunk_hit_flags": [
+            0,
+            0,
+            1
+          ],
+          "failure_stage": "hit",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        },
+        "5": {
+          "retrieved_chunk_ids": [
+            "Grampian-2024-2025:p0073_000",
+            "Grampian-2024-2025:p0020_000",
+            "Grampian-2024-2025:p0072_002",
+            "Grampian-2024-2025:p0095_001",
+            "Grampian-2024-2025:p0071_002"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025"
+          ],
+          "retrieved_pages_ranked": [
+            73,
+            20,
+            72,
+            95,
+            71
+          ],
+          "retrieved_scores": [
+            0.7810090398788453,
+            0.5750629377365113,
+            0.5506305229663849,
+            0.5365383183956146,
+            0.5308543574810028
+          ],
+          "expected_subsection": "A CORPORATE GOVERNANCE REPORT",
+          "page_recall_at_k": 1.0,
+          "page_precision_at_k": 0.2,
+          "page_mrr_at_k": 0.3333333333333333,
+          "chunk_hit_at_k": 1.0,
+          "chunk_precision_at_k": 0.2,
+          "chunk_mrr_at_k": 0.3333333333333333,
+          "chunk_hit_flags": [
+            0,
+            0,
+            1,
+            0,
+            0
+          ],
+          "failure_stage": "hit",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        },
+        "10": {
+          "retrieved_chunk_ids": [
+            "Grampian-2024-2025:p0073_000",
+            "Grampian-2024-2025:p0020_000",
+            "Grampian-2024-2025:p0072_002",
+            "Grampian-2024-2025:p0095_001",
+            "Grampian-2024-2025:p0071_002",
+            "Grampian-2024-2025:p0072_001",
+            "Grampian-2024-2025:p0073_001",
+            "Grampian-2024-2025:p0058_000",
+            "Grampian-2024-2025:p0024_002",
+            "Grampian-2024-2025:p0086_000"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025"
+          ],
+          "retrieved_pages_ranked": [
+            73,
+            20,
+            72,
+            95,
+            71,
+            58,
+            24,
+            86
+          ],
+          "retrieved_scores": [
+            0.7810090398788453,
+            0.5750629377365113,
+            0.5506305229663849,
+            0.5365383183956146,
+            0.5308543574810028,
+            0.5298336577415467,
+            0.5106488811969757,
+            0.5020178604125977,
+            0.49846200704574584,
+            0.49401293754577635
+          ],
+          "expected_subsection": "A CORPORATE GOVERNANCE REPORT",
+          "page_recall_at_k": 1.0,
+          "page_precision_at_k": 0.125,
+          "page_mrr_at_k": 0.3333333333333333,
+          "chunk_hit_at_k": 1.0,
+          "chunk_precision_at_k": 0.2,
+          "chunk_mrr_at_k": 0.3333333333333333,
+          "chunk_hit_flags": [
+            0,
+            0,
+            1,
+            0,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0
+          ],
+          "failure_stage": "hit",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        }
+      }
+    },
+    {
+      "query_id": "Q_GOV_2024_03",
+      "topic": "GOV",
+      "year": 2024,
+      "sequence": 3,
+      "question": "How many INWO referrals were upheld between 1 April 2024 and 31 March 2025?",
+      "answer_type": "number",
+      "doc_id": "Grampian-2024-2025",
+      "expected_section": "ACCOUNTABILITY REPORT",
+      "expected_pages": [
+        72
+      ],
+      "route_intent": "unknown",
+      "route_confidence": 0.5,
+      "page_hit": 0,
+      "failure_type": "FP2_MISSED_TOP_RANK",
+      "failure_stage": "retrieval",
+      "expected_answer": "2",
+      "extracted_answer": "the report has been shared with individuals receiving the service and with their relatives or carers.",
+      "extracted_answer_label": "Snippet",
+      "answer_correct": false,
+      "answer_status": "incorrect",
+      "extracted_answer_chunk_id": "Grampian-2024-2025:p0073_001",
+      "gold_presence": {
+        "gold_exists": true,
+        "gold_chunk_count": 3,
+        "gold_pages_found": [
+          72
+        ]
+      },
+      "per_k": {
+        "1": {
+          "retrieved_chunk_ids": [
+            "Grampian-2024-2025:p0073_001"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2024-2025"
+          ],
+          "retrieved_pages_ranked": [
+            73
+          ],
+          "retrieved_scores": [
+            0.5896392381191254
+          ],
+          "expected_subsection": "A CORPORATE GOVERNANCE REPORT",
+          "page_recall_at_k": 0.0,
+          "page_precision_at_k": 0.0,
+          "page_mrr_at_k": 0.0,
+          "chunk_hit_at_k": 0.0,
+          "chunk_precision_at_k": 0.0,
+          "chunk_mrr_at_k": 0.0,
+          "chunk_hit_flags": [
+            0
+          ],
+          "failure_stage": "missed_top_ranked",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        },
+        "3": {
+          "retrieved_chunk_ids": [
+            "Grampian-2024-2025:p0073_001",
+            "Grampian-2024-2025:p0073_000",
+            "Grampian-2024-2025:p0142_000"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025"
+          ],
+          "retrieved_pages_ranked": [
+            73,
+            142
+          ],
+          "retrieved_scores": [
+            0.5896392381191254,
+            0.5634221947193147,
+            0.5246284031867982
+          ],
+          "expected_subsection": "A CORPORATE GOVERNANCE REPORT",
+          "page_recall_at_k": 0.0,
+          "page_precision_at_k": 0.0,
+          "page_mrr_at_k": 0.0,
+          "chunk_hit_at_k": 0.0,
+          "chunk_precision_at_k": 0.0,
+          "chunk_mrr_at_k": 0.0,
+          "chunk_hit_flags": [
+            0,
+            0,
+            0
+          ],
+          "failure_stage": "missed_top_ranked",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        },
+        "5": {
+          "retrieved_chunk_ids": [
+            "Grampian-2024-2025:p0073_001",
+            "Grampian-2024-2025:p0073_000",
+            "Grampian-2024-2025:p0142_000",
+            "Grampian-2024-2025:p0069_001",
+            "Grampian-2024-2025:p0020_000"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025"
+          ],
+          "retrieved_pages_ranked": [
+            73,
+            142,
+            69,
+            20
+          ],
+          "retrieved_scores": [
+            0.5896392381191254,
+            0.5634221947193147,
+            0.5246284031867982,
+            0.5149458479881287,
+            0.5090419805049896
+          ],
+          "expected_subsection": "A CORPORATE GOVERNANCE REPORT",
+          "page_recall_at_k": 0.0,
+          "page_precision_at_k": 0.0,
+          "page_mrr_at_k": 0.0,
+          "chunk_hit_at_k": 0.0,
+          "chunk_precision_at_k": 0.0,
+          "chunk_mrr_at_k": 0.0,
+          "chunk_hit_flags": [
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "failure_stage": "missed_top_ranked",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        },
+        "10": {
+          "retrieved_chunk_ids": [
+            "Grampian-2024-2025:p0073_001",
+            "Grampian-2024-2025:p0073_000",
+            "Grampian-2024-2025:p0142_000",
+            "Grampian-2024-2025:p0069_001",
+            "Grampian-2024-2025:p0020_000",
+            "Grampian-2024-2025:p0142_001",
+            "Grampian-2024-2025:p0158_002",
+            "Grampian-2024-2025:p0072_001",
+            "Grampian-2024-2025:p0016_000",
+            "Grampian-2024-2025:p0072_002"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025"
+          ],
+          "retrieved_pages_ranked": [
+            73,
+            142,
+            69,
+            20,
+            158,
+            72,
+            16
+          ],
+          "retrieved_scores": [
+            0.5896392381191254,
+            0.5634221947193147,
+            0.5246284031867982,
+            0.5149458479881287,
+            0.5090419805049896,
+            0.49066934227943426,
+            0.488772885799408,
+            0.48639635562896727,
+            0.48491055011749273,
+            0.48217775583267214
+          ],
+          "expected_subsection": "A CORPORATE GOVERNANCE REPORT",
+          "page_recall_at_k": 1.0,
+          "page_precision_at_k": 0.14285714285714285,
+          "page_mrr_at_k": 0.16666666666666666,
+          "chunk_hit_at_k": 1.0,
+          "chunk_precision_at_k": 0.2,
+          "chunk_mrr_at_k": 0.125,
+          "chunk_hit_flags": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            1,
+            0,
+            1
+          ],
+          "failure_stage": "hit",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        }
+      }
+    },
+    {
+      "query_id": "Q_GOV_2024_04",
+      "topic": "GOV",
+      "year": 2024,
+      "sequence": 4,
+      "question": "How many SPSO cases were fully upheld and partly upheld in the trend data shown?",
+      "answer_type": "text",
+      "doc_id": "Grampian-2024-2025",
+      "expected_section": "ACCOUNTABILITY REPORT",
+      "expected_pages": [
+        72
+      ],
+      "route_intent": "unknown",
+      "route_confidence": 0.5,
+      "page_hit": 0,
+      "failure_type": "FP2_MISSED_TOP_RANK",
+      "failure_stage": "retrieval",
+      "expected_answer": "Fully upheld: 12, Partly upheld: 1",
+      "extracted_answer": "the report has been shared with individuals receiving the service and with their relatives or carers.",
+      "extracted_answer_label": "Snippet",
+      "answer_correct": false,
+      "answer_status": "incorrect",
+      "extracted_answer_chunk_id": "Grampian-2024-2025:p0073_001",
+      "gold_presence": {
+        "gold_exists": true,
+        "gold_chunk_count": 3,
+        "gold_pages_found": [
+          72
+        ]
+      },
+      "per_k": {
+        "1": {
+          "retrieved_chunk_ids": [
+            "Grampian-2024-2025:p0073_001"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2024-2025"
+          ],
+          "retrieved_pages_ranked": [
+            73
+          ],
+          "retrieved_scores": [
+            0.6523102736473084
+          ],
+          "expected_subsection": "A CORPORATE GOVERNANCE REPORT",
+          "page_recall_at_k": 0.0,
+          "page_precision_at_k": 0.0,
+          "page_mrr_at_k": 0.0,
+          "chunk_hit_at_k": 0.0,
+          "chunk_precision_at_k": 0.0,
+          "chunk_mrr_at_k": 0.0,
+          "chunk_hit_flags": [
+            0
+          ],
+          "failure_stage": "missed_top_ranked",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        },
+        "3": {
+          "retrieved_chunk_ids": [
+            "Grampian-2024-2025:p0073_001",
+            "Grampian-2024-2025:p0073_000",
+            "Grampian-2024-2025:p0051_001"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025"
+          ],
+          "retrieved_pages_ranked": [
+            73,
+            51
+          ],
+          "retrieved_scores": [
+            0.6523102736473084,
+            0.4402333629131317,
+            0.4374609637260437
+          ],
+          "expected_subsection": "A CORPORATE GOVERNANCE REPORT",
+          "page_recall_at_k": 0.0,
+          "page_precision_at_k": 0.0,
+          "page_mrr_at_k": 0.0,
+          "chunk_hit_at_k": 0.0,
+          "chunk_precision_at_k": 0.0,
+          "chunk_mrr_at_k": 0.0,
+          "chunk_hit_flags": [
+            0,
+            0,
+            0
+          ],
+          "failure_stage": "missed_top_ranked",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        },
+        "5": {
+          "retrieved_chunk_ids": [
+            "Grampian-2024-2025:p0073_001",
+            "Grampian-2024-2025:p0073_000",
+            "Grampian-2024-2025:p0051_001",
+            "Grampian-2024-2025:p0071_001",
+            "Grampian-2024-2025:p0096_000"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025"
+          ],
+          "retrieved_pages_ranked": [
+            73,
+            51,
+            71,
+            96
+          ],
+          "retrieved_scores": [
+            0.6523102736473084,
+            0.4402333629131317,
+            0.4374609637260437,
+            0.41422134459018706,
+            0.3907522714138031
+          ],
+          "expected_subsection": "A CORPORATE GOVERNANCE REPORT",
+          "page_recall_at_k": 0.0,
+          "page_precision_at_k": 0.0,
+          "page_mrr_at_k": 0.0,
+          "chunk_hit_at_k": 0.0,
+          "chunk_precision_at_k": 0.0,
+          "chunk_mrr_at_k": 0.0,
+          "chunk_hit_flags": [
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "failure_stage": "missed_top_ranked",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        },
+        "10": {
+          "retrieved_chunk_ids": [
+            "Grampian-2024-2025:p0073_001",
+            "Grampian-2024-2025:p0073_000",
+            "Grampian-2024-2025:p0051_001",
+            "Grampian-2024-2025:p0071_001",
+            "Grampian-2024-2025:p0096_000",
+            "Grampian-2024-2025:p0072_000",
+            "Grampian-2024-2025:p0051_000",
+            "Grampian-2024-2025:p0158_002",
+            "Grampian-2024-2025:p0096_001",
+            "Grampian-2024-2025:p0142_001"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025"
+          ],
+          "retrieved_pages_ranked": [
+            73,
+            51,
+            71,
+            96,
+            72,
+            158,
+            142
+          ],
+          "retrieved_scores": [
+            0.6523102736473084,
+            0.4402333629131317,
+            0.4374609637260437,
+            0.41422134459018706,
+            0.3907522714138031,
+            0.3822996878623962,
+            0.3791360604763031,
+            0.3772696423530579,
+            0.3602461075782776,
+            0.35752177298069
+          ],
+          "expected_subsection": "A CORPORATE GOVERNANCE REPORT",
+          "page_recall_at_k": 1.0,
+          "page_precision_at_k": 0.14285714285714285,
+          "page_mrr_at_k": 0.2,
+          "chunk_hit_at_k": 1.0,
+          "chunk_precision_at_k": 0.1,
+          "chunk_mrr_at_k": 0.16666666666666666,
+          "chunk_hit_flags": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0
+          ],
+          "failure_stage": "hit",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        }
+      }
+    },
+    {
+      "query_id": "Q_OP_2024_01",
+      "topic": "OP",
+      "year": 2024,
+      "sequence": 1,
+      "question": "How many patients were recorded as delayed discharge at the March 2025 census date?",
+      "answer_type": "number",
+      "doc_id": "Grampian-2024-2025",
+      "expected_section": "PERFORMANCE REPORT",
+      "expected_pages": [
+        16
+      ],
+      "route_intent": "unknown",
+      "route_confidence": 0.5,
+      "page_hit": 0,
+      "failure_type": "FP2_MISSED_TOP_RANK",
+      "failure_stage": "retrieval",
+      "expected_answer": "181",
+      "extracted_answer": "PERFORMANCE REPORT B PERFORMANCE ANALYSIS The pressures on Emergency Departments (ED) during the year continue to be well publicised across the NHS in Scotland and the UK.",
+      "extracted_answer_label": "Snippet",
+      "answer_correct": false,
+      "answer_status": "incorrect",
+      "extracted_answer_chunk_id": "Grampian-2024-2025:p0015_000",
+      "gold_presence": {
+        "gold_exists": true,
+        "gold_chunk_count": 1,
+        "gold_pages_found": [
+          16
+        ]
+      },
+      "per_k": {
+        "1": {
+          "retrieved_chunk_ids": [
+            "Grampian-2024-2025:p0015_000"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2024-2025"
+          ],
+          "retrieved_pages_ranked": [
+            15
+          ],
+          "retrieved_scores": [
+            0.7342156982421876
+          ],
+          "expected_subsection": "B PERFORMANCE ANALYSIS",
+          "page_recall_at_k": 0.0,
+          "page_precision_at_k": 0.0,
+          "page_mrr_at_k": 0.0,
+          "chunk_hit_at_k": 0.0,
+          "chunk_precision_at_k": 0.0,
+          "chunk_mrr_at_k": 0.0,
+          "chunk_hit_flags": [
+            0
+          ],
+          "failure_stage": "missed_top_ranked",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        },
+        "3": {
+          "retrieved_chunk_ids": [
+            "Grampian-2024-2025:p0015_000",
+            "Grampian-2024-2025:p0014_000",
+            "Grampian-2024-2025:p0016_000"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025"
+          ],
+          "retrieved_pages_ranked": [
+            15,
+            14,
+            16
+          ],
+          "retrieved_scores": [
+            0.7342156982421876,
+            0.6728784942626954,
+            0.6694257164001466
+          ],
+          "expected_subsection": "B PERFORMANCE ANALYSIS",
+          "page_recall_at_k": 1.0,
+          "page_precision_at_k": 0.3333333333333333,
+          "page_mrr_at_k": 0.3333333333333333,
+          "chunk_hit_at_k": 1.0,
+          "chunk_precision_at_k": 0.3333333333333333,
+          "chunk_mrr_at_k": 0.3333333333333333,
+          "chunk_hit_flags": [
+            0,
+            0,
+            1
+          ],
+          "failure_stage": "hit",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        },
+        "5": {
+          "retrieved_chunk_ids": [
+            "Grampian-2024-2025:p0015_000",
+            "Grampian-2024-2025:p0014_000",
+            "Grampian-2024-2025:p0016_000",
+            "Grampian-2024-2025:p0009_000",
+            "Grampian-2024-2025:p0142_000"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025"
+          ],
+          "retrieved_pages_ranked": [
+            15,
+            14,
+            16,
+            9,
+            142
+          ],
+          "retrieved_scores": [
+            0.7342156982421876,
+            0.6728784942626954,
+            0.6694257164001466,
+            0.5292345023155213,
+            0.5254370892047883
+          ],
+          "expected_subsection": "B PERFORMANCE ANALYSIS",
+          "page_recall_at_k": 1.0,
+          "page_precision_at_k": 0.2,
+          "page_mrr_at_k": 0.3333333333333333,
+          "chunk_hit_at_k": 1.0,
+          "chunk_precision_at_k": 0.2,
+          "chunk_mrr_at_k": 0.3333333333333333,
+          "chunk_hit_flags": [
+            0,
+            0,
+            1,
+            0,
+            0
+          ],
+          "failure_stage": "hit",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        },
+        "10": {
+          "retrieved_chunk_ids": [
+            "Grampian-2024-2025:p0015_000",
+            "Grampian-2024-2025:p0014_000",
+            "Grampian-2024-2025:p0016_000",
+            "Grampian-2024-2025:p0009_000",
+            "Grampian-2024-2025:p0142_000",
+            "Grampian-2024-2025:p0020_000",
+            "Grampian-2024-2025:p0018_000",
+            "Grampian-2024-2025:p0046_000",
+            "Grampian-2024-2025:p0142_001",
+            "Grampian-2024-2025:p0097_000"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025"
+          ],
+          "retrieved_pages_ranked": [
+            15,
+            14,
+            16,
+            9,
+            142,
+            20,
+            18,
+            46,
+            97
+          ],
+          "retrieved_scores": [
+            0.7342156982421876,
+            0.6728784942626954,
+            0.6694257164001466,
+            0.5292345023155213,
+            0.5254370892047883,
+            0.5218998312950135,
+            0.5165858817100525,
+            0.4951305139064789,
+            0.48845422506332403,
+            0.47330702066421504
+          ],
+          "expected_subsection": "B PERFORMANCE ANALYSIS",
+          "page_recall_at_k": 1.0,
+          "page_precision_at_k": 0.1111111111111111,
+          "page_mrr_at_k": 0.3333333333333333,
+          "chunk_hit_at_k": 1.0,
+          "chunk_precision_at_k": 0.1,
+          "chunk_mrr_at_k": 0.3333333333333333,
+          "chunk_hit_flags": [
+            0,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "failure_stage": "hit",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        }
+      }
+    },
+    {
+      "query_id": "Q_OP_2024_02",
+      "topic": "OP",
+      "year": 2024,
+      "sequence": 2,
+      "question": "How many delayed discharge patients were more than 3 days delayed at the March 2025 census date?",
+      "answer_type": "number",
+      "doc_id": "Grampian-2024-2025",
+      "expected_section": "PERFORMANCE REPORT",
+      "expected_pages": [
+        16
+      ],
+      "route_intent": "unknown",
+      "route_confidence": 0.5,
+      "page_hit": 0,
+      "failure_type": "FP2_MISSED_TOP_RANK",
+      "failure_stage": "retrieval",
+      "expected_answer": "160",
+      "extracted_answer": "PERFORMANCE REPORT B PERFORMANCE ANALYSIS The pressures on Emergency Departments (ED) during the year continue to be well publicised across the NHS in Scotland and the UK.",
+      "extracted_answer_label": "Snippet",
+      "answer_correct": false,
+      "answer_status": "incorrect",
+      "extracted_answer_chunk_id": "Grampian-2024-2025:p0015_000",
+      "gold_presence": {
+        "gold_exists": true,
+        "gold_chunk_count": 1,
+        "gold_pages_found": [
+          16
+        ]
+      },
+      "per_k": {
+        "1": {
+          "retrieved_chunk_ids": [
+            "Grampian-2024-2025:p0015_000"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2024-2025"
+          ],
+          "retrieved_pages_ranked": [
+            15
+          ],
+          "retrieved_scores": [
+            0.7371199941635133
+          ],
+          "expected_subsection": "B PERFORMANCE ANALYSIS",
+          "page_recall_at_k": 0.0,
+          "page_precision_at_k": 0.0,
+          "page_mrr_at_k": 0.0,
+          "chunk_hit_at_k": 0.0,
+          "chunk_precision_at_k": 0.0,
+          "chunk_mrr_at_k": 0.0,
+          "chunk_hit_flags": [
+            0
+          ],
+          "failure_stage": "missed_top_ranked",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        },
+        "3": {
+          "retrieved_chunk_ids": [
+            "Grampian-2024-2025:p0015_000",
+            "Grampian-2024-2025:p0016_000",
+            "Grampian-2024-2025:p0014_000"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025"
+          ],
+          "retrieved_pages_ranked": [
+            15,
+            16,
+            14
+          ],
+          "retrieved_scores": [
+            0.7371199941635133,
+            0.6903170549869538,
+            0.6675762736797334
+          ],
+          "expected_subsection": "B PERFORMANCE ANALYSIS",
+          "page_recall_at_k": 1.0,
+          "page_precision_at_k": 0.3333333333333333,
+          "page_mrr_at_k": 0.5,
+          "chunk_hit_at_k": 1.0,
+          "chunk_precision_at_k": 0.3333333333333333,
+          "chunk_mrr_at_k": 0.5,
+          "chunk_hit_flags": [
+            0,
+            1,
+            0
+          ],
+          "failure_stage": "hit",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        },
+        "5": {
+          "retrieved_chunk_ids": [
+            "Grampian-2024-2025:p0015_000",
+            "Grampian-2024-2025:p0016_000",
+            "Grampian-2024-2025:p0014_000",
+            "Grampian-2024-2025:p0018_000",
+            "Grampian-2024-2025:p0009_000"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025"
+          ],
+          "retrieved_pages_ranked": [
+            15,
+            16,
+            14,
+            18,
+            9
+          ],
+          "retrieved_scores": [
+            0.7371199941635133,
+            0.6903170549869538,
+            0.6675762736797334,
+            0.5572885608673096,
+            0.5108348762989045
+          ],
+          "expected_subsection": "B PERFORMANCE ANALYSIS",
+          "page_recall_at_k": 1.0,
+          "page_precision_at_k": 0.2,
+          "page_mrr_at_k": 0.5,
+          "chunk_hit_at_k": 1.0,
+          "chunk_precision_at_k": 0.2,
+          "chunk_mrr_at_k": 0.5,
+          "chunk_hit_flags": [
+            0,
+            1,
+            0,
+            0,
+            0
+          ],
+          "failure_stage": "hit",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        },
+        "10": {
+          "retrieved_chunk_ids": [
+            "Grampian-2024-2025:p0015_000",
+            "Grampian-2024-2025:p0016_000",
+            "Grampian-2024-2025:p0014_000",
+            "Grampian-2024-2025:p0018_000",
+            "Grampian-2024-2025:p0009_000",
+            "Grampian-2024-2025:p0142_000",
+            "Grampian-2024-2025:p0020_000",
+            "Grampian-2024-2025:p0046_000",
+            "Grampian-2024-2025:p0142_001",
+            "Grampian-2024-2025:p0035_001"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025"
+          ],
+          "retrieved_pages_ranked": [
+            15,
+            16,
+            14,
+            18,
+            9,
+            142,
+            20,
+            46,
+            35
+          ],
+          "retrieved_scores": [
+            0.7371199941635133,
+            0.6903170549869538,
+            0.6675762736797334,
+            0.5572885608673096,
+            0.5108348762989045,
+            0.49715554952621466,
+            0.4833711802959442,
+            0.4736720669269562,
+            0.45505482196807867,
+            0.4409046077728272
+          ],
+          "expected_subsection": "B PERFORMANCE ANALYSIS",
+          "page_recall_at_k": 1.0,
+          "page_precision_at_k": 0.1111111111111111,
+          "page_mrr_at_k": 0.5,
+          "chunk_hit_at_k": 1.0,
+          "chunk_precision_at_k": 0.1,
+          "chunk_mrr_at_k": 0.5,
+          "chunk_hit_flags": [
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "failure_stage": "hit",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        }
+      }
+    },
+    {
+      "query_id": "Q_OP_2024_03",
+      "topic": "OP",
+      "year": 2024,
+      "sequence": 3,
+      "question": "How many days did patients spend in hospital due to delays in discharge in March 2025?",
+      "answer_type": "number",
+      "doc_id": "Grampian-2024-2025",
+      "expected_section": "PERFORMANCE REPORT",
+      "expected_pages": [
+        16
+      ],
+      "route_intent": "unknown",
+      "route_confidence": 0.5,
+      "page_hit": 1,
+      "failure_type": "HIT",
+      "failure_stage": "none",
+      "expected_answer": "5,237",
+      "extracted_answer": "PERFORMANCE REPORT B PERFORMANCE ANALYSIS  Patients spent 5,237 days in hospital due to delays in discharge in Grampian in March 2025 (5,106 in March 2024).",
+      "extracted_answer_label": "Snippet",
+      "answer_correct": true,
+      "answer_status": "correct",
+      "extracted_answer_chunk_id": "Grampian-2024-2025:p0016_000",
+      "gold_presence": {
+        "gold_exists": true,
+        "gold_chunk_count": 1,
+        "gold_pages_found": [
+          16
+        ]
+      },
+      "per_k": {
+        "1": {
+          "retrieved_chunk_ids": [
+            "Grampian-2024-2025:p0016_000"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2024-2025"
+          ],
+          "retrieved_pages_ranked": [
+            16
+          ],
+          "retrieved_scores": [
+            0.8164453411102296
+          ],
+          "expected_subsection": "B PERFORMANCE ANALYSIS",
+          "page_recall_at_k": 1.0,
+          "page_precision_at_k": 1.0,
+          "page_mrr_at_k": 1.0,
+          "chunk_hit_at_k": 1.0,
+          "chunk_precision_at_k": 1.0,
+          "chunk_mrr_at_k": 1.0,
+          "chunk_hit_flags": [
+            1
+          ],
+          "failure_stage": "hit",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        },
+        "3": {
+          "retrieved_chunk_ids": [
+            "Grampian-2024-2025:p0016_000",
+            "Grampian-2024-2025:p0015_000",
+            "Grampian-2024-2025:p0014_000"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025"
+          ],
+          "retrieved_pages_ranked": [
+            16,
+            15,
+            14
+          ],
+          "retrieved_scores": [
+            0.8164453411102296,
+            0.7856444334983826,
+            0.7168877029418946
+          ],
+          "expected_subsection": "B PERFORMANCE ANALYSIS",
+          "page_recall_at_k": 1.0,
+          "page_precision_at_k": 0.3333333333333333,
+          "page_mrr_at_k": 1.0,
+          "chunk_hit_at_k": 1.0,
+          "chunk_precision_at_k": 0.3333333333333333,
+          "chunk_mrr_at_k": 1.0,
+          "chunk_hit_flags": [
+            1,
+            0,
+            0
+          ],
+          "failure_stage": "hit",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        },
+        "5": {
+          "retrieved_chunk_ids": [
+            "Grampian-2024-2025:p0016_000",
+            "Grampian-2024-2025:p0015_000",
+            "Grampian-2024-2025:p0014_000",
+            "Grampian-2024-2025:p0009_000",
+            "Grampian-2024-2025:p0018_000"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025"
+          ],
+          "retrieved_pages_ranked": [
+            16,
+            15,
+            14,
+            9,
+            18
+          ],
+          "retrieved_scores": [
+            0.8164453411102296,
+            0.7856444334983826,
+            0.7168877029418946,
+            0.6429317927360535,
+            0.5993813908100128
+          ],
+          "expected_subsection": "B PERFORMANCE ANALYSIS",
+          "page_recall_at_k": 1.0,
+          "page_precision_at_k": 0.2,
+          "page_mrr_at_k": 1.0,
+          "chunk_hit_at_k": 1.0,
+          "chunk_precision_at_k": 0.2,
+          "chunk_mrr_at_k": 1.0,
+          "chunk_hit_flags": [
+            1,
+            0,
+            0,
+            0,
+            0
+          ],
+          "failure_stage": "hit",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        },
+        "10": {
+          "retrieved_chunk_ids": [
+            "Grampian-2024-2025:p0016_000",
+            "Grampian-2024-2025:p0015_000",
+            "Grampian-2024-2025:p0014_000",
+            "Grampian-2024-2025:p0009_000",
+            "Grampian-2024-2025:p0018_000",
+            "Grampian-2024-2025:p0011_001",
+            "Grampian-2024-2025:p0021_000",
+            "Grampian-2024-2025:p0097_000",
+            "Grampian-2024-2025:p0046_000",
+            "Grampian-2024-2025:p0142_000"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025"
+          ],
+          "retrieved_pages_ranked": [
+            16,
+            15,
+            14,
+            9,
+            18,
+            11,
+            21,
+            97,
+            46,
+            142
+          ],
+          "retrieved_scores": [
+            0.8164453411102296,
+            0.7856444334983826,
+            0.7168877029418946,
+            0.6429317927360535,
+            0.5993813908100128,
+            0.5365528893470765,
+            0.5254418897628784,
+            0.4950681102275848,
+            0.4937060737609863,
+            0.49222770571708685
+          ],
+          "expected_subsection": "B PERFORMANCE ANALYSIS",
+          "page_recall_at_k": 1.0,
+          "page_precision_at_k": 0.1,
+          "page_mrr_at_k": 1.0,
+          "chunk_hit_at_k": 1.0,
+          "chunk_precision_at_k": 0.1,
+          "chunk_mrr_at_k": 1.0,
+          "chunk_hit_flags": [
+            1,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "failure_stage": "hit",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        }
+      }
+    },
+    {
+      "query_id": "Q_OP_2024_04",
+      "topic": "OP",
+      "year": 2024,
+      "sequence": 4,
+      "question": "What proportion of in-patient/daycase patients were waiting over 12 weeks at the end of 2024/25?",
+      "answer_type": "number",
+      "doc_id": "Grampian-2024-2025",
+      "expected_section": "PERFORMANCE REPORT",
+      "expected_pages": [
+        16
+      ],
+      "route_intent": "unknown",
+      "route_confidence": 0.5,
+      "page_hit": 1,
+      "failure_type": "FP6_INCORRECT_SPECIFICITY",
+      "failure_stage": "generation",
+      "expected_answer": "73.1%",
+      "extracted_answer": "PERFORMANCE REPORT B PERFORMANCE ANALYSIS  Patients spent 5,237 days in hospital due to delays in discharge in Grampian in March 2025 (5,106 in March 2024).",
+      "extracted_answer_label": "Snippet",
+      "answer_correct": false,
+      "answer_status": "incorrect",
+      "extracted_answer_chunk_id": "Grampian-2024-2025:p0016_000",
+      "gold_presence": {
+        "gold_exists": true,
+        "gold_chunk_count": 1,
+        "gold_pages_found": [
+          16
+        ]
+      },
+      "per_k": {
+        "1": {
+          "retrieved_chunk_ids": [
+            "Grampian-2024-2025:p0016_000"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2024-2025"
+          ],
+          "retrieved_pages_ranked": [
+            16
+          ],
+          "retrieved_scores": [
+            0.8648352241516114
+          ],
+          "expected_subsection": "B PERFORMANCE ANALYSIS",
+          "page_recall_at_k": 1.0,
+          "page_precision_at_k": 1.0,
+          "page_mrr_at_k": 1.0,
+          "chunk_hit_at_k": 1.0,
+          "chunk_precision_at_k": 1.0,
+          "chunk_mrr_at_k": 1.0,
+          "chunk_hit_flags": [
+            1
+          ],
+          "failure_stage": "hit",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        },
+        "3": {
+          "retrieved_chunk_ids": [
+            "Grampian-2024-2025:p0016_000",
+            "Grampian-2024-2025:p0015_000",
+            "Grampian-2024-2025:p0018_000"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025"
+          ],
+          "retrieved_pages_ranked": [
+            16,
+            15,
+            18
+          ],
+          "retrieved_scores": [
+            0.8648352241516114,
+            0.7187621212005616,
+            0.7140752887725831
+          ],
+          "expected_subsection": "B PERFORMANCE ANALYSIS",
+          "page_recall_at_k": 1.0,
+          "page_precision_at_k": 0.3333333333333333,
+          "page_mrr_at_k": 1.0,
+          "chunk_hit_at_k": 1.0,
+          "chunk_precision_at_k": 0.3333333333333333,
+          "chunk_mrr_at_k": 1.0,
+          "chunk_hit_flags": [
+            1,
+            0,
+            0
+          ],
+          "failure_stage": "hit",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        },
+        "5": {
+          "retrieved_chunk_ids": [
+            "Grampian-2024-2025:p0016_000",
+            "Grampian-2024-2025:p0015_000",
+            "Grampian-2024-2025:p0018_000",
+            "Grampian-2024-2025:p0014_000",
+            "Grampian-2024-2025:p0021_000"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025"
+          ],
+          "retrieved_pages_ranked": [
+            16,
+            15,
+            18,
+            14,
+            21
+          ],
+          "retrieved_scores": [
+            0.8648352241516114,
+            0.7187621212005616,
+            0.7140752887725831,
+            0.6938004112243653,
+            0.5809365344047547
+          ],
+          "expected_subsection": "B PERFORMANCE ANALYSIS",
+          "page_recall_at_k": 1.0,
+          "page_precision_at_k": 0.2,
+          "page_mrr_at_k": 1.0,
+          "chunk_hit_at_k": 1.0,
+          "chunk_precision_at_k": 0.2,
+          "chunk_mrr_at_k": 1.0,
+          "chunk_hit_flags": [
+            1,
+            0,
+            0,
+            0,
+            0
+          ],
+          "failure_stage": "hit",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        },
+        "10": {
+          "retrieved_chunk_ids": [
+            "Grampian-2024-2025:p0016_000",
+            "Grampian-2024-2025:p0015_000",
+            "Grampian-2024-2025:p0018_000",
+            "Grampian-2024-2025:p0014_000",
+            "Grampian-2024-2025:p0021_000",
+            "Grampian-2024-2025:p0020_000",
+            "Grampian-2024-2025:p0019_000",
+            "Grampian-2024-2025:p0011_001",
+            "Grampian-2024-2025:p0026_000",
+            "Grampian-2024-2025:p0046_000"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025"
+          ],
+          "retrieved_pages_ranked": [
+            16,
+            15,
+            18,
+            14,
+            21,
+            20,
+            19,
+            11,
+            26,
+            46
+          ],
+          "retrieved_scores": [
+            0.8648352241516114,
+            0.7187621212005616,
+            0.7140752887725831,
+            0.6938004112243653,
+            0.5809365344047547,
+            0.5684814667701722,
+            0.5518344855308533,
+            0.5341677498817444,
+            0.5243620491027833,
+            0.51124804854393
+          ],
+          "expected_subsection": "B PERFORMANCE ANALYSIS",
+          "page_recall_at_k": 1.0,
+          "page_precision_at_k": 0.1,
+          "page_mrr_at_k": 1.0,
+          "chunk_hit_at_k": 1.0,
+          "chunk_precision_at_k": 0.1,
+          "chunk_mrr_at_k": 1.0,
+          "chunk_hit_flags": [
+            1,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "failure_stage": "hit",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        }
+      }
+    },
+    {
+      "query_id": "Q_OP_2024_05",
+      "topic": "OP",
+      "year": 2024,
+      "sequence": 5,
+      "question": "What proportion of new outpatient patients were waiting over 12 weeks at the end of 2024/25?",
+      "answer_type": "number",
+      "doc_id": "Grampian-2024-2025",
+      "expected_section": "PERFORMANCE REPORT",
+      "expected_pages": [
+        16
+      ],
+      "route_intent": "unknown",
+      "route_confidence": 0.5,
+      "page_hit": 1,
+      "failure_type": "FP6_INCORRECT_SPECIFICITY",
+      "failure_stage": "generation",
+      "expected_answer": "58.1%",
+      "extracted_answer": "PERFORMANCE REPORT B PERFORMANCE ANALYSIS  Patients spent 5,237 days in hospital due to delays in discharge in Grampian in March 2025 (5,106 in March 2024).",
+      "extracted_answer_label": "Snippet",
+      "answer_correct": false,
+      "answer_status": "incorrect",
+      "extracted_answer_chunk_id": "Grampian-2024-2025:p0016_000",
+      "gold_presence": {
+        "gold_exists": true,
+        "gold_chunk_count": 1,
+        "gold_pages_found": [
+          16
+        ]
+      },
+      "per_k": {
+        "1": {
+          "retrieved_chunk_ids": [
+            "Grampian-2024-2025:p0016_000"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2024-2025"
+          ],
+          "retrieved_pages_ranked": [
+            16
+          ],
+          "retrieved_scores": [
+            0.8636341309547425
+          ],
+          "expected_subsection": "B PERFORMANCE ANALYSIS",
+          "page_recall_at_k": 1.0,
+          "page_precision_at_k": 1.0,
+          "page_mrr_at_k": 1.0,
+          "chunk_hit_at_k": 1.0,
+          "chunk_precision_at_k": 1.0,
+          "chunk_mrr_at_k": 1.0,
+          "chunk_hit_flags": [
+            1
+          ],
+          "failure_stage": "hit",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        },
+        "3": {
+          "retrieved_chunk_ids": [
+            "Grampian-2024-2025:p0016_000",
+            "Grampian-2024-2025:p0015_000",
+            "Grampian-2024-2025:p0018_000"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025"
+          ],
+          "retrieved_pages_ranked": [
+            16,
+            15,
+            18
+          ],
+          "retrieved_scores": [
+            0.8636341309547425,
+            0.7459821319580079,
+            0.7226125812530518
+          ],
+          "expected_subsection": "B PERFORMANCE ANALYSIS",
+          "page_recall_at_k": 1.0,
+          "page_precision_at_k": 0.3333333333333333,
+          "page_mrr_at_k": 1.0,
+          "chunk_hit_at_k": 1.0,
+          "chunk_precision_at_k": 0.3333333333333333,
+          "chunk_mrr_at_k": 1.0,
+          "chunk_hit_flags": [
+            1,
+            0,
+            0
+          ],
+          "failure_stage": "hit",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        },
+        "5": {
+          "retrieved_chunk_ids": [
+            "Grampian-2024-2025:p0016_000",
+            "Grampian-2024-2025:p0015_000",
+            "Grampian-2024-2025:p0018_000",
+            "Grampian-2024-2025:p0014_000",
+            "Grampian-2024-2025:p0020_000"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025"
+          ],
+          "retrieved_pages_ranked": [
+            16,
+            15,
+            18,
+            14,
+            20
+          ],
+          "retrieved_scores": [
+            0.8636341309547425,
+            0.7459821319580079,
+            0.7226125812530518,
+            0.7216886496543885,
+            0.6313462173938752
+          ],
+          "expected_subsection": "B PERFORMANCE ANALYSIS",
+          "page_recall_at_k": 1.0,
+          "page_precision_at_k": 0.2,
+          "page_mrr_at_k": 1.0,
+          "chunk_hit_at_k": 1.0,
+          "chunk_precision_at_k": 0.2,
+          "chunk_mrr_at_k": 1.0,
+          "chunk_hit_flags": [
+            1,
+            0,
+            0,
+            0,
+            0
+          ],
+          "failure_stage": "hit",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        },
+        "10": {
+          "retrieved_chunk_ids": [
+            "Grampian-2024-2025:p0016_000",
+            "Grampian-2024-2025:p0015_000",
+            "Grampian-2024-2025:p0018_000",
+            "Grampian-2024-2025:p0014_000",
+            "Grampian-2024-2025:p0020_000",
+            "Grampian-2024-2025:p0021_000",
+            "Grampian-2024-2025:p0019_000",
+            "Grampian-2024-2025:p0011_001",
+            "Grampian-2024-2025:p0026_000",
+            "Grampian-2024-2025:p0031_001"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025"
+          ],
+          "retrieved_pages_ranked": [
+            16,
+            15,
+            18,
+            14,
+            20,
+            21,
+            19,
+            11,
+            26,
+            31
+          ],
+          "retrieved_scores": [
+            0.8636341309547425,
+            0.7459821319580079,
+            0.7226125812530518,
+            0.7216886496543885,
+            0.6313462173938752,
+            0.6212849748134613,
+            0.6017039632797242,
+            0.57789994597435,
+            0.5655200695991517,
+            0.5527030956745148
+          ],
+          "expected_subsection": "B PERFORMANCE ANALYSIS",
+          "page_recall_at_k": 1.0,
+          "page_precision_at_k": 0.1,
+          "page_mrr_at_k": 1.0,
+          "chunk_hit_at_k": 1.0,
+          "chunk_precision_at_k": 0.1,
+          "chunk_mrr_at_k": 1.0,
+          "chunk_hit_flags": [
+            1,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "failure_stage": "hit",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        }
+      }
+    },
+    {
+      "query_id": "Q_OP_2024_06",
+      "topic": "OP",
+      "year": 2024,
+      "sequence": 6,
+      "question": "How many TTG patients were waiting over 104 weeks at the end of 2024/25?",
+      "answer_type": "number",
+      "doc_id": "Grampian-2024-2025",
+      "expected_section": "PERFORMANCE REPORT",
+      "expected_pages": [
+        18
+      ],
+      "route_intent": "unknown",
+      "route_confidence": 0.5,
+      "page_hit": 1,
+      "failure_type": "HIT",
+      "failure_stage": "none",
+      "expected_answer": "1,948",
+      "extracted_answer": "PERFORMANCE REPORT B PERFORMANCE ANALYSIS  There has been a decrease in the number of TTG patients waiting over 104 weeks, with 1,948 waiting at the end of 2024/25 (13% of list size); in comparison t",
+      "extracted_answer_label": "Snippet",
+      "answer_correct": true,
+      "answer_status": "correct",
+      "extracted_answer_chunk_id": "Grampian-2024-2025:p0018_000",
+      "gold_presence": {
+        "gold_exists": true,
+        "gold_chunk_count": 1,
+        "gold_pages_found": [
+          18
+        ]
+      },
+      "per_k": {
+        "1": {
+          "retrieved_chunk_ids": [
+            "Grampian-2024-2025:p0018_000"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2024-2025"
+          ],
+          "retrieved_pages_ranked": [
+            18
+          ],
+          "retrieved_scores": [
+            0.7789294028282167
+          ],
+          "expected_subsection": "B PERFORMANCE ANALYSIS",
+          "page_recall_at_k": 1.0,
+          "page_precision_at_k": 1.0,
+          "page_mrr_at_k": 1.0,
+          "chunk_hit_at_k": 1.0,
+          "chunk_precision_at_k": 1.0,
+          "chunk_mrr_at_k": 1.0,
+          "chunk_hit_flags": [
+            1
+          ],
+          "failure_stage": "hit",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        },
+        "3": {
+          "retrieved_chunk_ids": [
+            "Grampian-2024-2025:p0018_000",
+            "Grampian-2024-2025:p0016_000",
+            "Grampian-2024-2025:p0014_000"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025"
+          ],
+          "retrieved_pages_ranked": [
+            18,
+            16,
+            14
+          ],
+          "retrieved_scores": [
+            0.7789294028282167,
+            0.7479398751258851,
+            0.6536528670787812
+          ],
+          "expected_subsection": "B PERFORMANCE ANALYSIS",
+          "page_recall_at_k": 1.0,
+          "page_precision_at_k": 0.3333333333333333,
+          "page_mrr_at_k": 1.0,
+          "chunk_hit_at_k": 1.0,
+          "chunk_precision_at_k": 0.3333333333333333,
+          "chunk_mrr_at_k": 1.0,
+          "chunk_hit_flags": [
+            1,
+            0,
+            0
+          ],
+          "failure_stage": "hit",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        },
+        "5": {
+          "retrieved_chunk_ids": [
+            "Grampian-2024-2025:p0018_000",
+            "Grampian-2024-2025:p0016_000",
+            "Grampian-2024-2025:p0014_000",
+            "Grampian-2024-2025:p0015_000",
+            "Grampian-2024-2025:p0020_000"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025"
+          ],
+          "retrieved_pages_ranked": [
+            18,
+            16,
+            14,
+            15,
+            20
+          ],
+          "retrieved_scores": [
+            0.7789294028282167,
+            0.7479398751258851,
+            0.6536528670787812,
+            0.6128060734272004,
+            0.59015207529068
+          ],
+          "expected_subsection": "B PERFORMANCE ANALYSIS",
+          "page_recall_at_k": 1.0,
+          "page_precision_at_k": 0.2,
+          "page_mrr_at_k": 1.0,
+          "chunk_hit_at_k": 1.0,
+          "chunk_precision_at_k": 0.2,
+          "chunk_mrr_at_k": 1.0,
+          "chunk_hit_flags": [
+            1,
+            0,
+            0,
+            0,
+            0
+          ],
+          "failure_stage": "hit",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        },
+        "10": {
+          "retrieved_chunk_ids": [
+            "Grampian-2024-2025:p0018_000",
+            "Grampian-2024-2025:p0016_000",
+            "Grampian-2024-2025:p0014_000",
+            "Grampian-2024-2025:p0015_000",
+            "Grampian-2024-2025:p0020_000",
+            "Grampian-2024-2025:p0011_001",
+            "Grampian-2024-2025:p0019_000",
+            "Grampian-2024-2025:p0046_000",
+            "Grampian-2024-2025:p0142_000",
+            "Grampian-2024-2025:p0021_000"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025"
+          ],
+          "retrieved_pages_ranked": [
+            18,
+            16,
+            14,
+            15,
+            20,
+            11,
+            19,
+            46,
+            142,
+            21
+          ],
+          "retrieved_scores": [
+            0.7789294028282167,
+            0.7479398751258851,
+            0.6536528670787812,
+            0.6128060734272004,
+            0.59015207529068,
+            0.5051617455482483,
+            0.4960234081745148,
+            0.4752870464324951,
+            0.46745640277862555,
+            0.4671796095371246
+          ],
+          "expected_subsection": "B PERFORMANCE ANALYSIS",
+          "page_recall_at_k": 1.0,
+          "page_precision_at_k": 0.1,
+          "page_mrr_at_k": 1.0,
+          "chunk_hit_at_k": 1.0,
+          "chunk_precision_at_k": 0.1,
+          "chunk_mrr_at_k": 1.0,
+          "chunk_hit_flags": [
+            1,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "failure_stage": "hit",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        }
+      }
+    },
+    {
+      "query_id": "Q_STR_2024_01",
+      "topic": "STR",
+      "year": 2024,
+      "sequence": 1,
+      "question": "What are the four main themes of the sustainability strategy framework described?",
+      "answer_type": "list",
+      "doc_id": "Grampian-2024-2025",
+      "expected_section": "PERFORMANCE REPORT",
+      "expected_pages": [
+        42
+      ],
+      "route_intent": "unknown",
+      "route_confidence": 0.5,
+      "page_hit": 0,
+      "failure_type": "FP2_MISSED_TOP_RANK",
+      "failure_stage": "retrieval",
+      "expected_answer": "Delivery of Net-Zero; Greening Health Systems; Greening Places & Communities; Collaboration across local and national systems",
+      "extracted_answer": "PERFORMANCE REPORT B PERFORMANCE ANALYSIS Sustainability and the Environment (Cont’d) Strategy Development NHS Grampian’s Climate Emergency and Sustainability Strategy Reimagining the Health Service f",
+      "extracted_answer_label": "Snippet",
+      "answer_correct": false,
+      "answer_status": "partial",
+      "extracted_answer_chunk_id": "Grampian-2024-2025:p0041_000",
+      "gold_presence": {
+        "gold_exists": true,
+        "gold_chunk_count": 2,
+        "gold_pages_found": [
+          42
+        ]
+      },
+      "per_k": {
+        "1": {
+          "retrieved_chunk_ids": [
+            "Grampian-2024-2025:p0041_000"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2024-2025"
+          ],
+          "retrieved_pages_ranked": [
+            41
+          ],
+          "retrieved_scores": [
+            0.7370357728004456
+          ],
+          "expected_subsection": "B PERFORMANCE ANALYSIS",
+          "page_recall_at_k": 0.0,
+          "page_precision_at_k": 0.0,
+          "page_mrr_at_k": 0.0,
+          "chunk_hit_at_k": 0.0,
+          "chunk_precision_at_k": 0.0,
+          "chunk_mrr_at_k": 0.0,
+          "chunk_hit_flags": [
+            0
+          ],
+          "failure_stage": "missed_top_ranked",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        },
+        "3": {
+          "retrieved_chunk_ids": [
+            "Grampian-2024-2025:p0041_000",
+            "Grampian-2024-2025:p0042_000",
+            "Grampian-2024-2025:p0040_000"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025"
+          ],
+          "retrieved_pages_ranked": [
+            41,
+            42,
+            40
+          ],
+          "retrieved_scores": [
+            0.7370357728004456,
+            0.6462830436229706,
+            0.6143388795852661
+          ],
+          "expected_subsection": "B PERFORMANCE ANALYSIS",
+          "page_recall_at_k": 1.0,
+          "page_precision_at_k": 0.3333333333333333,
+          "page_mrr_at_k": 0.5,
+          "chunk_hit_at_k": 1.0,
+          "chunk_precision_at_k": 0.3333333333333333,
+          "chunk_mrr_at_k": 0.5,
+          "chunk_hit_flags": [
+            0,
+            1,
+            0
+          ],
+          "failure_stage": "hit",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        },
+        "5": {
+          "retrieved_chunk_ids": [
+            "Grampian-2024-2025:p0041_000",
+            "Grampian-2024-2025:p0042_000",
+            "Grampian-2024-2025:p0040_000",
+            "Grampian-2024-2025:p0041_001",
+            "Grampian-2024-2025:p0031_000"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025"
+          ],
+          "retrieved_pages_ranked": [
+            41,
+            42,
+            40,
+            31
+          ],
+          "retrieved_scores": [
+            0.7370357728004456,
+            0.6462830436229706,
+            0.6143388795852661,
+            0.586724056005478,
+            0.5271622967720032
+          ],
+          "expected_subsection": "B PERFORMANCE ANALYSIS",
+          "page_recall_at_k": 1.0,
+          "page_precision_at_k": 0.25,
+          "page_mrr_at_k": 0.5,
+          "chunk_hit_at_k": 1.0,
+          "chunk_precision_at_k": 0.2,
+          "chunk_mrr_at_k": 0.5,
+          "chunk_hit_flags": [
+            0,
+            1,
+            0,
+            0,
+            0
+          ],
+          "failure_stage": "hit",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        },
+        "10": {
+          "retrieved_chunk_ids": [
+            "Grampian-2024-2025:p0041_000",
+            "Grampian-2024-2025:p0042_000",
+            "Grampian-2024-2025:p0040_000",
+            "Grampian-2024-2025:p0041_001",
+            "Grampian-2024-2025:p0031_000",
+            "Grampian-2024-2025:p0057_001",
+            "Grampian-2024-2025:p0004_001",
+            "Grampian-2024-2025:p0043_000",
+            "Grampian-2024-2025:p0042_001",
+            "Grampian-2024-2025:p0039_000"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025"
+          ],
+          "retrieved_pages_ranked": [
+            41,
+            42,
+            40,
+            31,
+            57,
+            4,
+            43,
+            39
+          ],
+          "retrieved_scores": [
+            0.7370357728004456,
+            0.6462830436229706,
+            0.6143388795852661,
+            0.586724056005478,
+            0.5271622967720032,
+            0.5236436760425568,
+            0.49235725760459903,
+            0.4803054594993591,
+            0.46468347787857056,
+            0.46451661467552186
+          ],
+          "expected_subsection": "B PERFORMANCE ANALYSIS",
+          "page_recall_at_k": 1.0,
+          "page_precision_at_k": 0.125,
+          "page_mrr_at_k": 0.5,
+          "chunk_hit_at_k": 1.0,
+          "chunk_precision_at_k": 0.2,
+          "chunk_mrr_at_k": 0.5,
+          "chunk_hit_flags": [
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            1,
+            0
+          ],
+          "failure_stage": "hit",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        }
+      }
+    },
+    {
+      "query_id": "Q_STR_2024_02",
+      "topic": "STR",
+      "year": 2024,
+      "sequence": 2,
+      "question": "What sustainability strategies are named that support progress towards net zero?",
+      "answer_type": "list",
+      "doc_id": "Grampian-2024-2025",
+      "expected_section": "PERFORMANCE REPORT",
+      "expected_pages": [
+        42
+      ],
+      "route_intent": "unknown",
+      "route_confidence": 0.5,
+      "page_hit": 0,
+      "failure_type": "FP2_MISSED_TOP_RANK",
+      "failure_stage": "retrieval",
+      "expected_answer": "Heat & Power Strategy; Biodiversity Strategy",
+      "extracted_answer": "PERFORMANCE REPORT B PERFORMANCE ANALYSIS Sustainability and the Environment (Cont’d) Strategy Development NHS Grampian’s Climate Emergency and Sustainability Strategy Reimagining the Health Service f",
+      "extracted_answer_label": "Snippet",
+      "answer_correct": false,
+      "answer_status": "partial",
+      "extracted_answer_chunk_id": "Grampian-2024-2025:p0041_000",
+      "gold_presence": {
+        "gold_exists": true,
+        "gold_chunk_count": 2,
+        "gold_pages_found": [
+          42
+        ]
+      },
+      "per_k": {
+        "1": {
+          "retrieved_chunk_ids": [
+            "Grampian-2024-2025:p0041_000"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2024-2025"
+          ],
+          "retrieved_pages_ranked": [
+            41
+          ],
+          "retrieved_scores": [
+            0.7799084997177125
+          ],
+          "expected_subsection": "B PERFORMANCE ANALYSIS",
+          "page_recall_at_k": 0.0,
+          "page_precision_at_k": 0.0,
+          "page_mrr_at_k": 0.0,
+          "chunk_hit_at_k": 0.0,
+          "chunk_precision_at_k": 0.0,
+          "chunk_mrr_at_k": 0.0,
+          "chunk_hit_flags": [
+            0
+          ],
+          "failure_stage": "missed_top_ranked",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        },
+        "3": {
+          "retrieved_chunk_ids": [
+            "Grampian-2024-2025:p0041_000",
+            "Grampian-2024-2025:p0041_001",
+            "Grampian-2024-2025:p0043_001"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025"
+          ],
+          "retrieved_pages_ranked": [
+            41,
+            43
+          ],
+          "retrieved_scores": [
+            0.7799084997177125,
+            0.7157350611686707,
+            0.6990127611160278
+          ],
+          "expected_subsection": "B PERFORMANCE ANALYSIS",
+          "page_recall_at_k": 0.0,
+          "page_precision_at_k": 0.0,
+          "page_mrr_at_k": 0.0,
+          "chunk_hit_at_k": 0.0,
+          "chunk_precision_at_k": 0.0,
+          "chunk_mrr_at_k": 0.0,
+          "chunk_hit_flags": [
+            0,
+            0,
+            0
+          ],
+          "failure_stage": "missed_top_ranked",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        },
+        "5": {
+          "retrieved_chunk_ids": [
+            "Grampian-2024-2025:p0041_000",
+            "Grampian-2024-2025:p0041_001",
+            "Grampian-2024-2025:p0043_001",
+            "Grampian-2024-2025:p0042_000",
+            "Grampian-2024-2025:p0043_000"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025"
+          ],
+          "retrieved_pages_ranked": [
+            41,
+            43,
+            42
+          ],
+          "retrieved_scores": [
+            0.7799084997177125,
+            0.7157350611686707,
+            0.6990127611160278,
+            0.6755538797378541,
+            0.6521616792678834
+          ],
+          "expected_subsection": "B PERFORMANCE ANALYSIS",
+          "page_recall_at_k": 1.0,
+          "page_precision_at_k": 0.3333333333333333,
+          "page_mrr_at_k": 0.3333333333333333,
+          "chunk_hit_at_k": 1.0,
+          "chunk_precision_at_k": 0.2,
+          "chunk_mrr_at_k": 0.25,
+          "chunk_hit_flags": [
+            0,
+            0,
+            0,
+            1,
+            0
+          ],
+          "failure_stage": "hit",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        },
+        "10": {
+          "retrieved_chunk_ids": [
+            "Grampian-2024-2025:p0041_000",
+            "Grampian-2024-2025:p0041_001",
+            "Grampian-2024-2025:p0043_001",
+            "Grampian-2024-2025:p0042_000",
+            "Grampian-2024-2025:p0043_000",
+            "Grampian-2024-2025:p0040_000",
+            "Grampian-2024-2025:p0039_001",
+            "Grampian-2024-2025:p0039_000",
+            "Grampian-2024-2025:p0074_001",
+            "Grampian-2024-2025:p0031_000"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025"
+          ],
+          "retrieved_pages_ranked": [
+            41,
+            43,
+            42,
+            40,
+            39,
+            74,
+            31
+          ],
+          "retrieved_scores": [
+            0.7799084997177125,
+            0.7157350611686707,
+            0.6990127611160278,
+            0.6755538797378541,
+            0.6521616792678834,
+            0.646311811208725,
+            0.5493410062789917,
+            0.5295843100547791,
+            0.4905599904060364,
+            0.4546061289310455
+          ],
+          "expected_subsection": "B PERFORMANCE ANALYSIS",
+          "page_recall_at_k": 1.0,
+          "page_precision_at_k": 0.14285714285714285,
+          "page_mrr_at_k": 0.3333333333333333,
+          "chunk_hit_at_k": 1.0,
+          "chunk_precision_at_k": 0.1,
+          "chunk_mrr_at_k": 0.25,
+          "chunk_hit_flags": [
+            0,
+            0,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "failure_stage": "hit",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        }
+      }
+    },
+    {
+      "query_id": "Q_STR_2024_03",
+      "topic": "STR",
+      "year": 2024,
+      "sequence": 3,
+      "question": "What year is stated for completion of the Climate Change Risk Assessment (CCRA)?",
+      "answer_type": "number",
+      "doc_id": "Grampian-2024-2025",
+      "expected_section": "PERFORMANCE REPORT",
+      "expected_pages": [
+        42
+      ],
+      "route_intent": "unknown",
+      "route_confidence": 0.5,
+      "page_hit": 1,
+      "failure_type": "HIT",
+      "failure_stage": "none",
+      "expected_answer": "2023",
+      "extracted_answer": "a Climate Change Risk Assessment (CCRA) in 2023 to identify impacted healthcare assets and climate hazards.",
+      "extracted_answer_label": "Snippet",
+      "answer_correct": true,
+      "answer_status": "correct",
+      "extracted_answer_chunk_id": "Grampian-2024-2025:p0042_001",
+      "gold_presence": {
+        "gold_exists": true,
+        "gold_chunk_count": 2,
+        "gold_pages_found": [
+          42
+        ]
+      },
+      "per_k": {
+        "1": {
+          "retrieved_chunk_ids": [
+            "Grampian-2024-2025:p0042_001"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2024-2025"
+          ],
+          "retrieved_pages_ranked": [
+            42
+          ],
+          "retrieved_scores": [
+            0.7815227723121644
+          ],
+          "expected_subsection": "B PERFORMANCE ANALYSIS",
+          "page_recall_at_k": 1.0,
+          "page_precision_at_k": 1.0,
+          "page_mrr_at_k": 1.0,
+          "chunk_hit_at_k": 1.0,
+          "chunk_precision_at_k": 1.0,
+          "chunk_mrr_at_k": 1.0,
+          "chunk_hit_flags": [
+            1
+          ],
+          "failure_stage": "hit",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        },
+        "3": {
+          "retrieved_chunk_ids": [
+            "Grampian-2024-2025:p0042_001",
+            "Grampian-2024-2025:p0042_000",
+            "Grampian-2024-2025:p0039_000"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025"
+          ],
+          "retrieved_pages_ranked": [
+            42,
+            39
+          ],
+          "retrieved_scores": [
+            0.7815227723121644,
+            0.7235557651519776,
+            0.5905603814125061
+          ],
+          "expected_subsection": "B PERFORMANCE ANALYSIS",
+          "page_recall_at_k": 1.0,
+          "page_precision_at_k": 0.5,
+          "page_mrr_at_k": 1.0,
+          "chunk_hit_at_k": 1.0,
+          "chunk_precision_at_k": 0.6666666666666666,
+          "chunk_mrr_at_k": 1.0,
+          "chunk_hit_flags": [
+            1,
+            1,
+            0
+          ],
+          "failure_stage": "hit",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        },
+        "5": {
+          "retrieved_chunk_ids": [
+            "Grampian-2024-2025:p0042_001",
+            "Grampian-2024-2025:p0042_000",
+            "Grampian-2024-2025:p0039_000",
+            "Grampian-2024-2025:p0039_001",
+            "Grampian-2024-2025:p0040_000"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025"
+          ],
+          "retrieved_pages_ranked": [
+            42,
+            39,
+            40
+          ],
+          "retrieved_scores": [
+            0.7815227723121644,
+            0.7235557651519776,
+            0.5905603814125061,
+            0.5313180136680603,
+            0.523065094947815
+          ],
+          "expected_subsection": "B PERFORMANCE ANALYSIS",
+          "page_recall_at_k": 1.0,
+          "page_precision_at_k": 0.3333333333333333,
+          "page_mrr_at_k": 1.0,
+          "chunk_hit_at_k": 1.0,
+          "chunk_precision_at_k": 0.4,
+          "chunk_mrr_at_k": 1.0,
+          "chunk_hit_flags": [
+            1,
+            1,
+            0,
+            0,
+            0
+          ],
+          "failure_stage": "hit",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        },
+        "10": {
+          "retrieved_chunk_ids": [
+            "Grampian-2024-2025:p0042_001",
+            "Grampian-2024-2025:p0042_000",
+            "Grampian-2024-2025:p0039_000",
+            "Grampian-2024-2025:p0039_001",
+            "Grampian-2024-2025:p0040_000",
+            "Grampian-2024-2025:p0043_000",
+            "Grampian-2024-2025:p0041_001",
+            "Grampian-2024-2025:p0043_001",
+            "Grampian-2024-2025:p0041_000",
+            "Grampian-2024-2025:p0067_000"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025"
+          ],
+          "retrieved_pages_ranked": [
+            42,
+            39,
+            40,
+            43,
+            41,
+            67
+          ],
+          "retrieved_scores": [
+            0.7815227723121644,
+            0.7235557651519776,
+            0.5905603814125061,
+            0.5313180136680603,
+            0.523065094947815,
+            0.5058587241172791,
+            0.47310686588287354,
+            0.4665685772895813,
+            0.46174991607666016,
+            0.4206017208099365
+          ],
+          "expected_subsection": "B PERFORMANCE ANALYSIS",
+          "page_recall_at_k": 1.0,
+          "page_precision_at_k": 0.16666666666666666,
+          "page_mrr_at_k": 1.0,
+          "chunk_hit_at_k": 1.0,
+          "chunk_precision_at_k": 0.2,
+          "chunk_mrr_at_k": 1.0,
+          "chunk_hit_flags": [
+            1,
+            1,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "failure_stage": "hit",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        }
+      }
+    },
+    {
+      "query_id": "Q_STR_2024_04",
+      "topic": "STR",
+      "year": 2024,
+      "sequence": 4,
+      "question": "What is described as a key obstacle to achieving net zero in the sustainability section?",
+      "answer_type": "text",
+      "doc_id": "Grampian-2024-2025",
+      "expected_section": "PERFORMANCE REPORT",
+      "expected_pages": [
+        42
+      ],
+      "route_intent": "unknown",
+      "route_confidence": 0.5,
+      "page_hit": 0,
+      "failure_type": "FP2_MISSED_TOP_RANK",
+      "failure_stage": "retrieval",
+      "expected_answer": "High cost of transition during financial constraints",
+      "extracted_answer": "its pursuit of reducing emissions and achieving net zero status.",
+      "extracted_answer_label": "Snippet",
+      "answer_correct": false,
+      "answer_status": "incorrect",
+      "extracted_answer_chunk_id": "Grampian-2024-2025:p0043_001",
+      "gold_presence": {
+        "gold_exists": true,
+        "gold_chunk_count": 2,
+        "gold_pages_found": [
+          42
+        ]
+      },
+      "per_k": {
+        "1": {
+          "retrieved_chunk_ids": [
+            "Grampian-2024-2025:p0043_001"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2024-2025"
+          ],
+          "retrieved_pages_ranked": [
+            43
+          ],
+          "retrieved_scores": [
+            0.7924024677276612
+          ],
+          "expected_subsection": "B PERFORMANCE ANALYSIS",
+          "page_recall_at_k": 0.0,
+          "page_precision_at_k": 0.0,
+          "page_mrr_at_k": 0.0,
+          "chunk_hit_at_k": 0.0,
+          "chunk_precision_at_k": 0.0,
+          "chunk_mrr_at_k": 0.0,
+          "chunk_hit_flags": [
+            0
+          ],
+          "failure_stage": "missed_top_ranked",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        },
+        "3": {
+          "retrieved_chunk_ids": [
+            "Grampian-2024-2025:p0043_001",
+            "Grampian-2024-2025:p0041_001",
+            "Grampian-2024-2025:p0041_000"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025"
+          ],
+          "retrieved_pages_ranked": [
+            43,
+            41
+          ],
+          "retrieved_scores": [
+            0.7924024677276612,
+            0.7791308975219727,
+            0.749840898513794
+          ],
+          "expected_subsection": "B PERFORMANCE ANALYSIS",
+          "page_recall_at_k": 0.0,
+          "page_precision_at_k": 0.0,
+          "page_mrr_at_k": 0.0,
+          "chunk_hit_at_k": 0.0,
+          "chunk_precision_at_k": 0.0,
+          "chunk_mrr_at_k": 0.0,
+          "chunk_hit_flags": [
+            0,
+            0,
+            0
+          ],
+          "failure_stage": "missed_top_ranked",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        },
+        "5": {
+          "retrieved_chunk_ids": [
+            "Grampian-2024-2025:p0043_001",
+            "Grampian-2024-2025:p0041_001",
+            "Grampian-2024-2025:p0041_000",
+            "Grampian-2024-2025:p0043_000",
+            "Grampian-2024-2025:p0042_000"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025"
+          ],
+          "retrieved_pages_ranked": [
+            43,
+            41,
+            42
+          ],
+          "retrieved_scores": [
+            0.7924024677276612,
+            0.7791308975219727,
+            0.749840898513794,
+            0.6894017374515534,
+            0.6814059233665467
+          ],
+          "expected_subsection": "B PERFORMANCE ANALYSIS",
+          "page_recall_at_k": 1.0,
+          "page_precision_at_k": 0.3333333333333333,
+          "page_mrr_at_k": 0.3333333333333333,
+          "chunk_hit_at_k": 1.0,
+          "chunk_precision_at_k": 0.2,
+          "chunk_mrr_at_k": 0.2,
+          "chunk_hit_flags": [
+            0,
+            0,
+            0,
+            0,
+            1
+          ],
+          "failure_stage": "hit",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        },
+        "10": {
+          "retrieved_chunk_ids": [
+            "Grampian-2024-2025:p0043_001",
+            "Grampian-2024-2025:p0041_001",
+            "Grampian-2024-2025:p0041_000",
+            "Grampian-2024-2025:p0043_000",
+            "Grampian-2024-2025:p0042_000",
+            "Grampian-2024-2025:p0040_000",
+            "Grampian-2024-2025:p0039_001",
+            "Grampian-2024-2025:p0039_000",
+            "Grampian-2024-2025:p0033_001",
+            "Grampian-2024-2025:p0074_001"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025"
+          ],
+          "retrieved_pages_ranked": [
+            43,
+            41,
+            42,
+            40,
+            39,
+            33,
+            74
+          ],
+          "retrieved_scores": [
+            0.7924024677276612,
+            0.7791308975219727,
+            0.749840898513794,
+            0.6894017374515534,
+            0.6814059233665467,
+            0.6293408107757569,
+            0.5363278138637543,
+            0.5179511141777039,
+            0.4771334362030029,
+            0.42301826357841493
+          ],
+          "expected_subsection": "B PERFORMANCE ANALYSIS",
+          "page_recall_at_k": 1.0,
+          "page_precision_at_k": 0.14285714285714285,
+          "page_mrr_at_k": 0.3333333333333333,
+          "chunk_hit_at_k": 1.0,
+          "chunk_precision_at_k": 0.1,
+          "chunk_mrr_at_k": 0.2,
+          "chunk_hit_flags": [
+            0,
+            0,
+            0,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "failure_stage": "hit",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        }
+      }
+    },
+    {
+      "query_id": "Q_STR_2024_07",
+      "topic": "STR",
+      "year": 2024,
+      "sequence": 7,
+      "question": "What does the report say is required to achieve carbon zero at the Foresterhill site?",
+      "answer_type": "text",
+      "doc_id": "Grampian-2024-2025",
+      "expected_section": "PERFORMANCE REPORT",
+      "expected_pages": [
+        42
+      ],
+      "route_intent": "table_metric_emissions",
+      "route_confidence": 0.8,
+      "page_hit": 0,
+      "failure_type": "FP2_MISSED_TOP_RANK",
+      "failure_stage": "retrieval",
+      "expected_answer": "Energy and utility strategy and significant investment in infrastructure and retrofit",
+      "extracted_answer": "to reducing carbon emissions across our estate for both current and new developments.",
+      "extracted_answer_label": "Snippet",
+      "answer_correct": false,
+      "answer_status": "incorrect",
+      "extracted_answer_chunk_id": "Grampian-2024-2025:p0041_001",
+      "gold_presence": {
+        "gold_exists": true,
+        "gold_chunk_count": 2,
+        "gold_pages_found": [
+          42
+        ]
+      },
+      "per_k": {
+        "1": {
+          "retrieved_chunk_ids": [
+            "Grampian-2024-2025:p0041_001"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2024-2025"
+          ],
+          "retrieved_pages_ranked": [
+            41
+          ],
+          "retrieved_scores": [
+            0.8137724781036377
+          ],
+          "expected_subsection": "B PERFORMANCE ANALYSIS",
+          "page_recall_at_k": 0.0,
+          "page_precision_at_k": 0.0,
+          "page_mrr_at_k": 0.0,
+          "chunk_hit_at_k": 0.0,
+          "chunk_precision_at_k": 0.0,
+          "chunk_mrr_at_k": 0.0,
+          "chunk_hit_flags": [
+            0
+          ],
+          "failure_stage": "missed_top_ranked",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        },
+        "3": {
+          "retrieved_chunk_ids": [
+            "Grampian-2024-2025:p0041_001",
+            "Grampian-2024-2025:p0041_000",
+            "Grampian-2024-2025:p0043_001"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025"
+          ],
+          "retrieved_pages_ranked": [
+            41,
+            43
+          ],
+          "retrieved_scores": [
+            0.8137724781036377,
+            0.7582674109935761,
+            0.6962313270568847
+          ],
+          "expected_subsection": "B PERFORMANCE ANALYSIS",
+          "page_recall_at_k": 0.0,
+          "page_precision_at_k": 0.0,
+          "page_mrr_at_k": 0.0,
+          "chunk_hit_at_k": 0.0,
+          "chunk_precision_at_k": 0.0,
+          "chunk_mrr_at_k": 0.0,
+          "chunk_hit_flags": [
+            0,
+            0,
+            0
+          ],
+          "failure_stage": "missed_top_ranked",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        },
+        "5": {
+          "retrieved_chunk_ids": [
+            "Grampian-2024-2025:p0041_001",
+            "Grampian-2024-2025:p0041_000",
+            "Grampian-2024-2025:p0043_001",
+            "Grampian-2024-2025:p0039_001",
+            "Grampian-2024-2025:p0039_000"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025"
+          ],
+          "retrieved_pages_ranked": [
+            41,
+            43,
+            39
+          ],
+          "retrieved_scores": [
+            0.8137724781036377,
+            0.7582674109935761,
+            0.6962313270568847,
+            0.6590612530708313,
+            0.6455671870708466
+          ],
+          "expected_subsection": "B PERFORMANCE ANALYSIS",
+          "page_recall_at_k": 0.0,
+          "page_precision_at_k": 0.0,
+          "page_mrr_at_k": 0.0,
+          "chunk_hit_at_k": 0.0,
+          "chunk_precision_at_k": 0.0,
+          "chunk_mrr_at_k": 0.0,
+          "chunk_hit_flags": [
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "failure_stage": "missed_top_ranked",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        },
+        "10": {
+          "retrieved_chunk_ids": [
+            "Grampian-2024-2025:p0041_001",
+            "Grampian-2024-2025:p0041_000",
+            "Grampian-2024-2025:p0043_001",
+            "Grampian-2024-2025:p0039_001",
+            "Grampian-2024-2025:p0039_000",
+            "Grampian-2024-2025:p0043_000",
+            "Grampian-2024-2025:table_p0044",
+            "Grampian-2024-2025:p0042_000",
+            "Grampian-2024-2025:p0013_000",
+            "Grampian-2024-2025:p0040_000"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025",
+            "Grampian-2024-2025"
+          ],
+          "retrieved_pages_ranked": [
+            41,
+            43,
+            39,
+            44,
+            42,
+            13,
+            40
+          ],
+          "retrieved_scores": [
+            0.8137724781036377,
+            0.7582674109935761,
+            0.6962313270568847,
+            0.6590612530708313,
+            0.6455671870708466,
+            0.6381625533103943,
+            0.5885170698165894,
+            0.4549337375164032,
+            0.4471260225772858,
+            0.4038293409347534
+          ],
+          "expected_subsection": "B PERFORMANCE ANALYSIS",
+          "page_recall_at_k": 1.0,
+          "page_precision_at_k": 0.14285714285714285,
+          "page_mrr_at_k": 0.2,
+          "chunk_hit_at_k": 1.0,
+          "chunk_precision_at_k": 0.1,
+          "chunk_mrr_at_k": 0.125,
+          "chunk_hit_flags": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            1,
+            0,
+            0
+          ],
+          "failure_stage": "hit",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        }
+      }
+    }
+  ]
+}

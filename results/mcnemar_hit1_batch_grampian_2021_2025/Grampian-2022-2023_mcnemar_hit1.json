@@ -1,0 +1,43 @@
+{
+  "cohort": "Grampian-2022-2023",
+  "inputs": {
+    "hybrid_file": "/Users/djimra/MSc Data Science Jan 2025/Thesis documents/RAG_Pipeline_Project/data_processed/Grampian-2022-2023/retrieval_results_hybrid.json",
+    "dense_file": "/Users/djimra/MSc Data Science Jan 2025/Thesis documents/RAG_Pipeline_Project/data_processed/Grampian-2022-2023/retrieval_results.json",
+    "alpha": 0.05,
+    "allow_partial_overlap": false
+  },
+  "counts": {
+    "n_hybrid_queries": 50,
+    "n_dense_queries": 50,
+    "n_paired_queries": 50,
+    "n_missing_in_dense": 0,
+    "n_missing_in_hybrid": 0,
+    "n_discordant": 13
+  },
+  "contingency_table": {
+    "layout": "[[both_correct, hybrid_correct_dense_wrong], [hybrid_wrong_dense_correct, both_wrong]]",
+    "both_correct": 25,
+    "both_wrong": 12,
+    "hybrid_correct_dense_wrong": 6,
+    "hybrid_wrong_dense_correct": 7,
+    "table_2x2": [
+      [
+        25,
+        6
+      ],
+      [
+        7,
+        12
+      ]
+    ]
+  },
+  "mcnemar": {
+    "method": "statsmodels_mcnemar_exact",
+    "exact_used": true,
+    "statistic": 6.0,
+    "p_value": 1.0,
+    "alpha": 0.05,
+    "significant": false
+  },
+  "interpretation": "At alpha=0.05, the paired McNemar test does not indicate a statistically significant difference in Hit@1 between Hybrid and Dense retrieval for this cohort."
+}

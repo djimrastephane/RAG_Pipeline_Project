@@ -1,16 +1,26 @@
 # OS / editor
 .DS_Store
 .idea/
+.Rhistory
+.streamlit/
 
 # Python env
 .venv/
 __pycache__/
 *.pyc
+.pytest_cache/
 
 # Data and outputs
 Data/
 data_processed/
+data_processed_ui/
+data_processed_ablation/
+data_processed/ablation/
 figures/
+Experiment/
+models/
+config/batch.json
+tmp/
 
 # LaTeX build artifacts
 *.aux

@@ -1,0 +1,59 @@
+{
+  "schema_version": "3.0_hybrid",
+  "doc_id": "Grampian-2022-2023",
+  "corpus_id": "Grampian-2022-2023",
+  "report_year": "2022-2023",
+  "period_end_date": null,
+  "run_utc": "2026-02-18T10:39:54+00:00",
+  "git_commit_short": "5212b0e",
+  "embedding_model": "sentence-transformers/all-MiniLM-L6-v2",
+  "counts": {
+    "pages_total": 154,
+    "pages_text": 124,
+    "pages_table": 30,
+    "sections_detected": 141,
+    "chunks_total": 274,
+    "chunks_text": 256,
+    "chunks_table": 18,
+    "tables_extracted": 18,
+    "table_facts": 848,
+    "ocr_raw_pages_detected": 19,
+    "ocr_raw_pages_accepted": 19,
+    "ocr_short_pages_triggered": 4,
+    "ocr_short_pages_accepted": 4
+  },
+  "derived": {
+    "chunks_per_page": 1.7792207792207793,
+    "tables_per_100_pages": 11.688311688311687,
+    "ocr_raw_acceptance_rate": 1.0,
+    "ocr_short_acceptance_rate": 1.0
+  },
+  "timing": {
+    "time_unit": "seconds",
+    "time_text_extract_total": 73.622749,
+    "time_coord_strip_total": 0.001652,
+    "time_ocr_raw_total": 72.936221,
+    "time_total_wall": 123.613574
+  },
+  "params": {
+    "chunk_size_tokens": 320,
+    "chunk_overlap_tokens": 90,
+    "top_strip_frac": 0.08,
+    "bottom_strip_frac": 0.08,
+    "left_strip_frac": 0.08,
+    "right_strip_frac": 0.08,
+    "header_footer_repeat_frac": 0.4,
+    "min_chunk_words": 20,
+    "primary_extractor": "pymupdf",
+    "segment_aware_chunking": false
+  },
+  "table_types_detected": {
+    "staff_costs": 6,
+    "balance_sheet": 3,
+    "cash_flow": 3,
+    "unknown": 3,
+    "income_statement": 1,
+    "property": 1,
+    "financial_instruments": 1
+  }
+}

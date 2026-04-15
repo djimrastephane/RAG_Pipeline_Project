@@ -1,0 +1,67 @@
+{
+  "schema_version": "3.0_hybrid",
+  "doc_id": "Shetland-2018-2019",
+  "corpus_id": "Shetland-2018-2019",
+  "report_year": "2018-2019",
+  "period_end_date": null,
+  "run_utc": "2026-02-26T08:02:46+00:00",
+  "git_commit_short": "1da05af",
+  "embedding_model": "sentence-transformers/all-MiniLM-L6-v2",
+  "counts": {
+    "pages_total": 82,
+    "pages_text": 43,
+    "pages_table": 39,
+    "sections_detected": 57,
+    "chunks_total": 154,
+    "chunks_text": 115,
+    "chunks_table": 39,
+    "tables_extracted": 39,
+    "table_facts": 1735,
+    "ocr_raw_pages_detected": 1,
+    "ocr_raw_pages_accepted": 1,
+    "ocr_short_pages_triggered": 0,
+    "ocr_short_pages_accepted": 0,
+    "ocr_rejected_quality": 0
+  },
+  "derived": {
+    "chunks_per_page": 1.8780487804878048,
+    "tables_per_100_pages": 47.5609756097561,
+    "ocr_raw_acceptance_rate": 1.0,
+    "ocr_short_acceptance_rate": 0.0,
+    "ocr_quality_reject_rate": 0.0
+  },
+  "timing": {
+    "time_unit": "seconds",
+    "time_text_extract_total": 2.736277,
+    "time_coord_strip_total": 0.000911,
+    "time_ocr_raw_total": 2.191321,
+    "time_total_wall": 25.107541
+  },
+  "params": {
+    "chunk_size_tokens": 320,
+    "chunk_overlap_tokens": 90,
+    "tokenizer_backend": "tiktoken",
+    "tokenizer_exact_counting": true,
+    "top_strip_frac": 0.08,
+    "bottom_strip_frac": 0.08,
+    "left_strip_frac": 0.08,
+    "right_strip_frac": 0.08,
+    "header_footer_repeat_frac": 0.4,
+    "min_chunk_words": 20,
+    "primary_extractor": "pymupdf",
+    "segment_aware_chunking": false,
+    "whole_doc_markdown_mode": false,
+    "markdown_header_carry_forward": true,
+    "markdown_table_injection": true
+  },
+  "table_types_detected": {
+    "staff_costs": 11,
+    "unknown": 7,
+    "cash_flow": 7,
+    "property": 6,
+    "balance_sheet": 5,
+    "provisions": 1,
+    "income_statement": 1,
+    "financial_instruments": 1
+  }
+}

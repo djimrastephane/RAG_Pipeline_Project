@@ -1,0 +1,47 @@
+{
+  "n_audited": 50,
+  "counts": {
+    "model_extraction_error": 32,
+    "context_missing": 9,
+    "ambiguous_question": 9
+  },
+  "rates": {
+    "model_extraction_error": 0.64,
+    "context_missing": 0.18,
+    "ambiguous_question": 0.18
+  },
+  "by_arm": {
+    "ambiguous_question": {
+      "baseline": 2,
+      "row_preserving": 4,
+      "two_stage": 3
+    },
+    "context_missing": {
+      "baseline": 3,
+      "row_preserving": 3,
+      "two_stage": 3
+    },
+    "model_extraction_error": {
+      "baseline": 10,
+      "row_preserving": 11,
+      "two_stage": 11
+    }
+  },
+  "by_difficulty": {
+    "ambiguous_question": {
+      "LEX": 9,
+      "MOD": 0,
+      "STR": 0
+    },
+    "context_missing": {
+      "LEX": 1,
+      "MOD": 0,
+      "STR": 8
+    },
+    "model_extraction_error": {
+      "LEX": 12,
+      "MOD": 5,
+      "STR": 15
+    }
+  }
+}

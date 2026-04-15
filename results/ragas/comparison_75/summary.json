@@ -1,0 +1,6 @@
+{
+  "baseline_summary": "results/ragas/run75/ragas_summary.json",
+  "generated_summary": "results/ragas/run75_generated/ragas_summary.json",
+  "chart": "results/ragas/comparison_75/ragas_75_baseline_vs_generated.png",
+  "table": "results/ragas/comparison_75/ragas_75_baseline_vs_generated.csv"
+}

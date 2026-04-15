@@ -1,0 +1,6 @@
+doc_id,pages,chunk_size_tokens,chunk_overlap_tokens,segment_aware,page_tokens_tiktoken,page_tokens_fallback,page_tokens_delta,page_tokens_delta_pct,text_chunks_tiktoken,text_chunks_fallback,text_chunks_delta,text_chunks_delta_pct,pages_with_token_delta,pages_with_chunk_delta,max_abs_page_token_delta,max_abs_page_chunk_delta
+Grampian-2020-2021,133,280,90,True,69770,64133,-5637,-8.08,401,373,-28,-6.98,131,55,538,3
+Grampian-2021-2022,146,280,90,True,75998,70079,-5919,-7.79,449,415,-34,-7.57,142,53,728,3
+Grampian-2022-2023,154,280,90,True,76361,68195,-8166,-10.69,444,403,-41,-9.23,153,53,623,3
+Grampian-2023-2024,161,280,90,True,82620,73201,-9419,-11.4,486,438,-48,-9.88,156,57,637,4
+Grampian-2024-2025,172,280,90,True,86048,75920,-10128,-11.77,499,446,-53,-10.62,170,59,661,3

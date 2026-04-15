@@ -1,0 +1,16 @@
+group,query_id,topic,answer_type,page_mrr_at_k_dense,page_mrr_at_k_hybrid,delta_hybrid_minus_dense,query_text
+above_diagonal,Q_2024_ESC_03,,text,0.0,1.0,1.0,What risk-based approach did the Chief Executive Team implement to manage the financial challenge in 2023/24?
+above_diagonal,Q_2024_GOV_02,,text,0.3333333333333333,1.0,0.6666666666666667,What actions were taken in 2023/24 to combat the financial overspend?
+above_diagonal,Q_2024_AE_04,,number,0.5,1.0,0.5,How did the number of patients waiting over 12 hours in A&E change between March 2023 and March 2024?
+above_diagonal,Q_2024_DEL_05,,text,0.5,1.0,0.5,What is the Integrated Performance Assurance Framework developed in 2023/24 for?
+above_diagonal,Q_2024_FIN_05,,number,0.5,1.0,0.5,How much brokerage did Scottish Government provide NHS Grampian in 2023/24?
+on_diagonal,Q_2024_AE_01,,number,1.0,1.0,0.0,What were the total A&E attendances in March 2024 and how did they compare to March 2023?
+on_diagonal,Q_2024_FIN_14,,number,0.0,0.0,0.0,What was the net expenditure figure in Note 2A Summary of Core Revenue Resource Outturn for 2023/24?
+on_diagonal,Q_2024_GOPES_01,,text,1.0,1.0,0.0,What review of G-OPES pathways was undertaken in 2023/24?
+on_diagonal,Q_2024_GOPES_02,,text,1.0,1.0,0.0,What governance arrangements exist for G-OPES level decisions in 2023/24?
+on_diagonal,Q_2024_GOV_03,,text,0.0,0.0,0.0,What is the value and sustainability programme and when was it significantly developed?
+below_diagonal,Q_2024_AE_05,,number,1.0,0.0,-1.0,How many patients were experiencing delayed discharge at the March 2024 census date?
+below_diagonal,Q_2024_AE_06,,number,1.0,0.3333333333333333,-0.6666666666666667,How did delayed discharge numbers compare between March 2023 and March 2024?
+below_diagonal,Q_2024_FIN_12,,number,1.0,0.5,-0.5,What was the total income and expenditure for NHS Grampian Charity in 2023/24?
+below_diagonal,Q_2024_GOV_01,,text,1.0,0.5,-0.5,What was the first time NHS Grampian overspent against its revenue budget?
+below_diagonal,Q_2024_IJB_07,,number,1.0,0.5,-0.5,What was the total IJB health services income in NHS Grampian's accounts for 2023/24?

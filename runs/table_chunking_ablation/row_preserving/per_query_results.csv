@@ -1,0 +1,51 @@
+arm,query_id,doc_id,difficulty,gold_pages,predicted_pages_top3,hit3,strict_correct,quote_support,failure_mode,extracted_answer,cited_pages,cited_spans,context_chars_used,latency_ms,table_query,violations
+row_preserving,Q_2021_GOV_03,Grampian-2020-2021,LEX,[28],"[28, 89]",1,1,1,strict_correct,"32,340",[28],"[""Non-Core Revenue Resource Limit 32,340 32,340 -""]",4304,5414.218,0,
+row_preserving,Q_2021_CAP_02,Grampian-2020-2021,LEX,[32],"[28, 32]",1,1,1,strict_correct,£43.316 million,[32],"[""capital funding from the SGHSCD (\u00a343.316 million, see note 7d)""]",4384,5217.861,0,
+row_preserving,Q_2021_IJB_07,Grampian-2020-2021,LEX,[31],"[17, 30, 132]",0,0,0,did_not_identify_gold,,[],[],3000,3057.788,0,
+row_preserving,Q_2021_IJB_03,Grampian-2020-2021,LEX,[27],"[27, 28, 34]",1,1,1,strict_correct,£20.449 million,[27],"[""Aberdeenshire IJB reported a surplus for the year of \u00a320.449 million (2019/20: deficit of \u00a31.288m) increasing the retained reserves carried forward to \u00a320.566 million (2019/20 \u00a30.117 million).""]",3648,5927.597,0,
+row_preserving,Q_2021_IJB_01,Grampian-2020-2021,MOD,[26],"[23, 88, 132]",0,0,0,did_not_identify_gold,,[],[],3279,4091.494,0,
+row_preserving,Q_2021_SAV_P2,Grampian-2020-2021,MOD,[29],[29],1,0,0,did_not_identify_gold,,[],[],4113,5910.486,0,parse_or_generation_error
+row_preserving,Q_2021_GOV_01,Grampian-2020-2021,STR,[28],"[7, 28]",1,0,0,did_not_identify_gold,,[],[],4318,6280.816,0,parse_or_generation_error
+row_preserving,Q_2021_IJB_06,Grampian-2020-2021,LEX,[27],"[26, 27]",1,0,0,did_not_identify_gold,,[],[],2106,2716.898,0,
+row_preserving,Q_2021_IJB_P1,Grampian-2020-2021,STR,[27],"[23, 28]",0,0,0,did_not_identify_gold,NHS Grampian,[28],"[""Recognising the exceptional nature of 2020-21 and the impact on delivery of financial plans, additional non- repayable funding was provided to support in-year financial balance across all NHS Boards. NHS Grampian received \u00a347.3m.""]",2551,4082.02,0,
+row_preserving,Q_2021_COV_03,Grampian-2020-2021,LEX,[30],"[30, 63]",1,0,0,did_not_identify_gold,,[],[],4257,5790.074,0,parse_or_generation_error
+row_preserving,Q_2022_GOV_P1,Grampian-2021-2022,STR,[31],"[31, 53]",1,0,0,did_not_identify_gold,,[],[],4027,5328.23,0,evidence_span_not_in_context
+row_preserving,Q_2022_SAV_P2,Grampian-2021-2022,MOD,[22],"[22, 28]",1,0,0,did_not_identify_gold,,[],[],4242,5823.687,0,parse_or_generation_error
+row_preserving,Q_2022_IJB_05,Grampian-2021-2022,LEX,[20],"[17, 20, 146]",1,1,1,strict_correct,£10.679 million,[20],"[""Moray IJB reported a surplus for the year of \u00a310.679 million (2020/21: \u00a36.155m) increasing the retained reserves carried forward to \u00a317.021 million (2020/21 \u00a36.342 million).""]",1772,4163.941,0,
+row_preserving,Q_2022_FIN_01,Grampian-2021-2022,STR,[21],"[12, 21, 22]",1,0,0,did_not_identify_gold,,[],[],4254,3797.636,0,
+row_preserving,Q_2022_STR_04,Grampian-2021-2022,STR,[15],"[15, 46]",1,0,0,did_not_identify_gold,,[],[],4038,5527.43,0,evidence_span_not_in_context
+row_preserving,Q_2022_AE_P1,Grampian-2021-2022,MOD,[12],"[12, 32]",1,0,0,did_not_identify_gold,,[],[],3629,5911.401,0,parse_or_generation_error
+row_preserving,Q_2022_IJB_02,Grampian-2021-2022,LEX,[19],"[19, 20, 140]",1,1,1,strict_correct,£51.392 million,[19],"[""increasing the retained reserves carried forward to \u00a351.392 million (2020/21 \u00a318.236 million).""]",2309,3826.146,0,
+row_preserving,Q_2022_GOPES_01,Grampian-2021-2022,STR,[54],"[37, 38, 54]",1,0,0,did_not_identify_gold,,[],[],4051,5463.258,0,parse_or_generation_error
+row_preserving,Q_2022_FIN_08,Grampian-2021-2022,LEX,[23],"[71, 80]",0,0,0,did_not_identify_gold,,[],[],3500,4624.109,0,evidence_span_not_in_context
+row_preserving,Q_2022_FIN_P2,Grampian-2021-2022,MOD,[23],"[23, 71, 76]",1,0,0,did_not_identify_gold,,[],[],4100,5615.304,0,parse_or_generation_error
+row_preserving,Q_2023_FIN_15,Grampian-2022-2023,LEX,[25],"[21, 24, 25]",1,1,1,strict_correct,3.97,[25],"[""Test & Protect 3.97""]",3107,3530.167,0,
+row_preserving,Q_2023_FIN_14,Grampian-2022-2023,LEX,[25],"[24, 25, 78]",1,0,0,did_not_identify_gold,,[],[],3717,5895.115,0,parse_or_generation_error
+row_preserving,Q_2023_FIN_P2,Grampian-2022-2023,MOD,[25],"[25, 67]",1,0,0,did_not_identify_gold,,[],[],3510,5840.303,0,evidence_span_not_in_context
+row_preserving,Q_2023_FIN_02,Grampian-2022-2023,LEX,[23],"[23, 24]",1,1,1,strict_correct,"1,291,879",[23],"[""Core Revenue Resource Limit 1,292,491 1,291,879 612""]",3632,4407.807,0,
+row_preserving,Q_2023_FIN_16,Grampian-2022-2023,LEX,[25],"[24, 77]",0,0,0,did_not_identify_gold,£23.1 million,[24],"[""Expenditure of \u00a323.1 million was incurred on non-delegated Board services. The main areas incurring additional costs were in additional Personal Protective equipment, vaccinations programmes, testing and contact tracing and staffing and other costs to support infection control measures.""]",3578,4355.542,0,
+row_preserving,Q_2023_FIN_07,Grampian-2022-2023,STR,[25],"[20, 78]",0,0,0,did_not_identify_gold,,[],[],3711,3788.784,0,
+row_preserving,Q_2023_FIN_10,Grampian-2022-2023,LEX,[25],"[67, 75]",0,0,0,did_not_identify_gold,,[],[],2126,4691.339,0,evidence_span_not_in_context
+row_preserving,Q_2023_IJB_07,Grampian-2022-2023,LEX,[25],"[21, 22]",0,0,0,did_not_identify_gold,,[],[],993,1787.539,0,
+row_preserving,Q_2023_FIN_09,Grampian-2022-2023,LEX,[25],"[20, 24, 25]",1,0,0,did_not_identify_gold,Expenditure of £23.1 million was incurred on non-delegated Board services.,[24],"[""The impact of the pandemic was less severe on services in 2022/23 than in 2021/22 but significant costs were still incurred across a range of services, including the COVID vaccination programme and the provision of sustainability payments to social care providers. Expenditure of \u00a323.1 million was incurred on non-delegated Board services.""]",3539,5746.222,0,
+row_preserving,Q_2023_FIN_04,Grampian-2022-2023,MOD,[23],"[23, 148]",1,1,1,strict_correct,"1,546,903",[23],"[""Cash Requirement 1,546,903 1,546,903 -""]",2868,3819.451,0,
+row_preserving,Q_2024_DEL_01,Grampian-2023-2024,LEX,"[6, 53]","[6, 53]",1,1,1,strict_correct,August 2023,[53],"[""The Delivery Plan 2023 \u2013 2026 was endorsed by the Board in August 2023, approved by""]",3546,3905.143,0,
+row_preserving,Q_2024_ESC_03,Grampian-2023-2024,MOD,[4],"[4, 21, 59]",1,0,0,did_not_identify_gold,,[],[],3589,5393.577,0,parse_or_generation_error
+row_preserving,Q_2024_FIN_12,Grampian-2023-2024,MOD,[23],"[23, 154]",1,0,0,did_not_identify_gold,,[],[],3905,6895.561,0,parse_or_generation_error
+row_preserving,Q_2024_FIN_14,Grampian-2023-2024,STR,[118],"[26, 27, 31]",0,0,0,did_not_identify_gold,,[],[],3728,3854.407,1,
+row_preserving,Q_2024_DEL_03,Grampian-2023-2024,LEX,[6],"[6, 53]",1,1,1,strict_correct,1. Strengthen colleague and citizen engagement to improve health (People) 2. Create the conditions for sustainable change (Places) 3. Improve preventative and timely access to care (Pathways),[6],"[""The agreed objectives over the period August 2023 to March 2026 were: 1. Strengthen colleague and citizen engagement to improve health (People) 2. Create the conditions for sustainable change (Places) 3. Improve preventative and timely access to care (Pathways)""]",3546,5844.497,0,
+row_preserving,Q_2024_GOV_04,Grampian-2023-2024,LEX,[33],"[33, 131]",1,1,1,strict_correct,14 days,[33],"[""- In 2023/24, the average credit taken was 14 days (2022/23 15 days).""]",3726,4996.966,0,
+row_preserving,Q_2024_FIN_06,Grampian-2023-2024,STR,[26],"[26, 27]",1,0,1,saw_gold_but_answer_incorrect,97,[26],"[""Non-Core Revenue Resource Limit 1,489,048 1,488,951 97""]",3709,4439.586,0,
+row_preserving,Q_2024_IJB_03,Grampian-2023-2024,LEX,[25],"[24, 25]",1,0,0,did_not_identify_gold,,[],[],1167,4686.951,0,parse_or_generation_error
+row_preserving,Q_2024_FIN_01,Grampian-2023-2024,LEX,[26],"[26, 27]",1,0,0,did_not_identify_gold,"48,416",[26],"[""Core Revenue Resource Limit 48,416 48,416 0""]",3082,3999.676,0,
+row_preserving,Q_2024_FIN_02,Grampian-2023-2024,STR,"[26, 118]","[26, 27]",1,0,0,did_not_identify_gold,0,[26],"[""Core Revenue Resource Limit 48,416 48,416 0""]",3082,3815.571,1,
+row_preserving,Q_2025_FIN_02,Grampian-2024-2025,MOD,[28],"[28, 29]",1,1,1,strict_correct,"1,559,032",[28],"[""Core Revenue Resource Limit 1,559,285 1,559,032 253""]",3134,4225.367,0,
+row_preserving,Q_2025_FIN_P3,Grampian-2024-2025,STR,[29],"[29, 62]",1,0,0,did_not_identify_gold,,[],[],3681,5959.157,0,parse_or_generation_error
+row_preserving,Q_2025_FIN_06,Grampian-2024-2025,STR,[29],"[28, 29]",1,1,1,strict_correct,4.17%,[29],"[""Underlying Deficit against Core Revenue Resource Limit -64,947 4.17%""]",3134,4040.183,0,
+row_preserving,Q_2025_FIN_09,Grampian-2024-2025,LEX,[31],"[24, 31, 33]",1,1,1,strict_correct,£116 million,[31],"[""Net expenditure for the year was \u00a31,681 million (2023/24 \u00a31,565 million), an increase of \u00a3116 million from the prior year.""]",3587,4865.526,0,
+row_preserving,Q_2025_FIN_10,Grampian-2024-2025,STR,[28],"[28, 33]",1,1,1,strict_correct,"86,909",[28],"[""Core Capital Resource Limit 86,909 86,909 -""]",3148,4161.256,0,
+row_preserving,Q_2025_AE_P1,Grampian-2024-2025,MOD,[14],"[14, 18, 93]",1,0,0,did_not_identify_gold,,[],[],3058,6222.408,0,parse_or_generation_error
+row_preserving,Q_2025_PLAN_01,Grampian-2024-2025,STR,[30],"[30, 79]",1,0,0,did_not_identify_gold,,[],[],4319,5815.147,0,evidence_span_not_in_context
+row_preserving,Q_2025_STR_01,Grampian-2024-2025,LEX,[7],"[7, 62, 72]",1,0,0,did_not_identify_gold,,[],[],3938,5290.807,0,evidence_span_not_in_context
+row_preserving,Q_2025_IJB_04,Grampian-2024-2025,LEX,[27],"[26, 27]",1,1,1,strict_correct,£4.143 million,[27],"[""Moray IJB reported a deficit for the year of \u00a34.143 million (2023/24 deficit \u00a32.659 million).""]",1277,3246.534,0,
+row_preserving,Q_2025_DEL_03,Grampian-2024-2025,LEX,[11],"[11, 13, 16]",1,0,0,did_not_identify_gold,,[],[],3395,4710.165,0,evidence_span_not_in_context

@@ -1,0 +1,58 @@
+{
+  "schema_version": "3.0_hybrid",
+  "doc_id": "Grampian-2010-2011",
+  "corpus_id": "Grampian-2010-2011",
+  "report_year": "2010-2011",
+  "period_end_date": null,
+  "run_utc": "2026-02-25T10:55:37+00:00",
+  "git_commit_short": "1da05af",
+  "embedding_model": "sentence-transformers/all-MiniLM-L6-v2",
+  "counts": {
+    "pages_total": 78,
+    "pages_text": 51,
+    "pages_table": 27,
+    "sections_detected": 57,
+    "chunks_total": 144,
+    "chunks_text": 117,
+    "chunks_table": 27,
+    "tables_extracted": 0,
+    "table_facts": 0,
+    "ocr_raw_pages_detected": 78,
+    "ocr_raw_pages_accepted": 77,
+    "ocr_short_pages_triggered": 1,
+    "ocr_short_pages_accepted": 0,
+    "ocr_rejected_quality": 1
+  },
+  "derived": {
+    "chunks_per_page": 1.8461538461538463,
+    "tables_per_100_pages": 0.0,
+    "ocr_raw_acceptance_rate": 0.9871794871794872,
+    "ocr_short_acceptance_rate": 0.0,
+    "ocr_quality_reject_rate": 1.0
+  },
+  "timing": {
+    "time_unit": "seconds",
+    "time_text_extract_total": 210.518219,
+    "time_coord_strip_total": 0.001148,
+    "time_ocr_raw_total": 208.835264,
+    "time_total_wall": 212.873492
+  },
+  "params": {
+    "chunk_size_tokens": 320,
+    "chunk_overlap_tokens": 90,
+    "tokenizer_backend": "tiktoken",
+    "tokenizer_exact_counting": true,
+    "top_strip_frac": 0.08,
+    "bottom_strip_frac": 0.08,
+    "left_strip_frac": 0.08,
+    "right_strip_frac": 0.08,
+    "header_footer_repeat_frac": 0.4,
+    "min_chunk_words": 20,
+    "primary_extractor": "pymupdf",
+    "segment_aware_chunking": false,
+    "whole_doc_markdown_mode": false,
+    "markdown_header_carry_forward": true,
+    "markdown_table_injection": true
+  },
+  "table_types_detected": {}
+}

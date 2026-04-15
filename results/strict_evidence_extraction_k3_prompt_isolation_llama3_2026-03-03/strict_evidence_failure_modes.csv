@@ -1,0 +1,4 @@
+failure_mode,count,pct
+did_not_identify_gold,27,0.54
+strict_correct,21,0.42
+saw_gold_in_quote_but_answer_incorrect,2,0.04

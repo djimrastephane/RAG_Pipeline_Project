@@ -1,0 +1,4 @@
+page,extractor_notes,ocr_text_len,clean_text_len,ocr_quality_reject,ocr_low_text_density,ocr_high_symbol_ratio,ocr_repeated_garbage,ocr_low_line_count,ocr_symbol_ratio,ocr_alpha_word_count,ocr_non_empty_lines
+86,clean_text_short_used_ocr,7471.0,7447,False,False,False,True,False,0.00032289312237649337,1004.0,91.0
+171,clean_text_short_used_ocr,2585.0,2567,False,False,False,True,False,0.005571030640668524,396.0,38.0
+172,clean_text_short_used_ocr,1001.0,990,False,False,False,False,False,0.0048367593712212815,155.0,17.0

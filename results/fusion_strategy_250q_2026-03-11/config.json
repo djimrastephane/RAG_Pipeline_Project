@@ -1,0 +1,6 @@
+{
+  "k_out": 3,
+  "L_formula": "min(max(100, 20*k_out), corpus_size)",
+  "dense_weight": 0.5,
+  "rrf_k": 20
+}

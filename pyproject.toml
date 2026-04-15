@@ -1,0 +1,33 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "thesis-rag-pipeline"
+version = "0.1.0"
+description = "Deterministic retrieval-first RAG pipeline for thesis evaluation."
+requires-python = ">=3.11"
+dependencies = [
+  "numpy==1.26.4",
+  "pandas==2.3.3",
+  "pyarrow==23.0.0",
+  "pymupdf==1.26.7",
+  "pdfplumber==0.11.9",
+  "tiktoken==0.12.0",
+  "faiss-cpu==1.13.2",
+  "sentence-transformers==5.2.2",
+  "transformers==4.57.1",
+  "torch==2.5.1",
+  "rank-bm25==0.2.2",
+  "scikit-learn==1.5.2",
+  "PyYAML==6.0.3",
+  "pytesseract==0.3.13",
+  "pdf2image==1.17.0",
+  "pytest==8.3.5",
+]
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[tool.setuptools.packages.find]
+where = ["src"]

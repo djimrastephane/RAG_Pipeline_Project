@@ -6,7 +6,38 @@ A lightweight, local Retrieval-Augmented Generation (RAG) pipeline for PDF repor
 - Embedding + FAISS index build
 - Retrieval evaluation against a labeled question set
 
+## Thesis Refactor Path
+
+The repository now also includes a thesis-focused refactor under `src/thesis_rag/`. This path is designed for:
+
+- typed pipeline stages and YAML configuration
+- deterministic CPU-first retrieval runs
+- isolated `runs/<timestamp>_*` outputs with saved config, logs, and metrics
+- explicit dense, sparse, fused, and page-level evaluation artifacts
+- unit tests around chunking, page mapping, fusion, and metrics
+
+Thin CLI entrypoints:
+
+```bash
+python scripts/preprocess.py --config configs/thesis_rag.yaml
+python scripts/index.py --config configs/thesis_rag.yaml --chunks-path runs/<preprocess_run>/<DOC_ID>/chunks.parquet
+python scripts/retrieve.py --config configs/thesis_rag.yaml --chunk-metadata-path runs/<index_run>/chunk_metadata.parquet --faiss-index-path runs/<index_run>/faiss.index --query-set-path data/eval_set.json
+python scripts/evaluate.py --config configs/thesis_rag.yaml --dense-hits-path runs/<retrieve_run>/dense_page_hits.jsonl --sparse-hits-path runs/<retrieve_run>/bm25_page_hits.jsonl --hybrid-hits-path runs/<retrieve_run>/hybrid_page_hits.jsonl --query-set-path data/eval_set.json
+```
+
 The scripts are designed for reproducible, page-accurate retrieval on large reports (e.g., NHS annual reports).
+
+Parity status against the legacy pipeline has been checked on a fixed benchmark subset for `Grampian-2022-2023`.
+
+- Preprocessing counts are matched.
+- BM25 top-10 parity is matched on the checked subset.
+- Hybrid top-10 parity is matched on the checked subset.
+- Page-level retrieval metrics are matched on the checked subset.
+- One dense-only exact-order exception remains (`Q_2023_FIN_07`), despite identical candidate chunk vectors and matched eval-set provenance.
+
+See [docs/experiments/thesis_refactor_parity_note.md](docs/experiments/thesis_refactor_parity_note.md) and the final parity run [runs/parity_validation/manual_2026-04-15_grampian_subset10_fix10b](runs/parity_validation/manual_2026-04-15_grampian_subset10_fix10b).
+
+Accepted switch criteria for the thesis refactor were: fixed-subset parity checks against the legacy pipeline, exact BM25 and hybrid top-10 agreement on that subset, matched page-level `Hit@1`, `Hit@3`, and `MRR`, a documented forensic review of the one remaining dense-only discrepancy (`Q_2023_FIN_07`), and a clean end-to-end smoke test of `preprocess.py`, `index.py`, `retrieve.py`, and `evaluate.py` in the pinned `rag-pipeline` environment. On that basis, `src/thesis_rag/` is the maintained pipeline for thesis experiments, with the legacy path retained only as an archived reference baseline.
 
 ## Project Structure
 
@@ -77,10 +108,30 @@ Environment policy:
 - `metrics.json` and retrieval output `run_info` now record runtime provenance and dependency status so runs can be audited later.
 - Repo-launched Python processes set `MPLCONFIGDIR` to a writable project-local cache under `.cache/matplotlib` to avoid Matplotlib cache permission issues.
 
+Known warnings on macOS:
+
+- `RequestsDependencyWarning` from `requests` may appear in this environment; it has been non-blocking in the validated smoke runs.
+- `CryptographyDeprecationWarning` from `pypdf` may appear during PDF-related stages; it has also been non-blocking in the validated smoke runs.
+- On macOS, the thesis CLI sets `KMP_DUPLICATE_LIB_OK=TRUE` for the FAISS/Torch stages to avoid duplicate OpenMP runtime aborts in this environment.
+
+Windows setup notes:
+
+- The refactored pipeline is designed to be cross-platform, but Windows should be treated as supported only after a local smoke test with `preprocess.py`, `index.py`, `retrieve.py`, and `evaluate.py`.
+- `faiss-cpu` publishes Windows wheels, so dense retrieval is feasible on Windows with the pinned Python 3.11 environment.
+- OCR and table extraction depend on external binaries. On Windows, make sure these executables are installed and either available on `PATH` or referenced explicitly in your environment:
+  - Tesseract OCR: commonly `C:\Program Files\Tesseract-OCR\tesseract.exe`
+  - Ghostscript console binary: commonly `C:\Program Files\gs\gs<version>\bin\gswin64c.exe`
+  - Poppler tools for `pdf2image`: commonly `C:\poppler\Library\bin\pdftoppm.exe` or `C:\poppler\bin\pdftoppm.exe`
+- If `pytesseract` cannot find Tesseract, set `pytesseract.pytesseract.tesseract_cmd` to the full `tesseract.exe` path. The `pytesseract` project documents this usage pattern directly.
+- If `pdf2image` cannot find Poppler, add the Poppler `bin` directory to `PATH` or pass `poppler_path` explicitly. The `pdf2image` documentation notes this requirement for Windows.
+- For Ghostscript, the command-line executable to validate is `gswin64c.exe`; Ghostscript documents this as the normal Windows command prompt binary.
+- After installing those tools, run `python scripts/check_environment.py --strict` before attempting a full pipeline run on Windows.
+
 Core runtime policy:
 
 - The active pipeline does not require Docling.
 - Docling is used only for optional A/B benchmarking in `scripts/benchmark_table_extractors.py`.
+- `umap-learn` is not part of the canonical thesis runtime; install it separately only if you need `scripts/export_wizmap_umap.py` or other embedding-visualization analysis helpers.
 
 ## Configuration
 
@@ -212,6 +263,26 @@ Outputs:
 - `retrieval_report.csv` (metrics by doc/k)
 - `retrieval_queries_report.csv` (per-query details)
 - `retrieval_failure_summary.csv` (one-row failure counts)
+
+## Demo UI
+
+Start the API:
+
+```bash
+bash scripts/run_api_demo.sh
+```
+
+Start the current Streamlit UI:
+
+```bash
+bash scripts/run_streamlit_demo.sh current
+```
+
+Start the preserved legacy Streamlit UI:
+
+```bash
+bash scripts/run_streamlit_demo.sh legacy
+```
 
 ## Failure Taxonomy (Evaluation)
 

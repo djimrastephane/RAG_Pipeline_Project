@@ -183,6 +183,27 @@ def parse_args() -> argparse.Namespace:
         help="Directory containing faiss.index, chunk_meta.parquet, chunks.parquet, eval_set.json.",
     )
     parser.add_argument(
+        "--scope",
+        choices=("doc", "global"),
+        default=_env_or_default("RETRIEVAL_EVAL_SCOPE", "doc"),
+        help="Evaluate against the selected document only or a global corpus built from multiple document directories.",
+    )
+    parser.add_argument(
+        "--corpus-root",
+        default=_env_or_default("RETRIEVAL_EVAL_CORPUS_ROOT", ""),
+        help="Root containing multiple per-document artifact directories when --scope=global. Defaults to data-dir parent.",
+    )
+    parser.add_argument(
+        "--eval-set-path",
+        default=_env_or_default("EVAL_SET_PATH", ""),
+        help="Optional override path for eval_set.json.",
+    )
+    parser.add_argument(
+        "--output-dir",
+        default=_env_or_default("RETRIEVAL_EVAL_OUTPUT_DIR", ""),
+        help="Optional output directory. Defaults to data-dir.",
+    )
+    parser.add_argument(
         "--model",
         default=_env_or_default("EMBED_MODEL_NAME", EMBED_MODEL_NAME),
         help="Sentence-transformers model name or local path.",
@@ -377,33 +398,53 @@ def get_doc_ids(df: pd.DataFrame) -> list[str]:
     return ["" for _ in range(len(df))]
 
 
-def recall_at_k(expected_pages: set[int], retrieved_pages: list[int]) -> float:
-    if not expected_pages:
+def recall_at_k(expected_items: set[Any], retrieved_items: list[Any]) -> float:
+    if not expected_items:
         return 0.0
-    return 1.0 if expected_pages.intersection(set(retrieved_pages)) else 0.0
+    return 1.0 if expected_items.intersection(set(retrieved_items)) else 0.0
 
 
-def precision_at_k(expected_pages: set[int], retrieved_pages: list[int]) -> float:
-    if not expected_pages or not retrieved_pages:
+def precision_at_k(expected_items: set[Any], retrieved_items: list[Any]) -> float:
+    if not expected_items or not retrieved_items:
         return 0.0
-    hits = sum(1 for p in retrieved_pages if p in expected_pages)
-    return hits / len(retrieved_pages)
+    hits = sum(1 for item in retrieved_items if item in expected_items)
+    return hits / len(retrieved_items)
 
 
-def mrr_for_pages(expected_pages: set[int], ranked_pages: list[int]) -> float:
-    if not expected_pages:
+def mrr_for_pages(expected_items: set[Any], ranked_items: list[Any]) -> float:
+    if not expected_items:
         return 0.0
-    for i, p in enumerate(ranked_pages, start=1):
-        if p in expected_pages:
+    for i, item in enumerate(ranked_items, start=1):
+        if item in expected_items:
             return 1.0 / i
     return 0.0
 
 
-def chunk_hit_flags(expected_pages: set[int], retrieved_chunks: pd.DataFrame) -> list[int]:
+def expected_doc_page_pairs(expected_doc_id: str, expected_pages: set[int]) -> set[tuple[str, int]]:
+    if not expected_doc_id:
+        return set()
+    return {(expected_doc_id, int(page)) for page in expected_pages}
+
+
+def ranked_doc_page_pairs(retrieved_chunks: pd.DataFrame) -> list[tuple[str, int]]:
+    pairs: list[tuple[str, int]] = []
+    for _, row in retrieved_chunks.iterrows():
+        doc_id = str(row.get("doc_id") or "")
+        for page in get_retrieved_pages(row):
+            pairs.append((doc_id, int(page)))
+    return unique_preserve_order(pairs)
+
+
+def chunk_hit_flags(expected_doc_id: str, expected_pages: set[int], retrieved_chunks: pd.DataFrame) -> list[int]:
     flags: list[int] = []
+    expected_pairs = expected_doc_page_pairs(expected_doc_id, expected_pages)
     for _, r in retrieved_chunks.iterrows():
+        doc_id = str(r.get("doc_id") or "")
         pages = get_retrieved_pages(r)
-        flags.append(1 if expected_pages.intersection(set(pages)) else 0)
+        if expected_pairs:
+            flags.append(1 if any((doc_id, int(page)) in expected_pairs for page in pages) else 0)
+        else:
+            flags.append(1 if expected_pages.intersection(set(pages)) else 0)
     return flags
 
 
@@ -441,25 +482,79 @@ def l2_normalize(x: np.ndarray, eps: float = 1e-12) -> np.ndarray:
     return x / (norms + eps)
 
 
+def _load_doc_tables(chunks_path: Path, meta_path: Path, doc_id: str) -> tuple[pd.DataFrame, pd.DataFrame]:
+    meta = pd.read_parquet(meta_path)
+    chunks = pd.read_parquet(chunks_path)
+    if "doc_id" not in meta.columns:
+        meta["doc_id"] = doc_id
+    else:
+        meta["doc_id"] = meta["doc_id"].fillna(doc_id).astype(str)
+    if "doc_id" not in chunks.columns:
+        chunks["doc_id"] = doc_id
+    else:
+        chunks["doc_id"] = chunks["doc_id"].fillna(doc_id).astype(str)
+    return meta, chunks
+
+
+def load_corpus_artifacts(scope: str, data_dir: Path, corpus_root: Path | None) -> tuple[pd.DataFrame, pd.DataFrame, faiss.Index]:
+    if scope == "doc":
+        meta, chunks = _load_doc_tables(data_dir / "chunks.parquet", data_dir / "chunk_meta.parquet", data_dir.name)
+        index = faiss.read_index(str(data_dir / "faiss.index"))
+        return meta, chunks, index
+
+    root = corpus_root or data_dir.parent
+    if not root.exists():
+        raise FileNotFoundError(f"Missing corpus root: {root}")
+
+    metas: list[pd.DataFrame] = []
+    chunks_frames: list[pd.DataFrame] = []
+    embeddings: list[np.ndarray] = []
+    doc_dirs = sorted(
+        [
+            p
+            for p in root.iterdir()
+            if p.is_dir()
+            and (p / "faiss.index").exists()
+            and (p / "chunk_meta.parquet").exists()
+            and (p / "chunks.parquet").exists()
+            and (p / "embeddings.npy").exists()
+        ]
+    )
+    if not doc_dirs:
+        raise FileNotFoundError(f"No global-ready doc artifact directories found under {root}")
+
+    for doc_dir in doc_dirs:
+        meta, chunks = _load_doc_tables(doc_dir / "chunks.parquet", doc_dir / "chunk_meta.parquet", doc_dir.name)
+        metas.append(meta)
+        chunks_frames.append(chunks)
+        embeddings.append(np.load(doc_dir / "embeddings.npy").astype("float32"))
+
+    meta_all = pd.concat(metas, ignore_index=True)
+    chunks_all = pd.concat(chunks_frames, ignore_index=True)
+    emb_all = l2_normalize(np.vstack(embeddings).astype("float32")).astype("float32")
+    index = faiss.IndexFlatIP(int(emb_all.shape[1]))
+    index.add(emb_all)
+    return meta_all, chunks_all, index
+
+
 def main() -> None:
     args = parse_args()
     set_bm25_tokenizer_variant(str(args.bm25_tokenizer))
     data_dir = Path(args.data_dir).resolve()
-    index_path = data_dir / "faiss.index"
-    meta_path = data_dir / "chunk_meta.parquet"
-    chunks_path = data_dir / "chunks.parquet"
-    eval_set_path = data_dir / "eval_set.json"
-    if not index_path.exists():
-        raise FileNotFoundError(f"Missing file: {index_path}")
-    if not meta_path.exists():
-        raise FileNotFoundError(f"Missing file: {meta_path}")
-    if not chunks_path.exists():
-        raise FileNotFoundError(f"Missing file: {chunks_path}")
+    scope = str(args.scope).strip().lower()
+    corpus_root = Path(args.corpus_root).resolve() if str(args.corpus_root).strip() else None
+    eval_set_path = Path(args.eval_set_path).resolve() if str(args.eval_set_path).strip() else (data_dir / "eval_set.json")
+    output_dir = Path(args.output_dir).resolve() if str(args.output_dir).strip() else data_dir
+    if not (data_dir / "chunk_meta.parquet").exists():
+        raise FileNotFoundError(f"Missing file: {data_dir / 'chunk_meta.parquet'}")
+    if not (data_dir / "chunks.parquet").exists():
+        raise FileNotFoundError(f"Missing file: {data_dir / 'chunks.parquet'}")
+    if scope == "doc" and not (data_dir / "faiss.index").exists():
+        raise FileNotFoundError(f"Missing file: {data_dir / 'faiss.index'}")
     if not eval_set_path.exists():
         raise FileNotFoundError(f"Missing file: {eval_set_path}")
 
-    meta = pd.read_parquet(meta_path)
-    chunks = pd.read_parquet(chunks_path)
+    meta, chunks, index = load_corpus_artifacts(scope=scope, data_dir=data_dir, corpus_root=corpus_root)
     eval_obj = json.loads(eval_set_path.read_text(encoding="utf-8"))
     if isinstance(eval_obj, list):
         eval_items = eval_obj
@@ -480,7 +575,6 @@ def main() -> None:
 
     # Dense resources
     model = SentenceTransformer(str(args.model), device=resolve_torch_device(args.device))
-    index = faiss.read_index(str(index_path))
     questions = [str(x.get("question", "")).strip() for x in eval_items]
     q_emb = model.encode(
         questions,
@@ -609,12 +703,19 @@ def main() -> None:
             for _, r in retrieved_chunks.iterrows():
                 ranked_pages.extend(get_retrieved_pages(r))
             ranked_pages_unique = unique_preserve_order(ranked_pages)
+            ranked_doc_pages = ranked_doc_page_pairs(retrieved_chunks)
+            expected_doc_pages = expected_doc_page_pairs(expected_doc_id, expected_pages)
 
-            page_recall = recall_at_k(expected_pages, ranked_pages_unique)
-            page_precision = precision_at_k(expected_pages, ranked_pages_unique)
-            page_mrr = mrr_for_pages(expected_pages, ranked_pages_unique)
+            if expected_doc_pages:
+                page_recall = recall_at_k(expected_doc_pages, ranked_doc_pages)
+                page_precision = precision_at_k(expected_doc_pages, ranked_doc_pages)
+                page_mrr = mrr_for_pages(expected_doc_pages, ranked_doc_pages)
+            else:
+                page_recall = recall_at_k(expected_pages, ranked_pages_unique)
+                page_precision = precision_at_k(expected_pages, ranked_pages_unique)
+                page_mrr = mrr_for_pages(expected_pages, ranked_pages_unique)
 
-            flags = chunk_hit_flags(expected_pages, retrieved_chunks)
+            flags = chunk_hit_flags(expected_doc_id, expected_pages, retrieved_chunks)
             c_hit = chunk_hit_at_k(flags)
             c_prec = chunk_precision_at_k(flags)
             c_mrr = chunk_mrr(flags)
@@ -622,10 +723,11 @@ def main() -> None:
             failure_stage = "hit" if page_recall >= 1.0 else "missed_top_ranked"
 
             per_k[str(k)] = {
-                "retrieved_chunk_ids": retrieved_chunk_ids,
-                "retrieved_doc_ids_top_k": retrieved_doc_ids,
-                "retrieved_pages_ranked": ranked_pages_unique,
-                "retrieved_scores": top_scores,
+                    "retrieved_chunk_ids": retrieved_chunk_ids,
+                    "retrieved_doc_ids_top_k": retrieved_doc_ids,
+                    "retrieved_pages_ranked": ranked_pages_unique,
+                    "retrieved_doc_pages_ranked": ranked_doc_pages,
+                    "retrieved_scores": top_scores,
                 "page_recall_at_k": float(page_recall),
                 "page_precision_at_k": float(page_precision),
                 "page_mrr_at_k": float(page_mrr),
@@ -695,6 +797,10 @@ def main() -> None:
         "run_info": {
             "run_utc": utc_now_iso(),
             "data_dir": str(data_dir),
+            "output_dir": str(output_dir),
+            "scope": scope,
+            "corpus_root": str(corpus_root or data_dir.parent),
+            "eval_set_path": str(eval_set_path),
             "method": "hybrid_rrf_dense_bm25",
             "runtime": collect_runtime_provenance(),
             "critical_environment_checks": critical_environment_checks(),
@@ -755,9 +861,10 @@ def main() -> None:
         "answer_status_counts": {},
     }
 
-    results_json = data_dir / RESULTS_JSON.name
-    metrics_json = data_dir / METRICS_JSON.name
-    summary_csv = data_dir / SUMMARY_CSV.name
+    output_dir.mkdir(parents=True, exist_ok=True)
+    results_json = output_dir / RESULTS_JSON.name
+    metrics_json = output_dir / METRICS_JSON.name
+    summary_csv = output_dir / SUMMARY_CSV.name
     write_json(results_json, {"run_info": metrics["run_info"], "results": results})
     write_json(metrics_json, metrics)
     df_sum.to_csv(summary_csv, index=False)

@@ -24,7 +24,7 @@ from generation.constrained_extraction import run_constrained_extraction
 from rag_pdf.services.local_llm_service import LocalLLMService
 
 
-ARMS = ["baseline", "row_preserving", "two_stage"]
+ARMS = ["baseline", "row_preserving", "two_stage", "row_blocks"]
 RRF_K = 20
 RRF_DENSE_WEIGHT = 0.5
 RRF_BM25_WEIGHT = 2.0
@@ -413,7 +413,8 @@ def _run_arm(
     }
     retrieval_hash = _hash_retrieval_cfg(retrieval_cfg)
 
-    for _, r in sample_df.iterrows():
+    total_queries = len(sample_df)
+    for idx, (_, r) in enumerate(sample_df.iterrows(), start=1):
         doc_id = str(r["doc_id"])
         query_id = str(r["query_id"])
         question = str(r["question"])
@@ -489,6 +490,10 @@ def _run_arm(
             }
         )
 
+        if idx % 5 == 0 or idx == total_queries:
+            pd.DataFrame(rows).to_csv(arm_root / "per_query_results.csv", index=False)
+            print(f"[{arm}] completed {idx}/{total_queries} queries")
+
     per_query = pd.DataFrame(rows)
     per_query.to_csv(arm_root / "per_query_results.csv", index=False)
 
@@ -558,7 +563,7 @@ def main() -> None:
 
     warnings: list[str] = []
     hit_baseline = float(arm_summaries["baseline"]["metrics_all"]["hit_at_3"])
-    for arm in ["row_preserving", "two_stage"]:
+    for arm in [a for a in ARMS if a != "baseline"]:
         hit = float(arm_summaries[arm]["metrics_all"]["hit_at_3"])
         if abs(hit - hit_baseline) > 0.05:
             msg = (
@@ -595,7 +600,7 @@ def main() -> None:
 
     paired_tests: dict[str, Any] = {}
     paired_bootstrap: dict[str, Any] = {}
-    comparisons = [("baseline", "row_preserving"), ("baseline", "two_stage")]
+    comparisons = [("baseline", arm) for arm in ARMS if arm != "baseline"]
     for scope_name in ["all", "table_query"]:
         paired_tests[scope_name] = {}
         paired_bootstrap[scope_name] = {}

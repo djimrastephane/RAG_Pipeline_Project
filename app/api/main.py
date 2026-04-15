@@ -379,6 +379,10 @@ def get_eval_items(
                 "query_id": item.get("query_id"),
                 "question": item.get("question"),
                 "expected_pages": item.get("expected_pages", []),
+                "expected_answer": item.get("expected_answer"),
+                "answer_type": item.get("answer_type"),
+                "difficulty": item.get("difficulty"),
+                "evidence_layout": item.get("evidence_layout"),
             }
         )
     return {"items": out}

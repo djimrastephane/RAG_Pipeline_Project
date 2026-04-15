@@ -1,3 +1,13 @@
+"""
+Preprocess thesis PDFs into page-, section-, and chunk-level artifacts for the
+final hybrid retrieval pipeline.
+
+This script is the main entrypoint for document preprocessing. It runs page
+extraction, cleaning, OCR fallback checks, section inference, table handling,
+and chunk generation, then writes the canonical per-document outputs used by
+indexing and retrieval evaluation.
+"""
+
 from __future__ import annotations
 
 from typing import Optional

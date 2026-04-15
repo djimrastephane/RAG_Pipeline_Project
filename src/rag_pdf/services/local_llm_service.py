@@ -35,6 +35,24 @@ class LocalLLMService:
         self.top_p = float(os.getenv("LOCAL_LLM_TOP_P", "0.9"))
         self.max_tokens = int(os.getenv("LOCAL_LLM_MAX_TOKENS", "220"))
 
+    def _request_json(
+        self,
+        *,
+        path: str,
+        payload: dict,
+        timeout: float,
+    ) -> dict:
+        url = f"{self.base_url}{path}"
+        req = urllib.request.Request(
+            url=url,
+            data=json.dumps(payload).encode("utf-8"),
+            headers={"Content-Type": "application/json"},
+            method="POST",
+        )
+        with urllib.request.urlopen(req, timeout=timeout) as resp:
+            body = resp.read().decode("utf-8", errors="replace")
+        return json.loads(body)
+
     def generate(self, prompt: str, timeout_seconds: Optional[float] = None) -> LocalGenerationResult:
         if not self.enabled:
             return LocalGenerationResult(
@@ -55,19 +73,23 @@ class LocalLLMService:
                 "num_predict": int(self.max_tokens),
             },
         }
-        url = f"{self.base_url}/api/generate"
-        req = urllib.request.Request(
-            url=url,
-            data=json.dumps(payload).encode("utf-8"),
-            headers={"Content-Type": "application/json"},
-            method="POST",
-        )
         timeout = float(timeout_seconds) if timeout_seconds is not None else float(self.timeout_seconds)
         try:
-            with urllib.request.urlopen(req, timeout=timeout) as resp:
-                body = resp.read().decode("utf-8", errors="replace")
-            parsed = json.loads(body)
+            parsed = self._request_json(path="/api/generate", payload=payload, timeout=timeout)
             answer = str(parsed.get("response") or "").strip()
+            if not answer:
+                # Some Ollama models expose usable content on /api/chat even when /api/generate
+                # returns an empty "response" field.
+                chat_payload = {
+                    "model": self.model,
+                    "messages": [{"role": "user", "content": str(prompt)}],
+                    "stream": False,
+                    "options": payload["options"],
+                }
+                parsed = self._request_json(path="/api/chat", payload=chat_payload, timeout=timeout)
+                message = parsed.get("message") if isinstance(parsed, dict) else None
+                if isinstance(message, dict):
+                    answer = str(message.get("content") or "").strip()
             if not answer:
                 return LocalGenerationResult(
                     answer=None,

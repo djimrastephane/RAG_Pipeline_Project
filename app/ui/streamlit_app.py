@@ -250,6 +250,76 @@ st.markdown(
         padding: 0.75rem 0.85rem;
         margin-bottom: 0.75rem;
       }
+      .paper-panel {
+        border: 1px solid rgba(208, 221, 240, 0.55);
+        border-radius: 10px;
+        background: #f8fbff;
+        color: #162232;
+        padding: 0.95rem 1rem;
+        margin: 0.4rem 0 1rem 0;
+        box-shadow: 0 10px 22px rgba(4, 10, 18, 0.18);
+      }
+      .paper-panel-title {
+        font-family: "Space Grotesk", "Manrope", sans-serif;
+        font-size: 0.92rem;
+        font-weight: 700;
+        color: #132235;
+        margin-bottom: 0.45rem;
+      }
+      .paper-context-box {
+        border: 1px solid rgba(27, 41, 58, 0.45);
+        background: #ffffff;
+        border-radius: 8px;
+        padding: 0.7rem 0.8rem;
+        font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+        font-size: 0.82rem;
+        line-height: 1.48;
+        color: #1d2b3a;
+        white-space: pre-wrap;
+      }
+      .paper-answer-box {
+        display: inline-block;
+        min-width: 280px;
+        border: 1px solid rgba(27, 41, 58, 0.45);
+        background: #ffffff;
+        border-radius: 8px;
+        padding: 0.5rem 0.65rem;
+        font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+        font-size: 0.82rem;
+        color: #1d2b3a;
+      }
+      .paper-label {
+        font-size: 0.78rem;
+        font-weight: 700;
+        color: #22364d;
+        margin: 0 0 0.22rem 0;
+      }
+      .paper-caption {
+        margin-top: 0.62rem;
+        color: #33465e;
+        font-size: 0.78rem;
+        line-height: 1.45;
+      }
+      .paper-doc-hit {
+        font-weight: 700;
+      }
+      .paper-status {
+        margin-top: 0.62rem;
+        padding: 0.48rem 0.6rem;
+        border-radius: 8px;
+        font-size: 0.78rem;
+        line-height: 1.4;
+      }
+      .paper-status-warn {
+        background: rgba(140, 71, 71, 0.12);
+        border: 1px solid rgba(145, 67, 67, 0.28);
+        color: #6d2f2f;
+      }
+      .paper-status-ok {
+        background: rgba(66, 125, 91, 0.13);
+        border: 1px solid rgba(66, 125, 91, 0.28);
+        color: #25543a;
+      }
       .chunk-meta {
         color: var(--muted);
         font-size: 0.78rem;
@@ -408,6 +478,93 @@ def _render_token_sequence_html(
             cls += " tok-overlap-next"
         spans.append(f"<span class='{cls}'>{escape(str(token)).replace(' ', '&nbsp;')}</span>")
     return "<div class='token-stream'>" + "".join(spans) + "</div>"
+
+
+def _truncate_paper_text(text: object, limit: int = 220) -> str:
+    """Trim long snippet text for the paper-style preview panel."""
+    raw = re.sub(r"\s+", " ", str(text or "")).strip()
+    if len(raw) <= limit:
+        return raw
+    return raw[: max(0, limit - 3)].rstrip() + "..."
+
+
+def _build_paper_style_prompt_panel(
+    *,
+    question: str,
+    expected_answer: str,
+    results: list[dict],
+    retrieved_answer: str = "",
+) -> str:
+    """Render a paper-style prompt/answer example panel from current query context."""
+    blocks = [
+        "Write a high-quality answer for the given question using only the provided search results (some of which might be irrelevant).",
+        "",
+    ]
+    expected_norm = str(expected_answer or "").strip().lower()
+    for idx, result in enumerate(results[:3], start=1):
+        snippet = _truncate_paper_text(result.get("chunk_text") or result.get("snippet") or "")
+        title_bits = []
+        section = str(result.get("section_title") or "").strip()
+        subsection = str(result.get("subsection_title") or "").strip()
+        if section:
+            title_bits.append(section)
+        if subsection and subsection.lower() != section.lower():
+            title_bits.append(subsection)
+        title_text = " / ".join(title_bits) if title_bits else _short_chunk_name(str(result.get("chunk_id") or f"chunk_{idx}"))
+        line = f"Document [{idx}] [Title: {title_text}] {snippet}"
+        if expected_norm and expected_norm in str(snippet).lower():
+            line = f"<span class='paper-doc-hit'>{escape(line)}</span>"
+        else:
+            line = escape(line)
+        blocks.append(line)
+    blocks.extend(
+        [
+            "",
+            f"Question: {escape(str(question or '').strip())}",
+            "Answer:",
+        ]
+    )
+    context_html = "<br>".join(blocks)
+    answer_text = escape(str(expected_answer or "").strip()) or "Not available for the selected query."
+    retrieved_text = str(retrieved_answer or "").strip()
+    status_html = ""
+    if not results:
+        status_html = (
+            "<div class='paper-status paper-status-warn'>"
+            "Run Search to populate the input context from live retrieval results."
+            "</div>"
+        )
+    elif expected_answer and retrieved_text:
+        expected_norm = re.sub(r"\s+", " ", str(expected_answer).strip().lower())
+        retrieved_norm = re.sub(r"\s+", " ", retrieved_text.lower())
+        if expected_norm and expected_norm in retrieved_norm:
+            status_html = (
+                "<div class='paper-status paper-status-ok'>"
+                "Live retrieval answer matches the selected gold answer."
+                "</div>"
+            )
+        else:
+            status_html = (
+                "<div class='paper-status paper-status-warn'>"
+                f"Live retrieval currently disagrees with the selected gold answer. "
+                f"Retrieved answer: <strong>{escape(retrieved_text)}</strong>"
+                "</div>"
+            )
+    return f"""
+    <div class="paper-panel">
+      <div class="paper-panel-title">Paper-Style Prompt Example</div>
+      <div class="paper-label">Input Context</div>
+      <div class="paper-context-box">{context_html}</div>
+      <div style="margin-top:0.7rem;">
+        <div class="paper-label">Desired Answer</div>
+        <div class="paper-answer-box">{answer_text}</div>
+      </div>
+      {status_html}
+      <div class="paper-caption">
+        Illustration only. This panel mirrors the paper-style multi-document QA prompt format using the current query and retrieved context.
+      </div>
+    </div>
+    """
 
 
 def _load_page_chunk_inspector(api_base: str, doc_id: str, page_no: int) -> dict:
@@ -1246,6 +1403,31 @@ with tabs[0]:
     if selected_demo_qid and selected_demo_qid in query_id_options:
         default_qid_idx = query_id_options.index(selected_demo_qid)
     query_id = st.selectbox("Optional query_id", options=query_id_options, index=default_qid_idx)
+    selected_eval_item = next((item for item in eval_items if str(item.get("query_id") or "") == str(query_id or "")), None)
+    if selected_eval_item is None and question.strip():
+        selected_eval_item = next((item for item in eval_items if str(item.get("question") or "").strip() == question.strip()), None)
+    last = st.session_state.get("last_search")
+    panel_results = []
+    panel_retrieved_answer = ""
+    if isinstance(last, dict) and str(last.get("question") or "").strip() == question.strip():
+        panel_results = list(last.get("results") or [])
+        panel_retrieved_answer = str(
+            last.get("generated_answer")
+            or last.get("predicted_answer")
+            or ""
+        ).strip()
+    panel_expected_answer = ""
+    if isinstance(selected_eval_item, dict):
+        panel_expected_answer = str(selected_eval_item.get("expected_answer") or "").strip()
+    st.markdown(
+        _build_paper_style_prompt_panel(
+            question=question,
+            expected_answer=panel_expected_answer,
+            results=panel_results,
+            retrieved_answer=panel_retrieved_answer,
+        ),
+        unsafe_allow_html=True,
+    )
     include_generated_answer = st.toggle("Generate answer (Local LLM)", value=False)
     with st.expander("Generation context controls (live)", expanded=False):
         gen_max_context_chunks = st.slider("Max context chunks", 1, 20, 5, 1)

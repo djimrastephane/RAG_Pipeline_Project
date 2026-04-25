@@ -13,6 +13,7 @@ import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 matplotlib.rcParams['axes.titlelocation'] = 'left'
+plt.rcParams["axes.prop_cycle"] = plt.cycler(color=["#0072B2", "#D55E00", "#009E73"])
 import matplotlib.ticker as mticker
 import numpy as np
 

@@ -37,7 +37,7 @@ DOCS = [
 ]
 CFG_DIR = "minilmcap_{doc_id}_chunk_224_56"
 
-N_BOOT = 5000
+N_BOOT = 10000
 SEED   = 42
 MRR_K  = 10
 WEAKEST_COHORT = "2022-2023"
@@ -183,7 +183,7 @@ def main() -> None:
     fig.patch.set_facecolor("white")
     fig.suptitle(
         "Paired Bootstrap Retrieval Comparison — Grampian Cohorts\n"
-        r"Bootstrap $n$ = 5,000; $p < 0.05$ → 50 per cohort; orange/red markers indicate cohorts where the 95% CI excludes zero",
+        r"Bootstrap $n$ = 10,000; $p < 0.05$ → 50 per cohort; orange/red markers indicate cohorts where the 95% CI excludes zero",
         fontsize=9, y=1.02,
     )
 

@@ -510,7 +510,8 @@ def main() -> None:
         cid = str(r.get("chunk_id_global") or r.get("chunk_id") or "")
         corpus_texts.append(text_by_id.get(cid, ""))
     bm25 = BM25Index([tokenize(t) for t in corpus_texts], k1=float(args.bm25_k1), b=float(args.bm25_b))
-    cross_encoder = CrossEncoder(str(args.cross_encoder_model)) if enable_cross_encoder_rerank else None
+    _ce_device = os.environ.get("CE_DEVICE") or None
+    cross_encoder = CrossEncoder(str(args.cross_encoder_model), device=_ce_device) if enable_cross_encoder_rerank else None
     rerank_cfg = RerankConfig(
         table_chunk_boost=TABLE_CHUNK_BOOST,
         entity_match_boost=ENTITY_MATCH_BOOST,

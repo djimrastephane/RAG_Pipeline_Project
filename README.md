@@ -163,6 +163,28 @@ bash scripts/run_streamlit_demo.sh
 
 ---
 
+## Diagnostic UI
+
+> **This UI is a retrieval-reliability workbench for diagnosis only — it is not an end-user product.** It exists to upload and inspect processed reports, run controlled retrieval checks, and diagnose ranking behaviour during development and evaluation. It surfaces internal pipeline state (chunk metadata, RRF scores, table-boost decisions, embedding projections, generation debug fields) that would be irrelevant or confusing to an end user asking questions of an annual report.
+
+![RAG Retrieval Debug UI](docs/ui_screenshots/ui_debug_workbench.png)
+
+The Streamlit app (`app/ui/streamlit_app.py`) is organised around a single document at a time, with tabs for:
+
+| Tab | Purpose |
+|---|---|
+| **Retrieval** | Run a query through the live hybrid pipeline and inspect ranked chunks, RRF scores, and the generated answer with citations |
+| **Tables** | Browse extracted table chunks for the selected document |
+| **Chunk Inspector** | View raw chunk text, section context, and token counts |
+| **Failure Audit** | Compare retrieved vs. expected pages against the eval set, broken down by failure type (FP1–FP4) |
+| **Embedding Diagnostics** | UMAP/Wizmap projections of chunk embeddings to visually inspect clustering and outliers |
+| **Run Info** | Pipeline configuration, chunking parameters, and indexing metadata for the loaded run |
+| **Pipeline Architecture** | Static reference diagrams of the preprocessing, indexing, and retrieval stages |
+
+Sidebar **Demo Controls** (`Examiner Mode`, `Show Diagnostics`, `Prefer Table Chunks`, `Top-K`) let you toggle between a simplified walkthrough view and the full diagnostic surface, and re-run retrieval with different fusion settings without restarting the API.
+
+---
+
 ## API
 
 The FastAPI service at `app/api/main.py` exposes:

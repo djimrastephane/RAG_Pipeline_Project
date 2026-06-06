@@ -982,7 +982,8 @@ def _current_wizmap_id_set(data_root_str: str, doc_id: str) -> set[str]:
     live = _load_embedding_artifacts(str(data_root_str), str(doc_id))
     if not bool(live.get("ok")):
         return set()
-    meta = pd.DataFrame(live.get("meta") or [])
+    _raw_meta = live.get("meta")
+    meta = _raw_meta if isinstance(_raw_meta, pd.DataFrame) else pd.DataFrame(_raw_meta or [])
     for col in ("chunk_id_global", "chunk_id"):
         if col in meta.columns:
             vals = {

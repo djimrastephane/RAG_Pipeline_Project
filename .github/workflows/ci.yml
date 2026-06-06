@@ -27,6 +27,7 @@ jobs:
             rank-bm25==0.2.2 \
             scikit-learn==1.5.2 \
             PyYAML==6.0.3 \
+            pdfplumber==0.11.9 \
             pytest==8.3.5
           pip install --no-cache-dir -e . --no-deps
 

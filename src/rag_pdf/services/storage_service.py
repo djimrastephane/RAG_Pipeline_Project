@@ -150,6 +150,16 @@ class StorageService:
                 return [x for x in queries if isinstance(x, dict)]
         return []
 
+    def read_eval_meta(self, doc_id: str) -> dict[str, Any]:
+        """Return the _meta block from eval_set.json (label_type, description, etc)."""
+        path = self.doc_dir(doc_id) / "eval_set.json"
+        if not path.exists():
+            return {}
+        obj = json.loads(path.read_text(encoding="utf-8"))
+        if isinstance(obj, dict):
+            return obj.get("_meta", {}) or {}
+        return {}
+
     def read_doc_stats(self, doc_id: str) -> dict[str, Any]:
         """Compute page/chunk counts from parquet artifacts."""
         doc_dir = self.doc_dir(doc_id)

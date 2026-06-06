@@ -16,7 +16,7 @@ import threading
 from collections import defaultdict, deque
 from urllib.parse import urlparse
 
-tlogging.basicConfig(
+logging.basicConfig(
     level=logging.INFO,
     format="%(asctime)s %(levelname)s %(name)s %(message)s",
     datefmt="%Y-%m-%dT%H:%M:%S",
@@ -402,14 +402,16 @@ def get_eval_items(
     doc_id: str,
     _: None = Depends(_require_api_key),
     __: None = Depends(_enforce_read_rate_limit),
-) -> dict[str, list[dict[str, Any]]]:
+) -> dict[str, Any]:
     """Return eval questions and expected pages for UI highlighting."""
     try:
         items = storage.read_eval_items(doc_id)
+        eval_meta = storage.read_eval_meta(doc_id)
     except ValueError as e:
         raise HTTPException(status_code=400, detail=str(e)) from e
     except Exception as e:
         raise HTTPException(status_code=404, detail=str(e)) from e
+    label_type = str(eval_meta.get("label_type") or "gold")
     out = []
     for item in items:
         out.append(
@@ -423,7 +425,7 @@ def get_eval_items(
                 "evidence_layout": item.get("evidence_layout"),
             }
         )
-    return {"items": out}
+    return {"items": out, "label_type": label_type}
 
 
 @app.get("/api/v1/docs/{doc_id}/logs")

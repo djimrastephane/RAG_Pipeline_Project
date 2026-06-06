@@ -1,0 +1,9 @@
+# Dev overrides — used automatically by `docker compose up` locally.
+# Production: docker compose -f docker-compose.yml up
+services:
+  api:
+    environment:
+      LOCAL_LLM_ENABLED: "0"    # no Ollama required for dev/test
+      UPLOAD_ENABLED: "1"
+      ST_MODEL_DEVICE: "cpu"
+    depends_on: {}              # skip Ollama health-gate in dev

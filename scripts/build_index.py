@@ -171,6 +171,14 @@ def parse_args() -> argparse.Namespace:
         default=_env_or_default("ST_MODEL_DEVICE", "cpu"),
         help="Embedding device: cpu, mps, cuda, or auto.",
     )
+    parser.add_argument(
+        "--meta-only",
+        action="store_true",
+        help=(
+            "Regenerate chunk_meta.parquet from chunks.parquet without re-embedding. "
+            "Safe when FAISS index and chunks row order are still aligned."
+        ),
+    )
     return parser.parse_args()
 
 
@@ -392,6 +400,12 @@ def build_meta_table(chunks: pd.DataFrame) -> pd.DataFrame:
 
     cols = [c for c in preferred_cols if c in chunks.columns]
     meta = chunks[cols].copy()
+
+    # Cast is_table to bool so None/NaN values become False, not a nullable object.
+    # Without this, retrieval code receives None and bool(None) == False silently
+    # suppresses table_priority_boost for chunks indexed before this field was tracked.
+    if "is_table" in meta.columns:
+        meta["is_table"] = meta["is_table"].fillna(False).astype(bool)
 
     # Ensure page_start/page_end exist if present in source.
     # If missing, attempt to derive from pages.
@@ -621,6 +635,40 @@ def build_index_for_doc(doc_dir: Path, model: SentenceTransformer) -> None:
 
 
 # =============================================================================
+# META-ONLY REBUILD
+# =============================================================================
+def rebuild_meta_for_doc(doc_dir: Path) -> None:
+    """Regenerate chunk_meta.parquet from chunks.parquet without re-embedding.
+
+    Safe when the FAISS index and chunks.parquet rows are still in the same
+    order — i.e. no rows were reordered, only metadata columns changed.
+    Verifies row count matches the FAISS index as a safety guard.
+    """
+    chunks_path = doc_dir / CHUNKS_FILENAME
+    meta_path = doc_dir / META_PARQUET_NAME
+    index_path = doc_dir / FAISS_INDEX_NAME
+
+    chunks = pd.read_parquet(chunks_path)
+
+    if index_path.exists():
+        idx = faiss.read_index(str(index_path))
+        if idx.ntotal != len(chunks):
+            raise ValueError(
+                f"{doc_dir.name}: FAISS has {idx.ntotal} vectors but chunks has "
+                f"{len(chunks)} rows — row order may have changed; run full rebuild instead."
+            )
+
+    meta = build_meta_table(chunks)
+    if "segment_boundary_type" in chunks.columns and "segment_boundary_type" not in meta.columns:
+        meta["segment_boundary_type"] = chunks["segment_boundary_type"].astype(str)
+
+    meta.to_parquet(meta_path, index=False)
+
+    is_table_true = int(meta["is_table"].sum()) if "is_table" in meta.columns else "n/a"
+    print(f"{doc_dir.name}: meta written ({len(meta)} rows, is_table=True: {is_table_true})")
+
+
+# =============================================================================
 # MAIN
 # =============================================================================
 def main():
@@ -630,6 +678,23 @@ def main():
     BASE_DATA_DIR = Path(args.data_dir)
     EMBED_MODEL_NAME = args.model
     doc_dirs = iter_document_dirs(BASE_DATA_DIR)
+
+    if args.meta_only:
+        print(f"Meta-only rebuild for all docs under: {BASE_DATA_DIR}")
+        ok = 0
+        failed = 0
+        for doc_dir in doc_dirs:
+            if not (doc_dir / CHUNKS_FILENAME).exists():
+                print(f"  SKIP {doc_dir.name} (no chunks.parquet)")
+                continue
+            try:
+                rebuild_meta_for_doc(doc_dir)
+                ok += 1
+            except Exception as e:
+                failed += 1
+                print(f"  FAIL {doc_dir.name}: {e}")
+        print(f"\nDONE  ok={ok}  failed={failed}")
+        return
     if not doc_dirs:
         print("No document folders found under:", BASE_DATA_DIR)
         return

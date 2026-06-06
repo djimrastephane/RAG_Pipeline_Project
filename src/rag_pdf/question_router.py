@@ -39,6 +39,32 @@ class QueryRoute:
     slots: dict[str, Any] = field(default_factory=dict)
 
 
+_FINANCIAL_TARGETS_TERMS = [
+    "resource limit", "revenue resource", "capital resource",
+    "cash requirement", "statutory financial target",
+    "core revenue", "non-core revenue", "total revenue",
+    "core capital", "non-core capital", "total capital",
+]
+
+_FINANCIAL_STATEMENTS_TERMS = [
+    "income", "expenditure", "surplus", "deficit",
+    "total assets", "net assets", "total liabilities",
+    "financial position", "financial performance",
+    "balance sheet", "income statement", "statement of",
+    "total expenditure", "total income",
+    "operating cost", "operating expenditure",
+]
+
+_PERFORMANCE_TABLE_TERMS = [
+    "waiting time", "waiting list", "referral to treatment",
+    "cancer target", "18 weeks", "12 weeks", "4 hours",
+    "unscheduled care", "delayed discharge", "bed days",
+    "sickness absence", "readmission", "attendance",
+    "drug", "alcohol", "mental health target",
+    "achieve", "performance target", "kpi",
+]
+
+
 def route_question(question: str) -> QueryRoute:
     """
     Route a question to a coarse intent class and extraction slots.
@@ -49,6 +75,9 @@ def route_question(question: str) -> QueryRoute:
     - table_metric_complete_ratio
     - table_metric_staff_costs
     - table_metric_emissions
+    - table_metric_financial_targets   -- statutory resource limits, cash requirement
+    - table_metric_financial_statements -- income, expenditure, surplus, balance sheet
+    - table_metric_performance         -- NHS waiting time and clinical performance tables
     - governance_board_committee
     - governance_endorsements
     - governance_significant_issue
@@ -135,6 +164,27 @@ def route_question(question: str) -> QueryRoute:
                 "table_type_hint": "unknown",
             },
         )
+    if _contains_any(q_lower, _FINANCIAL_TARGETS_TERMS):
+        return QueryRoute(
+            intent="table_metric_financial_targets",
+            confidence=0.85,
+            slots={"quarter": quarter, "prefer_percent": False, "table_type_hint": "financial_targets"},
+        )
+
+    if _contains_any(q_lower, _FINANCIAL_STATEMENTS_TERMS):
+        return QueryRoute(
+            intent="table_metric_financial_statements",
+            confidence=0.8,
+            slots={"quarter": quarter, "prefer_percent": False, "table_type_hint": "income_statement"},
+        )
+
+    if _contains_any(q_lower, _PERFORMANCE_TABLE_TERMS):
+        return QueryRoute(
+            intent="table_metric_performance",
+            confidence=0.8,
+            slots={"quarter": quarter, "prefer_percent": ("percent" in q_lower or "rate" in q_lower)},
+        )
+
     if "board committee" in q_lower and "strategic risk register" in q_lower:
         return QueryRoute(intent="governance_board_committee", confidence=0.85)
     if "endorse" in q_lower and "risk appetite" in q_lower and "strategic risk profile" in q_lower:

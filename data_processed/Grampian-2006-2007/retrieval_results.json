@@ -1,0 +1,1722 @@
+{
+  "run_info": {
+    "run_utc": "2026-06-06T19:49:09+00:00",
+    "data_dir": "data_processed/Grampian-2006-2007",
+    "runtime": {
+      "python_executable": "/Users/djimra/MSc Data Science Jan 2025/Thesis documents/RAG_Pipeline_Project/.venv/bin/python",
+      "python_version": "3.11.15",
+      "platform": "macOS-26.5.1-arm64-arm-64bit",
+      "system": "Darwin",
+      "machine": "arm64",
+      "cwd": "/Users/djimra/MSc Data Science Jan 2025/Thesis documents/RAG_Pipeline_Project",
+      "conda_prefix": "/Users/djimra/MSc Data Science Jan 2025/Thesis documents/RAG_Pipeline_Project/.venv",
+      "conda_default_env": "/Users/djimra/MSc Data Science Jan 2025/Thesis documents/RAG_Pipeline_Project/.venv",
+      "virtual_env": null,
+      "dependency_report": {
+        "modules": {
+          "camelot": {
+            "installed": true,
+            "version": "1.0.9",
+            "module": "camelot",
+            "distribution": "camelot-py",
+            "error": null
+          },
+          "faiss": {
+            "installed": true,
+            "version": "1.13.2",
+            "module": "faiss",
+            "distribution": "faiss-cpu",
+            "error": null
+          },
+          "ghostscript": {
+            "installed": true,
+            "version": "0.8.1",
+            "module": "ghostscript",
+            "distribution": "ghostscript",
+            "error": null
+          },
+          "numpy": {
+            "installed": true,
+            "version": "2.4.6",
+            "module": "numpy",
+            "distribution": "numpy",
+            "error": null
+          },
+          "pandas": {
+            "installed": true,
+            "version": "2.3.3",
+            "module": "pandas",
+            "distribution": "pandas",
+            "error": null
+          },
+          "pdfplumber": {
+            "installed": true,
+            "version": "0.11.9",
+            "module": "pdfplumber",
+            "distribution": "pdfplumber",
+            "error": null
+          },
+          "pyarrow": {
+            "installed": true,
+            "version": "23.0.0",
+            "module": "pyarrow",
+            "distribution": "pyarrow",
+            "error": null
+          },
+          "pymupdf": {
+            "installed": true,
+            "version": "1.26.7",
+            "module": "pymupdf",
+            "distribution": "PyMuPDF",
+            "error": null
+          },
+          "sentence_transformers": {
+            "installed": true,
+            "version": "5.2.2",
+            "module": "sentence_transformers",
+            "distribution": "sentence-transformers",
+            "error": null
+          },
+          "tiktoken": {
+            "installed": true,
+            "version": "0.12.0",
+            "module": "tiktoken",
+            "distribution": "tiktoken",
+            "error": null
+          },
+          "torch": {
+            "installed": true,
+            "version": "2.5.1",
+            "module": "torch",
+            "distribution": "torch",
+            "error": null
+          }
+        },
+        "commands": {
+          "gs": {
+            "available": true,
+            "path": "/Users/djimra/MSc Data Science Jan 2025/Thesis documents/RAG_Pipeline_Project/.venv/bin/gs"
+          },
+          "pdftoppm": {
+            "available": true,
+            "path": "/Users/djimra/MSc Data Science Jan 2025/Thesis documents/RAG_Pipeline_Project/.venv/bin/pdftoppm"
+          },
+          "tesseract": {
+            "available": true,
+            "path": "/opt/homebrew/bin/tesseract"
+          }
+        }
+      }
+    },
+    "critical_environment_checks": [
+      {
+        "name": "tiktoken_available",
+        "ok": true,
+        "detail": "Required for exact preprocessing token counts."
+      },
+      {
+        "name": "camelot_available",
+        "ok": true,
+        "detail": "Required for the structured table extraction branch."
+      },
+      {
+        "name": "ghostscript_python_wrapper_available",
+        "ok": true,
+        "detail": "Needed by Camelot on many environments."
+      },
+      {
+        "name": "ghostscript_binary_available",
+        "ok": true,
+        "detail": "Ghostscript binary used by Camelot."
+      },
+      {
+        "name": "faiss_available",
+        "ok": true,
+        "detail": "Required for dense index build and retrieval."
+      },
+      {
+        "name": "sentence_transformers_available",
+        "ok": true,
+        "detail": "Required for MiniLM embeddings."
+      },
+      {
+        "name": "torch_available",
+        "ok": true,
+        "detail": "Required backend for sentence-transformers."
+      }
+    ],
+    "index_path": "data_processed/Grampian-2006-2007/faiss.index",
+    "meta_path": "data_processed/Grampian-2006-2007/chunk_meta.parquet",
+    "table_facts_path": "data_processed/Grampian-2006-2007/table_facts.parquet",
+    "eval_set_path": "data_processed/Grampian-2006-2007/eval_set.json",
+    "embedding_model": "sentence-transformers/all-MiniLM-L6-v2",
+    "k_list": [
+      1,
+      3,
+      5,
+      10
+    ],
+    "subsection_boost": 0.05,
+    "table_chunk_boost": 0.08,
+    "milestone_text_boost": 0.08,
+    "entity_match_boost": 0.04,
+    "numeric_density_boost": 0.03,
+    "segment_search_hit_boost": 0.03,
+    "max_entity_matches": 4,
+    "enable_lexical_rerank": true,
+    "enable_subsection_boost": true,
+    "max_k_search": 100,
+    "num_queries": 7,
+    "num_chunks_indexed": 128,
+    "num_table_facts": 612,
+    "meta_doc_ids": [
+      "Grampian-2006-2007"
+    ],
+    "query_id_nomenclature": "Q_<TOPIC>_<YEAR>_<NN> with TOPIC in [REV,EFF,DEF,STAFF,ACC,GOV,TABLE]",
+    "failure_attribution": {
+      "retrieval_stages": [
+        "hit",
+        "missed_top_ranked",
+        "missing_content"
+      ],
+      "failure_types": [
+        "FP1_MISSING_CONTENT",
+        "FP2_MISSED_TOP_RANK",
+        "FP3_NOT_IN_CONTEXT",
+        "FP4_NOT_EXTRACTED",
+        "FP5_WRONG_FORMAT",
+        "FP6_INCORRECT_SPECIFICITY",
+        "FP7_INCOMPLETE",
+        "HIT"
+      ],
+      "scope": "retrieval_and_generation"
+    },
+    "leakage_detection": {
+      "enabled": true,
+      "requires_expected_doc_id": true,
+      "fields": [
+        "retrieved_doc_ids_top_k",
+        "leakage_count_top_k",
+        "leakage_doc_ids_top_k",
+        "leakage_rate_top_k"
+      ]
+    },
+    "pipeline_settings": {
+      "source_metrics_path": "data_processed/Grampian-2006-2007/metrics.json",
+      "source_metrics_exists": true,
+      "doc_id": "Grampian-2006-2007",
+      "corpus_id": "Grampian-2006-2007",
+      "report_year": "2006-2007",
+      "preprocess_run_utc": "2026-06-06T15:27:37+00:00",
+      "preprocess_git_commit_short": "3799e6d",
+      "embedding_model_preprocess": "sentence-transformers/all-MiniLM-L6-v2",
+      "chunk_size_tokens": 224,
+      "chunk_overlap_tokens": 56,
+      "segment_aware_chunking": true,
+      "whole_doc_markdown_mode": false,
+      "markdown_header_carry_forward": true,
+      "markdown_table_injection": true,
+      "primary_extractor": "pymupdf",
+      "min_chunk_words": 20
+    },
+    "eval_set": {
+      "path": "data_processed/Grampian-2006-2007/eval_set.json",
+      "sha1": "428a8ae40b81535bbfde6fbf4176cebf1ef9eeca",
+      "size_bytes": 3250,
+      "modified_utc": "2026-06-06T18:37:19+00:00",
+      "query_count": 7,
+      "meta_dataset_name": "Grampian-2006-2007 Retrieval Silver Set",
+      "meta_doc_id": "Grampian-2006-2007",
+      "meta_version": null
+    }
+  },
+  "results": [
+    {
+      "query_id": "Q_07_FIN_01",
+      "topic": "FIN",
+      "year": 7,
+      "sequence": 1,
+      "question": "What was the total net expenditure for NHS Grampian in 2006/07?",
+      "answer_type": "number",
+      "doc_id": "Grampian-2006-2007",
+      "expected_section": "",
+      "expected_pages": [
+        9
+      ],
+      "route_intent": "table_metric_financial_statements",
+      "route_confidence": 0.8,
+      "page_hit": 1,
+      "failure_type": "FP6_INCORRECT_SPECIFICITY",
+      "failure_stage": "generation",
+      "expected_answer": "Cash Requirement limit: £650,800k",
+      "extracted_answer": "In 2006, NHSScotland Counter Fraud Services performed work to give an indication of the possible level of Family Health Services income lost due to incorrect claims by patients for exemption from NHS",
+      "extracted_answer_label": "Snippet",
+      "answer_correct": false,
+      "answer_status": "incorrect",
+      "extracted_answer_chunk_id": "Grampian-2006-2007:p0009_000",
+      "gold_presence": {
+        "gold_exists": true,
+        "gold_chunk_count": 3,
+        "gold_pages_found": [
+          9
+        ]
+      },
+      "per_k": {
+        "1": {
+          "retrieved_chunk_ids": [
+            "Grampian-2006-2007:p0009_000"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2006-2007"
+          ],
+          "retrieved_pages_ranked": [
+            9
+          ],
+          "retrieved_scores": [
+            0.8093960022926331
+          ],
+          "expected_subsection": null,
+          "page_recall_at_k": 1.0,
+          "page_precision_at_k": 1.0,
+          "page_mrr_at_k": 1.0,
+          "chunk_hit_at_k": 1.0,
+          "chunk_precision_at_k": 1.0,
+          "chunk_mrr_at_k": 1.0,
+          "chunk_hit_flags": [
+            1
+          ],
+          "failure_stage": "hit",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        },
+        "3": {
+          "retrieved_chunk_ids": [
+            "Grampian-2006-2007:p0009_000",
+            "Grampian-2006-2007:p0009_002",
+            "Grampian-2006-2007:p0009_001"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2006-2007",
+            "Grampian-2006-2007",
+            "Grampian-2006-2007"
+          ],
+          "retrieved_pages_ranked": [
+            9
+          ],
+          "retrieved_scores": [
+            0.8093960022926331,
+            0.8078420400619507,
+            0.7882735466957093
+          ],
+          "expected_subsection": null,
+          "page_recall_at_k": 1.0,
+          "page_precision_at_k": 1.0,
+          "page_mrr_at_k": 1.0,
+          "chunk_hit_at_k": 1.0,
+          "chunk_precision_at_k": 1.0,
+          "chunk_mrr_at_k": 1.0,
+          "chunk_hit_flags": [
+            1,
+            1,
+            1
+          ],
+          "failure_stage": "hit",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        },
+        "5": {
+          "retrieved_chunk_ids": [
+            "Grampian-2006-2007:p0009_000",
+            "Grampian-2006-2007:p0009_002",
+            "Grampian-2006-2007:p0009_001",
+            "Grampian-2006-2007:p0011_003",
+            "Grampian-2006-2007:p0023_001"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2006-2007",
+            "Grampian-2006-2007",
+            "Grampian-2006-2007",
+            "Grampian-2006-2007",
+            "Grampian-2006-2007"
+          ],
+          "retrieved_pages_ranked": [
+            9,
+            11,
+            23
+          ],
+          "retrieved_scores": [
+            0.8093960022926331,
+            0.8078420400619507,
+            0.7882735466957093,
+            0.7413310647010803,
+            0.7286065173149109
+          ],
+          "expected_subsection": null,
+          "page_recall_at_k": 1.0,
+          "page_precision_at_k": 0.3333333333333333,
+          "page_mrr_at_k": 1.0,
+          "chunk_hit_at_k": 1.0,
+          "chunk_precision_at_k": 0.6,
+          "chunk_mrr_at_k": 1.0,
+          "chunk_hit_flags": [
+            1,
+            1,
+            1,
+            0,
+            0
+          ],
+          "failure_stage": "hit",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        },
+        "10": {
+          "retrieved_chunk_ids": [
+            "Grampian-2006-2007:p0009_000",
+            "Grampian-2006-2007:p0009_002",
+            "Grampian-2006-2007:p0009_001",
+            "Grampian-2006-2007:p0011_003",
+            "Grampian-2006-2007:p0023_001",
+            "Grampian-2006-2007:p0016_000",
+            "Grampian-2006-2007:p0010_003",
+            "Grampian-2006-2007:p0008_003",
+            "Grampian-2006-2007:p0008_002",
+            "Grampian-2006-2007:p0014_000"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2006-2007",
+            "Grampian-2006-2007",
+            "Grampian-2006-2007",
+            "Grampian-2006-2007",
+            "Grampian-2006-2007",
+            "Grampian-2006-2007",
+            "Grampian-2006-2007",
+            "Grampian-2006-2007",
+            "Grampian-2006-2007",
+            "Grampian-2006-2007"
+          ],
+          "retrieved_pages_ranked": [
+            9,
+            11,
+            23,
+            16,
+            10,
+            8,
+            14
+          ],
+          "retrieved_scores": [
+            0.8093960022926331,
+            0.8078420400619507,
+            0.7882735466957093,
+            0.7413310647010803,
+            0.7286065173149109,
+            0.7257721662521363,
+            0.7152796936035156,
+            0.7128906798362732,
+            0.7086383056640625,
+            0.6863256645202637
+          ],
+          "expected_subsection": null,
+          "page_recall_at_k": 1.0,
+          "page_precision_at_k": 0.14285714285714285,
+          "page_mrr_at_k": 1.0,
+          "chunk_hit_at_k": 1.0,
+          "chunk_precision_at_k": 0.3,
+          "chunk_mrr_at_k": 1.0,
+          "chunk_hit_flags": [
+            1,
+            1,
+            1,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "failure_stage": "hit",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        }
+      }
+    },
+    {
+      "query_id": "Q_07_FIN_03",
+      "topic": "FIN",
+      "year": 7,
+      "sequence": 3,
+      "question": "What was the Core Revenue Resource Limit for NHS Grampian in 2006/07?",
+      "answer_type": "number",
+      "doc_id": "Grampian-2006-2007",
+      "expected_section": "",
+      "expected_pages": [
+        9
+      ],
+      "route_intent": "table_metric_financial_targets",
+      "route_confidence": 0.85,
+      "page_hit": 1,
+      "failure_type": "FP5_WRONG_FORMAT",
+      "failure_stage": "generation",
+      "expected_answer": "The Core Revenue Resource Limit for NHS Grampian in 2006/07 was 682,161 £000.",
+      "extracted_answer": "bodies.",
+      "extracted_answer_label": "Snippet",
+      "answer_correct": false,
+      "answer_status": "incorrect",
+      "extracted_answer_chunk_id": "Grampian-2006-2007:p0009_001",
+      "gold_presence": {
+        "gold_exists": true,
+        "gold_chunk_count": 3,
+        "gold_pages_found": [
+          9
+        ]
+      },
+      "per_k": {
+        "1": {
+          "retrieved_chunk_ids": [
+            "Grampian-2006-2007:p0009_001"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2006-2007"
+          ],
+          "retrieved_pages_ranked": [
+            9
+          ],
+          "retrieved_scores": [
+            0.8962099885940552
+          ],
+          "expected_subsection": null,
+          "page_recall_at_k": 1.0,
+          "page_precision_at_k": 1.0,
+          "page_mrr_at_k": 1.0,
+          "chunk_hit_at_k": 1.0,
+          "chunk_precision_at_k": 1.0,
+          "chunk_mrr_at_k": 1.0,
+          "chunk_hit_flags": [
+            1
+          ],
+          "failure_stage": "hit",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        },
+        "3": {
+          "retrieved_chunk_ids": [
+            "Grampian-2006-2007:p0009_001",
+            "Grampian-2006-2007:p0009_000",
+            "Grampian-2006-2007:p0009_002"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2006-2007",
+            "Grampian-2006-2007",
+            "Grampian-2006-2007"
+          ],
+          "retrieved_pages_ranked": [
+            9
+          ],
+          "retrieved_scores": [
+            0.8962099885940552,
+            0.8677048420906067,
+            0.8516554570198059
+          ],
+          "expected_subsection": null,
+          "page_recall_at_k": 1.0,
+          "page_precision_at_k": 1.0,
+          "page_mrr_at_k": 1.0,
+          "chunk_hit_at_k": 1.0,
+          "chunk_precision_at_k": 1.0,
+          "chunk_mrr_at_k": 1.0,
+          "chunk_hit_flags": [
+            1,
+            1,
+            1
+          ],
+          "failure_stage": "hit",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        },
+        "5": {
+          "retrieved_chunk_ids": [
+            "Grampian-2006-2007:p0009_001",
+            "Grampian-2006-2007:p0009_000",
+            "Grampian-2006-2007:p0009_002",
+            "Grampian-2006-2007:p0010_003",
+            "Grampian-2006-2007:p0023_001"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2006-2007",
+            "Grampian-2006-2007",
+            "Grampian-2006-2007",
+            "Grampian-2006-2007",
+            "Grampian-2006-2007"
+          ],
+          "retrieved_pages_ranked": [
+            9,
+            10,
+            23
+          ],
+          "retrieved_scores": [
+            0.8962099885940552,
+            0.8677048420906067,
+            0.8516554570198059,
+            0.7689446544647217,
+            0.7454339814186096
+          ],
+          "expected_subsection": null,
+          "page_recall_at_k": 1.0,
+          "page_precision_at_k": 0.3333333333333333,
+          "page_mrr_at_k": 1.0,
+          "chunk_hit_at_k": 1.0,
+          "chunk_precision_at_k": 0.6,
+          "chunk_mrr_at_k": 1.0,
+          "chunk_hit_flags": [
+            1,
+            1,
+            1,
+            0,
+            0
+          ],
+          "failure_stage": "hit",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        },
+        "10": {
+          "retrieved_chunk_ids": [
+            "Grampian-2006-2007:p0009_001",
+            "Grampian-2006-2007:p0009_000",
+            "Grampian-2006-2007:p0009_002",
+            "Grampian-2006-2007:p0010_003",
+            "Grampian-2006-2007:p0023_001",
+            "Grampian-2006-2007:p0051_000",
+            "Grampian-2006-2007:p0008_003",
+            "Grampian-2006-2007:p0017_000",
+            "Grampian-2006-2007:p0008_002",
+            "Grampian-2006-2007:p0008_001"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2006-2007",
+            "Grampian-2006-2007",
+            "Grampian-2006-2007",
+            "Grampian-2006-2007",
+            "Grampian-2006-2007",
+            "Grampian-2006-2007",
+            "Grampian-2006-2007",
+            "Grampian-2006-2007",
+            "Grampian-2006-2007",
+            "Grampian-2006-2007"
+          ],
+          "retrieved_pages_ranked": [
+            9,
+            10,
+            23,
+            51,
+            8,
+            17
+          ],
+          "retrieved_scores": [
+            0.8962099885940552,
+            0.8677048420906067,
+            0.8516554570198059,
+            0.7689446544647217,
+            0.7454339814186096,
+            0.7408141231536866,
+            0.7298997592926025,
+            0.7242783260345459,
+            0.7222406816482544,
+            0.7108975982666016
+          ],
+          "expected_subsection": null,
+          "page_recall_at_k": 1.0,
+          "page_precision_at_k": 0.16666666666666666,
+          "page_mrr_at_k": 1.0,
+          "chunk_hit_at_k": 1.0,
+          "chunk_precision_at_k": 0.3,
+          "chunk_mrr_at_k": 1.0,
+          "chunk_hit_flags": [
+            1,
+            1,
+            1,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "failure_stage": "hit",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        }
+      }
+    },
+    {
+      "query_id": "Q_07_FIN_04",
+      "topic": "FIN",
+      "year": 7,
+      "sequence": 4,
+      "question": "What was the Capital Resource Limit for NHS Grampian in 2006/07?",
+      "answer_type": "number",
+      "doc_id": "Grampian-2006-2007",
+      "expected_section": "",
+      "expected_pages": [
+        9
+      ],
+      "route_intent": "table_metric_financial_targets",
+      "route_confidence": 0.85,
+      "page_hit": 1,
+      "failure_type": "FP5_WRONG_FORMAT",
+      "failure_stage": "generation",
+      "expected_answer": "25,130",
+      "extracted_answer": "bodies.",
+      "extracted_answer_label": "Snippet",
+      "answer_correct": false,
+      "answer_status": "incorrect",
+      "extracted_answer_chunk_id": "Grampian-2006-2007:p0009_001",
+      "gold_presence": {
+        "gold_exists": true,
+        "gold_chunk_count": 3,
+        "gold_pages_found": [
+          9
+        ]
+      },
+      "per_k": {
+        "1": {
+          "retrieved_chunk_ids": [
+            "Grampian-2006-2007:p0009_001"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2006-2007"
+          ],
+          "retrieved_pages_ranked": [
+            9
+          ],
+          "retrieved_scores": [
+            0.889135274887085
+          ],
+          "expected_subsection": null,
+          "page_recall_at_k": 1.0,
+          "page_precision_at_k": 1.0,
+          "page_mrr_at_k": 1.0,
+          "chunk_hit_at_k": 1.0,
+          "chunk_precision_at_k": 1.0,
+          "chunk_mrr_at_k": 1.0,
+          "chunk_hit_flags": [
+            1
+          ],
+          "failure_stage": "hit",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        },
+        "3": {
+          "retrieved_chunk_ids": [
+            "Grampian-2006-2007:p0009_001",
+            "Grampian-2006-2007:p0009_000",
+            "Grampian-2006-2007:p0051_000"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2006-2007",
+            "Grampian-2006-2007",
+            "Grampian-2006-2007"
+          ],
+          "retrieved_pages_ranked": [
+            9,
+            51
+          ],
+          "retrieved_scores": [
+            0.889135274887085,
+            0.813013825416565,
+            0.8008535242080689
+          ],
+          "expected_subsection": null,
+          "page_recall_at_k": 1.0,
+          "page_precision_at_k": 0.5,
+          "page_mrr_at_k": 1.0,
+          "chunk_hit_at_k": 1.0,
+          "chunk_precision_at_k": 0.6666666666666666,
+          "chunk_mrr_at_k": 1.0,
+          "chunk_hit_flags": [
+            1,
+            1,
+            0
+          ],
+          "failure_stage": "hit",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        },
+        "5": {
+          "retrieved_chunk_ids": [
+            "Grampian-2006-2007:p0009_001",
+            "Grampian-2006-2007:p0009_000",
+            "Grampian-2006-2007:p0051_000",
+            "Grampian-2006-2007:p0009_002",
+            "Grampian-2006-2007:p0010_003"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2006-2007",
+            "Grampian-2006-2007",
+            "Grampian-2006-2007",
+            "Grampian-2006-2007",
+            "Grampian-2006-2007"
+          ],
+          "retrieved_pages_ranked": [
+            9,
+            51,
+            10
+          ],
+          "retrieved_scores": [
+            0.889135274887085,
+            0.813013825416565,
+            0.8008535242080689,
+            0.7721323704719544,
+            0.7237688040733338
+          ],
+          "expected_subsection": null,
+          "page_recall_at_k": 1.0,
+          "page_precision_at_k": 0.3333333333333333,
+          "page_mrr_at_k": 1.0,
+          "chunk_hit_at_k": 1.0,
+          "chunk_precision_at_k": 0.6,
+          "chunk_mrr_at_k": 1.0,
+          "chunk_hit_flags": [
+            1,
+            1,
+            0,
+            1,
+            0
+          ],
+          "failure_stage": "hit",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        },
+        "10": {
+          "retrieved_chunk_ids": [
+            "Grampian-2006-2007:p0009_001",
+            "Grampian-2006-2007:p0009_000",
+            "Grampian-2006-2007:p0051_000",
+            "Grampian-2006-2007:p0009_002",
+            "Grampian-2006-2007:p0010_003",
+            "Grampian-2006-2007:p0008_002",
+            "Grampian-2006-2007:p0008_001",
+            "Grampian-2006-2007:p0023_001",
+            "Grampian-2006-2007:p0008_003",
+            "Grampian-2006-2007:p0014_000"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2006-2007",
+            "Grampian-2006-2007",
+            "Grampian-2006-2007",
+            "Grampian-2006-2007",
+            "Grampian-2006-2007",
+            "Grampian-2006-2007",
+            "Grampian-2006-2007",
+            "Grampian-2006-2007",
+            "Grampian-2006-2007",
+            "Grampian-2006-2007"
+          ],
+          "retrieved_pages_ranked": [
+            9,
+            51,
+            10,
+            8,
+            23,
+            14
+          ],
+          "retrieved_scores": [
+            0.889135274887085,
+            0.813013825416565,
+            0.8008535242080689,
+            0.7721323704719544,
+            0.7237688040733338,
+            0.6978788328170776,
+            0.6951887941360474,
+            0.670550103187561,
+            0.6695764017105102,
+            0.6633745980262756
+          ],
+          "expected_subsection": null,
+          "page_recall_at_k": 1.0,
+          "page_precision_at_k": 0.16666666666666666,
+          "page_mrr_at_k": 1.0,
+          "chunk_hit_at_k": 1.0,
+          "chunk_precision_at_k": 0.3,
+          "chunk_mrr_at_k": 1.0,
+          "chunk_hit_flags": [
+            1,
+            1,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "failure_stage": "hit",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        }
+      }
+    },
+    {
+      "query_id": "Q_07_FIN_05",
+      "topic": "FIN",
+      "year": 7,
+      "sequence": 5,
+      "question": "Did NHS Grampian report a surplus or deficit against its resource budget in 2006/07?",
+      "answer_type": "text",
+      "doc_id": "Grampian-2006-2007",
+      "expected_section": "",
+      "expected_pages": [
+        9
+      ],
+      "route_intent": "table_metric_financial_statements",
+      "route_confidence": 0.8,
+      "page_hit": 1,
+      "failure_type": "FP3_NOT_IN_CONTEXT",
+      "failure_stage": "retrieval",
+      "expected_answer": "NHS Grampian reported a surplus against its resource budget in 2006/07.",
+      "extracted_answer": "Requirement 650,800 650,717 83 Memorandum for In Year Out-turn £000 Brought forward (surplus) from previous financial year (456) Saving against in year Revenue Resource Limit 5,881 NHS Grampian repaid",
+      "extracted_answer_label": "Snippet",
+      "answer_correct": false,
+      "answer_status": "partial",
+      "extracted_answer_chunk_id": "Grampian-2006-2007:p0009_002",
+      "gold_presence": {
+        "gold_exists": true,
+        "gold_chunk_count": 3,
+        "gold_pages_found": [
+          9
+        ]
+      },
+      "per_k": {
+        "1": {
+          "retrieved_chunk_ids": [
+            "Grampian-2006-2007:p0009_002"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2006-2007"
+          ],
+          "retrieved_pages_ranked": [
+            9
+          ],
+          "retrieved_scores": [
+            0.7934137010574341
+          ],
+          "expected_subsection": null,
+          "page_recall_at_k": 1.0,
+          "page_precision_at_k": 1.0,
+          "page_mrr_at_k": 1.0,
+          "chunk_hit_at_k": 1.0,
+          "chunk_precision_at_k": 1.0,
+          "chunk_mrr_at_k": 1.0,
+          "chunk_hit_flags": [
+            1
+          ],
+          "failure_stage": "hit",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        },
+        "3": {
+          "retrieved_chunk_ids": [
+            "Grampian-2006-2007:p0009_002",
+            "Grampian-2006-2007:p0009_001",
+            "Grampian-2006-2007:p0023_001"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2006-2007",
+            "Grampian-2006-2007",
+            "Grampian-2006-2007"
+          ],
+          "retrieved_pages_ranked": [
+            9,
+            23
+          ],
+          "retrieved_scores": [
+            0.7934137010574341,
+            0.7437613344192505,
+            0.7355981206893921
+          ],
+          "expected_subsection": null,
+          "page_recall_at_k": 1.0,
+          "page_precision_at_k": 0.5,
+          "page_mrr_at_k": 1.0,
+          "chunk_hit_at_k": 1.0,
+          "chunk_precision_at_k": 0.6666666666666666,
+          "chunk_mrr_at_k": 1.0,
+          "chunk_hit_flags": [
+            1,
+            1,
+            0
+          ],
+          "failure_stage": "hit",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        },
+        "5": {
+          "retrieved_chunk_ids": [
+            "Grampian-2006-2007:p0009_002",
+            "Grampian-2006-2007:p0009_001",
+            "Grampian-2006-2007:p0023_001",
+            "Grampian-2006-2007:p0009_000",
+            "Grampian-2006-2007:p0008_003"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2006-2007",
+            "Grampian-2006-2007",
+            "Grampian-2006-2007",
+            "Grampian-2006-2007",
+            "Grampian-2006-2007"
+          ],
+          "retrieved_pages_ranked": [
+            9,
+            23,
+            8
+          ],
+          "retrieved_scores": [
+            0.7934137010574341,
+            0.7437613344192505,
+            0.7355981206893921,
+            0.7210586404800415,
+            0.7169148063659668
+          ],
+          "expected_subsection": null,
+          "page_recall_at_k": 1.0,
+          "page_precision_at_k": 0.3333333333333333,
+          "page_mrr_at_k": 1.0,
+          "chunk_hit_at_k": 1.0,
+          "chunk_precision_at_k": 0.6,
+          "chunk_mrr_at_k": 1.0,
+          "chunk_hit_flags": [
+            1,
+            1,
+            0,
+            1,
+            0
+          ],
+          "failure_stage": "hit",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        },
+        "10": {
+          "retrieved_chunk_ids": [
+            "Grampian-2006-2007:p0009_002",
+            "Grampian-2006-2007:p0009_001",
+            "Grampian-2006-2007:p0023_001",
+            "Grampian-2006-2007:p0009_000",
+            "Grampian-2006-2007:p0008_003",
+            "Grampian-2006-2007:p0010_003",
+            "Grampian-2006-2007:p0011_003",
+            "Grampian-2006-2007:p0017_000",
+            "Grampian-2006-2007:p0052_002",
+            "Grampian-2006-2007:p0012_001"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2006-2007",
+            "Grampian-2006-2007",
+            "Grampian-2006-2007",
+            "Grampian-2006-2007",
+            "Grampian-2006-2007",
+            "Grampian-2006-2007",
+            "Grampian-2006-2007",
+            "Grampian-2006-2007",
+            "Grampian-2006-2007",
+            "Grampian-2006-2007"
+          ],
+          "retrieved_pages_ranked": [
+            9,
+            23,
+            8,
+            10,
+            11,
+            17,
+            52,
+            12
+          ],
+          "retrieved_scores": [
+            0.7934137010574341,
+            0.7437613344192505,
+            0.7355981206893921,
+            0.7210586404800415,
+            0.7169148063659668,
+            0.7032558655738831,
+            0.691710593700409,
+            0.6894919610023499,
+            0.685382182598114,
+            0.6807988023757935
+          ],
+          "expected_subsection": null,
+          "page_recall_at_k": 1.0,
+          "page_precision_at_k": 0.125,
+          "page_mrr_at_k": 1.0,
+          "chunk_hit_at_k": 1.0,
+          "chunk_precision_at_k": 0.3,
+          "chunk_mrr_at_k": 1.0,
+          "chunk_hit_flags": [
+            1,
+            1,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "failure_stage": "hit",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        }
+      }
+    },
+    {
+      "query_id": "Q_07_FIN_06",
+      "topic": "FIN",
+      "year": 7,
+      "sequence": 6,
+      "question": "What was the Cash Requirement limit for NHS Grampian in 2006/07?",
+      "answer_type": "number",
+      "doc_id": "Grampian-2006-2007",
+      "expected_section": "",
+      "expected_pages": [
+        9
+      ],
+      "route_intent": "table_metric_financial_targets",
+      "route_confidence": 0.85,
+      "page_hit": 1,
+      "failure_type": "FP5_WRONG_FORMAT",
+      "failure_stage": "generation",
+      "expected_answer": "The Cash Requirement limit for NHS Grampian in 2006/07 was 650,800 £000.",
+      "extracted_answer": "bodies.",
+      "extracted_answer_label": "Snippet",
+      "answer_correct": false,
+      "answer_status": "incorrect",
+      "extracted_answer_chunk_id": "Grampian-2006-2007:p0009_001",
+      "gold_presence": {
+        "gold_exists": true,
+        "gold_chunk_count": 3,
+        "gold_pages_found": [
+          9
+        ]
+      },
+      "per_k": {
+        "1": {
+          "retrieved_chunk_ids": [
+            "Grampian-2006-2007:p0009_001"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2006-2007"
+          ],
+          "retrieved_pages_ranked": [
+            9
+          ],
+          "retrieved_scores": [
+            0.9122228956222534
+          ],
+          "expected_subsection": null,
+          "page_recall_at_k": 1.0,
+          "page_precision_at_k": 1.0,
+          "page_mrr_at_k": 1.0,
+          "chunk_hit_at_k": 1.0,
+          "chunk_precision_at_k": 1.0,
+          "chunk_mrr_at_k": 1.0,
+          "chunk_hit_flags": [
+            1
+          ],
+          "failure_stage": "hit",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        },
+        "3": {
+          "retrieved_chunk_ids": [
+            "Grampian-2006-2007:p0009_001",
+            "Grampian-2006-2007:p0009_002",
+            "Grampian-2006-2007:p0009_000"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2006-2007",
+            "Grampian-2006-2007",
+            "Grampian-2006-2007"
+          ],
+          "retrieved_pages_ranked": [
+            9
+          ],
+          "retrieved_scores": [
+            0.9122228956222534,
+            0.8828243637084962,
+            0.8371637797355652
+          ],
+          "expected_subsection": null,
+          "page_recall_at_k": 1.0,
+          "page_precision_at_k": 1.0,
+          "page_mrr_at_k": 1.0,
+          "chunk_hit_at_k": 1.0,
+          "chunk_precision_at_k": 1.0,
+          "chunk_mrr_at_k": 1.0,
+          "chunk_hit_flags": [
+            1,
+            1,
+            1
+          ],
+          "failure_stage": "hit",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        },
+        "5": {
+          "retrieved_chunk_ids": [
+            "Grampian-2006-2007:p0009_001",
+            "Grampian-2006-2007:p0009_002",
+            "Grampian-2006-2007:p0009_000",
+            "Grampian-2006-2007:p0010_003",
+            "Grampian-2006-2007:p0051_000"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2006-2007",
+            "Grampian-2006-2007",
+            "Grampian-2006-2007",
+            "Grampian-2006-2007",
+            "Grampian-2006-2007"
+          ],
+          "retrieved_pages_ranked": [
+            9,
+            10,
+            51
+          ],
+          "retrieved_scores": [
+            0.9122228956222534,
+            0.8828243637084962,
+            0.8371637797355652,
+            0.7224594688415528,
+            0.7200703573226929
+          ],
+          "expected_subsection": null,
+          "page_recall_at_k": 1.0,
+          "page_precision_at_k": 0.3333333333333333,
+          "page_mrr_at_k": 1.0,
+          "chunk_hit_at_k": 1.0,
+          "chunk_precision_at_k": 0.6,
+          "chunk_mrr_at_k": 1.0,
+          "chunk_hit_flags": [
+            1,
+            1,
+            1,
+            0,
+            0
+          ],
+          "failure_stage": "hit",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        },
+        "10": {
+          "retrieved_chunk_ids": [
+            "Grampian-2006-2007:p0009_001",
+            "Grampian-2006-2007:p0009_002",
+            "Grampian-2006-2007:p0009_000",
+            "Grampian-2006-2007:p0010_003",
+            "Grampian-2006-2007:p0051_000",
+            "Grampian-2006-2007:p0023_001",
+            "Grampian-2006-2007:p0052_002",
+            "Grampian-2006-2007:p0004_002",
+            "Grampian-2006-2007:p0017_000",
+            "Grampian-2006-2007:p0008_002"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2006-2007",
+            "Grampian-2006-2007",
+            "Grampian-2006-2007",
+            "Grampian-2006-2007",
+            "Grampian-2006-2007",
+            "Grampian-2006-2007",
+            "Grampian-2006-2007",
+            "Grampian-2006-2007",
+            "Grampian-2006-2007",
+            "Grampian-2006-2007"
+          ],
+          "retrieved_pages_ranked": [
+            9,
+            10,
+            51,
+            23,
+            52,
+            4,
+            17,
+            8
+          ],
+          "retrieved_scores": [
+            0.9122228956222534,
+            0.8828243637084962,
+            0.8371637797355652,
+            0.7224594688415528,
+            0.7200703573226929,
+            0.7161191654205322,
+            0.6911800670623779,
+            0.6896778297424316,
+            0.6857541155815124,
+            0.6794698190689087
+          ],
+          "expected_subsection": null,
+          "page_recall_at_k": 1.0,
+          "page_precision_at_k": 0.125,
+          "page_mrr_at_k": 1.0,
+          "chunk_hit_at_k": 1.0,
+          "chunk_precision_at_k": 0.3,
+          "chunk_mrr_at_k": 1.0,
+          "chunk_hit_flags": [
+            1,
+            1,
+            1,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "failure_stage": "hit",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        }
+      }
+    },
+    {
+      "query_id": "Q_07_STF_03",
+      "topic": "STF",
+      "year": 7,
+      "sequence": 3,
+      "question": "What was the sickness absence rate for NHS Grampian in 2006/07?",
+      "answer_type": "number",
+      "doc_id": "Grampian-2006-2007",
+      "expected_section": "",
+      "expected_pages": [
+        10
+      ],
+      "route_intent": "table_metric_performance",
+      "route_confidence": 0.8,
+      "page_hit": 0,
+      "failure_type": "FP2_MISSED_TOP_RANK",
+      "failure_stage": "retrieval",
+      "expected_answer": "Sickness absence rate: 5.1%",
+      "extracted_answer": "that there should be no more than 38 patients awaiting discharge in excess of 6 weeks by 15 April 2007.",
+      "extracted_answer_label": "Snippet",
+      "answer_correct": false,
+      "answer_status": "incorrect",
+      "extracted_answer_chunk_id": "Grampian-2006-2007:p0011_003",
+      "gold_presence": {
+        "gold_exists": true,
+        "gold_chunk_count": 5,
+        "gold_pages_found": [
+          10
+        ]
+      },
+      "per_k": {
+        "1": {
+          "retrieved_chunk_ids": [
+            "Grampian-2006-2007:p0011_003"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2006-2007"
+          ],
+          "retrieved_pages_ranked": [
+            11
+          ],
+          "retrieved_scores": [
+            0.7061744570732117
+          ],
+          "expected_subsection": null,
+          "page_recall_at_k": 0.0,
+          "page_precision_at_k": 0.0,
+          "page_mrr_at_k": 0.0,
+          "chunk_hit_at_k": 0.0,
+          "chunk_precision_at_k": 0.0,
+          "chunk_mrr_at_k": 0.0,
+          "chunk_hit_flags": [
+            0
+          ],
+          "failure_stage": "missed_top_ranked",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        },
+        "3": {
+          "retrieved_chunk_ids": [
+            "Grampian-2006-2007:p0011_003",
+            "Grampian-2006-2007:p0010_003",
+            "Grampian-2006-2007:p0011_000"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2006-2007",
+            "Grampian-2006-2007",
+            "Grampian-2006-2007"
+          ],
+          "retrieved_pages_ranked": [
+            11,
+            10
+          ],
+          "retrieved_scores": [
+            0.7061744570732117,
+            0.7029789423942566,
+            0.6844141221046448
+          ],
+          "expected_subsection": null,
+          "page_recall_at_k": 1.0,
+          "page_precision_at_k": 0.5,
+          "page_mrr_at_k": 0.5,
+          "chunk_hit_at_k": 1.0,
+          "chunk_precision_at_k": 0.3333333333333333,
+          "chunk_mrr_at_k": 0.5,
+          "chunk_hit_flags": [
+            0,
+            1,
+            0
+          ],
+          "failure_stage": "hit",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        },
+        "5": {
+          "retrieved_chunk_ids": [
+            "Grampian-2006-2007:p0011_003",
+            "Grampian-2006-2007:p0010_003",
+            "Grampian-2006-2007:p0011_000",
+            "Grampian-2006-2007:p0010_002",
+            "Grampian-2006-2007:p0011_002"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2006-2007",
+            "Grampian-2006-2007",
+            "Grampian-2006-2007",
+            "Grampian-2006-2007",
+            "Grampian-2006-2007"
+          ],
+          "retrieved_pages_ranked": [
+            11,
+            10
+          ],
+          "retrieved_scores": [
+            0.7061744570732117,
+            0.7029789423942566,
+            0.6844141221046448,
+            0.6778608894348145,
+            0.6760258913040161
+          ],
+          "expected_subsection": null,
+          "page_recall_at_k": 1.0,
+          "page_precision_at_k": 0.5,
+          "page_mrr_at_k": 0.5,
+          "chunk_hit_at_k": 1.0,
+          "chunk_precision_at_k": 0.4,
+          "chunk_mrr_at_k": 0.5,
+          "chunk_hit_flags": [
+            0,
+            1,
+            0,
+            1,
+            0
+          ],
+          "failure_stage": "hit",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        },
+        "10": {
+          "retrieved_chunk_ids": [
+            "Grampian-2006-2007:p0011_003",
+            "Grampian-2006-2007:p0010_003",
+            "Grampian-2006-2007:p0011_000",
+            "Grampian-2006-2007:p0010_002",
+            "Grampian-2006-2007:p0011_002",
+            "Grampian-2006-2007:p0008_002",
+            "Grampian-2006-2007:p0009_002",
+            "Grampian-2006-2007:p0010_004",
+            "Grampian-2006-2007:p0023_001",
+            "Grampian-2006-2007:p0011_001"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2006-2007",
+            "Grampian-2006-2007",
+            "Grampian-2006-2007",
+            "Grampian-2006-2007",
+            "Grampian-2006-2007",
+            "Grampian-2006-2007",
+            "Grampian-2006-2007",
+            "Grampian-2006-2007",
+            "Grampian-2006-2007",
+            "Grampian-2006-2007"
+          ],
+          "retrieved_pages_ranked": [
+            11,
+            10,
+            8,
+            9,
+            23
+          ],
+          "retrieved_scores": [
+            0.7061744570732117,
+            0.7029789423942566,
+            0.6844141221046448,
+            0.6778608894348145,
+            0.6760258913040161,
+            0.6650038313865662,
+            0.6385694003105163,
+            0.6333852362632751,
+            0.616877908706665,
+            0.6139033389091492
+          ],
+          "expected_subsection": null,
+          "page_recall_at_k": 1.0,
+          "page_precision_at_k": 0.2,
+          "page_mrr_at_k": 0.5,
+          "chunk_hit_at_k": 1.0,
+          "chunk_precision_at_k": 0.3,
+          "chunk_mrr_at_k": 0.5,
+          "chunk_hit_flags": [
+            0,
+            1,
+            0,
+            1,
+            0,
+            0,
+            0,
+            1,
+            0,
+            0
+          ],
+          "failure_stage": "hit",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        }
+      }
+    },
+    {
+      "query_id": "Q_07_OPS_01",
+      "topic": "OPS",
+      "year": 7,
+      "sequence": 1,
+      "question": "What percentage of A&E patients were seen within 4 hours at NHS Grampian in 2006/07?",
+      "answer_type": "number",
+      "doc_id": "Grampian-2006-2007",
+      "expected_section": "",
+      "expected_pages": [
+        11
+      ],
+      "route_intent": "table_metric_performance",
+      "route_confidence": 0.8,
+      "page_hit": 1,
+      "failure_type": "FP5_WRONG_FORMAT",
+      "failure_stage": "generation",
+      "expected_answer": "94% of A&E patients were seen within 4 hours",
+      "extracted_answer": "Emergency waiting times are being delivered.",
+      "extracted_answer_label": "Snippet",
+      "answer_correct": false,
+      "answer_status": "incorrect",
+      "extracted_answer_chunk_id": "Grampian-2006-2007:p0011_002",
+      "gold_presence": {
+        "gold_exists": true,
+        "gold_chunk_count": 4,
+        "gold_pages_found": [
+          11
+        ]
+      },
+      "per_k": {
+        "1": {
+          "retrieved_chunk_ids": [
+            "Grampian-2006-2007:p0011_002"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2006-2007"
+          ],
+          "retrieved_pages_ranked": [
+            11
+          ],
+          "retrieved_scores": [
+            0.7859510803222657
+          ],
+          "expected_subsection": null,
+          "page_recall_at_k": 1.0,
+          "page_precision_at_k": 1.0,
+          "page_mrr_at_k": 1.0,
+          "chunk_hit_at_k": 1.0,
+          "chunk_precision_at_k": 1.0,
+          "chunk_mrr_at_k": 1.0,
+          "chunk_hit_flags": [
+            1
+          ],
+          "failure_stage": "hit",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        },
+        "3": {
+          "retrieved_chunk_ids": [
+            "Grampian-2006-2007:p0011_002",
+            "Grampian-2006-2007:p0011_003",
+            "Grampian-2006-2007:p0010_001"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2006-2007",
+            "Grampian-2006-2007",
+            "Grampian-2006-2007"
+          ],
+          "retrieved_pages_ranked": [
+            11,
+            10
+          ],
+          "retrieved_scores": [
+            0.7859510803222657,
+            0.7852656865119935,
+            0.7229311203956604
+          ],
+          "expected_subsection": null,
+          "page_recall_at_k": 1.0,
+          "page_precision_at_k": 0.5,
+          "page_mrr_at_k": 1.0,
+          "chunk_hit_at_k": 1.0,
+          "chunk_precision_at_k": 0.6666666666666666,
+          "chunk_mrr_at_k": 1.0,
+          "chunk_hit_flags": [
+            1,
+            1,
+            0
+          ],
+          "failure_stage": "hit",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        },
+        "5": {
+          "retrieved_chunk_ids": [
+            "Grampian-2006-2007:p0011_002",
+            "Grampian-2006-2007:p0011_003",
+            "Grampian-2006-2007:p0010_001",
+            "Grampian-2006-2007:p0010_000",
+            "Grampian-2006-2007:p0011_001"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2006-2007",
+            "Grampian-2006-2007",
+            "Grampian-2006-2007",
+            "Grampian-2006-2007",
+            "Grampian-2006-2007"
+          ],
+          "retrieved_pages_ranked": [
+            11,
+            10
+          ],
+          "retrieved_scores": [
+            0.7859510803222657,
+            0.7852656865119935,
+            0.7229311203956604,
+            0.7128398752212525,
+            0.7116919493675232
+          ],
+          "expected_subsection": null,
+          "page_recall_at_k": 1.0,
+          "page_precision_at_k": 0.5,
+          "page_mrr_at_k": 1.0,
+          "chunk_hit_at_k": 1.0,
+          "chunk_precision_at_k": 0.6,
+          "chunk_mrr_at_k": 1.0,
+          "chunk_hit_flags": [
+            1,
+            1,
+            0,
+            0,
+            1
+          ],
+          "failure_stage": "hit",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        },
+        "10": {
+          "retrieved_chunk_ids": [
+            "Grampian-2006-2007:p0011_002",
+            "Grampian-2006-2007:p0011_003",
+            "Grampian-2006-2007:p0010_001",
+            "Grampian-2006-2007:p0010_000",
+            "Grampian-2006-2007:p0011_001",
+            "Grampian-2006-2007:p0008_002",
+            "Grampian-2006-2007:p0008_001",
+            "Grampian-2006-2007:p0008_003",
+            "Grampian-2006-2007:p0010_002",
+            "Grampian-2006-2007:p0011_000"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2006-2007",
+            "Grampian-2006-2007",
+            "Grampian-2006-2007",
+            "Grampian-2006-2007",
+            "Grampian-2006-2007",
+            "Grampian-2006-2007",
+            "Grampian-2006-2007",
+            "Grampian-2006-2007",
+            "Grampian-2006-2007",
+            "Grampian-2006-2007"
+          ],
+          "retrieved_pages_ranked": [
+            11,
+            10,
+            8
+          ],
+          "retrieved_scores": [
+            0.7859510803222657,
+            0.7852656865119935,
+            0.7229311203956604,
+            0.7128398752212525,
+            0.7116919493675232,
+            0.7092081642150879,
+            0.6846909260749817,
+            0.6560133051872253,
+            0.6552240586280823,
+            0.6539915239810944
+          ],
+          "expected_subsection": null,
+          "page_recall_at_k": 1.0,
+          "page_precision_at_k": 0.3333333333333333,
+          "page_mrr_at_k": 1.0,
+          "chunk_hit_at_k": 1.0,
+          "chunk_precision_at_k": 0.4,
+          "chunk_mrr_at_k": 1.0,
+          "chunk_hit_flags": [
+            1,
+            1,
+            0,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            1
+          ],
+          "failure_stage": "hit",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        }
+      }
+    }
+  ]
+}

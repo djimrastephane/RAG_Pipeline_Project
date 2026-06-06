@@ -1,0 +1,1538 @@
+{
+  "run_info": {
+    "run_utc": "2026-06-06T19:51:06+00:00",
+    "data_dir": "data_processed/Shetland-2022-2023",
+    "runtime": {
+      "python_executable": "/Users/djimra/MSc Data Science Jan 2025/Thesis documents/RAG_Pipeline_Project/.venv/bin/python",
+      "python_version": "3.11.15",
+      "platform": "macOS-26.5.1-arm64-arm-64bit",
+      "system": "Darwin",
+      "machine": "arm64",
+      "cwd": "/Users/djimra/MSc Data Science Jan 2025/Thesis documents/RAG_Pipeline_Project",
+      "conda_prefix": "/Users/djimra/MSc Data Science Jan 2025/Thesis documents/RAG_Pipeline_Project/.venv",
+      "conda_default_env": "/Users/djimra/MSc Data Science Jan 2025/Thesis documents/RAG_Pipeline_Project/.venv",
+      "virtual_env": null,
+      "dependency_report": {
+        "modules": {
+          "camelot": {
+            "installed": true,
+            "version": "1.0.9",
+            "module": "camelot",
+            "distribution": "camelot-py",
+            "error": null
+          },
+          "faiss": {
+            "installed": true,
+            "version": "1.13.2",
+            "module": "faiss",
+            "distribution": "faiss-cpu",
+            "error": null
+          },
+          "ghostscript": {
+            "installed": true,
+            "version": "0.8.1",
+            "module": "ghostscript",
+            "distribution": "ghostscript",
+            "error": null
+          },
+          "numpy": {
+            "installed": true,
+            "version": "2.4.6",
+            "module": "numpy",
+            "distribution": "numpy",
+            "error": null
+          },
+          "pandas": {
+            "installed": true,
+            "version": "2.3.3",
+            "module": "pandas",
+            "distribution": "pandas",
+            "error": null
+          },
+          "pdfplumber": {
+            "installed": true,
+            "version": "0.11.9",
+            "module": "pdfplumber",
+            "distribution": "pdfplumber",
+            "error": null
+          },
+          "pyarrow": {
+            "installed": true,
+            "version": "23.0.0",
+            "module": "pyarrow",
+            "distribution": "pyarrow",
+            "error": null
+          },
+          "pymupdf": {
+            "installed": true,
+            "version": "1.26.7",
+            "module": "pymupdf",
+            "distribution": "PyMuPDF",
+            "error": null
+          },
+          "sentence_transformers": {
+            "installed": true,
+            "version": "5.2.2",
+            "module": "sentence_transformers",
+            "distribution": "sentence-transformers",
+            "error": null
+          },
+          "tiktoken": {
+            "installed": true,
+            "version": "0.12.0",
+            "module": "tiktoken",
+            "distribution": "tiktoken",
+            "error": null
+          },
+          "torch": {
+            "installed": true,
+            "version": "2.5.1",
+            "module": "torch",
+            "distribution": "torch",
+            "error": null
+          }
+        },
+        "commands": {
+          "gs": {
+            "available": true,
+            "path": "/Users/djimra/MSc Data Science Jan 2025/Thesis documents/RAG_Pipeline_Project/.venv/bin/gs"
+          },
+          "pdftoppm": {
+            "available": true,
+            "path": "/Users/djimra/MSc Data Science Jan 2025/Thesis documents/RAG_Pipeline_Project/.venv/bin/pdftoppm"
+          },
+          "tesseract": {
+            "available": true,
+            "path": "/opt/homebrew/bin/tesseract"
+          }
+        }
+      }
+    },
+    "critical_environment_checks": [
+      {
+        "name": "tiktoken_available",
+        "ok": true,
+        "detail": "Required for exact preprocessing token counts."
+      },
+      {
+        "name": "camelot_available",
+        "ok": true,
+        "detail": "Required for the structured table extraction branch."
+      },
+      {
+        "name": "ghostscript_python_wrapper_available",
+        "ok": true,
+        "detail": "Needed by Camelot on many environments."
+      },
+      {
+        "name": "ghostscript_binary_available",
+        "ok": true,
+        "detail": "Ghostscript binary used by Camelot."
+      },
+      {
+        "name": "faiss_available",
+        "ok": true,
+        "detail": "Required for dense index build and retrieval."
+      },
+      {
+        "name": "sentence_transformers_available",
+        "ok": true,
+        "detail": "Required for MiniLM embeddings."
+      },
+      {
+        "name": "torch_available",
+        "ok": true,
+        "detail": "Required backend for sentence-transformers."
+      }
+    ],
+    "index_path": "data_processed/Shetland-2022-2023/faiss.index",
+    "meta_path": "data_processed/Shetland-2022-2023/chunk_meta.parquet",
+    "table_facts_path": "data_processed/Shetland-2022-2023/table_facts.parquet",
+    "eval_set_path": "data_processed/Shetland-2022-2023/eval_set.json",
+    "embedding_model": "sentence-transformers/all-MiniLM-L6-v2",
+    "k_list": [
+      1,
+      3,
+      5,
+      10
+    ],
+    "subsection_boost": 0.05,
+    "table_chunk_boost": 0.08,
+    "milestone_text_boost": 0.08,
+    "entity_match_boost": 0.04,
+    "numeric_density_boost": 0.03,
+    "segment_search_hit_boost": 0.03,
+    "max_entity_matches": 4,
+    "enable_lexical_rerank": true,
+    "enable_subsection_boost": true,
+    "max_k_search": 100,
+    "num_queries": 6,
+    "num_chunks_indexed": 296,
+    "num_table_facts": 1933,
+    "meta_doc_ids": [
+      "Shetland-2022-2023"
+    ],
+    "query_id_nomenclature": "Q_<TOPIC>_<YEAR>_<NN> with TOPIC in [REV,EFF,DEF,STAFF,ACC,GOV,TABLE]",
+    "failure_attribution": {
+      "retrieval_stages": [
+        "hit",
+        "missed_top_ranked",
+        "missing_content"
+      ],
+      "failure_types": [
+        "FP1_MISSING_CONTENT",
+        "FP2_MISSED_TOP_RANK",
+        "FP3_NOT_IN_CONTEXT",
+        "FP4_NOT_EXTRACTED",
+        "FP5_WRONG_FORMAT",
+        "FP6_INCORRECT_SPECIFICITY",
+        "FP7_INCOMPLETE",
+        "HIT"
+      ],
+      "scope": "retrieval_and_generation"
+    },
+    "leakage_detection": {
+      "enabled": true,
+      "requires_expected_doc_id": true,
+      "fields": [
+        "retrieved_doc_ids_top_k",
+        "leakage_count_top_k",
+        "leakage_doc_ids_top_k",
+        "leakage_rate_top_k"
+      ]
+    },
+    "pipeline_settings": {
+      "source_metrics_path": "data_processed/Shetland-2022-2023/metrics.json",
+      "source_metrics_exists": true,
+      "doc_id": "Shetland-2022-2023",
+      "corpus_id": "Shetland-2022-2023",
+      "report_year": "2022-23",
+      "preprocess_run_utc": "2026-06-06T16:07:59+00:00",
+      "preprocess_git_commit_short": "3799e6d",
+      "embedding_model_preprocess": "sentence-transformers/all-MiniLM-L6-v2",
+      "chunk_size_tokens": 224,
+      "chunk_overlap_tokens": 56,
+      "segment_aware_chunking": true,
+      "whole_doc_markdown_mode": false,
+      "markdown_header_carry_forward": true,
+      "markdown_table_injection": true,
+      "primary_extractor": "pymupdf",
+      "min_chunk_words": 20
+    },
+    "eval_set": {
+      "path": "data_processed/Shetland-2022-2023/eval_set.json",
+      "sha1": "d81a0ab1785f24c4e8f96c6124874c69ae2d1b80",
+      "size_bytes": 2920,
+      "modified_utc": "2026-06-06T19:07:25+00:00",
+      "query_count": 6,
+      "meta_dataset_name": "Shetland-2022-2023 Retrieval Silver Set",
+      "meta_doc_id": "Shetland-2022-2023",
+      "meta_version": null
+    }
+  },
+  "results": [
+    {
+      "query_id": "Q_23_FIN_02",
+      "topic": "FIN",
+      "year": 23,
+      "sequence": 2,
+      "question": "What were the total staff costs for NHS Shetland in 2022/23?",
+      "answer_type": "number",
+      "doc_id": "Shetland-2022-2023",
+      "expected_section": "",
+      "expected_pages": [
+        21
+      ],
+      "route_intent": "table_metric_staff_costs",
+      "route_confidence": 0.85,
+      "page_hit": 0,
+      "failure_type": "FP2_MISSED_TOP_RANK",
+      "failure_stage": "retrieval",
+      "expected_answer": "The total staff costs for NHS Shetland in 2022/23 were £40.91m.",
+      "extracted_answer": "2021 2022 £000 £000 0 Later than five years 0 Amounts charged to Operating Costs in the year were: 210 Hire of equipment (including vehicles) 357 146 Other operating leases 215 356 Total 572 - Aggrega",
+      "extracted_answer_label": "Snippet",
+      "answer_correct": false,
+      "answer_status": "partial",
+      "extracted_answer_chunk_id": "Shetland-2022-2023:p0140_000",
+      "gold_presence": {
+        "gold_exists": true,
+        "gold_chunk_count": 4,
+        "gold_pages_found": [
+          21
+        ]
+      },
+      "per_k": {
+        "1": {
+          "retrieved_chunk_ids": [
+            "Shetland-2022-2023:p0140_000"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Shetland-2022-2023"
+          ],
+          "retrieved_pages_ranked": [
+            140
+          ],
+          "retrieved_scores": [
+            0.9478308534622193
+          ],
+          "expected_subsection": null,
+          "page_recall_at_k": 0.0,
+          "page_precision_at_k": 0.0,
+          "page_mrr_at_k": 0.0,
+          "chunk_hit_at_k": 0.0,
+          "chunk_precision_at_k": 0.0,
+          "chunk_mrr_at_k": 0.0,
+          "chunk_hit_flags": [
+            0
+          ],
+          "failure_stage": "missed_top_ranked",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        },
+        "3": {
+          "retrieved_chunk_ids": [
+            "Shetland-2022-2023:p0140_000",
+            "Shetland-2022-2023:p0070_001",
+            "Shetland-2022-2023:p0076_000"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Shetland-2022-2023",
+            "Shetland-2022-2023",
+            "Shetland-2022-2023"
+          ],
+          "retrieved_pages_ranked": [
+            140,
+            70,
+            76
+          ],
+          "retrieved_scores": [
+            0.9478308534622193,
+            0.9274301505088807,
+            0.9020346093177796
+          ],
+          "expected_subsection": null,
+          "page_recall_at_k": 0.0,
+          "page_precision_at_k": 0.0,
+          "page_mrr_at_k": 0.0,
+          "chunk_hit_at_k": 0.0,
+          "chunk_precision_at_k": 0.0,
+          "chunk_mrr_at_k": 0.0,
+          "chunk_hit_flags": [
+            0,
+            0,
+            0
+          ],
+          "failure_stage": "missed_top_ranked",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        },
+        "5": {
+          "retrieved_chunk_ids": [
+            "Shetland-2022-2023:p0140_000",
+            "Shetland-2022-2023:p0070_001",
+            "Shetland-2022-2023:p0076_000",
+            "Shetland-2022-2023:p0073_000",
+            "Shetland-2022-2023:p0012_001"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Shetland-2022-2023",
+            "Shetland-2022-2023",
+            "Shetland-2022-2023",
+            "Shetland-2022-2023",
+            "Shetland-2022-2023"
+          ],
+          "retrieved_pages_ranked": [
+            140,
+            70,
+            76,
+            73,
+            12
+          ],
+          "retrieved_scores": [
+            0.9478308534622193,
+            0.9274301505088807,
+            0.9020346093177796,
+            0.8646086645126343,
+            0.8529287767410278
+          ],
+          "expected_subsection": null,
+          "page_recall_at_k": 0.0,
+          "page_precision_at_k": 0.0,
+          "page_mrr_at_k": 0.0,
+          "chunk_hit_at_k": 0.0,
+          "chunk_precision_at_k": 0.0,
+          "chunk_mrr_at_k": 0.0,
+          "chunk_hit_flags": [
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "failure_stage": "missed_top_ranked",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        },
+        "10": {
+          "retrieved_chunk_ids": [
+            "Shetland-2022-2023:p0140_000",
+            "Shetland-2022-2023:p0070_001",
+            "Shetland-2022-2023:p0076_000",
+            "Shetland-2022-2023:p0073_000",
+            "Shetland-2022-2023:p0012_001",
+            "Shetland-2022-2023:p0022_002",
+            "Shetland-2022-2023:p0022_001",
+            "Shetland-2022-2023:p0021_000",
+            "Shetland-2022-2023:p0012_000",
+            "Shetland-2022-2023:p0005_002"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Shetland-2022-2023",
+            "Shetland-2022-2023",
+            "Shetland-2022-2023",
+            "Shetland-2022-2023",
+            "Shetland-2022-2023",
+            "Shetland-2022-2023",
+            "Shetland-2022-2023",
+            "Shetland-2022-2023",
+            "Shetland-2022-2023",
+            "Shetland-2022-2023"
+          ],
+          "retrieved_pages_ranked": [
+            140,
+            70,
+            76,
+            73,
+            12,
+            22,
+            21,
+            5
+          ],
+          "retrieved_scores": [
+            0.9478308534622193,
+            0.9274301505088807,
+            0.9020346093177796,
+            0.8646086645126343,
+            0.8529287767410278,
+            0.8413843536376954,
+            0.8412181758880616,
+            0.8272538733482362,
+            0.8228711009025574,
+            0.8133733010292054
+          ],
+          "expected_subsection": null,
+          "page_recall_at_k": 1.0,
+          "page_precision_at_k": 0.125,
+          "page_mrr_at_k": 0.14285714285714285,
+          "chunk_hit_at_k": 1.0,
+          "chunk_precision_at_k": 0.1,
+          "chunk_mrr_at_k": 0.125,
+          "chunk_hit_flags": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            1,
+            0,
+            0
+          ],
+          "failure_stage": "hit",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        }
+      }
+    },
+    {
+      "query_id": "Q_23_FIN_03",
+      "topic": "FIN",
+      "year": 23,
+      "sequence": 3,
+      "question": "What was the Core Revenue Resource Limit for NHS Shetland in 2022/23?",
+      "answer_type": "number",
+      "doc_id": "Shetland-2022-2023",
+      "expected_section": "",
+      "expected_pages": [
+        13
+      ],
+      "route_intent": "table_metric_financial_targets",
+      "route_confidence": 0.85,
+      "page_hit": 1,
+      "failure_type": "FP6_INCORRECT_SPECIFICITY",
+      "failure_stage": "generation",
+      "expected_answer": "The Core Revenue Resource Limit (RRL) for NHS Shetland in 2022/23 was £78,458,000.",
+      "extracted_answer": "Section 4—Performance Summary Appraisal • Financial Performance The Scottish Government requires NHS Boards to meet three key financial targets: • A Revenue Resource limit (RRL) a resource budget for",
+      "extracted_answer_label": "Snippet",
+      "answer_correct": false,
+      "answer_status": "incorrect",
+      "extracted_answer_chunk_id": "Shetland-2022-2023:p0013_000",
+      "gold_presence": {
+        "gold_exists": true,
+        "gold_chunk_count": 3,
+        "gold_pages_found": [
+          13
+        ]
+      },
+      "per_k": {
+        "1": {
+          "retrieved_chunk_ids": [
+            "Shetland-2022-2023:p0013_000"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Shetland-2022-2023"
+          ],
+          "retrieved_pages_ranked": [
+            13
+          ],
+          "retrieved_scores": [
+            0.9007704591751099
+          ],
+          "expected_subsection": null,
+          "page_recall_at_k": 1.0,
+          "page_precision_at_k": 1.0,
+          "page_mrr_at_k": 1.0,
+          "chunk_hit_at_k": 1.0,
+          "chunk_precision_at_k": 1.0,
+          "chunk_mrr_at_k": 1.0,
+          "chunk_hit_flags": [
+            1
+          ],
+          "failure_stage": "hit",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        },
+        "3": {
+          "retrieved_chunk_ids": [
+            "Shetland-2022-2023:p0013_000",
+            "Shetland-2022-2023:p0022_002",
+            "Shetland-2022-2023:p0140_000"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Shetland-2022-2023",
+            "Shetland-2022-2023",
+            "Shetland-2022-2023"
+          ],
+          "retrieved_pages_ranked": [
+            13,
+            22,
+            140
+          ],
+          "retrieved_scores": [
+            0.9007704591751099,
+            0.8061578822135925,
+            0.8041033697128296
+          ],
+          "expected_subsection": null,
+          "page_recall_at_k": 1.0,
+          "page_precision_at_k": 0.3333333333333333,
+          "page_mrr_at_k": 1.0,
+          "chunk_hit_at_k": 1.0,
+          "chunk_precision_at_k": 0.3333333333333333,
+          "chunk_mrr_at_k": 1.0,
+          "chunk_hit_flags": [
+            1,
+            0,
+            0
+          ],
+          "failure_stage": "hit",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        },
+        "5": {
+          "retrieved_chunk_ids": [
+            "Shetland-2022-2023:p0013_000",
+            "Shetland-2022-2023:p0022_002",
+            "Shetland-2022-2023:p0140_000",
+            "Shetland-2022-2023:p0005_002",
+            "Shetland-2022-2023:p0150_001"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Shetland-2022-2023",
+            "Shetland-2022-2023",
+            "Shetland-2022-2023",
+            "Shetland-2022-2023",
+            "Shetland-2022-2023"
+          ],
+          "retrieved_pages_ranked": [
+            13,
+            22,
+            140,
+            5,
+            150
+          ],
+          "retrieved_scores": [
+            0.9007704591751099,
+            0.8061578822135925,
+            0.8041033697128296,
+            0.7957110357284546,
+            0.7878051137924195
+          ],
+          "expected_subsection": null,
+          "page_recall_at_k": 1.0,
+          "page_precision_at_k": 0.2,
+          "page_mrr_at_k": 1.0,
+          "chunk_hit_at_k": 1.0,
+          "chunk_precision_at_k": 0.2,
+          "chunk_mrr_at_k": 1.0,
+          "chunk_hit_flags": [
+            1,
+            0,
+            0,
+            0,
+            0
+          ],
+          "failure_stage": "hit",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        },
+        "10": {
+          "retrieved_chunk_ids": [
+            "Shetland-2022-2023:p0013_000",
+            "Shetland-2022-2023:p0022_002",
+            "Shetland-2022-2023:p0140_000",
+            "Shetland-2022-2023:p0005_002",
+            "Shetland-2022-2023:p0150_001",
+            "Shetland-2022-2023:p0004_000",
+            "Shetland-2022-2023:p0150_000",
+            "Shetland-2022-2023:p0108_000",
+            "Shetland-2022-2023:p0022_001",
+            "Shetland-2022-2023:p0017_000"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Shetland-2022-2023",
+            "Shetland-2022-2023",
+            "Shetland-2022-2023",
+            "Shetland-2022-2023",
+            "Shetland-2022-2023",
+            "Shetland-2022-2023",
+            "Shetland-2022-2023",
+            "Shetland-2022-2023",
+            "Shetland-2022-2023",
+            "Shetland-2022-2023"
+          ],
+          "retrieved_pages_ranked": [
+            13,
+            22,
+            140,
+            5,
+            150,
+            4,
+            108,
+            17
+          ],
+          "retrieved_scores": [
+            0.9007704591751099,
+            0.8061578822135925,
+            0.8041033697128296,
+            0.7957110357284546,
+            0.7878051137924195,
+            0.7862156581878662,
+            0.7753951287269593,
+            0.7703880620002747,
+            0.7668182802200317,
+            0.759590322971344
+          ],
+          "expected_subsection": null,
+          "page_recall_at_k": 1.0,
+          "page_precision_at_k": 0.125,
+          "page_mrr_at_k": 1.0,
+          "chunk_hit_at_k": 1.0,
+          "chunk_precision_at_k": 0.1,
+          "chunk_mrr_at_k": 1.0,
+          "chunk_hit_flags": [
+            1,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "failure_stage": "hit",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        }
+      }
+    },
+    {
+      "query_id": "Q_23_FIN_05",
+      "topic": "FIN",
+      "year": 23,
+      "sequence": 5,
+      "question": "Did NHS Shetland report a surplus or deficit against its resource budget in 2022/23?",
+      "answer_type": "text",
+      "doc_id": "Shetland-2022-2023",
+      "expected_section": "",
+      "expected_pages": [
+        20
+      ],
+      "route_intent": "table_metric_financial_statements",
+      "route_confidence": 0.8,
+      "page_hit": 0,
+      "failure_type": "FP2_MISSED_TOP_RANK",
+      "failure_stage": "retrieval",
+      "expected_answer": "NHS Shetland reported a surplus of £1019 against its resource budget in 2022/23.",
+      "extracted_answer": "Section 4—Performance Summary Appraisal • Financial Performance The Scottish Government requires NHS Boards to meet three key financial targets: • A Revenue Resource limit (RRL) a resource budget for",
+      "extracted_answer_label": "Snippet",
+      "answer_correct": false,
+      "answer_status": "partial",
+      "extracted_answer_chunk_id": "Shetland-2022-2023:p0013_000",
+      "gold_presence": {
+        "gold_exists": true,
+        "gold_chunk_count": 1,
+        "gold_pages_found": [
+          20
+        ]
+      },
+      "per_k": {
+        "1": {
+          "retrieved_chunk_ids": [
+            "Shetland-2022-2023:p0013_000"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Shetland-2022-2023"
+          ],
+          "retrieved_pages_ranked": [
+            13
+          ],
+          "retrieved_scores": [
+            0.8111831283569336
+          ],
+          "expected_subsection": null,
+          "page_recall_at_k": 0.0,
+          "page_precision_at_k": 0.0,
+          "page_mrr_at_k": 0.0,
+          "chunk_hit_at_k": 0.0,
+          "chunk_precision_at_k": 0.0,
+          "chunk_mrr_at_k": 0.0,
+          "chunk_hit_flags": [
+            0
+          ],
+          "failure_stage": "missed_top_ranked",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        },
+        "3": {
+          "retrieved_chunk_ids": [
+            "Shetland-2022-2023:p0013_000",
+            "Shetland-2022-2023:p0005_002",
+            "Shetland-2022-2023:p0004_000"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Shetland-2022-2023",
+            "Shetland-2022-2023",
+            "Shetland-2022-2023"
+          ],
+          "retrieved_pages_ranked": [
+            13,
+            5,
+            4
+          ],
+          "retrieved_scores": [
+            0.8111831283569336,
+            0.7866308641433716,
+            0.7854123449325562
+          ],
+          "expected_subsection": null,
+          "page_recall_at_k": 0.0,
+          "page_precision_at_k": 0.0,
+          "page_mrr_at_k": 0.0,
+          "chunk_hit_at_k": 0.0,
+          "chunk_precision_at_k": 0.0,
+          "chunk_mrr_at_k": 0.0,
+          "chunk_hit_flags": [
+            0,
+            0,
+            0
+          ],
+          "failure_stage": "missed_top_ranked",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        },
+        "5": {
+          "retrieved_chunk_ids": [
+            "Shetland-2022-2023:p0013_000",
+            "Shetland-2022-2023:p0005_002",
+            "Shetland-2022-2023:p0004_000",
+            "Shetland-2022-2023:p0022_002",
+            "Shetland-2022-2023:p0108_000"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Shetland-2022-2023",
+            "Shetland-2022-2023",
+            "Shetland-2022-2023",
+            "Shetland-2022-2023",
+            "Shetland-2022-2023"
+          ],
+          "retrieved_pages_ranked": [
+            13,
+            5,
+            4,
+            22,
+            108
+          ],
+          "retrieved_scores": [
+            0.8111831283569336,
+            0.7866308641433716,
+            0.7854123449325562,
+            0.7718650341033936,
+            0.7476621007919312
+          ],
+          "expected_subsection": null,
+          "page_recall_at_k": 0.0,
+          "page_precision_at_k": 0.0,
+          "page_mrr_at_k": 0.0,
+          "chunk_hit_at_k": 0.0,
+          "chunk_precision_at_k": 0.0,
+          "chunk_mrr_at_k": 0.0,
+          "chunk_hit_flags": [
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "failure_stage": "missed_top_ranked",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        },
+        "10": {
+          "retrieved_chunk_ids": [
+            "Shetland-2022-2023:p0013_000",
+            "Shetland-2022-2023:p0005_002",
+            "Shetland-2022-2023:p0004_000",
+            "Shetland-2022-2023:p0022_002",
+            "Shetland-2022-2023:p0108_000",
+            "Shetland-2022-2023:p0043_002",
+            "Shetland-2022-2023:p0140_000",
+            "Shetland-2022-2023:p0047_002",
+            "Shetland-2022-2023:p0150_001",
+            "Shetland-2022-2023:p0058_001"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Shetland-2022-2023",
+            "Shetland-2022-2023",
+            "Shetland-2022-2023",
+            "Shetland-2022-2023",
+            "Shetland-2022-2023",
+            "Shetland-2022-2023",
+            "Shetland-2022-2023",
+            "Shetland-2022-2023",
+            "Shetland-2022-2023",
+            "Shetland-2022-2023"
+          ],
+          "retrieved_pages_ranked": [
+            13,
+            5,
+            4,
+            22,
+            108,
+            43,
+            140,
+            47,
+            150,
+            58
+          ],
+          "retrieved_scores": [
+            0.8111831283569336,
+            0.7866308641433716,
+            0.7854123449325562,
+            0.7718650341033936,
+            0.7476621007919312,
+            0.7398692393302918,
+            0.7227543830871582,
+            0.707830126285553,
+            0.7070598244667053,
+            0.703207688331604
+          ],
+          "expected_subsection": null,
+          "page_recall_at_k": 0.0,
+          "page_precision_at_k": 0.0,
+          "page_mrr_at_k": 0.0,
+          "chunk_hit_at_k": 0.0,
+          "chunk_precision_at_k": 0.0,
+          "chunk_mrr_at_k": 0.0,
+          "chunk_hit_flags": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "failure_stage": "missed_top_ranked",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        }
+      }
+    },
+    {
+      "query_id": "Q_23_FIN_07",
+      "topic": "FIN",
+      "year": 23,
+      "sequence": 7,
+      "question": "What was the total operating expenditure for NHS Shetland in 2022/23?",
+      "answer_type": "number",
+      "doc_id": "Shetland-2022-2023",
+      "expected_section": "",
+      "expected_pages": [
+        140
+      ],
+      "route_intent": "table_metric_financial_statements",
+      "route_confidence": 0.8,
+      "page_hit": 1,
+      "failure_type": "FP7_INCOMPLETE",
+      "failure_stage": "generation",
+      "expected_answer": "Total operating expenditure for NHS Shetland in 2022/23 was £49.695m",
+      "extracted_answer": "2021 2022 £000 £000 0 Later than five years 0 Amounts charged to Operating Costs in the year were: 210 Hire of equipment (including vehicles) 357 146 Other operating leases 215 356 Total 572 - Aggrega",
+      "extracted_answer_label": "Snippet",
+      "answer_correct": false,
+      "answer_status": "partial",
+      "extracted_answer_chunk_id": "Shetland-2022-2023:p0140_000",
+      "gold_presence": {
+        "gold_exists": true,
+        "gold_chunk_count": 2,
+        "gold_pages_found": [
+          140
+        ]
+      },
+      "per_k": {
+        "1": {
+          "retrieved_chunk_ids": [
+            "Shetland-2022-2023:p0140_000"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Shetland-2022-2023"
+          ],
+          "retrieved_pages_ranked": [
+            140
+          ],
+          "retrieved_scores": [
+            0.8584467196464539
+          ],
+          "expected_subsection": null,
+          "page_recall_at_k": 1.0,
+          "page_precision_at_k": 1.0,
+          "page_mrr_at_k": 1.0,
+          "chunk_hit_at_k": 1.0,
+          "chunk_precision_at_k": 1.0,
+          "chunk_mrr_at_k": 1.0,
+          "chunk_hit_flags": [
+            1
+          ],
+          "failure_stage": "hit",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        },
+        "3": {
+          "retrieved_chunk_ids": [
+            "Shetland-2022-2023:p0140_000",
+            "Shetland-2022-2023:p0017_000",
+            "Shetland-2022-2023:p0022_002"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Shetland-2022-2023",
+            "Shetland-2022-2023",
+            "Shetland-2022-2023"
+          ],
+          "retrieved_pages_ranked": [
+            140,
+            17,
+            22
+          ],
+          "retrieved_scores": [
+            0.8584467196464539,
+            0.8288697338104248,
+            0.8143415689468384
+          ],
+          "expected_subsection": null,
+          "page_recall_at_k": 1.0,
+          "page_precision_at_k": 0.3333333333333333,
+          "page_mrr_at_k": 1.0,
+          "chunk_hit_at_k": 1.0,
+          "chunk_precision_at_k": 0.3333333333333333,
+          "chunk_mrr_at_k": 1.0,
+          "chunk_hit_flags": [
+            1,
+            0,
+            0
+          ],
+          "failure_stage": "hit",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        },
+        "5": {
+          "retrieved_chunk_ids": [
+            "Shetland-2022-2023:p0140_000",
+            "Shetland-2022-2023:p0017_000",
+            "Shetland-2022-2023:p0022_002",
+            "Shetland-2022-2023:p0005_002",
+            "Shetland-2022-2023:p0004_000"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Shetland-2022-2023",
+            "Shetland-2022-2023",
+            "Shetland-2022-2023",
+            "Shetland-2022-2023",
+            "Shetland-2022-2023"
+          ],
+          "retrieved_pages_ranked": [
+            140,
+            17,
+            22,
+            5,
+            4
+          ],
+          "retrieved_scores": [
+            0.8584467196464539,
+            0.8288697338104248,
+            0.8143415689468384,
+            0.8066008043289185,
+            0.8004370880126953
+          ],
+          "expected_subsection": null,
+          "page_recall_at_k": 1.0,
+          "page_precision_at_k": 0.2,
+          "page_mrr_at_k": 1.0,
+          "chunk_hit_at_k": 1.0,
+          "chunk_precision_at_k": 0.2,
+          "chunk_mrr_at_k": 1.0,
+          "chunk_hit_flags": [
+            1,
+            0,
+            0,
+            0,
+            0
+          ],
+          "failure_stage": "hit",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        },
+        "10": {
+          "retrieved_chunk_ids": [
+            "Shetland-2022-2023:p0140_000",
+            "Shetland-2022-2023:p0017_000",
+            "Shetland-2022-2023:p0022_002",
+            "Shetland-2022-2023:p0005_002",
+            "Shetland-2022-2023:p0004_000",
+            "Shetland-2022-2023:p0022_001",
+            "Shetland-2022-2023:p0150_001",
+            "Shetland-2022-2023:p0018_001",
+            "Shetland-2022-2023:p0002_001",
+            "Shetland-2022-2023:p0017_001"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Shetland-2022-2023",
+            "Shetland-2022-2023",
+            "Shetland-2022-2023",
+            "Shetland-2022-2023",
+            "Shetland-2022-2023",
+            "Shetland-2022-2023",
+            "Shetland-2022-2023",
+            "Shetland-2022-2023",
+            "Shetland-2022-2023",
+            "Shetland-2022-2023"
+          ],
+          "retrieved_pages_ranked": [
+            140,
+            17,
+            22,
+            5,
+            4,
+            150,
+            18,
+            2
+          ],
+          "retrieved_scores": [
+            0.8584467196464539,
+            0.8288697338104248,
+            0.8143415689468384,
+            0.8066008043289185,
+            0.8004370880126953,
+            0.799006724357605,
+            0.7896104693412781,
+            0.7881822919845581,
+            0.7654807591438294,
+            0.764942581653595
+          ],
+          "expected_subsection": null,
+          "page_recall_at_k": 1.0,
+          "page_precision_at_k": 0.125,
+          "page_mrr_at_k": 1.0,
+          "chunk_hit_at_k": 1.0,
+          "chunk_precision_at_k": 0.1,
+          "chunk_mrr_at_k": 1.0,
+          "chunk_hit_flags": [
+            1,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "failure_stage": "hit",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        }
+      }
+    },
+    {
+      "query_id": "Q_23_STF_01",
+      "topic": "STF",
+      "year": 23,
+      "sequence": 1,
+      "question": "How many whole time equivalent staff did NHS Shetland employ in 2022/23?",
+      "answer_type": "number",
+      "doc_id": "Shetland-2022-2023",
+      "expected_section": "",
+      "expected_pages": [
+        73
+      ],
+      "route_intent": "unknown",
+      "route_confidence": 0.5,
+      "page_hit": 0,
+      "failure_type": "FP2_MISSED_TOP_RANK",
+      "failure_stage": "retrieval",
+      "expected_answer": "Whole Time Equivalent staff 680",
+      "extracted_answer": "Annual Accounts and Notes for Year Ended 31 March 2023 Performance Overview Report Section 1—Chief Executive’s Statement NHS Shetland rose to the challenges presented in 2022–23 and continued to deliv",
+      "extracted_answer_label": "Snippet",
+      "answer_correct": false,
+      "answer_status": "incorrect",
+      "extracted_answer_chunk_id": "Shetland-2022-2023:p0004_000",
+      "gold_presence": {
+        "gold_exists": true,
+        "gold_chunk_count": 1,
+        "gold_pages_found": [
+          73
+        ]
+      },
+      "per_k": {
+        "1": {
+          "retrieved_chunk_ids": [
+            "Shetland-2022-2023:p0004_000"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Shetland-2022-2023"
+          ],
+          "retrieved_pages_ranked": [
+            4
+          ],
+          "retrieved_scores": [
+            0.8815008735656739
+          ],
+          "expected_subsection": null,
+          "page_recall_at_k": 0.0,
+          "page_precision_at_k": 0.0,
+          "page_mrr_at_k": 0.0,
+          "chunk_hit_at_k": 0.0,
+          "chunk_precision_at_k": 0.0,
+          "chunk_mrr_at_k": 0.0,
+          "chunk_hit_flags": [
+            0
+          ],
+          "failure_stage": "missed_top_ranked",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        },
+        "3": {
+          "retrieved_chunk_ids": [
+            "Shetland-2022-2023:p0004_000",
+            "Shetland-2022-2023:p0005_002",
+            "Shetland-2022-2023:p0004_002"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Shetland-2022-2023",
+            "Shetland-2022-2023",
+            "Shetland-2022-2023"
+          ],
+          "retrieved_pages_ranked": [
+            4,
+            5
+          ],
+          "retrieved_scores": [
+            0.8815008735656739,
+            0.8495820498466492,
+            0.8385979866981507
+          ],
+          "expected_subsection": null,
+          "page_recall_at_k": 0.0,
+          "page_precision_at_k": 0.0,
+          "page_mrr_at_k": 0.0,
+          "chunk_hit_at_k": 0.0,
+          "chunk_precision_at_k": 0.0,
+          "chunk_mrr_at_k": 0.0,
+          "chunk_hit_flags": [
+            0,
+            0,
+            0
+          ],
+          "failure_stage": "missed_top_ranked",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        },
+        "5": {
+          "retrieved_chunk_ids": [
+            "Shetland-2022-2023:p0004_000",
+            "Shetland-2022-2023:p0005_002",
+            "Shetland-2022-2023:p0004_002",
+            "Shetland-2022-2023:p0004_001",
+            "Shetland-2022-2023:p0076_000"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Shetland-2022-2023",
+            "Shetland-2022-2023",
+            "Shetland-2022-2023",
+            "Shetland-2022-2023",
+            "Shetland-2022-2023"
+          ],
+          "retrieved_pages_ranked": [
+            4,
+            5,
+            76
+          ],
+          "retrieved_scores": [
+            0.8815008735656739,
+            0.8495820498466492,
+            0.8385979866981507,
+            0.8384672141075135,
+            0.8288220500946045
+          ],
+          "expected_subsection": null,
+          "page_recall_at_k": 0.0,
+          "page_precision_at_k": 0.0,
+          "page_mrr_at_k": 0.0,
+          "chunk_hit_at_k": 0.0,
+          "chunk_precision_at_k": 0.0,
+          "chunk_mrr_at_k": 0.0,
+          "chunk_hit_flags": [
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "failure_stage": "missed_top_ranked",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        },
+        "10": {
+          "retrieved_chunk_ids": [
+            "Shetland-2022-2023:p0004_000",
+            "Shetland-2022-2023:p0005_002",
+            "Shetland-2022-2023:p0004_002",
+            "Shetland-2022-2023:p0004_001",
+            "Shetland-2022-2023:p0076_000",
+            "Shetland-2022-2023:p0073_000",
+            "Shetland-2022-2023:p0031_000",
+            "Shetland-2022-2023:p0012_000",
+            "Shetland-2022-2023:p0150_001",
+            "Shetland-2022-2023:p0006_000"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Shetland-2022-2023",
+            "Shetland-2022-2023",
+            "Shetland-2022-2023",
+            "Shetland-2022-2023",
+            "Shetland-2022-2023",
+            "Shetland-2022-2023",
+            "Shetland-2022-2023",
+            "Shetland-2022-2023",
+            "Shetland-2022-2023",
+            "Shetland-2022-2023"
+          ],
+          "retrieved_pages_ranked": [
+            4,
+            5,
+            76,
+            73,
+            31,
+            12,
+            150,
+            6
+          ],
+          "retrieved_scores": [
+            0.8815008735656739,
+            0.8495820498466492,
+            0.8385979866981507,
+            0.8384672141075135,
+            0.8288220500946045,
+            0.8260077857971192,
+            0.823673996925354,
+            0.8105836844444275,
+            0.8046370387077332,
+            0.7914187049865723
+          ],
+          "expected_subsection": null,
+          "page_recall_at_k": 1.0,
+          "page_precision_at_k": 0.125,
+          "page_mrr_at_k": 0.25,
+          "chunk_hit_at_k": 1.0,
+          "chunk_precision_at_k": 0.1,
+          "chunk_mrr_at_k": 0.16666666666666666,
+          "chunk_hit_flags": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0
+          ],
+          "failure_stage": "hit",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        }
+      }
+    },
+    {
+      "query_id": "Q_23_OPS_01",
+      "topic": "OPS",
+      "year": 23,
+      "sequence": 1,
+      "question": "What percentage of A&E patients were seen within 4 hours at NHS Shetland in 2022/23?",
+      "answer_type": "number",
+      "doc_id": "Shetland-2022-2023",
+      "expected_section": "",
+      "expected_pages": [
+        26
+      ],
+      "route_intent": "table_metric_performance",
+      "route_confidence": 0.8,
+      "page_hit": 1,
+      "failure_type": "FP6_INCORRECT_SPECIFICITY",
+      "failure_stage": "generation",
+      "expected_answer": "91.8%",
+      "extracted_answer": "“provide quality, effective and safe services, delivered in the most appropriate setting for the patient.” Unscheduled Care For the first time since the statistic was introduce during 2022–23, NHS She",
+      "extracted_answer_label": "Snippet",
+      "answer_correct": false,
+      "answer_status": "incorrect",
+      "extracted_answer_chunk_id": "Shetland-2022-2023:p0026_000",
+      "gold_presence": {
+        "gold_exists": true,
+        "gold_chunk_count": 2,
+        "gold_pages_found": [
+          26
+        ]
+      },
+      "per_k": {
+        "1": {
+          "retrieved_chunk_ids": [
+            "Shetland-2022-2023:p0026_000"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Shetland-2022-2023"
+          ],
+          "retrieved_pages_ranked": [
+            26
+          ],
+          "retrieved_scores": [
+            0.8584344720840454
+          ],
+          "expected_subsection": null,
+          "page_recall_at_k": 1.0,
+          "page_precision_at_k": 1.0,
+          "page_mrr_at_k": 1.0,
+          "chunk_hit_at_k": 1.0,
+          "chunk_precision_at_k": 1.0,
+          "chunk_mrr_at_k": 1.0,
+          "chunk_hit_flags": [
+            1
+          ],
+          "failure_stage": "hit",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        },
+        "3": {
+          "retrieved_chunk_ids": [
+            "Shetland-2022-2023:p0026_000",
+            "Shetland-2022-2023:p0004_000",
+            "Shetland-2022-2023:p0004_001"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Shetland-2022-2023",
+            "Shetland-2022-2023",
+            "Shetland-2022-2023"
+          ],
+          "retrieved_pages_ranked": [
+            26,
+            4
+          ],
+          "retrieved_scores": [
+            0.8584344720840454,
+            0.7987552833557129,
+            0.7920141172409058
+          ],
+          "expected_subsection": null,
+          "page_recall_at_k": 1.0,
+          "page_precision_at_k": 0.5,
+          "page_mrr_at_k": 1.0,
+          "chunk_hit_at_k": 1.0,
+          "chunk_precision_at_k": 0.3333333333333333,
+          "chunk_mrr_at_k": 1.0,
+          "chunk_hit_flags": [
+            1,
+            0,
+            0
+          ],
+          "failure_stage": "hit",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        },
+        "5": {
+          "retrieved_chunk_ids": [
+            "Shetland-2022-2023:p0026_000",
+            "Shetland-2022-2023:p0004_000",
+            "Shetland-2022-2023:p0004_001",
+            "Shetland-2022-2023:p0017_000",
+            "Shetland-2022-2023:p0018_001"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Shetland-2022-2023",
+            "Shetland-2022-2023",
+            "Shetland-2022-2023",
+            "Shetland-2022-2023",
+            "Shetland-2022-2023"
+          ],
+          "retrieved_pages_ranked": [
+            26,
+            4,
+            17,
+            18
+          ],
+          "retrieved_scores": [
+            0.8584344720840454,
+            0.7987552833557129,
+            0.7920141172409058,
+            0.7901472187042237,
+            0.7711818552017212
+          ],
+          "expected_subsection": null,
+          "page_recall_at_k": 1.0,
+          "page_precision_at_k": 0.25,
+          "page_mrr_at_k": 1.0,
+          "chunk_hit_at_k": 1.0,
+          "chunk_precision_at_k": 0.2,
+          "chunk_mrr_at_k": 1.0,
+          "chunk_hit_flags": [
+            1,
+            0,
+            0,
+            0,
+            0
+          ],
+          "failure_stage": "hit",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        },
+        "10": {
+          "retrieved_chunk_ids": [
+            "Shetland-2022-2023:p0026_000",
+            "Shetland-2022-2023:p0004_000",
+            "Shetland-2022-2023:p0004_001",
+            "Shetland-2022-2023:p0017_000",
+            "Shetland-2022-2023:p0018_001",
+            "Shetland-2022-2023:p0027_001",
+            "Shetland-2022-2023:p0004_002",
+            "Shetland-2022-2023:p0017_001",
+            "Shetland-2022-2023:p0032_000",
+            "Shetland-2022-2023:p0026_001"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Shetland-2022-2023",
+            "Shetland-2022-2023",
+            "Shetland-2022-2023",
+            "Shetland-2022-2023",
+            "Shetland-2022-2023",
+            "Shetland-2022-2023",
+            "Shetland-2022-2023",
+            "Shetland-2022-2023",
+            "Shetland-2022-2023",
+            "Shetland-2022-2023"
+          ],
+          "retrieved_pages_ranked": [
+            26,
+            4,
+            17,
+            18,
+            27,
+            32
+          ],
+          "retrieved_scores": [
+            0.8584344720840454,
+            0.7987552833557129,
+            0.7920141172409058,
+            0.7901472187042237,
+            0.7711818552017212,
+            0.7690648078918457,
+            0.7625866866111756,
+            0.761948401927948,
+            0.7579822492599487,
+            0.7571116542816162
+          ],
+          "expected_subsection": null,
+          "page_recall_at_k": 1.0,
+          "page_precision_at_k": 0.16666666666666666,
+          "page_mrr_at_k": 1.0,
+          "chunk_hit_at_k": 1.0,
+          "chunk_precision_at_k": 0.2,
+          "chunk_mrr_at_k": 1.0,
+          "chunk_hit_flags": [
+            1,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            1
+          ],
+          "failure_stage": "hit",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        }
+      }
+    }
+  ]
+}

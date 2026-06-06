@@ -1,0 +1,1740 @@
+{
+  "run_info": {
+    "run_utc": "2026-06-06T19:50:01+00:00",
+    "data_dir": "data_processed/Grampian-2015-2016",
+    "runtime": {
+      "python_executable": "/Users/djimra/MSc Data Science Jan 2025/Thesis documents/RAG_Pipeline_Project/.venv/bin/python",
+      "python_version": "3.11.15",
+      "platform": "macOS-26.5.1-arm64-arm-64bit",
+      "system": "Darwin",
+      "machine": "arm64",
+      "cwd": "/Users/djimra/MSc Data Science Jan 2025/Thesis documents/RAG_Pipeline_Project",
+      "conda_prefix": "/Users/djimra/MSc Data Science Jan 2025/Thesis documents/RAG_Pipeline_Project/.venv",
+      "conda_default_env": "/Users/djimra/MSc Data Science Jan 2025/Thesis documents/RAG_Pipeline_Project/.venv",
+      "virtual_env": null,
+      "dependency_report": {
+        "modules": {
+          "camelot": {
+            "installed": true,
+            "version": "1.0.9",
+            "module": "camelot",
+            "distribution": "camelot-py",
+            "error": null
+          },
+          "faiss": {
+            "installed": true,
+            "version": "1.13.2",
+            "module": "faiss",
+            "distribution": "faiss-cpu",
+            "error": null
+          },
+          "ghostscript": {
+            "installed": true,
+            "version": "0.8.1",
+            "module": "ghostscript",
+            "distribution": "ghostscript",
+            "error": null
+          },
+          "numpy": {
+            "installed": true,
+            "version": "2.4.6",
+            "module": "numpy",
+            "distribution": "numpy",
+            "error": null
+          },
+          "pandas": {
+            "installed": true,
+            "version": "2.3.3",
+            "module": "pandas",
+            "distribution": "pandas",
+            "error": null
+          },
+          "pdfplumber": {
+            "installed": true,
+            "version": "0.11.9",
+            "module": "pdfplumber",
+            "distribution": "pdfplumber",
+            "error": null
+          },
+          "pyarrow": {
+            "installed": true,
+            "version": "23.0.0",
+            "module": "pyarrow",
+            "distribution": "pyarrow",
+            "error": null
+          },
+          "pymupdf": {
+            "installed": true,
+            "version": "1.26.7",
+            "module": "pymupdf",
+            "distribution": "PyMuPDF",
+            "error": null
+          },
+          "sentence_transformers": {
+            "installed": true,
+            "version": "5.2.2",
+            "module": "sentence_transformers",
+            "distribution": "sentence-transformers",
+            "error": null
+          },
+          "tiktoken": {
+            "installed": true,
+            "version": "0.12.0",
+            "module": "tiktoken",
+            "distribution": "tiktoken",
+            "error": null
+          },
+          "torch": {
+            "installed": true,
+            "version": "2.5.1",
+            "module": "torch",
+            "distribution": "torch",
+            "error": null
+          }
+        },
+        "commands": {
+          "gs": {
+            "available": true,
+            "path": "/Users/djimra/MSc Data Science Jan 2025/Thesis documents/RAG_Pipeline_Project/.venv/bin/gs"
+          },
+          "pdftoppm": {
+            "available": true,
+            "path": "/Users/djimra/MSc Data Science Jan 2025/Thesis documents/RAG_Pipeline_Project/.venv/bin/pdftoppm"
+          },
+          "tesseract": {
+            "available": true,
+            "path": "/opt/homebrew/bin/tesseract"
+          }
+        }
+      }
+    },
+    "critical_environment_checks": [
+      {
+        "name": "tiktoken_available",
+        "ok": true,
+        "detail": "Required for exact preprocessing token counts."
+      },
+      {
+        "name": "camelot_available",
+        "ok": true,
+        "detail": "Required for the structured table extraction branch."
+      },
+      {
+        "name": "ghostscript_python_wrapper_available",
+        "ok": true,
+        "detail": "Needed by Camelot on many environments."
+      },
+      {
+        "name": "ghostscript_binary_available",
+        "ok": true,
+        "detail": "Ghostscript binary used by Camelot."
+      },
+      {
+        "name": "faiss_available",
+        "ok": true,
+        "detail": "Required for dense index build and retrieval."
+      },
+      {
+        "name": "sentence_transformers_available",
+        "ok": true,
+        "detail": "Required for MiniLM embeddings."
+      },
+      {
+        "name": "torch_available",
+        "ok": true,
+        "detail": "Required backend for sentence-transformers."
+      }
+    ],
+    "index_path": "data_processed/Grampian-2015-2016/faiss.index",
+    "meta_path": "data_processed/Grampian-2015-2016/chunk_meta.parquet",
+    "table_facts_path": "data_processed/Grampian-2015-2016/table_facts.parquet",
+    "eval_set_path": "data_processed/Grampian-2015-2016/eval_set.json",
+    "embedding_model": "sentence-transformers/all-MiniLM-L6-v2",
+    "k_list": [
+      1,
+      3,
+      5,
+      10
+    ],
+    "subsection_boost": 0.05,
+    "table_chunk_boost": 0.08,
+    "milestone_text_boost": 0.08,
+    "entity_match_boost": 0.04,
+    "numeric_density_boost": 0.03,
+    "segment_search_hit_boost": 0.03,
+    "max_entity_matches": 4,
+    "enable_lexical_rerank": true,
+    "enable_subsection_boost": true,
+    "max_k_search": 100,
+    "num_queries": 7,
+    "num_chunks_indexed": 210,
+    "num_table_facts": 2656,
+    "meta_doc_ids": [
+      "Grampian-2015-2016"
+    ],
+    "query_id_nomenclature": "Q_<TOPIC>_<YEAR>_<NN> with TOPIC in [REV,EFF,DEF,STAFF,ACC,GOV,TABLE]",
+    "failure_attribution": {
+      "retrieval_stages": [
+        "hit",
+        "missed_top_ranked",
+        "missing_content"
+      ],
+      "failure_types": [
+        "FP1_MISSING_CONTENT",
+        "FP2_MISSED_TOP_RANK",
+        "FP3_NOT_IN_CONTEXT",
+        "FP4_NOT_EXTRACTED",
+        "FP5_WRONG_FORMAT",
+        "FP6_INCORRECT_SPECIFICITY",
+        "FP7_INCOMPLETE",
+        "HIT"
+      ],
+      "scope": "retrieval_and_generation"
+    },
+    "leakage_detection": {
+      "enabled": true,
+      "requires_expected_doc_id": true,
+      "fields": [
+        "retrieved_doc_ids_top_k",
+        "leakage_count_top_k",
+        "leakage_doc_ids_top_k",
+        "leakage_rate_top_k"
+      ]
+    },
+    "pipeline_settings": {
+      "source_metrics_path": "data_processed/Grampian-2015-2016/metrics.json",
+      "source_metrics_exists": true,
+      "doc_id": "Grampian-2015-2016",
+      "corpus_id": "Grampian-2015-2016",
+      "report_year": "2015-2016",
+      "preprocess_run_utc": "2026-06-06T15:42:14+00:00",
+      "preprocess_git_commit_short": "3799e6d",
+      "embedding_model_preprocess": "sentence-transformers/all-MiniLM-L6-v2",
+      "chunk_size_tokens": 224,
+      "chunk_overlap_tokens": 56,
+      "segment_aware_chunking": true,
+      "whole_doc_markdown_mode": false,
+      "markdown_header_carry_forward": true,
+      "markdown_table_injection": true,
+      "primary_extractor": "pymupdf",
+      "min_chunk_words": 20
+    },
+    "eval_set": {
+      "path": "data_processed/Grampian-2015-2016/eval_set.json",
+      "sha1": "080d7c69af6c1c05f5eb0461e9c1df0cacfd456c",
+      "size_bytes": 3249,
+      "modified_utc": "2026-06-06T18:51:31+00:00",
+      "query_count": 7,
+      "meta_dataset_name": "Grampian-2015-2016 Retrieval Silver Set",
+      "meta_doc_id": "Grampian-2015-2016",
+      "meta_version": null
+    }
+  },
+  "results": [
+    {
+      "query_id": "Q_16_FIN_01",
+      "topic": "FIN",
+      "year": 16,
+      "sequence": 1,
+      "question": "What was the total net expenditure for NHS Grampian in 2015/16?",
+      "answer_type": "number",
+      "doc_id": "Grampian-2015-2016",
+      "expected_section": "",
+      "expected_pages": [
+        26
+      ],
+      "route_intent": "table_metric_financial_statements",
+      "route_confidence": 0.8,
+      "page_hit": 1,
+      "failure_type": "FP6_INCORRECT_SPECIFICITY",
+      "failure_stage": "generation",
+      "expected_answer": "Total net expenditure for NHS Grampian in 2015/16 was £122.617m",
+      "extracted_answer": "1 85-90 1 90-95 1 105-110 1 115-120 1 125-130 1 165-170 1 1 175-180 1 Note: the staff numbers above are based on headcount and reflect in year turnover in post for the Chief Executive and Medical Dire",
+      "extracted_answer_label": "Snippet",
+      "answer_correct": false,
+      "answer_status": "incorrect",
+      "extracted_answer_chunk_id": "Grampian-2015-2016:p0026_001",
+      "gold_presence": {
+        "gold_exists": true,
+        "gold_chunk_count": 4,
+        "gold_pages_found": [
+          26
+        ]
+      },
+      "per_k": {
+        "1": {
+          "retrieved_chunk_ids": [
+            "Grampian-2015-2016:p0026_001"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2015-2016"
+          ],
+          "retrieved_pages_ranked": [
+            26
+          ],
+          "retrieved_scores": [
+            0.8705791997909547
+          ],
+          "expected_subsection": null,
+          "page_recall_at_k": 1.0,
+          "page_precision_at_k": 1.0,
+          "page_mrr_at_k": 1.0,
+          "chunk_hit_at_k": 1.0,
+          "chunk_precision_at_k": 1.0,
+          "chunk_mrr_at_k": 1.0,
+          "chunk_hit_flags": [
+            1
+          ],
+          "failure_stage": "hit",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        },
+        "3": {
+          "retrieved_chunk_ids": [
+            "Grampian-2015-2016:p0026_001",
+            "Grampian-2015-2016:p0068_001",
+            "Grampian-2015-2016:p0014_001"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2015-2016",
+            "Grampian-2015-2016",
+            "Grampian-2015-2016"
+          ],
+          "retrieved_pages_ranked": [
+            26,
+            68,
+            14
+          ],
+          "retrieved_scores": [
+            0.8705791997909547,
+            0.861640157699585,
+            0.8205274963378907
+          ],
+          "expected_subsection": null,
+          "page_recall_at_k": 1.0,
+          "page_precision_at_k": 0.3333333333333333,
+          "page_mrr_at_k": 1.0,
+          "chunk_hit_at_k": 1.0,
+          "chunk_precision_at_k": 0.3333333333333333,
+          "chunk_mrr_at_k": 1.0,
+          "chunk_hit_flags": [
+            1,
+            0,
+            0
+          ],
+          "failure_stage": "hit",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        },
+        "5": {
+          "retrieved_chunk_ids": [
+            "Grampian-2015-2016:p0026_001",
+            "Grampian-2015-2016:p0068_001",
+            "Grampian-2015-2016:p0014_001",
+            "Grampian-2015-2016:p0068_000",
+            "Grampian-2015-2016:p0005_003"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2015-2016",
+            "Grampian-2015-2016",
+            "Grampian-2015-2016",
+            "Grampian-2015-2016",
+            "Grampian-2015-2016"
+          ],
+          "retrieved_pages_ranked": [
+            26,
+            68,
+            14,
+            5
+          ],
+          "retrieved_scores": [
+            0.8705791997909547,
+            0.861640157699585,
+            0.8205274963378907,
+            0.7989654541015625,
+            0.7925578594207764
+          ],
+          "expected_subsection": null,
+          "page_recall_at_k": 1.0,
+          "page_precision_at_k": 0.25,
+          "page_mrr_at_k": 1.0,
+          "chunk_hit_at_k": 1.0,
+          "chunk_precision_at_k": 0.2,
+          "chunk_mrr_at_k": 1.0,
+          "chunk_hit_flags": [
+            1,
+            0,
+            0,
+            0,
+            0
+          ],
+          "failure_stage": "hit",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        },
+        "10": {
+          "retrieved_chunk_ids": [
+            "Grampian-2015-2016:p0026_001",
+            "Grampian-2015-2016:p0068_001",
+            "Grampian-2015-2016:p0014_001",
+            "Grampian-2015-2016:p0068_000",
+            "Grampian-2015-2016:p0005_003",
+            "Grampian-2015-2016:p0067_000",
+            "Grampian-2015-2016:p0014_002",
+            "Grampian-2015-2016:p0049_000",
+            "Grampian-2015-2016:p0024_000",
+            "Grampian-2015-2016:p0023_000"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2015-2016",
+            "Grampian-2015-2016",
+            "Grampian-2015-2016",
+            "Grampian-2015-2016",
+            "Grampian-2015-2016",
+            "Grampian-2015-2016",
+            "Grampian-2015-2016",
+            "Grampian-2015-2016",
+            "Grampian-2015-2016",
+            "Grampian-2015-2016"
+          ],
+          "retrieved_pages_ranked": [
+            26,
+            68,
+            14,
+            5,
+            67,
+            49,
+            24,
+            23
+          ],
+          "retrieved_scores": [
+            0.8705791997909547,
+            0.861640157699585,
+            0.8205274963378907,
+            0.7989654541015625,
+            0.7925578594207764,
+            0.7769830250740052,
+            0.7647531366348267,
+            0.7558044362068177,
+            0.7424903464317322,
+            0.7217164587974548
+          ],
+          "expected_subsection": null,
+          "page_recall_at_k": 1.0,
+          "page_precision_at_k": 0.125,
+          "page_mrr_at_k": 1.0,
+          "chunk_hit_at_k": 1.0,
+          "chunk_precision_at_k": 0.1,
+          "chunk_mrr_at_k": 1.0,
+          "chunk_hit_flags": [
+            1,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "failure_stage": "hit",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        }
+      }
+    },
+    {
+      "query_id": "Q_16_FIN_03",
+      "topic": "FIN",
+      "year": 16,
+      "sequence": 3,
+      "question": "What was the Core Revenue Resource Limit for NHS Grampian in 2015/16?",
+      "answer_type": "number",
+      "doc_id": "Grampian-2015-2016",
+      "expected_section": "",
+      "expected_pages": [
+        6
+      ],
+      "route_intent": "table_metric_financial_targets",
+      "route_confidence": 0.85,
+      "page_hit": 0,
+      "failure_type": "FP2_MISSED_TOP_RANK",
+      "failure_stage": "retrieval",
+      "expected_answer": "The Core Revenue Resource Limit for NHS Grampian in 2015/16 was £927,245,000.",
+      "extracted_answer": "are £450.686 million (2014/15: £491.566 million).",
+      "extracted_answer_label": "Snippet",
+      "answer_correct": false,
+      "answer_status": "incorrect",
+      "extracted_answer_chunk_id": "Grampian-2015-2016:p0005_003",
+      "gold_presence": {
+        "gold_exists": true,
+        "gold_chunk_count": 2,
+        "gold_pages_found": [
+          6
+        ]
+      },
+      "per_k": {
+        "1": {
+          "retrieved_chunk_ids": [
+            "Grampian-2015-2016:p0005_003"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2015-2016"
+          ],
+          "retrieved_pages_ranked": [
+            5
+          ],
+          "retrieved_scores": [
+            0.8520724511146546
+          ],
+          "expected_subsection": null,
+          "page_recall_at_k": 0.0,
+          "page_precision_at_k": 0.0,
+          "page_mrr_at_k": 0.0,
+          "chunk_hit_at_k": 0.0,
+          "chunk_precision_at_k": 0.0,
+          "chunk_mrr_at_k": 0.0,
+          "chunk_hit_flags": [
+            0
+          ],
+          "failure_stage": "missed_top_ranked",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        },
+        "3": {
+          "retrieved_chunk_ids": [
+            "Grampian-2015-2016:p0005_003",
+            "Grampian-2015-2016:p0068_001",
+            "Grampian-2015-2016:p0068_000"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2015-2016",
+            "Grampian-2015-2016",
+            "Grampian-2015-2016"
+          ],
+          "retrieved_pages_ranked": [
+            5,
+            68
+          ],
+          "retrieved_scores": [
+            0.8520724511146546,
+            0.808529372215271,
+            0.7929607796669006
+          ],
+          "expected_subsection": null,
+          "page_recall_at_k": 0.0,
+          "page_precision_at_k": 0.0,
+          "page_mrr_at_k": 0.0,
+          "chunk_hit_at_k": 0.0,
+          "chunk_precision_at_k": 0.0,
+          "chunk_mrr_at_k": 0.0,
+          "chunk_hit_flags": [
+            0,
+            0,
+            0
+          ],
+          "failure_stage": "missed_top_ranked",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        },
+        "5": {
+          "retrieved_chunk_ids": [
+            "Grampian-2015-2016:p0005_003",
+            "Grampian-2015-2016:p0068_001",
+            "Grampian-2015-2016:p0068_000",
+            "Grampian-2015-2016:p0014_001",
+            "Grampian-2015-2016:p0006_000"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2015-2016",
+            "Grampian-2015-2016",
+            "Grampian-2015-2016",
+            "Grampian-2015-2016",
+            "Grampian-2015-2016"
+          ],
+          "retrieved_pages_ranked": [
+            5,
+            68,
+            14,
+            6
+          ],
+          "retrieved_scores": [
+            0.8520724511146546,
+            0.808529372215271,
+            0.7929607796669006,
+            0.78948401927948,
+            0.784705970287323
+          ],
+          "expected_subsection": null,
+          "page_recall_at_k": 1.0,
+          "page_precision_at_k": 0.25,
+          "page_mrr_at_k": 0.25,
+          "chunk_hit_at_k": 1.0,
+          "chunk_precision_at_k": 0.2,
+          "chunk_mrr_at_k": 0.2,
+          "chunk_hit_flags": [
+            0,
+            0,
+            0,
+            0,
+            1
+          ],
+          "failure_stage": "hit",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        },
+        "10": {
+          "retrieved_chunk_ids": [
+            "Grampian-2015-2016:p0005_003",
+            "Grampian-2015-2016:p0068_001",
+            "Grampian-2015-2016:p0068_000",
+            "Grampian-2015-2016:p0014_001",
+            "Grampian-2015-2016:p0006_000",
+            "Grampian-2015-2016:p0026_001",
+            "Grampian-2015-2016:p0035_002",
+            "Grampian-2015-2016:p0014_002",
+            "Grampian-2015-2016:p0067_000",
+            "Grampian-2015-2016:p0024_000"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2015-2016",
+            "Grampian-2015-2016",
+            "Grampian-2015-2016",
+            "Grampian-2015-2016",
+            "Grampian-2015-2016",
+            "Grampian-2015-2016",
+            "Grampian-2015-2016",
+            "Grampian-2015-2016",
+            "Grampian-2015-2016",
+            "Grampian-2015-2016"
+          ],
+          "retrieved_pages_ranked": [
+            5,
+            68,
+            14,
+            6,
+            26,
+            35,
+            67,
+            24
+          ],
+          "retrieved_scores": [
+            0.8520724511146546,
+            0.808529372215271,
+            0.7929607796669006,
+            0.78948401927948,
+            0.784705970287323,
+            0.7818139147758484,
+            0.7592561578750611,
+            0.7449438524246216,
+            0.7322909188270569,
+            0.7287626814842224
+          ],
+          "expected_subsection": null,
+          "page_recall_at_k": 1.0,
+          "page_precision_at_k": 0.125,
+          "page_mrr_at_k": 0.25,
+          "chunk_hit_at_k": 1.0,
+          "chunk_precision_at_k": 0.1,
+          "chunk_mrr_at_k": 0.2,
+          "chunk_hit_flags": [
+            0,
+            0,
+            0,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "failure_stage": "hit",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        }
+      }
+    },
+    {
+      "query_id": "Q_16_FIN_06",
+      "topic": "FIN",
+      "year": 16,
+      "sequence": 6,
+      "question": "What was the Cash Requirement limit for NHS Grampian in 2015/16?",
+      "answer_type": "number",
+      "doc_id": "Grampian-2015-2016",
+      "expected_section": "",
+      "expected_pages": [
+        6
+      ],
+      "route_intent": "table_metric_financial_targets",
+      "route_confidence": 0.85,
+      "page_hit": 0,
+      "failure_type": "FP2_MISSED_TOP_RANK",
+      "failure_stage": "retrieval",
+      "expected_answer": "The Cash Requirement limit for NHS Grampian in 2015/16 was £994,653,000.",
+      "extracted_answer": "million per most recent published accounts for the NHS Superannuation Scheme).",
+      "extracted_answer_label": "Snippet",
+      "answer_correct": false,
+      "answer_status": "incorrect",
+      "extracted_answer_chunk_id": "Grampian-2015-2016:p0068_001",
+      "gold_presence": {
+        "gold_exists": true,
+        "gold_chunk_count": 2,
+        "gold_pages_found": [
+          6
+        ]
+      },
+      "per_k": {
+        "1": {
+          "retrieved_chunk_ids": [
+            "Grampian-2015-2016:p0068_001"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2015-2016"
+          ],
+          "retrieved_pages_ranked": [
+            68
+          ],
+          "retrieved_scores": [
+            0.7825521469116211
+          ],
+          "expected_subsection": null,
+          "page_recall_at_k": 0.0,
+          "page_precision_at_k": 0.0,
+          "page_mrr_at_k": 0.0,
+          "chunk_hit_at_k": 0.0,
+          "chunk_precision_at_k": 0.0,
+          "chunk_mrr_at_k": 0.0,
+          "chunk_hit_flags": [
+            0
+          ],
+          "failure_stage": "missed_top_ranked",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        },
+        "3": {
+          "retrieved_chunk_ids": [
+            "Grampian-2015-2016:p0068_001",
+            "Grampian-2015-2016:p0014_002",
+            "Grampian-2015-2016:p0068_000"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2015-2016",
+            "Grampian-2015-2016",
+            "Grampian-2015-2016"
+          ],
+          "retrieved_pages_ranked": [
+            68,
+            14
+          ],
+          "retrieved_scores": [
+            0.7825521469116211,
+            0.7777052259445191,
+            0.7683991193771362
+          ],
+          "expected_subsection": null,
+          "page_recall_at_k": 0.0,
+          "page_precision_at_k": 0.0,
+          "page_mrr_at_k": 0.0,
+          "chunk_hit_at_k": 0.0,
+          "chunk_precision_at_k": 0.0,
+          "chunk_mrr_at_k": 0.0,
+          "chunk_hit_flags": [
+            0,
+            0,
+            0
+          ],
+          "failure_stage": "missed_top_ranked",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        },
+        "5": {
+          "retrieved_chunk_ids": [
+            "Grampian-2015-2016:p0068_001",
+            "Grampian-2015-2016:p0014_002",
+            "Grampian-2015-2016:p0068_000",
+            "Grampian-2015-2016:p0067_000",
+            "Grampian-2015-2016:p0014_001"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2015-2016",
+            "Grampian-2015-2016",
+            "Grampian-2015-2016",
+            "Grampian-2015-2016",
+            "Grampian-2015-2016"
+          ],
+          "retrieved_pages_ranked": [
+            68,
+            14,
+            67
+          ],
+          "retrieved_scores": [
+            0.7825521469116211,
+            0.7777052259445191,
+            0.7683991193771362,
+            0.7643276691436768,
+            0.7636037707328797
+          ],
+          "expected_subsection": null,
+          "page_recall_at_k": 0.0,
+          "page_precision_at_k": 0.0,
+          "page_mrr_at_k": 0.0,
+          "chunk_hit_at_k": 0.0,
+          "chunk_precision_at_k": 0.0,
+          "chunk_mrr_at_k": 0.0,
+          "chunk_hit_flags": [
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "failure_stage": "missed_top_ranked",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        },
+        "10": {
+          "retrieved_chunk_ids": [
+            "Grampian-2015-2016:p0068_001",
+            "Grampian-2015-2016:p0014_002",
+            "Grampian-2015-2016:p0068_000",
+            "Grampian-2015-2016:p0067_000",
+            "Grampian-2015-2016:p0014_001",
+            "Grampian-2015-2016:p0065_001",
+            "Grampian-2015-2016:p0026_001",
+            "Grampian-2015-2016:p0005_003",
+            "Grampian-2015-2016:p0035_002",
+            "Grampian-2015-2016:p0049_000"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2015-2016",
+            "Grampian-2015-2016",
+            "Grampian-2015-2016",
+            "Grampian-2015-2016",
+            "Grampian-2015-2016",
+            "Grampian-2015-2016",
+            "Grampian-2015-2016",
+            "Grampian-2015-2016",
+            "Grampian-2015-2016",
+            "Grampian-2015-2016"
+          ],
+          "retrieved_pages_ranked": [
+            68,
+            14,
+            67,
+            65,
+            26,
+            5,
+            35,
+            49
+          ],
+          "retrieved_scores": [
+            0.7825521469116211,
+            0.7777052259445191,
+            0.7683991193771362,
+            0.7643276691436768,
+            0.7636037707328797,
+            0.7586757326126099,
+            0.7447108411788941,
+            0.7379322290420532,
+            0.7135091161727906,
+            0.7081569218635559
+          ],
+          "expected_subsection": null,
+          "page_recall_at_k": 0.0,
+          "page_precision_at_k": 0.0,
+          "page_mrr_at_k": 0.0,
+          "chunk_hit_at_k": 0.0,
+          "chunk_precision_at_k": 0.0,
+          "chunk_mrr_at_k": 0.0,
+          "chunk_hit_flags": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "failure_stage": "missed_top_ranked",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        }
+      }
+    },
+    {
+      "query_id": "Q_16_STF_01",
+      "topic": "STF",
+      "year": 16,
+      "sequence": 1,
+      "question": "How many whole time equivalent staff did NHS Grampian employ in 2015/16?",
+      "answer_type": "number",
+      "doc_id": "Grampian-2015-2016",
+      "expected_section": "",
+      "expected_pages": [
+        26
+      ],
+      "route_intent": "unknown",
+      "route_confidence": 0.5,
+      "page_hit": 1,
+      "failure_type": "FP6_INCORRECT_SPECIFICITY",
+      "failure_stage": "generation",
+      "expected_answer": "Whole Time Equivalent staff employed in 2015/16: 12261.7",
+      "extracted_answer": "1 85-90 1 90-95 1 105-110 1 115-120 1 125-130 1 165-170 1 1 175-180 1 Note: the staff numbers above are based on headcount and reflect in year turnover in post for the Chief Executive and Medical Dire",
+      "extracted_answer_label": "Snippet",
+      "answer_correct": false,
+      "answer_status": "incorrect",
+      "extracted_answer_chunk_id": "Grampian-2015-2016:p0026_001",
+      "gold_presence": {
+        "gold_exists": true,
+        "gold_chunk_count": 4,
+        "gold_pages_found": [
+          26
+        ]
+      },
+      "per_k": {
+        "1": {
+          "retrieved_chunk_ids": [
+            "Grampian-2015-2016:p0026_001"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2015-2016"
+          ],
+          "retrieved_pages_ranked": [
+            26
+          ],
+          "retrieved_scores": [
+            0.861922996044159
+          ],
+          "expected_subsection": null,
+          "page_recall_at_k": 1.0,
+          "page_precision_at_k": 1.0,
+          "page_mrr_at_k": 1.0,
+          "chunk_hit_at_k": 1.0,
+          "chunk_precision_at_k": 1.0,
+          "chunk_mrr_at_k": 1.0,
+          "chunk_hit_flags": [
+            1
+          ],
+          "failure_stage": "hit",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        },
+        "3": {
+          "retrieved_chunk_ids": [
+            "Grampian-2015-2016:p0026_001",
+            "Grampian-2015-2016:p0025_004",
+            "Grampian-2015-2016:p0023_000"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2015-2016",
+            "Grampian-2015-2016",
+            "Grampian-2015-2016"
+          ],
+          "retrieved_pages_ranked": [
+            26,
+            25,
+            23
+          ],
+          "retrieved_scores": [
+            0.861922996044159,
+            0.837402822971344,
+            0.8209342694282532
+          ],
+          "expected_subsection": null,
+          "page_recall_at_k": 1.0,
+          "page_precision_at_k": 0.3333333333333333,
+          "page_mrr_at_k": 1.0,
+          "chunk_hit_at_k": 1.0,
+          "chunk_precision_at_k": 0.3333333333333333,
+          "chunk_mrr_at_k": 1.0,
+          "chunk_hit_flags": [
+            1,
+            0,
+            0
+          ],
+          "failure_stage": "hit",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        },
+        "5": {
+          "retrieved_chunk_ids": [
+            "Grampian-2015-2016:p0026_001",
+            "Grampian-2015-2016:p0025_004",
+            "Grampian-2015-2016:p0023_000",
+            "Grampian-2015-2016:p0068_001",
+            "Grampian-2015-2016:p0025_000"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2015-2016",
+            "Grampian-2015-2016",
+            "Grampian-2015-2016",
+            "Grampian-2015-2016",
+            "Grampian-2015-2016"
+          ],
+          "retrieved_pages_ranked": [
+            26,
+            25,
+            23,
+            68
+          ],
+          "retrieved_scores": [
+            0.861922996044159,
+            0.837402822971344,
+            0.8209342694282532,
+            0.8171380782127381,
+            0.7888506388664246
+          ],
+          "expected_subsection": null,
+          "page_recall_at_k": 1.0,
+          "page_precision_at_k": 0.25,
+          "page_mrr_at_k": 1.0,
+          "chunk_hit_at_k": 1.0,
+          "chunk_precision_at_k": 0.2,
+          "chunk_mrr_at_k": 1.0,
+          "chunk_hit_flags": [
+            1,
+            0,
+            0,
+            0,
+            0
+          ],
+          "failure_stage": "hit",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        },
+        "10": {
+          "retrieved_chunk_ids": [
+            "Grampian-2015-2016:p0026_001",
+            "Grampian-2015-2016:p0025_004",
+            "Grampian-2015-2016:p0023_000",
+            "Grampian-2015-2016:p0068_001",
+            "Grampian-2015-2016:p0025_000",
+            "Grampian-2015-2016:p0024_000",
+            "Grampian-2015-2016:p0025_001",
+            "Grampian-2015-2016:p0009_000",
+            "Grampian-2015-2016:p0068_000",
+            "Grampian-2015-2016:p0014_001"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2015-2016",
+            "Grampian-2015-2016",
+            "Grampian-2015-2016",
+            "Grampian-2015-2016",
+            "Grampian-2015-2016",
+            "Grampian-2015-2016",
+            "Grampian-2015-2016",
+            "Grampian-2015-2016",
+            "Grampian-2015-2016",
+            "Grampian-2015-2016"
+          ],
+          "retrieved_pages_ranked": [
+            26,
+            25,
+            23,
+            68,
+            24,
+            9,
+            14
+          ],
+          "retrieved_scores": [
+            0.861922996044159,
+            0.837402822971344,
+            0.8209342694282532,
+            0.8171380782127381,
+            0.7888506388664246,
+            0.7749490690231323,
+            0.7654925918579102,
+            0.7631571030616761,
+            0.7581526637077332,
+            0.7573986291885376
+          ],
+          "expected_subsection": null,
+          "page_recall_at_k": 1.0,
+          "page_precision_at_k": 0.14285714285714285,
+          "page_mrr_at_k": 1.0,
+          "chunk_hit_at_k": 1.0,
+          "chunk_precision_at_k": 0.1,
+          "chunk_mrr_at_k": 1.0,
+          "chunk_hit_flags": [
+            1,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "failure_stage": "hit",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        }
+      }
+    },
+    {
+      "query_id": "Q_16_STF_03",
+      "topic": "STF",
+      "year": 16,
+      "sequence": 3,
+      "question": "What was the sickness absence rate for NHS Grampian in 2015/16?",
+      "answer_type": "number",
+      "doc_id": "Grampian-2015-2016",
+      "expected_section": "",
+      "expected_pages": [
+        25
+      ],
+      "route_intent": "table_metric_performance",
+      "route_confidence": 0.8,
+      "page_hit": 1,
+      "failure_type": "FP6_INCORRECT_SPECIFICITY",
+      "failure_stage": "generation",
+      "expected_answer": "Sickness absence rate: 4.62%",
+      "extracted_answer": "12261.7 The total number of staff engaged directly on capital 4.87 5.34 projects, included in Staff Numbers above and charged to capital expenditure.",
+      "extracted_answer_label": "Snippet",
+      "answer_correct": false,
+      "answer_status": "incorrect",
+      "extracted_answer_chunk_id": "Grampian-2015-2016:p0025_004",
+      "gold_presence": {
+        "gold_exists": true,
+        "gold_chunk_count": 6,
+        "gold_pages_found": [
+          25
+        ]
+      },
+      "per_k": {
+        "1": {
+          "retrieved_chunk_ids": [
+            "Grampian-2015-2016:p0025_004"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2015-2016"
+          ],
+          "retrieved_pages_ranked": [
+            25
+          ],
+          "retrieved_scores": [
+            0.9163004779815674
+          ],
+          "expected_subsection": null,
+          "page_recall_at_k": 1.0,
+          "page_precision_at_k": 1.0,
+          "page_mrr_at_k": 1.0,
+          "chunk_hit_at_k": 1.0,
+          "chunk_precision_at_k": 1.0,
+          "chunk_mrr_at_k": 1.0,
+          "chunk_hit_flags": [
+            1
+          ],
+          "failure_stage": "hit",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        },
+        "3": {
+          "retrieved_chunk_ids": [
+            "Grampian-2015-2016:p0025_004",
+            "Grampian-2015-2016:p0025_005",
+            "Grampian-2015-2016:p0008_002"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2015-2016",
+            "Grampian-2015-2016",
+            "Grampian-2015-2016"
+          ],
+          "retrieved_pages_ranked": [
+            25,
+            8
+          ],
+          "retrieved_scores": [
+            0.9163004779815674,
+            0.8548790454864502,
+            0.8540052509307862
+          ],
+          "expected_subsection": null,
+          "page_recall_at_k": 1.0,
+          "page_precision_at_k": 0.5,
+          "page_mrr_at_k": 1.0,
+          "chunk_hit_at_k": 1.0,
+          "chunk_precision_at_k": 0.6666666666666666,
+          "chunk_mrr_at_k": 1.0,
+          "chunk_hit_flags": [
+            1,
+            1,
+            0
+          ],
+          "failure_stage": "hit",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        },
+        "5": {
+          "retrieved_chunk_ids": [
+            "Grampian-2015-2016:p0025_004",
+            "Grampian-2015-2016:p0025_005",
+            "Grampian-2015-2016:p0008_002",
+            "Grampian-2015-2016:p0009_000",
+            "Grampian-2015-2016:p0009_002"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2015-2016",
+            "Grampian-2015-2016",
+            "Grampian-2015-2016",
+            "Grampian-2015-2016",
+            "Grampian-2015-2016"
+          ],
+          "retrieved_pages_ranked": [
+            25,
+            8,
+            9
+          ],
+          "retrieved_scores": [
+            0.9163004779815674,
+            0.8548790454864502,
+            0.8540052509307862,
+            0.7224842047691346,
+            0.6695239782333374
+          ],
+          "expected_subsection": null,
+          "page_recall_at_k": 1.0,
+          "page_precision_at_k": 0.3333333333333333,
+          "page_mrr_at_k": 1.0,
+          "chunk_hit_at_k": 1.0,
+          "chunk_precision_at_k": 0.4,
+          "chunk_mrr_at_k": 1.0,
+          "chunk_hit_flags": [
+            1,
+            1,
+            0,
+            0,
+            0
+          ],
+          "failure_stage": "hit",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        },
+        "10": {
+          "retrieved_chunk_ids": [
+            "Grampian-2015-2016:p0025_004",
+            "Grampian-2015-2016:p0025_005",
+            "Grampian-2015-2016:p0008_002",
+            "Grampian-2015-2016:p0009_000",
+            "Grampian-2015-2016:p0009_002",
+            "Grampian-2015-2016:p0008_003",
+            "Grampian-2015-2016:p0065_001",
+            "Grampian-2015-2016:p0009_003",
+            "Grampian-2015-2016:p0014_001",
+            "Grampian-2015-2016:p0068_000"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2015-2016",
+            "Grampian-2015-2016",
+            "Grampian-2015-2016",
+            "Grampian-2015-2016",
+            "Grampian-2015-2016",
+            "Grampian-2015-2016",
+            "Grampian-2015-2016",
+            "Grampian-2015-2016",
+            "Grampian-2015-2016",
+            "Grampian-2015-2016"
+          ],
+          "retrieved_pages_ranked": [
+            25,
+            8,
+            9,
+            65,
+            14,
+            68
+          ],
+          "retrieved_scores": [
+            0.9163004779815674,
+            0.8548790454864502,
+            0.8540052509307862,
+            0.7224842047691346,
+            0.6695239782333374,
+            0.662881190776825,
+            0.6599083924293518,
+            0.6467674708366394,
+            0.6369515895843506,
+            0.633916118144989
+          ],
+          "expected_subsection": null,
+          "page_recall_at_k": 1.0,
+          "page_precision_at_k": 0.16666666666666666,
+          "page_mrr_at_k": 1.0,
+          "chunk_hit_at_k": 1.0,
+          "chunk_precision_at_k": 0.2,
+          "chunk_mrr_at_k": 1.0,
+          "chunk_hit_flags": [
+            1,
+            1,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "failure_stage": "hit",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        }
+      }
+    },
+    {
+      "query_id": "Q_16_OPS_01",
+      "topic": "OPS",
+      "year": 16,
+      "sequence": 1,
+      "question": "What percentage of A&E patients were seen within 4 hours at NHS Grampian in 2015/16?",
+      "answer_type": "number",
+      "doc_id": "Grampian-2015-2016",
+      "expected_section": "",
+      "expected_pages": [
+        9
+      ],
+      "route_intent": "table_metric_performance",
+      "route_confidence": 0.8,
+      "page_hit": 1,
+      "failure_type": "FP5_WRONG_FORMAT",
+      "failure_stage": "generation",
+      "expected_answer": "95% of patients seen within 4 hours at A&E",
+      "extracted_answer": " NHS Grampian’s new:return outpatient ratio varies significantly between specialties and according to benchmarking data is an area where there is scope for improvement.",
+      "extracted_answer_label": "Snippet",
+      "answer_correct": false,
+      "answer_status": "incorrect",
+      "extracted_answer_chunk_id": "Grampian-2015-2016:p0009_000",
+      "gold_presence": {
+        "gold_exists": true,
+        "gold_chunk_count": 5,
+        "gold_pages_found": [
+          9
+        ]
+      },
+      "per_k": {
+        "1": {
+          "retrieved_chunk_ids": [
+            "Grampian-2015-2016:p0009_000"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2015-2016"
+          ],
+          "retrieved_pages_ranked": [
+            9
+          ],
+          "retrieved_scores": [
+            0.8397025799751282
+          ],
+          "expected_subsection": null,
+          "page_recall_at_k": 1.0,
+          "page_precision_at_k": 1.0,
+          "page_mrr_at_k": 1.0,
+          "chunk_hit_at_k": 1.0,
+          "chunk_precision_at_k": 1.0,
+          "chunk_mrr_at_k": 1.0,
+          "chunk_hit_flags": [
+            1
+          ],
+          "failure_stage": "hit",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        },
+        "3": {
+          "retrieved_chunk_ids": [
+            "Grampian-2015-2016:p0009_000",
+            "Grampian-2015-2016:p0009_002",
+            "Grampian-2015-2016:p0008_003"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2015-2016",
+            "Grampian-2015-2016",
+            "Grampian-2015-2016"
+          ],
+          "retrieved_pages_ranked": [
+            9,
+            8
+          ],
+          "retrieved_scores": [
+            0.8397025799751282,
+            0.7830507183074952,
+            0.7268092584609985
+          ],
+          "expected_subsection": null,
+          "page_recall_at_k": 1.0,
+          "page_precision_at_k": 0.5,
+          "page_mrr_at_k": 1.0,
+          "chunk_hit_at_k": 1.0,
+          "chunk_precision_at_k": 0.6666666666666666,
+          "chunk_mrr_at_k": 1.0,
+          "chunk_hit_flags": [
+            1,
+            1,
+            0
+          ],
+          "failure_stage": "hit",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        },
+        "5": {
+          "retrieved_chunk_ids": [
+            "Grampian-2015-2016:p0009_000",
+            "Grampian-2015-2016:p0009_002",
+            "Grampian-2015-2016:p0008_003",
+            "Grampian-2015-2016:p0008_002",
+            "Grampian-2015-2016:p0014_001"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2015-2016",
+            "Grampian-2015-2016",
+            "Grampian-2015-2016",
+            "Grampian-2015-2016",
+            "Grampian-2015-2016"
+          ],
+          "retrieved_pages_ranked": [
+            9,
+            8,
+            14
+          ],
+          "retrieved_scores": [
+            0.8397025799751282,
+            0.7830507183074952,
+            0.7268092584609985,
+            0.7195060205459595,
+            0.7173486971855164
+          ],
+          "expected_subsection": null,
+          "page_recall_at_k": 1.0,
+          "page_precision_at_k": 0.3333333333333333,
+          "page_mrr_at_k": 1.0,
+          "chunk_hit_at_k": 1.0,
+          "chunk_precision_at_k": 0.4,
+          "chunk_mrr_at_k": 1.0,
+          "chunk_hit_flags": [
+            1,
+            1,
+            0,
+            0,
+            0
+          ],
+          "failure_stage": "hit",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        },
+        "10": {
+          "retrieved_chunk_ids": [
+            "Grampian-2015-2016:p0009_000",
+            "Grampian-2015-2016:p0009_002",
+            "Grampian-2015-2016:p0008_003",
+            "Grampian-2015-2016:p0008_002",
+            "Grampian-2015-2016:p0014_001",
+            "Grampian-2015-2016:p0025_004",
+            "Grampian-2015-2016:p0065_001",
+            "Grampian-2015-2016:p0007_001",
+            "Grampian-2015-2016:p0014_003",
+            "Grampian-2015-2016:p0009_003"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2015-2016",
+            "Grampian-2015-2016",
+            "Grampian-2015-2016",
+            "Grampian-2015-2016",
+            "Grampian-2015-2016",
+            "Grampian-2015-2016",
+            "Grampian-2015-2016",
+            "Grampian-2015-2016",
+            "Grampian-2015-2016",
+            "Grampian-2015-2016"
+          ],
+          "retrieved_pages_ranked": [
+            9,
+            8,
+            14,
+            25,
+            65,
+            7
+          ],
+          "retrieved_scores": [
+            0.8397025799751282,
+            0.7830507183074952,
+            0.7268092584609985,
+            0.7195060205459595,
+            0.7173486971855164,
+            0.7091449737548828,
+            0.6769159817695618,
+            0.6723485326766968,
+            0.6685862183570862,
+            0.6648480033874512
+          ],
+          "expected_subsection": null,
+          "page_recall_at_k": 1.0,
+          "page_precision_at_k": 0.16666666666666666,
+          "page_mrr_at_k": 1.0,
+          "chunk_hit_at_k": 1.0,
+          "chunk_precision_at_k": 0.3,
+          "chunk_mrr_at_k": 1.0,
+          "chunk_hit_flags": [
+            1,
+            1,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            1
+          ],
+          "failure_stage": "hit",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        }
+      }
+    },
+    {
+      "query_id": "Q_16_GOV_02",
+      "topic": "GOV",
+      "year": 16,
+      "sequence": 2,
+      "question": "Who was the Chair of NHS Grampian in 2016?",
+      "answer_type": "text",
+      "doc_id": "Grampian-2015-2016",
+      "expected_section": "",
+      "expected_pages": [
+        18
+      ],
+      "route_intent": "unknown",
+      "route_confidence": 0.5,
+      "page_hit": 1,
+      "failure_type": "FP6_INCORRECT_SPECIFICITY",
+      "failure_stage": "generation",
+      "expected_answer": "Professor Stephen Logan",
+      "extracted_answer": "iv) GOVERNANCE STATEMENT (cont) Performance Governance Committee The Performance Governance Committee (PGC) monitors and supports performance management arrangements across NHS Grampian and promotes a",
+      "extracted_answer_label": "Snippet",
+      "answer_correct": false,
+      "answer_status": "incorrect",
+      "extracted_answer_chunk_id": "Grampian-2015-2016:p0018_000",
+      "gold_presence": {
+        "gold_exists": true,
+        "gold_chunk_count": 4,
+        "gold_pages_found": [
+          18
+        ]
+      },
+      "per_k": {
+        "1": {
+          "retrieved_chunk_ids": [
+            "Grampian-2015-2016:p0018_000"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2015-2016"
+          ],
+          "retrieved_pages_ranked": [
+            18
+          ],
+          "retrieved_scores": [
+            0.8322936034202576
+          ],
+          "expected_subsection": null,
+          "page_recall_at_k": 1.0,
+          "page_precision_at_k": 1.0,
+          "page_mrr_at_k": 1.0,
+          "chunk_hit_at_k": 1.0,
+          "chunk_precision_at_k": 1.0,
+          "chunk_mrr_at_k": 1.0,
+          "chunk_hit_flags": [
+            1
+          ],
+          "failure_stage": "hit",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        },
+        "3": {
+          "retrieved_chunk_ids": [
+            "Grampian-2015-2016:p0018_000",
+            "Grampian-2015-2016:p0013_001",
+            "Grampian-2015-2016:p0018_001"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2015-2016",
+            "Grampian-2015-2016",
+            "Grampian-2015-2016"
+          ],
+          "retrieved_pages_ranked": [
+            18,
+            13
+          ],
+          "retrieved_scores": [
+            0.8322936034202576,
+            0.801509256362915,
+            0.7729531860351563
+          ],
+          "expected_subsection": null,
+          "page_recall_at_k": 1.0,
+          "page_precision_at_k": 0.5,
+          "page_mrr_at_k": 1.0,
+          "chunk_hit_at_k": 1.0,
+          "chunk_precision_at_k": 0.6666666666666666,
+          "chunk_mrr_at_k": 1.0,
+          "chunk_hit_flags": [
+            1,
+            0,
+            1
+          ],
+          "failure_stage": "hit",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        },
+        "5": {
+          "retrieved_chunk_ids": [
+            "Grampian-2015-2016:p0018_000",
+            "Grampian-2015-2016:p0013_001",
+            "Grampian-2015-2016:p0018_001",
+            "Grampian-2015-2016:p0023_000",
+            "Grampian-2015-2016:p0024_000"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2015-2016",
+            "Grampian-2015-2016",
+            "Grampian-2015-2016",
+            "Grampian-2015-2016",
+            "Grampian-2015-2016"
+          ],
+          "retrieved_pages_ranked": [
+            18,
+            13,
+            23,
+            24
+          ],
+          "retrieved_scores": [
+            0.8322936034202576,
+            0.801509256362915,
+            0.7729531860351563,
+            0.7338291954994202,
+            0.7331451344490051
+          ],
+          "expected_subsection": null,
+          "page_recall_at_k": 1.0,
+          "page_precision_at_k": 0.25,
+          "page_mrr_at_k": 1.0,
+          "chunk_hit_at_k": 1.0,
+          "chunk_precision_at_k": 0.4,
+          "chunk_mrr_at_k": 1.0,
+          "chunk_hit_flags": [
+            1,
+            0,
+            1,
+            0,
+            0
+          ],
+          "failure_stage": "hit",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        },
+        "10": {
+          "retrieved_chunk_ids": [
+            "Grampian-2015-2016:p0018_000",
+            "Grampian-2015-2016:p0013_001",
+            "Grampian-2015-2016:p0018_001",
+            "Grampian-2015-2016:p0023_000",
+            "Grampian-2015-2016:p0024_000",
+            "Grampian-2015-2016:p0008_002",
+            "Grampian-2015-2016:p0004_004",
+            "Grampian-2015-2016:p0013_000",
+            "Grampian-2015-2016:p0012_000",
+            "Grampian-2015-2016:p0018_003"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2015-2016",
+            "Grampian-2015-2016",
+            "Grampian-2015-2016",
+            "Grampian-2015-2016",
+            "Grampian-2015-2016",
+            "Grampian-2015-2016",
+            "Grampian-2015-2016",
+            "Grampian-2015-2016",
+            "Grampian-2015-2016",
+            "Grampian-2015-2016"
+          ],
+          "retrieved_pages_ranked": [
+            18,
+            13,
+            23,
+            24,
+            8,
+            4,
+            12
+          ],
+          "retrieved_scores": [
+            0.8322936034202576,
+            0.801509256362915,
+            0.7729531860351563,
+            0.7338291954994202,
+            0.7331451344490051,
+            0.7293100309371948,
+            0.7267401766777039,
+            0.7081908750534057,
+            0.6966257047653198,
+            0.6882294964790344
+          ],
+          "expected_subsection": null,
+          "page_recall_at_k": 1.0,
+          "page_precision_at_k": 0.14285714285714285,
+          "page_mrr_at_k": 1.0,
+          "chunk_hit_at_k": 1.0,
+          "chunk_precision_at_k": 0.3,
+          "chunk_mrr_at_k": 1.0,
+          "chunk_hit_flags": [
+            1,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            1
+          ],
+          "failure_stage": "hit",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,325 @@
+{
+  "run_info": {
+    "run_utc": "2026-06-06T16:43:50+00:00",
+    "data_dir": "data_processed/Grampian-2023-2024",
+    "runtime": {
+      "python_executable": "/opt/anaconda3/envs/rag-pipeline/bin/python",
+      "python_version": "3.11.15",
+      "platform": "macOS-26.5.1-arm64-arm-64bit",
+      "system": "Darwin",
+      "machine": "arm64",
+      "cwd": "/Users/djimra/MSc Data Science Jan 2025/Thesis documents/RAG_Pipeline_Project",
+      "conda_prefix": "/opt/anaconda3/envs/rag-pipeline",
+      "conda_default_env": "rag-pipeline",
+      "virtual_env": null,
+      "dependency_report": {
+        "modules": {
+          "camelot": {
+            "installed": true,
+            "version": "1.0.9",
+            "module": "camelot",
+            "distribution": "camelot-py",
+            "error": null
+          },
+          "faiss": {
+            "installed": true,
+            "version": "1.13.2",
+            "module": "faiss",
+            "distribution": "faiss-cpu",
+            "error": null
+          },
+          "ghostscript": {
+            "installed": true,
+            "version": "0.8.1",
+            "module": "ghostscript",
+            "distribution": "ghostscript",
+            "error": null
+          },
+          "numpy": {
+            "installed": true,
+            "version": "2.4.6",
+            "module": "numpy",
+            "distribution": "numpy",
+            "error": null
+          },
+          "pandas": {
+            "installed": true,
+            "version": "2.3.3",
+            "module": "pandas",
+            "distribution": "pandas",
+            "error": null
+          },
+          "pdfplumber": {
+            "installed": true,
+            "version": "0.11.9",
+            "module": "pdfplumber",
+            "distribution": "pdfplumber",
+            "error": null
+          },
+          "pyarrow": {
+            "installed": true,
+            "version": "23.0.0",
+            "module": "pyarrow",
+            "distribution": "pyarrow",
+            "error": null
+          },
+          "pymupdf": {
+            "installed": true,
+            "version": "1.26.7",
+            "module": "pymupdf",
+            "distribution": "PyMuPDF",
+            "error": null
+          },
+          "sentence_transformers": {
+            "installed": true,
+            "version": "5.2.2",
+            "module": "sentence_transformers",
+            "distribution": "sentence-transformers",
+            "error": null
+          },
+          "tiktoken": {
+            "installed": true,
+            "version": "0.12.0",
+            "module": "tiktoken",
+            "distribution": "tiktoken",
+            "error": null
+          },
+          "torch": {
+            "installed": true,
+            "version": "2.5.1",
+            "module": "torch",
+            "distribution": "torch",
+            "error": null
+          }
+        },
+        "commands": {
+          "gs": {
+            "available": true,
+            "path": "/opt/anaconda3/envs/rag-pipeline/bin/gs"
+          },
+          "pdftoppm": {
+            "available": true,
+            "path": "/opt/anaconda3/envs/rag-pipeline/bin/pdftoppm"
+          },
+          "tesseract": {
+            "available": true,
+            "path": "/opt/homebrew/bin/tesseract"
+          }
+        }
+      }
+    },
+    "critical_environment_checks": [
+      {
+        "name": "tiktoken_available",
+        "ok": true,
+        "detail": "Required for exact preprocessing token counts."
+      },
+      {
+        "name": "camelot_available",
+        "ok": true,
+        "detail": "Required for the structured table extraction branch."
+      },
+      {
+        "name": "ghostscript_python_wrapper_available",
+        "ok": true,
+        "detail": "Needed by Camelot on many environments."
+      },
+      {
+        "name": "ghostscript_binary_available",
+        "ok": true,
+        "detail": "Ghostscript binary used by Camelot."
+      },
+      {
+        "name": "faiss_available",
+        "ok": true,
+        "detail": "Required for dense index build and retrieval."
+      },
+      {
+        "name": "sentence_transformers_available",
+        "ok": true,
+        "detail": "Required for MiniLM embeddings."
+      },
+      {
+        "name": "torch_available",
+        "ok": true,
+        "detail": "Required backend for sentence-transformers."
+      }
+    ],
+    "index_path": "data_processed/Grampian-2023-2024/faiss.index",
+    "meta_path": "data_processed/Grampian-2023-2024/chunk_meta.parquet",
+    "table_facts_path": "data_processed/Grampian-2023-2024/table_facts.parquet",
+    "eval_set_path": "data_processed/Grampian-2023-2024/eval_set.json",
+    "embedding_model": "sentence-transformers/all-MiniLM-L6-v2",
+    "k_list": [
+      1,
+      3,
+      5,
+      10
+    ],
+    "subsection_boost": 0.05,
+    "table_chunk_boost": 0.08,
+    "milestone_text_boost": 0.08,
+    "entity_match_boost": 0.04,
+    "numeric_density_boost": 0.03,
+    "segment_search_hit_boost": 0.03,
+    "max_entity_matches": 4,
+    "enable_lexical_rerank": true,
+    "enable_subsection_boost": true,
+    "max_k_search": 100,
+    "num_queries": 50,
+    "num_chunks_indexed": 381,
+    "num_table_facts": 3921,
+    "meta_doc_ids": [
+      "Grampian-2023-2024"
+    ],
+    "query_id_nomenclature": "Q_<TOPIC>_<YEAR>_<NN> with TOPIC in [REV,EFF,DEF,STAFF,ACC,GOV,TABLE]",
+    "failure_attribution": {
+      "retrieval_stages": [
+        "hit",
+        "missed_top_ranked",
+        "missing_content"
+      ],
+      "failure_types": [
+        "FP1_MISSING_CONTENT",
+        "FP2_MISSED_TOP_RANK",
+        "FP3_NOT_IN_CONTEXT",
+        "FP4_NOT_EXTRACTED",
+        "FP5_WRONG_FORMAT",
+        "FP6_INCORRECT_SPECIFICITY",
+        "FP7_INCOMPLETE",
+        "HIT"
+      ],
+      "scope": "retrieval_and_generation"
+    },
+    "leakage_detection": {
+      "enabled": true,
+      "requires_expected_doc_id": true,
+      "fields": [
+        "retrieved_doc_ids_top_k",
+        "leakage_count_top_k",
+        "leakage_doc_ids_top_k",
+        "leakage_rate_top_k"
+      ]
+    },
+    "pipeline_settings": {
+      "source_metrics_path": "data_processed/Grampian-2023-2024/metrics.json",
+      "source_metrics_exists": true,
+      "doc_id": "Grampian-2023-2024",
+      "corpus_id": "Grampian-2023-2024",
+      "report_year": "2023-2024",
+      "preprocess_run_utc": "2026-06-06T15:57:31+00:00",
+      "preprocess_git_commit_short": "3799e6d",
+      "embedding_model_preprocess": "sentence-transformers/all-MiniLM-L6-v2",
+      "chunk_size_tokens": 224,
+      "chunk_overlap_tokens": 56,
+      "segment_aware_chunking": true,
+      "whole_doc_markdown_mode": false,
+      "markdown_header_carry_forward": true,
+      "markdown_table_injection": true,
+      "primary_extractor": "pymupdf",
+      "min_chunk_words": 20
+    },
+    "eval_set": {
+      "path": "data_processed/Grampian-2023-2024/eval_set.json",
+      "sha1": "f1248fc317b1561c0b2168ebea349b1f03f656ef",
+      "size_bytes": 41631,
+      "modified_utc": "2026-04-07T09:26:38+00:00",
+      "query_count": 50,
+      "meta_dataset_name": "NHS Grampian 2023-2024 Retrieval Gold Set",
+      "meta_doc_id": "Grampian-2023-2024",
+      "meta_version": null
+    }
+  },
+  "metrics_by_k": {
+    "1": {
+      "num_queries": 50,
+      "page_hit_rate_at_k": 0.7,
+      "mean_page_recall_at_k": 0.7,
+      "mean_page_precision_at_k": 0.7,
+      "mean_page_mrr_at_k": 0.7,
+      "chunk_hit_rate_at_k": 0.7,
+      "mean_chunk_precision_at_k": 0.7,
+      "mean_chunk_mrr_at_k": 0.7
+    },
+    "3": {
+      "num_queries": 50,
+      "page_hit_rate_at_k": 0.86,
+      "mean_page_recall_at_k": 0.86,
+      "mean_page_precision_at_k": 0.38,
+      "mean_page_mrr_at_k": 0.7733333333333333,
+      "chunk_hit_rate_at_k": 0.86,
+      "mean_chunk_precision_at_k": 0.3933333333333333,
+      "mean_chunk_mrr_at_k": 0.7666666666666666
+    },
+    "5": {
+      "num_queries": 50,
+      "page_hit_rate_at_k": 0.92,
+      "mean_page_recall_at_k": 0.92,
+      "mean_page_precision_at_k": 0.2686666666666666,
+      "mean_page_mrr_at_k": 0.79,
+      "chunk_hit_rate_at_k": 0.92,
+      "mean_chunk_precision_at_k": 0.308,
+      "mean_chunk_mrr_at_k": 0.7816666666666666
+    },
+    "10": {
+      "num_queries": 50,
+      "page_hit_rate_at_k": 0.94,
+      "mean_page_recall_at_k": 0.94,
+      "mean_page_precision_at_k": 0.1389126984126984,
+      "mean_page_mrr_at_k": 0.7933333333333333,
+      "chunk_hit_rate_at_k": 0.94,
+      "mean_chunk_precision_at_k": 0.19599999999999998,
+      "mean_chunk_mrr_at_k": 0.7841666666666666
+    }
+  },
+  "failure_counts_by_k": {
+    "1": {
+      "hit": 35,
+      "missed_top_ranked": 15
+    },
+    "3": {
+      "hit": 43,
+      "missed_top_ranked": 7
+    },
+    "5": {
+      "hit": 46,
+      "missed_top_ranked": 4
+    },
+    "10": {
+      "hit": 47,
+      "missed_top_ranked": 3
+    }
+  },
+  "leakage_counts_by_k": {
+    "1": {
+      "num_queries": 50,
+      "any_leakage_rate_at_k": 0.0,
+      "mean_leakage_rate_at_k": 0.0
+    },
+    "3": {
+      "num_queries": 50,
+      "any_leakage_rate_at_k": 0.0,
+      "mean_leakage_rate_at_k": 0.0
+    },
+    "5": {
+      "num_queries": 50,
+      "any_leakage_rate_at_k": 0.0,
+      "mean_leakage_rate_at_k": 0.0
+    },
+    "10": {
+      "num_queries": 50,
+      "any_leakage_rate_at_k": 0.0,
+      "mean_leakage_rate_at_k": 0.0
+    }
+  },
+  "answer_scoring": {
+    "num_queries_total": 50,
+    "num_queries_scored": 50,
+    "answer_accuracy": 0.16,
+    "answer_status_counts": {
+      "incorrect": 27,
+      "partial": 15,
+      "correct": 8
+    }
+  }
+}

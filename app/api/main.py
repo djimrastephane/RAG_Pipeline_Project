@@ -1,6 +1,8 @@
 from __future__ import annotations
 
+import logging
 import tempfile
+from contextlib import asynccontextmanager
 from pathlib import Path
 from typing import Any, Optional
 import sys
@@ -12,6 +14,8 @@ import time
 import threading
 from collections import defaultdict, deque
 from urllib.parse import urlparse
+
+logger = logging.getLogger(__name__)
 
 from fastapi import FastAPI, HTTPException, Depends, Header, Query, Request
 from fastapi.middleware.cors import CORSMiddleware
@@ -88,7 +92,22 @@ if REQUIRE_API_KEY and not API_KEY:
         "Set API_KEY or restrict UI_ALLOWED_ORIGINS to localhost-only origins."
     )
 
-app = FastAPI(title="RAG Retrieval UI API", version="0.1.0")
+
+@asynccontextmanager
+async def _lifespan(app_: Any):
+    reachable, detail = search_service.local_llm.health_check()
+    if reachable:
+        logger.info("Ollama reachable at %s (%s)", search_service.local_llm.base_url, detail)
+    else:
+        logger.warning(
+            "Ollama not reachable at %s: %s — generation will return status='unavailable'",
+            search_service.local_llm.base_url,
+            detail,
+        )
+    yield
+
+
+app = FastAPI(title="RAG Retrieval UI API", version="0.1.0", lifespan=_lifespan)
 app.add_middleware(
     CORSMiddleware,
     allow_origins=ALLOWED_ORIGINS or ["http://localhost:8501"],
@@ -267,9 +286,15 @@ def _decode_base64_payload(payload: str, field_name: str) -> bytes:
 
 
 @app.get("/api/v1/health")
-def health() -> dict[str, bool]:
-    """Health check endpoint."""
-    return {"ok": True}
+def health() -> dict[str, Any]:
+    """Health check endpoint — includes Ollama reachability."""
+    llm_reachable, llm_detail = search_service.local_llm.health_check()
+    return {
+        "ok": True,
+        "ollama_reachable": llm_reachable,
+        "ollama_detail": llm_detail,
+        "generation_enabled": search_service.local_llm.enabled,
+    }
 
 
 @app.get("/api/v1/metrics", response_model=MetricsResponse)

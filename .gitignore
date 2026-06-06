@@ -9,9 +9,13 @@ __pycache__/
 *.pyc
 .pytest_cache/
 
+# Environment — never commit secrets
+.env
+
 # Data and large binary outputs
 Data/
 data_processed/
+data_processed_finetuned_test/
 data_processed_ui/
 data_processed_ablation/
 data_processed/ablation/

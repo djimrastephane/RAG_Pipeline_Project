@@ -106,3 +106,18 @@ class LocalLLMService:
                 model=self.model,
                 prompt_chars=len(prompt),
             )
+
+    def health_check(self, timeout: float = 5.0) -> tuple[bool, str]:
+        """Return (reachable, detail) by hitting /api/tags on the Ollama endpoint."""
+        if not self.enabled:
+            return True, "generation disabled"
+        url = f"{self.base_url}/api/tags"
+        try:
+            with urllib.request.urlopen(url, timeout=timeout) as resp:
+                if resp.status == 200:
+                    return True, "ok"
+                return False, f"HTTP {resp.status}"
+        except urllib.error.URLError as e:
+            return False, f"{type(e).__name__}: {e}"
+        except Exception as e:
+            return False, f"{type(e).__name__}: {e}"

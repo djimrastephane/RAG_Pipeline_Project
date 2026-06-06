@@ -12,6 +12,31 @@ TABLE_SPACE_RATIO = DEFAULT_CONFIG.TABLE_SPACE_RATIO
 TABLE_MIN_LINES = DEFAULT_CONFIG.TABLE_MIN_LINES
 TABLE_DETECT_CFG = DEFAULT_CONFIG.TABLE_DETECT
 
+# Compiled patterns reused across calls
+_LARGE_NUM_PAT = re.compile(r"\b\d{1,3}(?:,\d{3})+\b")
+_RESOURCE_LIMIT_PAT = re.compile(r"resource\s+limit", re.IGNORECASE)
+_CURRENCY_MARK_PAT = re.compile(r"£\s*\d|£000")
+
+
+def is_nhs_financial_performance_table(text: str) -> bool:
+    """Detect NHS statutory financial targets / consolidated accounts tables.
+
+    PyMuPDF reads these pages as a single inline text stream with no line
+    breaks, so digit-ratio and double-space heuristics always fail.  These
+    pages carry a reliable signature: many comma-separated monetary values
+    plus repeated 'resource limit' or explicit currency markers.
+
+    Thresholds validated against all 5 Grampian annual report documents.
+    """
+    large_nums = len(_LARGE_NUM_PAT.findall(text))
+    if large_nums < 10:
+        return False
+    if len(_RESOURCE_LIMIT_PAT.findall(text)) >= 3:
+        return True
+    if len(_CURRENCY_MARK_PAT.findall(text)) >= 6 and large_nums >= 14:
+        return True
+    return False
+
 
 def is_table_like(text: str) -> bool:
     """
@@ -21,7 +46,12 @@ def is_table_like(text: str) -> bool:
     - At least 4 lines
     - High digit ratio (>12%)
     - Many double-spaces (column separation)
+    Also catches NHS financial tables that PyMuPDF flattens to a single line.
     """
+    # Check inline-flattened financial tables before the line-count guard —
+    # these never have multiple lines after PyMuPDF extraction.
+    if is_nhs_financial_performance_table(text):
+        return True
     lines = [l for l in text.splitlines() if l.strip()]
     if len(lines) < TABLE_MIN_LINES:
         return False

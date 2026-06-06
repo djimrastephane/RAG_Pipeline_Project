@@ -398,6 +398,18 @@ def chunk_mrr(flags: list[int]) -> float:
     return 0.0
 
 
+def table_chunk_hit_at_k(expected_pages: set[int], retrieved_chunks: pd.DataFrame) -> float:
+    """Return 1.0 if any retrieved chunk is a table chunk on an expected page, else 0.0."""
+    if not expected_pages or "is_table" not in retrieved_chunks.columns:
+        return 0.0
+    for _, row in retrieved_chunks.iterrows():
+        if not bool(row.get("is_table", False)):
+            continue
+        if set(get_retrieved_pages(row)) & expected_pages:
+            return 1.0
+    return 0.0
+
+
 def compute_leakage(expected_doc_id: str, retrieved_doc_ids: list[str]) -> dict[str, Any]:
     if not expected_doc_id or not retrieved_doc_ids:
         return {"leakage_count_top_k": 0, "leakage_doc_ids_top_k": [], "leakage_rate_top_k": 0.0}
@@ -463,6 +475,16 @@ def main() -> None:
 
     meta = pd.read_parquet(meta_path)
     chunks = pd.read_parquet(chunks_path)
+
+    # chunk_meta.parquet omits is_table/table_type — merge them in so that
+    # table_priority_boost fires correctly and table recall metrics work.
+    if "is_table" not in meta.columns and "is_table" in chunks.columns:
+        _jk = "chunk_id_global" if ("chunk_id_global" in chunks.columns and "chunk_id_global" in meta.columns) else "chunk_id"
+        _flags = chunks[[_jk, "is_table", "table_type"]].drop_duplicates(_jk)
+        meta = meta.merge(_flags, on=_jk, how="left")
+        meta["is_table"] = meta["is_table"].fillna(False).astype(bool)
+        meta["table_type"] = meta["table_type"].fillna("").astype(str)
+        meta = meta.reset_index(drop=True)
     eval_obj = json.loads(eval_set_path.read_text(encoding="utf-8"))
     if isinstance(eval_obj, list):
         eval_items = eval_obj
@@ -627,6 +649,7 @@ def main() -> None:
             c_hit = chunk_hit_at_k(flags)
             c_prec = chunk_precision_at_k(flags)
             c_mrr = chunk_mrr(flags)
+            tbl_hit = table_chunk_hit_at_k(expected_pages, retrieved_chunks)
 
             failure_stage = "hit" if page_recall >= 1.0 else "missed_top_ranked"
 
@@ -641,6 +664,7 @@ def main() -> None:
                 "chunk_precision_at_k": float(c_prec),
                 "chunk_mrr_at_k": float(c_mrr),
                 "chunk_hit_flags": flags,
+                "table_chunk_hit_at_k": float(tbl_hit),
                 "failure_stage": failure_stage,
                 **leakage,
             }
@@ -668,6 +692,7 @@ def main() -> None:
                     "chunk_hit_at_k": c_hit,
                     "chunk_precision_at_k": c_prec,
                     "chunk_mrr_at_k": c_mrr,
+                    "table_chunk_hit_at_k": tbl_hit,
                     "top_pages": ranked_pages_unique[:10],
                     "top_chunk_ids": retrieved_chunk_ids[:5],
                     "top_doc_ids": retrieved_doc_ids[:5],
@@ -753,6 +778,16 @@ def main() -> None:
             "any_leakage_rate_at_k": float((dfk["leakage_count_top_k"] > 0).mean()) if len(dfk) else 0.0,
             "mean_leakage_rate_at_k": float(dfk["leakage_rate_top_k"].mean()) if len(dfk) else 0.0,
         }
+        dfk_table = dfk[dfk["evidence_layout"] == "table"]
+        metrics["metrics_by_k"][str(k)]["table_query_count"] = int(len(dfk_table))
+        # strict: table chunk (is_table=True) retrieved on the expected page
+        metrics["metrics_by_k"][str(k)]["table_recall_at_k"] = (
+            float(dfk_table["table_chunk_hit_at_k"].mean()) if len(dfk_table) else None
+        )
+        # page-level: correct page retrieved for table queries (regardless of chunk type)
+        metrics["metrics_by_k"][str(k)]["table_page_recall_at_k"] = (
+            float((dfk_table["page_recall_at_k"] > 0).mean()) if len(dfk_table) else None
+        )
 
     metrics["answer_scoring"] = {
         "num_queries_total": int(len(results)),
@@ -773,6 +808,11 @@ def main() -> None:
     print("Saved:", summary_csv)
     for k in k_list:
         m = metrics["metrics_by_k"][str(k)]
+        tbl_n = m.get("table_query_count", 0)
+        tbl_page = m.get("table_page_recall_at_k")
+        tbl_chunk = m.get("table_recall_at_k")
+        tbl_page_str = f"{tbl_page:.3f}" if tbl_page is not None else "n/a"
+        tbl_chunk_str = f"{tbl_chunk:.3f}" if tbl_chunk is not None else "n/a"
         print(
             f"k={k} "
             f"page_hit_rate={m['page_hit_rate_at_k']:.3f} "
@@ -780,7 +820,9 @@ def main() -> None:
             f"page_precision={m['mean_page_precision_at_k']:.3f} "
             f"chunk_hit_rate={m['chunk_hit_rate_at_k']:.3f} "
             f"chunk_mrr={m['mean_chunk_mrr_at_k']:.3f} "
-            f"chunk_precision={m['mean_chunk_precision_at_k']:.3f}"
+            f"chunk_precision={m['mean_chunk_precision_at_k']:.3f} "
+            f"table_page_recall={tbl_page_str} "
+            f"table_chunk_recall={tbl_chunk_str}(n={tbl_n})"
         )
 
 

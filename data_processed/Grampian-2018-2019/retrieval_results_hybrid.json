@@ -1,0 +1,2178 @@
+{
+  "run_info": {
+    "run_utc": "2026-06-06T20:04:33+00:00",
+    "data_dir": "/Users/djimra/MSc Data Science Jan 2025/Thesis documents/RAG_Pipeline_Project/data_processed/Grampian-2018-2019",
+    "method": "hybrid_rrf_dense_bm25",
+    "runtime": {
+      "python_executable": "/Users/djimra/MSc Data Science Jan 2025/Thesis documents/RAG_Pipeline_Project/.venv/bin/python",
+      "python_version": "3.11.15",
+      "platform": "macOS-26.5.1-arm64-arm-64bit",
+      "system": "Darwin",
+      "machine": "arm64",
+      "cwd": "/Users/djimra/MSc Data Science Jan 2025/Thesis documents/RAG_Pipeline_Project",
+      "conda_prefix": "/Users/djimra/MSc Data Science Jan 2025/Thesis documents/RAG_Pipeline_Project/.venv",
+      "conda_default_env": "/Users/djimra/MSc Data Science Jan 2025/Thesis documents/RAG_Pipeline_Project/.venv",
+      "virtual_env": null,
+      "dependency_report": {
+        "modules": {
+          "camelot": {
+            "installed": true,
+            "version": "1.0.9",
+            "module": "camelot",
+            "distribution": "camelot-py",
+            "error": null
+          },
+          "faiss": {
+            "installed": true,
+            "version": "1.13.2",
+            "module": "faiss",
+            "distribution": "faiss-cpu",
+            "error": null
+          },
+          "ghostscript": {
+            "installed": true,
+            "version": "0.8.1",
+            "module": "ghostscript",
+            "distribution": "ghostscript",
+            "error": null
+          },
+          "numpy": {
+            "installed": true,
+            "version": "2.4.6",
+            "module": "numpy",
+            "distribution": "numpy",
+            "error": null
+          },
+          "pandas": {
+            "installed": true,
+            "version": "2.3.3",
+            "module": "pandas",
+            "distribution": "pandas",
+            "error": null
+          },
+          "pdfplumber": {
+            "installed": true,
+            "version": "0.11.9",
+            "module": "pdfplumber",
+            "distribution": "pdfplumber",
+            "error": null
+          },
+          "pyarrow": {
+            "installed": true,
+            "version": "23.0.0",
+            "module": "pyarrow",
+            "distribution": "pyarrow",
+            "error": null
+          },
+          "pymupdf": {
+            "installed": true,
+            "version": "1.26.7",
+            "module": "pymupdf",
+            "distribution": "PyMuPDF",
+            "error": null
+          },
+          "sentence_transformers": {
+            "installed": true,
+            "version": "5.2.2",
+            "module": "sentence_transformers",
+            "distribution": "sentence-transformers",
+            "error": null
+          },
+          "tiktoken": {
+            "installed": true,
+            "version": "0.12.0",
+            "module": "tiktoken",
+            "distribution": "tiktoken",
+            "error": null
+          },
+          "torch": {
+            "installed": true,
+            "version": "2.5.1",
+            "module": "torch",
+            "distribution": "torch",
+            "error": null
+          }
+        },
+        "commands": {
+          "gs": {
+            "available": true,
+            "path": "/Users/djimra/MSc Data Science Jan 2025/Thesis documents/RAG_Pipeline_Project/.venv/bin/gs"
+          },
+          "pdftoppm": {
+            "available": true,
+            "path": "/Users/djimra/MSc Data Science Jan 2025/Thesis documents/RAG_Pipeline_Project/.venv/bin/pdftoppm"
+          },
+          "tesseract": {
+            "available": true,
+            "path": "/opt/homebrew/bin/tesseract"
+          }
+        }
+      }
+    },
+    "critical_environment_checks": [
+      {
+        "name": "tiktoken_available",
+        "ok": true,
+        "detail": "Required for exact preprocessing token counts."
+      },
+      {
+        "name": "camelot_available",
+        "ok": true,
+        "detail": "Required for the structured table extraction branch."
+      },
+      {
+        "name": "ghostscript_python_wrapper_available",
+        "ok": true,
+        "detail": "Needed by Camelot on many environments."
+      },
+      {
+        "name": "ghostscript_binary_available",
+        "ok": true,
+        "detail": "Ghostscript binary used by Camelot."
+      },
+      {
+        "name": "faiss_available",
+        "ok": true,
+        "detail": "Required for dense index build and retrieval."
+      },
+      {
+        "name": "sentence_transformers_available",
+        "ok": true,
+        "detail": "Required for MiniLM embeddings."
+      },
+      {
+        "name": "torch_available",
+        "ok": true,
+        "detail": "Required backend for sentence-transformers."
+      }
+    ],
+    "embedding_model": "models/all-MiniLM-L6-v2",
+    "bm25_k1": 1.5,
+    "bm25_b": 0.75,
+    "rrf_k": 20,
+    "dense_weight": 0.5,
+    "bm25_weight": 2.0,
+    "enable_lexical_rerank": true,
+    "enable_subsection_boost": true,
+    "enable_cross_encoder_rerank": false,
+    "cross_encoder_model": null,
+    "cross_encoder_topn": 50,
+    "cross_encoder_weight": 0.2,
+    "table_chunk_boost": 0.08,
+    "entity_match_boost": 0.04,
+    "numeric_density_boost": 0.03,
+    "subsection_boost": 0.05,
+    "k_list": [
+      1,
+      3,
+      5,
+      10
+    ],
+    "num_queries": 11,
+    "num_chunks_indexed": 331,
+    "pipeline_settings": {
+      "source_metrics_path": "/Users/djimra/MSc Data Science Jan 2025/Thesis documents/RAG_Pipeline_Project/data_processed/Grampian-2018-2019/metrics.json",
+      "source_metrics_exists": true,
+      "doc_id": "Grampian-2018-2019",
+      "corpus_id": "Grampian-2018-2019",
+      "report_year": "2018-2019",
+      "preprocess_run_utc": "2026-06-06T15:47:12+00:00",
+      "preprocess_git_commit_short": "3799e6d",
+      "embedding_model_preprocess": "sentence-transformers/all-MiniLM-L6-v2",
+      "chunk_size_tokens": 224,
+      "chunk_overlap_tokens": 56,
+      "segment_aware_chunking": true,
+      "whole_doc_markdown_mode": false,
+      "markdown_header_carry_forward": true,
+      "markdown_table_injection": true,
+      "primary_extractor": "pymupdf",
+      "min_chunk_words": 20
+    },
+    "eval_set": {
+      "path": "/Users/djimra/MSc Data Science Jan 2025/Thesis documents/RAG_Pipeline_Project/data_processed/Grampian-2018-2019/eval_set.json",
+      "sha1": "35055abc4a34863b4902bfe8d4c1790f87ac97d8",
+      "size_bytes": 4971,
+      "modified_utc": "2026-06-06T18:56:40+00:00",
+      "query_count": 11,
+      "meta_dataset_name": "Grampian-2018-2019 Retrieval Silver Set",
+      "meta_doc_id": "Grampian-2018-2019",
+      "meta_version": null
+    }
+  },
+  "results": [
+    {
+      "query_id": "Q_19_FIN_01",
+      "topic": "FIN",
+      "year": 19,
+      "sequence": 1,
+      "question": "What was the total net expenditure for NHS Grampian in 2018/19?",
+      "answer_type": "number",
+      "doc_id": "Grampian-2018-2019",
+      "expected_section": "",
+      "expected_subsection": "",
+      "expected_pages": [
+        65
+      ],
+      "evidence_layout": "",
+      "acceptable_evidence": [],
+      "filter_hints": {},
+      "page_hit": 1,
+      "failure_type": "HIT",
+      "failure_stage": "none",
+      "per_k": {
+        "1": {
+          "retrieved_chunk_ids": [
+            "Grampian-2018-2019:table_ocr_p0065"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2018-2019"
+          ],
+          "retrieved_pages_ranked": [
+            65
+          ],
+          "page_recall_at_k": 1.0,
+          "page_precision_at_k": 1.0,
+          "page_mrr_at_k": 1.0,
+          "chunk_hit_at_k": 1.0,
+          "chunk_precision_at_k": 1.0,
+          "chunk_mrr_at_k": 1.0,
+          "chunk_hit_flags": [
+            1
+          ],
+          "table_chunk_hit_at_k": 1.0,
+          "failure_stage": "hit",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        },
+        "3": {
+          "retrieved_chunk_ids": [
+            "Grampian-2018-2019:table_ocr_p0065",
+            "Grampian-2018-2019:table_ocr_p0066",
+            "Grampian-2018-2019:p0112_003"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2018-2019",
+            "Grampian-2018-2019",
+            "Grampian-2018-2019"
+          ],
+          "retrieved_pages_ranked": [
+            65,
+            66,
+            112
+          ],
+          "page_recall_at_k": 1.0,
+          "page_precision_at_k": 0.3333333333333333,
+          "page_mrr_at_k": 1.0,
+          "chunk_hit_at_k": 1.0,
+          "chunk_precision_at_k": 0.3333333333333333,
+          "chunk_mrr_at_k": 1.0,
+          "chunk_hit_flags": [
+            1,
+            0,
+            0
+          ],
+          "table_chunk_hit_at_k": 1.0,
+          "failure_stage": "hit",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        },
+        "5": {
+          "retrieved_chunk_ids": [
+            "Grampian-2018-2019:table_ocr_p0065",
+            "Grampian-2018-2019:table_ocr_p0066",
+            "Grampian-2018-2019:p0112_003",
+            "Grampian-2018-2019:p0058_002",
+            "Grampian-2018-2019:p0117_001"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2018-2019",
+            "Grampian-2018-2019",
+            "Grampian-2018-2019",
+            "Grampian-2018-2019",
+            "Grampian-2018-2019"
+          ],
+          "retrieved_pages_ranked": [
+            65,
+            66,
+            112,
+            58,
+            117
+          ],
+          "page_recall_at_k": 1.0,
+          "page_precision_at_k": 0.2,
+          "page_mrr_at_k": 1.0,
+          "chunk_hit_at_k": 1.0,
+          "chunk_precision_at_k": 0.2,
+          "chunk_mrr_at_k": 1.0,
+          "chunk_hit_flags": [
+            1,
+            0,
+            0,
+            0,
+            0
+          ],
+          "table_chunk_hit_at_k": 1.0,
+          "failure_stage": "hit",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        },
+        "10": {
+          "retrieved_chunk_ids": [
+            "Grampian-2018-2019:table_ocr_p0065",
+            "Grampian-2018-2019:table_ocr_p0066",
+            "Grampian-2018-2019:p0112_003",
+            "Grampian-2018-2019:p0058_002",
+            "Grampian-2018-2019:p0117_001",
+            "Grampian-2018-2019:table_ocr_p0105",
+            "Grampian-2018-2019:table_ocr_p0067",
+            "Grampian-2018-2019:p0016_001",
+            "Grampian-2018-2019:p0053_003",
+            "Grampian-2018-2019:table_ocr_p0092"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2018-2019",
+            "Grampian-2018-2019",
+            "Grampian-2018-2019",
+            "Grampian-2018-2019",
+            "Grampian-2018-2019",
+            "Grampian-2018-2019",
+            "Grampian-2018-2019",
+            "Grampian-2018-2019",
+            "Grampian-2018-2019",
+            "Grampian-2018-2019"
+          ],
+          "retrieved_pages_ranked": [
+            65,
+            66,
+            112,
+            58,
+            117,
+            105,
+            67,
+            16,
+            53,
+            92
+          ],
+          "page_recall_at_k": 1.0,
+          "page_precision_at_k": 0.1,
+          "page_mrr_at_k": 1.0,
+          "chunk_hit_at_k": 1.0,
+          "chunk_precision_at_k": 0.1,
+          "chunk_mrr_at_k": 1.0,
+          "chunk_hit_flags": [
+            1,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "table_chunk_hit_at_k": 1.0,
+          "failure_stage": "hit",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        }
+      }
+    },
+    {
+      "query_id": "Q_19_FIN_02",
+      "topic": "FIN",
+      "year": 19,
+      "sequence": 2,
+      "question": "What were the total staff costs for NHS Grampian in 2018/19?",
+      "answer_type": "number",
+      "doc_id": "Grampian-2018-2019",
+      "expected_section": "",
+      "expected_subsection": "",
+      "expected_pages": [
+        15
+      ],
+      "evidence_layout": "",
+      "acceptable_evidence": [],
+      "filter_hints": {},
+      "page_hit": 0,
+      "failure_type": "FP2_MISSED_TOP_RANK",
+      "failure_stage": "retrieval",
+      "per_k": {
+        "1": {
+          "retrieved_chunk_ids": [
+            "Grampian-2018-2019:p0056_000"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2018-2019"
+          ],
+          "retrieved_pages_ranked": [
+            56
+          ],
+          "page_recall_at_k": 0.0,
+          "page_precision_at_k": 0.0,
+          "page_mrr_at_k": 0.0,
+          "chunk_hit_at_k": 0.0,
+          "chunk_precision_at_k": 0.0,
+          "chunk_mrr_at_k": 0.0,
+          "chunk_hit_flags": [
+            0
+          ],
+          "table_chunk_hit_at_k": 0.0,
+          "failure_stage": "missed_top_ranked",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        },
+        "3": {
+          "retrieved_chunk_ids": [
+            "Grampian-2018-2019:p0056_000",
+            "Grampian-2018-2019:p0056_001",
+            "Grampian-2018-2019:table_ocr_p0093"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2018-2019",
+            "Grampian-2018-2019",
+            "Grampian-2018-2019"
+          ],
+          "retrieved_pages_ranked": [
+            56,
+            93
+          ],
+          "page_recall_at_k": 0.0,
+          "page_precision_at_k": 0.0,
+          "page_mrr_at_k": 0.0,
+          "chunk_hit_at_k": 0.0,
+          "chunk_precision_at_k": 0.0,
+          "chunk_mrr_at_k": 0.0,
+          "chunk_hit_flags": [
+            0,
+            0,
+            0
+          ],
+          "table_chunk_hit_at_k": 0.0,
+          "failure_stage": "missed_top_ranked",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        },
+        "5": {
+          "retrieved_chunk_ids": [
+            "Grampian-2018-2019:p0056_000",
+            "Grampian-2018-2019:p0056_001",
+            "Grampian-2018-2019:table_ocr_p0093",
+            "Grampian-2018-2019:table_ocr_p0065",
+            "Grampian-2018-2019:p0059_002"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2018-2019",
+            "Grampian-2018-2019",
+            "Grampian-2018-2019",
+            "Grampian-2018-2019",
+            "Grampian-2018-2019"
+          ],
+          "retrieved_pages_ranked": [
+            56,
+            93,
+            65,
+            59
+          ],
+          "page_recall_at_k": 0.0,
+          "page_precision_at_k": 0.0,
+          "page_mrr_at_k": 0.0,
+          "chunk_hit_at_k": 0.0,
+          "chunk_precision_at_k": 0.0,
+          "chunk_mrr_at_k": 0.0,
+          "chunk_hit_flags": [
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "table_chunk_hit_at_k": 0.0,
+          "failure_stage": "missed_top_ranked",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        },
+        "10": {
+          "retrieved_chunk_ids": [
+            "Grampian-2018-2019:p0056_000",
+            "Grampian-2018-2019:p0056_001",
+            "Grampian-2018-2019:table_ocr_p0093",
+            "Grampian-2018-2019:table_ocr_p0065",
+            "Grampian-2018-2019:p0059_002",
+            "Grampian-2018-2019:p0112_003",
+            "Grampian-2018-2019:p0058_002",
+            "Grampian-2018-2019:p0112_002",
+            "Grampian-2018-2019:table_ocr_p0066",
+            "Grampian-2018-2019:p0059_000"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2018-2019",
+            "Grampian-2018-2019",
+            "Grampian-2018-2019",
+            "Grampian-2018-2019",
+            "Grampian-2018-2019",
+            "Grampian-2018-2019",
+            "Grampian-2018-2019",
+            "Grampian-2018-2019",
+            "Grampian-2018-2019",
+            "Grampian-2018-2019"
+          ],
+          "retrieved_pages_ranked": [
+            56,
+            93,
+            65,
+            59,
+            112,
+            58,
+            66
+          ],
+          "page_recall_at_k": 0.0,
+          "page_precision_at_k": 0.0,
+          "page_mrr_at_k": 0.0,
+          "chunk_hit_at_k": 0.0,
+          "chunk_precision_at_k": 0.0,
+          "chunk_mrr_at_k": 0.0,
+          "chunk_hit_flags": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "table_chunk_hit_at_k": 0.0,
+          "failure_stage": "missed_top_ranked",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        }
+      }
+    },
+    {
+      "query_id": "Q_19_FIN_03",
+      "topic": "FIN",
+      "year": 19,
+      "sequence": 3,
+      "question": "What was the Core Revenue Resource Limit for NHS Grampian in 2018/19?",
+      "answer_type": "number",
+      "doc_id": "Grampian-2018-2019",
+      "expected_section": "",
+      "expected_subsection": "",
+      "expected_pages": [
+        15
+      ],
+      "evidence_layout": "",
+      "acceptable_evidence": [],
+      "filter_hints": {},
+      "page_hit": 0,
+      "failure_type": "FP2_MISSED_TOP_RANK",
+      "failure_stage": "retrieval",
+      "per_k": {
+        "1": {
+          "retrieved_chunk_ids": [
+            "Grampian-2018-2019:table_ocr_p0067"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2018-2019"
+          ],
+          "retrieved_pages_ranked": [
+            67
+          ],
+          "page_recall_at_k": 0.0,
+          "page_precision_at_k": 0.0,
+          "page_mrr_at_k": 0.0,
+          "chunk_hit_at_k": 0.0,
+          "chunk_precision_at_k": 0.0,
+          "chunk_mrr_at_k": 0.0,
+          "chunk_hit_flags": [
+            0
+          ],
+          "table_chunk_hit_at_k": 0.0,
+          "failure_stage": "missed_top_ranked",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        },
+        "3": {
+          "retrieved_chunk_ids": [
+            "Grampian-2018-2019:table_ocr_p0067",
+            "Grampian-2018-2019:p0014_002",
+            "Grampian-2018-2019:table_ocr_p0015"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2018-2019",
+            "Grampian-2018-2019",
+            "Grampian-2018-2019"
+          ],
+          "retrieved_pages_ranked": [
+            67,
+            14,
+            15
+          ],
+          "page_recall_at_k": 1.0,
+          "page_precision_at_k": 0.3333333333333333,
+          "page_mrr_at_k": 0.3333333333333333,
+          "chunk_hit_at_k": 1.0,
+          "chunk_precision_at_k": 0.3333333333333333,
+          "chunk_mrr_at_k": 0.3333333333333333,
+          "chunk_hit_flags": [
+            0,
+            0,
+            1
+          ],
+          "table_chunk_hit_at_k": 1.0,
+          "failure_stage": "hit",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        },
+        "5": {
+          "retrieved_chunk_ids": [
+            "Grampian-2018-2019:table_ocr_p0067",
+            "Grampian-2018-2019:p0014_002",
+            "Grampian-2018-2019:table_ocr_p0015",
+            "Grampian-2018-2019:table_ocr_p0100",
+            "Grampian-2018-2019:p0016_002"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2018-2019",
+            "Grampian-2018-2019",
+            "Grampian-2018-2019",
+            "Grampian-2018-2019",
+            "Grampian-2018-2019"
+          ],
+          "retrieved_pages_ranked": [
+            67,
+            14,
+            15,
+            100,
+            16
+          ],
+          "page_recall_at_k": 1.0,
+          "page_precision_at_k": 0.2,
+          "page_mrr_at_k": 0.3333333333333333,
+          "chunk_hit_at_k": 1.0,
+          "chunk_precision_at_k": 0.2,
+          "chunk_mrr_at_k": 0.3333333333333333,
+          "chunk_hit_flags": [
+            0,
+            0,
+            1,
+            0,
+            0
+          ],
+          "table_chunk_hit_at_k": 1.0,
+          "failure_stage": "hit",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        },
+        "10": {
+          "retrieved_chunk_ids": [
+            "Grampian-2018-2019:table_ocr_p0067",
+            "Grampian-2018-2019:p0014_002",
+            "Grampian-2018-2019:table_ocr_p0015",
+            "Grampian-2018-2019:table_ocr_p0100",
+            "Grampian-2018-2019:p0016_002",
+            "Grampian-2018-2019:table_ocr_p0065",
+            "Grampian-2018-2019:p0059_000",
+            "Grampian-2018-2019:p0075_000",
+            "Grampian-2018-2019:p0059_001",
+            "Grampian-2018-2019:table_ocr_p0070"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2018-2019",
+            "Grampian-2018-2019",
+            "Grampian-2018-2019",
+            "Grampian-2018-2019",
+            "Grampian-2018-2019",
+            "Grampian-2018-2019",
+            "Grampian-2018-2019",
+            "Grampian-2018-2019",
+            "Grampian-2018-2019",
+            "Grampian-2018-2019"
+          ],
+          "retrieved_pages_ranked": [
+            67,
+            14,
+            15,
+            100,
+            16,
+            65,
+            59,
+            75,
+            70
+          ],
+          "page_recall_at_k": 1.0,
+          "page_precision_at_k": 0.1111111111111111,
+          "page_mrr_at_k": 0.3333333333333333,
+          "chunk_hit_at_k": 1.0,
+          "chunk_precision_at_k": 0.1,
+          "chunk_mrr_at_k": 0.3333333333333333,
+          "chunk_hit_flags": [
+            0,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "table_chunk_hit_at_k": 1.0,
+          "failure_stage": "hit",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        }
+      }
+    },
+    {
+      "query_id": "Q_19_FIN_04",
+      "topic": "FIN",
+      "year": 19,
+      "sequence": 4,
+      "question": "What was the Capital Resource Limit for NHS Grampian in 2018/19?",
+      "answer_type": "number",
+      "doc_id": "Grampian-2018-2019",
+      "expected_section": "",
+      "expected_subsection": "",
+      "expected_pages": [
+        15
+      ],
+      "evidence_layout": "",
+      "acceptable_evidence": [],
+      "filter_hints": {},
+      "page_hit": 0,
+      "failure_type": "FP2_MISSED_TOP_RANK",
+      "failure_stage": "retrieval",
+      "per_k": {
+        "1": {
+          "retrieved_chunk_ids": [
+            "Grampian-2018-2019:p0014_002"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2018-2019"
+          ],
+          "retrieved_pages_ranked": [
+            14
+          ],
+          "page_recall_at_k": 0.0,
+          "page_precision_at_k": 0.0,
+          "page_mrr_at_k": 0.0,
+          "chunk_hit_at_k": 0.0,
+          "chunk_precision_at_k": 0.0,
+          "chunk_mrr_at_k": 0.0,
+          "chunk_hit_flags": [
+            0
+          ],
+          "table_chunk_hit_at_k": 0.0,
+          "failure_stage": "missed_top_ranked",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        },
+        "3": {
+          "retrieved_chunk_ids": [
+            "Grampian-2018-2019:p0014_002",
+            "Grampian-2018-2019:table_ocr_p0100",
+            "Grampian-2018-2019:p0058_002"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2018-2019",
+            "Grampian-2018-2019",
+            "Grampian-2018-2019"
+          ],
+          "retrieved_pages_ranked": [
+            14,
+            100,
+            58
+          ],
+          "page_recall_at_k": 0.0,
+          "page_precision_at_k": 0.0,
+          "page_mrr_at_k": 0.0,
+          "chunk_hit_at_k": 0.0,
+          "chunk_precision_at_k": 0.0,
+          "chunk_mrr_at_k": 0.0,
+          "chunk_hit_flags": [
+            0,
+            0,
+            0
+          ],
+          "table_chunk_hit_at_k": 0.0,
+          "failure_stage": "missed_top_ranked",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        },
+        "5": {
+          "retrieved_chunk_ids": [
+            "Grampian-2018-2019:p0014_002",
+            "Grampian-2018-2019:table_ocr_p0100",
+            "Grampian-2018-2019:p0058_002",
+            "Grampian-2018-2019:table_ocr_p0015",
+            "Grampian-2018-2019:p0016_002"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2018-2019",
+            "Grampian-2018-2019",
+            "Grampian-2018-2019",
+            "Grampian-2018-2019",
+            "Grampian-2018-2019"
+          ],
+          "retrieved_pages_ranked": [
+            14,
+            100,
+            58,
+            15,
+            16
+          ],
+          "page_recall_at_k": 1.0,
+          "page_precision_at_k": 0.2,
+          "page_mrr_at_k": 0.25,
+          "chunk_hit_at_k": 1.0,
+          "chunk_precision_at_k": 0.2,
+          "chunk_mrr_at_k": 0.25,
+          "chunk_hit_flags": [
+            0,
+            0,
+            0,
+            1,
+            0
+          ],
+          "table_chunk_hit_at_k": 1.0,
+          "failure_stage": "hit",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        },
+        "10": {
+          "retrieved_chunk_ids": [
+            "Grampian-2018-2019:p0014_002",
+            "Grampian-2018-2019:table_ocr_p0100",
+            "Grampian-2018-2019:p0058_002",
+            "Grampian-2018-2019:table_ocr_p0015",
+            "Grampian-2018-2019:p0016_002",
+            "Grampian-2018-2019:p0075_002",
+            "Grampian-2018-2019:p0059_001",
+            "Grampian-2018-2019:p0059_000",
+            "Grampian-2018-2019:table_ocr_p0103",
+            "Grampian-2018-2019:table_ocr_p0070"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2018-2019",
+            "Grampian-2018-2019",
+            "Grampian-2018-2019",
+            "Grampian-2018-2019",
+            "Grampian-2018-2019",
+            "Grampian-2018-2019",
+            "Grampian-2018-2019",
+            "Grampian-2018-2019",
+            "Grampian-2018-2019",
+            "Grampian-2018-2019"
+          ],
+          "retrieved_pages_ranked": [
+            14,
+            100,
+            58,
+            15,
+            16,
+            75,
+            59,
+            103,
+            70
+          ],
+          "page_recall_at_k": 1.0,
+          "page_precision_at_k": 0.1111111111111111,
+          "page_mrr_at_k": 0.25,
+          "chunk_hit_at_k": 1.0,
+          "chunk_precision_at_k": 0.1,
+          "chunk_mrr_at_k": 0.25,
+          "chunk_hit_flags": [
+            0,
+            0,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "table_chunk_hit_at_k": 1.0,
+          "failure_stage": "hit",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        }
+      }
+    },
+    {
+      "query_id": "Q_19_FIN_05",
+      "topic": "FIN",
+      "year": 19,
+      "sequence": 5,
+      "question": "Did NHS Grampian report a surplus or deficit against its resource budget in 2018/19?",
+      "answer_type": "text",
+      "doc_id": "Grampian-2018-2019",
+      "expected_section": "",
+      "expected_subsection": "",
+      "expected_pages": [
+        15
+      ],
+      "evidence_layout": "",
+      "acceptable_evidence": [],
+      "filter_hints": {},
+      "page_hit": 0,
+      "failure_type": "FP2_MISSED_TOP_RANK",
+      "failure_stage": "retrieval",
+      "per_k": {
+        "1": {
+          "retrieved_chunk_ids": [
+            "Grampian-2018-2019:p0013_000"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2018-2019"
+          ],
+          "retrieved_pages_ranked": [
+            13
+          ],
+          "page_recall_at_k": 0.0,
+          "page_precision_at_k": 0.0,
+          "page_mrr_at_k": 0.0,
+          "chunk_hit_at_k": 0.0,
+          "chunk_precision_at_k": 0.0,
+          "chunk_mrr_at_k": 0.0,
+          "chunk_hit_flags": [
+            0
+          ],
+          "table_chunk_hit_at_k": 0.0,
+          "failure_stage": "missed_top_ranked",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        },
+        "3": {
+          "retrieved_chunk_ids": [
+            "Grampian-2018-2019:p0013_000",
+            "Grampian-2018-2019:table_ocr_p0015",
+            "Grampian-2018-2019:p0112_002"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2018-2019",
+            "Grampian-2018-2019",
+            "Grampian-2018-2019"
+          ],
+          "retrieved_pages_ranked": [
+            13,
+            15,
+            112
+          ],
+          "page_recall_at_k": 1.0,
+          "page_precision_at_k": 0.3333333333333333,
+          "page_mrr_at_k": 0.5,
+          "chunk_hit_at_k": 1.0,
+          "chunk_precision_at_k": 0.3333333333333333,
+          "chunk_mrr_at_k": 0.5,
+          "chunk_hit_flags": [
+            0,
+            1,
+            0
+          ],
+          "table_chunk_hit_at_k": 1.0,
+          "failure_stage": "hit",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        },
+        "5": {
+          "retrieved_chunk_ids": [
+            "Grampian-2018-2019:p0013_000",
+            "Grampian-2018-2019:table_ocr_p0015",
+            "Grampian-2018-2019:p0112_002",
+            "Grampian-2018-2019:table_ocr_p0103",
+            "Grampian-2018-2019:p0014_000"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2018-2019",
+            "Grampian-2018-2019",
+            "Grampian-2018-2019",
+            "Grampian-2018-2019",
+            "Grampian-2018-2019"
+          ],
+          "retrieved_pages_ranked": [
+            13,
+            15,
+            112,
+            103,
+            14
+          ],
+          "page_recall_at_k": 1.0,
+          "page_precision_at_k": 0.2,
+          "page_mrr_at_k": 0.5,
+          "chunk_hit_at_k": 1.0,
+          "chunk_precision_at_k": 0.2,
+          "chunk_mrr_at_k": 0.5,
+          "chunk_hit_flags": [
+            0,
+            1,
+            0,
+            0,
+            0
+          ],
+          "table_chunk_hit_at_k": 1.0,
+          "failure_stage": "hit",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        },
+        "10": {
+          "retrieved_chunk_ids": [
+            "Grampian-2018-2019:p0013_000",
+            "Grampian-2018-2019:table_ocr_p0015",
+            "Grampian-2018-2019:p0112_002",
+            "Grampian-2018-2019:table_ocr_p0103",
+            "Grampian-2018-2019:p0014_000",
+            "Grampian-2018-2019:p0014_002",
+            "Grampian-2018-2019:p0059_000",
+            "Grampian-2018-2019:p0059_001",
+            "Grampian-2018-2019:table_ocr_p0067",
+            "Grampian-2018-2019:p0075_002"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2018-2019",
+            "Grampian-2018-2019",
+            "Grampian-2018-2019",
+            "Grampian-2018-2019",
+            "Grampian-2018-2019",
+            "Grampian-2018-2019",
+            "Grampian-2018-2019",
+            "Grampian-2018-2019",
+            "Grampian-2018-2019",
+            "Grampian-2018-2019"
+          ],
+          "retrieved_pages_ranked": [
+            13,
+            15,
+            112,
+            103,
+            14,
+            59,
+            67,
+            75
+          ],
+          "page_recall_at_k": 1.0,
+          "page_precision_at_k": 0.125,
+          "page_mrr_at_k": 0.5,
+          "chunk_hit_at_k": 1.0,
+          "chunk_precision_at_k": 0.1,
+          "chunk_mrr_at_k": 0.5,
+          "chunk_hit_flags": [
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "table_chunk_hit_at_k": 1.0,
+          "failure_stage": "hit",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        }
+      }
+    },
+    {
+      "query_id": "Q_19_FIN_06",
+      "topic": "FIN",
+      "year": 19,
+      "sequence": 6,
+      "question": "What was the Cash Requirement limit for NHS Grampian in 2018/19?",
+      "answer_type": "number",
+      "doc_id": "Grampian-2018-2019",
+      "expected_section": "",
+      "expected_subsection": "",
+      "expected_pages": [
+        15
+      ],
+      "evidence_layout": "",
+      "acceptable_evidence": [],
+      "filter_hints": {},
+      "page_hit": 0,
+      "failure_type": "FP2_MISSED_TOP_RANK",
+      "failure_stage": "retrieval",
+      "per_k": {
+        "1": {
+          "retrieved_chunk_ids": [
+            "Grampian-2018-2019:table_ocr_p0070"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2018-2019"
+          ],
+          "retrieved_pages_ranked": [
+            70
+          ],
+          "page_recall_at_k": 0.0,
+          "page_precision_at_k": 0.0,
+          "page_mrr_at_k": 0.0,
+          "chunk_hit_at_k": 0.0,
+          "chunk_precision_at_k": 0.0,
+          "chunk_mrr_at_k": 0.0,
+          "chunk_hit_flags": [
+            0
+          ],
+          "table_chunk_hit_at_k": 0.0,
+          "failure_stage": "missed_top_ranked",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        },
+        "3": {
+          "retrieved_chunk_ids": [
+            "Grampian-2018-2019:table_ocr_p0070",
+            "Grampian-2018-2019:table_ocr_p0015",
+            "Grampian-2018-2019:p0059_001"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2018-2019",
+            "Grampian-2018-2019",
+            "Grampian-2018-2019"
+          ],
+          "retrieved_pages_ranked": [
+            70,
+            15,
+            59
+          ],
+          "page_recall_at_k": 1.0,
+          "page_precision_at_k": 0.3333333333333333,
+          "page_mrr_at_k": 0.5,
+          "chunk_hit_at_k": 1.0,
+          "chunk_precision_at_k": 0.3333333333333333,
+          "chunk_mrr_at_k": 0.5,
+          "chunk_hit_flags": [
+            0,
+            1,
+            0
+          ],
+          "table_chunk_hit_at_k": 1.0,
+          "failure_stage": "hit",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        },
+        "5": {
+          "retrieved_chunk_ids": [
+            "Grampian-2018-2019:table_ocr_p0070",
+            "Grampian-2018-2019:table_ocr_p0015",
+            "Grampian-2018-2019:p0059_001",
+            "Grampian-2018-2019:p0014_002",
+            "Grampian-2018-2019:table_ocr_p0100"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2018-2019",
+            "Grampian-2018-2019",
+            "Grampian-2018-2019",
+            "Grampian-2018-2019",
+            "Grampian-2018-2019"
+          ],
+          "retrieved_pages_ranked": [
+            70,
+            15,
+            59,
+            14,
+            100
+          ],
+          "page_recall_at_k": 1.0,
+          "page_precision_at_k": 0.2,
+          "page_mrr_at_k": 0.5,
+          "chunk_hit_at_k": 1.0,
+          "chunk_precision_at_k": 0.2,
+          "chunk_mrr_at_k": 0.5,
+          "chunk_hit_flags": [
+            0,
+            1,
+            0,
+            0,
+            0
+          ],
+          "table_chunk_hit_at_k": 1.0,
+          "failure_stage": "hit",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        },
+        "10": {
+          "retrieved_chunk_ids": [
+            "Grampian-2018-2019:table_ocr_p0070",
+            "Grampian-2018-2019:table_ocr_p0015",
+            "Grampian-2018-2019:p0059_001",
+            "Grampian-2018-2019:p0014_002",
+            "Grampian-2018-2019:table_ocr_p0100",
+            "Grampian-2018-2019:table_ocr_p0071",
+            "Grampian-2018-2019:table_ocr_p0114",
+            "Grampian-2018-2019:p0058_002",
+            "Grampian-2018-2019:p0018_000",
+            "Grampian-2018-2019:table_ocr_p0054"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2018-2019",
+            "Grampian-2018-2019",
+            "Grampian-2018-2019",
+            "Grampian-2018-2019",
+            "Grampian-2018-2019",
+            "Grampian-2018-2019",
+            "Grampian-2018-2019",
+            "Grampian-2018-2019",
+            "Grampian-2018-2019",
+            "Grampian-2018-2019"
+          ],
+          "retrieved_pages_ranked": [
+            70,
+            15,
+            59,
+            14,
+            100,
+            71,
+            114,
+            58,
+            18,
+            54
+          ],
+          "page_recall_at_k": 1.0,
+          "page_precision_at_k": 0.1,
+          "page_mrr_at_k": 0.5,
+          "chunk_hit_at_k": 1.0,
+          "chunk_precision_at_k": 0.1,
+          "chunk_mrr_at_k": 0.5,
+          "chunk_hit_flags": [
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "table_chunk_hit_at_k": 1.0,
+          "failure_stage": "hit",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        }
+      }
+    },
+    {
+      "query_id": "Q_19_FIN_07",
+      "topic": "FIN",
+      "year": 19,
+      "sequence": 7,
+      "question": "What was the total operating expenditure for NHS Grampian in 2018/19?",
+      "answer_type": "number",
+      "doc_id": "Grampian-2018-2019",
+      "expected_section": "",
+      "expected_subsection": "",
+      "expected_pages": [
+        65
+      ],
+      "evidence_layout": "",
+      "acceptable_evidence": [],
+      "filter_hints": {},
+      "page_hit": 1,
+      "failure_type": "HIT",
+      "failure_stage": "none",
+      "per_k": {
+        "1": {
+          "retrieved_chunk_ids": [
+            "Grampian-2018-2019:table_ocr_p0065"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2018-2019"
+          ],
+          "retrieved_pages_ranked": [
+            65
+          ],
+          "page_recall_at_k": 1.0,
+          "page_precision_at_k": 1.0,
+          "page_mrr_at_k": 1.0,
+          "chunk_hit_at_k": 1.0,
+          "chunk_precision_at_k": 1.0,
+          "chunk_mrr_at_k": 1.0,
+          "chunk_hit_flags": [
+            1
+          ],
+          "table_chunk_hit_at_k": 1.0,
+          "failure_stage": "hit",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        },
+        "3": {
+          "retrieved_chunk_ids": [
+            "Grampian-2018-2019:table_ocr_p0065",
+            "Grampian-2018-2019:p0058_002",
+            "Grampian-2018-2019:p0056_001"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2018-2019",
+            "Grampian-2018-2019",
+            "Grampian-2018-2019"
+          ],
+          "retrieved_pages_ranked": [
+            65,
+            58,
+            56
+          ],
+          "page_recall_at_k": 1.0,
+          "page_precision_at_k": 0.3333333333333333,
+          "page_mrr_at_k": 1.0,
+          "chunk_hit_at_k": 1.0,
+          "chunk_precision_at_k": 0.3333333333333333,
+          "chunk_mrr_at_k": 1.0,
+          "chunk_hit_flags": [
+            1,
+            0,
+            0
+          ],
+          "table_chunk_hit_at_k": 1.0,
+          "failure_stage": "hit",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        },
+        "5": {
+          "retrieved_chunk_ids": [
+            "Grampian-2018-2019:table_ocr_p0065",
+            "Grampian-2018-2019:p0058_002",
+            "Grampian-2018-2019:p0056_001",
+            "Grampian-2018-2019:table_ocr_p0093",
+            "Grampian-2018-2019:table_ocr_p0066"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2018-2019",
+            "Grampian-2018-2019",
+            "Grampian-2018-2019",
+            "Grampian-2018-2019",
+            "Grampian-2018-2019"
+          ],
+          "retrieved_pages_ranked": [
+            65,
+            58,
+            56,
+            93,
+            66
+          ],
+          "page_recall_at_k": 1.0,
+          "page_precision_at_k": 0.2,
+          "page_mrr_at_k": 1.0,
+          "chunk_hit_at_k": 1.0,
+          "chunk_precision_at_k": 0.2,
+          "chunk_mrr_at_k": 1.0,
+          "chunk_hit_flags": [
+            1,
+            0,
+            0,
+            0,
+            0
+          ],
+          "table_chunk_hit_at_k": 1.0,
+          "failure_stage": "hit",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        },
+        "10": {
+          "retrieved_chunk_ids": [
+            "Grampian-2018-2019:table_ocr_p0065",
+            "Grampian-2018-2019:p0058_002",
+            "Grampian-2018-2019:p0056_001",
+            "Grampian-2018-2019:table_ocr_p0093",
+            "Grampian-2018-2019:table_ocr_p0066",
+            "Grampian-2018-2019:p0112_003",
+            "Grampian-2018-2019:p0117_001",
+            "Grampian-2018-2019:table_ocr_p0070",
+            "Grampian-2018-2019:table_ocr_p0067",
+            "Grampian-2018-2019:p0016_001"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2018-2019",
+            "Grampian-2018-2019",
+            "Grampian-2018-2019",
+            "Grampian-2018-2019",
+            "Grampian-2018-2019",
+            "Grampian-2018-2019",
+            "Grampian-2018-2019",
+            "Grampian-2018-2019",
+            "Grampian-2018-2019",
+            "Grampian-2018-2019"
+          ],
+          "retrieved_pages_ranked": [
+            65,
+            58,
+            56,
+            93,
+            66,
+            112,
+            117,
+            70,
+            67,
+            16
+          ],
+          "page_recall_at_k": 1.0,
+          "page_precision_at_k": 0.1,
+          "page_mrr_at_k": 1.0,
+          "chunk_hit_at_k": 1.0,
+          "chunk_precision_at_k": 0.1,
+          "chunk_mrr_at_k": 1.0,
+          "chunk_hit_flags": [
+            1,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "table_chunk_hit_at_k": 1.0,
+          "failure_stage": "hit",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        }
+      }
+    },
+    {
+      "query_id": "Q_19_STF_01",
+      "topic": "STF",
+      "year": 19,
+      "sequence": 1,
+      "question": "How many whole time equivalent staff did NHS Grampian employ in 2018/19?",
+      "answer_type": "number",
+      "doc_id": "Grampian-2018-2019",
+      "expected_section": "",
+      "expected_subsection": "",
+      "expected_pages": [
+        56
+      ],
+      "evidence_layout": "",
+      "acceptable_evidence": [],
+      "filter_hints": {},
+      "page_hit": 1,
+      "failure_type": "HIT",
+      "failure_stage": "none",
+      "per_k": {
+        "1": {
+          "retrieved_chunk_ids": [
+            "Grampian-2018-2019:p0056_001"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2018-2019"
+          ],
+          "retrieved_pages_ranked": [
+            56
+          ],
+          "page_recall_at_k": 1.0,
+          "page_precision_at_k": 1.0,
+          "page_mrr_at_k": 1.0,
+          "chunk_hit_at_k": 1.0,
+          "chunk_precision_at_k": 1.0,
+          "chunk_mrr_at_k": 1.0,
+          "chunk_hit_flags": [
+            1
+          ],
+          "table_chunk_hit_at_k": 0.0,
+          "failure_stage": "hit",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        },
+        "3": {
+          "retrieved_chunk_ids": [
+            "Grampian-2018-2019:p0056_001",
+            "Grampian-2018-2019:p0059_002",
+            "Grampian-2018-2019:p0056_000"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2018-2019",
+            "Grampian-2018-2019",
+            "Grampian-2018-2019"
+          ],
+          "retrieved_pages_ranked": [
+            56,
+            59
+          ],
+          "page_recall_at_k": 1.0,
+          "page_precision_at_k": 0.5,
+          "page_mrr_at_k": 1.0,
+          "chunk_hit_at_k": 1.0,
+          "chunk_precision_at_k": 0.6666666666666666,
+          "chunk_mrr_at_k": 1.0,
+          "chunk_hit_flags": [
+            1,
+            0,
+            1
+          ],
+          "table_chunk_hit_at_k": 0.0,
+          "failure_stage": "hit",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        },
+        "5": {
+          "retrieved_chunk_ids": [
+            "Grampian-2018-2019:p0056_001",
+            "Grampian-2018-2019:p0059_002",
+            "Grampian-2018-2019:p0056_000",
+            "Grampian-2018-2019:table_ocr_p0051",
+            "Grampian-2018-2019:p0058_002"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2018-2019",
+            "Grampian-2018-2019",
+            "Grampian-2018-2019",
+            "Grampian-2018-2019",
+            "Grampian-2018-2019"
+          ],
+          "retrieved_pages_ranked": [
+            56,
+            59,
+            51,
+            58
+          ],
+          "page_recall_at_k": 1.0,
+          "page_precision_at_k": 0.25,
+          "page_mrr_at_k": 1.0,
+          "chunk_hit_at_k": 1.0,
+          "chunk_precision_at_k": 0.4,
+          "chunk_mrr_at_k": 1.0,
+          "chunk_hit_flags": [
+            1,
+            0,
+            1,
+            0,
+            0
+          ],
+          "table_chunk_hit_at_k": 0.0,
+          "failure_stage": "hit",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        },
+        "10": {
+          "retrieved_chunk_ids": [
+            "Grampian-2018-2019:p0056_001",
+            "Grampian-2018-2019:p0059_002",
+            "Grampian-2018-2019:p0056_000",
+            "Grampian-2018-2019:table_ocr_p0051",
+            "Grampian-2018-2019:p0058_002",
+            "Grampian-2018-2019:table_ocr_p0101",
+            "Grampian-2018-2019:table_ocr_p0065",
+            "Grampian-2018-2019:p0059_001",
+            "Grampian-2018-2019:p0053_004",
+            "Grampian-2018-2019:p0004_000"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2018-2019",
+            "Grampian-2018-2019",
+            "Grampian-2018-2019",
+            "Grampian-2018-2019",
+            "Grampian-2018-2019",
+            "Grampian-2018-2019",
+            "Grampian-2018-2019",
+            "Grampian-2018-2019",
+            "Grampian-2018-2019",
+            "Grampian-2018-2019"
+          ],
+          "retrieved_pages_ranked": [
+            56,
+            59,
+            51,
+            58,
+            101,
+            65,
+            53,
+            4
+          ],
+          "page_recall_at_k": 1.0,
+          "page_precision_at_k": 0.125,
+          "page_mrr_at_k": 1.0,
+          "chunk_hit_at_k": 1.0,
+          "chunk_precision_at_k": 0.2,
+          "chunk_mrr_at_k": 1.0,
+          "chunk_hit_flags": [
+            1,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "table_chunk_hit_at_k": 0.0,
+          "failure_stage": "hit",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        }
+      }
+    },
+    {
+      "query_id": "Q_19_STF_03",
+      "topic": "STF",
+      "year": 19,
+      "sequence": 3,
+      "question": "What was the sickness absence rate for NHS Grampian in 2018/19?",
+      "answer_type": "number",
+      "doc_id": "Grampian-2018-2019",
+      "expected_section": "",
+      "expected_subsection": "",
+      "expected_pages": [
+        57
+      ],
+      "evidence_layout": "",
+      "acceptable_evidence": [],
+      "filter_hints": {},
+      "page_hit": 1,
+      "failure_type": "HIT",
+      "failure_stage": "none",
+      "per_k": {
+        "1": {
+          "retrieved_chunk_ids": [
+            "Grampian-2018-2019:table_ocr_p0057"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2018-2019"
+          ],
+          "retrieved_pages_ranked": [
+            57
+          ],
+          "page_recall_at_k": 1.0,
+          "page_precision_at_k": 1.0,
+          "page_mrr_at_k": 1.0,
+          "chunk_hit_at_k": 1.0,
+          "chunk_precision_at_k": 1.0,
+          "chunk_mrr_at_k": 1.0,
+          "chunk_hit_flags": [
+            1
+          ],
+          "table_chunk_hit_at_k": 1.0,
+          "failure_stage": "hit",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        },
+        "3": {
+          "retrieved_chunk_ids": [
+            "Grampian-2018-2019:table_ocr_p0057",
+            "Grampian-2018-2019:p0112_000",
+            "Grampian-2018-2019:p0112_003"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2018-2019",
+            "Grampian-2018-2019",
+            "Grampian-2018-2019"
+          ],
+          "retrieved_pages_ranked": [
+            57,
+            112
+          ],
+          "page_recall_at_k": 1.0,
+          "page_precision_at_k": 0.5,
+          "page_mrr_at_k": 1.0,
+          "chunk_hit_at_k": 1.0,
+          "chunk_precision_at_k": 0.3333333333333333,
+          "chunk_mrr_at_k": 1.0,
+          "chunk_hit_flags": [
+            1,
+            0,
+            0
+          ],
+          "table_chunk_hit_at_k": 1.0,
+          "failure_stage": "hit",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        },
+        "5": {
+          "retrieved_chunk_ids": [
+            "Grampian-2018-2019:table_ocr_p0057",
+            "Grampian-2018-2019:p0112_000",
+            "Grampian-2018-2019:p0112_003",
+            "Grampian-2018-2019:p0112_001",
+            "Grampian-2018-2019:p0112_002"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2018-2019",
+            "Grampian-2018-2019",
+            "Grampian-2018-2019",
+            "Grampian-2018-2019",
+            "Grampian-2018-2019"
+          ],
+          "retrieved_pages_ranked": [
+            57,
+            112
+          ],
+          "page_recall_at_k": 1.0,
+          "page_precision_at_k": 0.5,
+          "page_mrr_at_k": 1.0,
+          "chunk_hit_at_k": 1.0,
+          "chunk_precision_at_k": 0.2,
+          "chunk_mrr_at_k": 1.0,
+          "chunk_hit_flags": [
+            1,
+            0,
+            0,
+            0,
+            0
+          ],
+          "table_chunk_hit_at_k": 1.0,
+          "failure_stage": "hit",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        },
+        "10": {
+          "retrieved_chunk_ids": [
+            "Grampian-2018-2019:table_ocr_p0057",
+            "Grampian-2018-2019:p0112_000",
+            "Grampian-2018-2019:p0112_003",
+            "Grampian-2018-2019:p0112_001",
+            "Grampian-2018-2019:p0112_002",
+            "Grampian-2018-2019:p0058_002",
+            "Grampian-2018-2019:p0018_000",
+            "Grampian-2018-2019:p0017_002",
+            "Grampian-2018-2019:p0007_002",
+            "Grampian-2018-2019:table_ocr_p0065"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2018-2019",
+            "Grampian-2018-2019",
+            "Grampian-2018-2019",
+            "Grampian-2018-2019",
+            "Grampian-2018-2019",
+            "Grampian-2018-2019",
+            "Grampian-2018-2019",
+            "Grampian-2018-2019",
+            "Grampian-2018-2019",
+            "Grampian-2018-2019"
+          ],
+          "retrieved_pages_ranked": [
+            57,
+            112,
+            58,
+            18,
+            17,
+            7,
+            65
+          ],
+          "page_recall_at_k": 1.0,
+          "page_precision_at_k": 0.14285714285714285,
+          "page_mrr_at_k": 1.0,
+          "chunk_hit_at_k": 1.0,
+          "chunk_precision_at_k": 0.1,
+          "chunk_mrr_at_k": 1.0,
+          "chunk_hit_flags": [
+            1,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "table_chunk_hit_at_k": 1.0,
+          "failure_stage": "hit",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        }
+      }
+    },
+    {
+      "query_id": "Q_19_OPS_01",
+      "topic": "OPS",
+      "year": 19,
+      "sequence": 1,
+      "question": "What percentage of A&E patients were seen within 4 hours at NHS Grampian in 2018/19?",
+      "answer_type": "number",
+      "doc_id": "Grampian-2018-2019",
+      "expected_section": "",
+      "expected_subsection": "",
+      "expected_pages": [
+        7
+      ],
+      "evidence_layout": "",
+      "acceptable_evidence": [],
+      "filter_hints": {},
+      "page_hit": 1,
+      "failure_type": "HIT",
+      "failure_stage": "none",
+      "per_k": {
+        "1": {
+          "retrieved_chunk_ids": [
+            "Grampian-2018-2019:p0007_001"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2018-2019"
+          ],
+          "retrieved_pages_ranked": [
+            7
+          ],
+          "page_recall_at_k": 1.0,
+          "page_precision_at_k": 1.0,
+          "page_mrr_at_k": 1.0,
+          "chunk_hit_at_k": 1.0,
+          "chunk_precision_at_k": 1.0,
+          "chunk_mrr_at_k": 1.0,
+          "chunk_hit_flags": [
+            1
+          ],
+          "table_chunk_hit_at_k": 0.0,
+          "failure_stage": "hit",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        },
+        "3": {
+          "retrieved_chunk_ids": [
+            "Grampian-2018-2019:p0007_001",
+            "Grampian-2018-2019:p0059_002",
+            "Grampian-2018-2019:p0020_001"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2018-2019",
+            "Grampian-2018-2019",
+            "Grampian-2018-2019"
+          ],
+          "retrieved_pages_ranked": [
+            7,
+            59,
+            20
+          ],
+          "page_recall_at_k": 1.0,
+          "page_precision_at_k": 0.3333333333333333,
+          "page_mrr_at_k": 1.0,
+          "chunk_hit_at_k": 1.0,
+          "chunk_precision_at_k": 0.3333333333333333,
+          "chunk_mrr_at_k": 1.0,
+          "chunk_hit_flags": [
+            1,
+            0,
+            0
+          ],
+          "table_chunk_hit_at_k": 0.0,
+          "failure_stage": "hit",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        },
+        "5": {
+          "retrieved_chunk_ids": [
+            "Grampian-2018-2019:p0007_001",
+            "Grampian-2018-2019:p0059_002",
+            "Grampian-2018-2019:p0020_001",
+            "Grampian-2018-2019:p0027_000",
+            "Grampian-2018-2019:p0020_000"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2018-2019",
+            "Grampian-2018-2019",
+            "Grampian-2018-2019",
+            "Grampian-2018-2019",
+            "Grampian-2018-2019"
+          ],
+          "retrieved_pages_ranked": [
+            7,
+            59,
+            20,
+            27
+          ],
+          "page_recall_at_k": 1.0,
+          "page_precision_at_k": 0.25,
+          "page_mrr_at_k": 1.0,
+          "chunk_hit_at_k": 1.0,
+          "chunk_precision_at_k": 0.2,
+          "chunk_mrr_at_k": 1.0,
+          "chunk_hit_flags": [
+            1,
+            0,
+            0,
+            0,
+            0
+          ],
+          "table_chunk_hit_at_k": 0.0,
+          "failure_stage": "hit",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        },
+        "10": {
+          "retrieved_chunk_ids": [
+            "Grampian-2018-2019:p0007_001",
+            "Grampian-2018-2019:p0059_002",
+            "Grampian-2018-2019:p0020_001",
+            "Grampian-2018-2019:p0027_000",
+            "Grampian-2018-2019:p0020_000",
+            "Grampian-2018-2019:p0116_002",
+            "Grampian-2018-2019:p0025_002",
+            "Grampian-2018-2019:p0007_000",
+            "Grampian-2018-2019:p0022_000",
+            "Grampian-2018-2019:p0024_002"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2018-2019",
+            "Grampian-2018-2019",
+            "Grampian-2018-2019",
+            "Grampian-2018-2019",
+            "Grampian-2018-2019",
+            "Grampian-2018-2019",
+            "Grampian-2018-2019",
+            "Grampian-2018-2019",
+            "Grampian-2018-2019",
+            "Grampian-2018-2019"
+          ],
+          "retrieved_pages_ranked": [
+            7,
+            59,
+            20,
+            27,
+            116,
+            25,
+            22,
+            24
+          ],
+          "page_recall_at_k": 1.0,
+          "page_precision_at_k": 0.125,
+          "page_mrr_at_k": 1.0,
+          "chunk_hit_at_k": 1.0,
+          "chunk_precision_at_k": 0.2,
+          "chunk_mrr_at_k": 1.0,
+          "chunk_hit_flags": [
+            1,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            1,
+            0,
+            0
+          ],
+          "table_chunk_hit_at_k": 0.0,
+          "failure_stage": "hit",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        }
+      }
+    },
+    {
+      "query_id": "Q_19_GOV_02",
+      "topic": "GOV",
+      "year": 19,
+      "sequence": 2,
+      "question": "Who was the Chair of NHS Grampian in 2019?",
+      "answer_type": "text",
+      "doc_id": "Grampian-2018-2019",
+      "expected_section": "",
+      "expected_subsection": "",
+      "expected_pages": [
+        53
+      ],
+      "evidence_layout": "",
+      "acceptable_evidence": [],
+      "filter_hints": {},
+      "page_hit": 1,
+      "failure_type": "HIT",
+      "failure_stage": "none",
+      "per_k": {
+        "1": {
+          "retrieved_chunk_ids": [
+            "Grampian-2018-2019:p0053_003"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2018-2019"
+          ],
+          "retrieved_pages_ranked": [
+            53
+          ],
+          "page_recall_at_k": 1.0,
+          "page_precision_at_k": 1.0,
+          "page_mrr_at_k": 1.0,
+          "chunk_hit_at_k": 1.0,
+          "chunk_precision_at_k": 1.0,
+          "chunk_mrr_at_k": 1.0,
+          "chunk_hit_flags": [
+            1
+          ],
+          "table_chunk_hit_at_k": 0.0,
+          "failure_stage": "hit",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        },
+        "3": {
+          "retrieved_chunk_ids": [
+            "Grampian-2018-2019:p0053_003",
+            "Grampian-2018-2019:p0038_001",
+            "Grampian-2018-2019:p0036_002"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2018-2019",
+            "Grampian-2018-2019",
+            "Grampian-2018-2019"
+          ],
+          "retrieved_pages_ranked": [
+            53,
+            38,
+            36
+          ],
+          "page_recall_at_k": 1.0,
+          "page_precision_at_k": 0.3333333333333333,
+          "page_mrr_at_k": 1.0,
+          "chunk_hit_at_k": 1.0,
+          "chunk_precision_at_k": 0.3333333333333333,
+          "chunk_mrr_at_k": 1.0,
+          "chunk_hit_flags": [
+            1,
+            0,
+            0
+          ],
+          "table_chunk_hit_at_k": 0.0,
+          "failure_stage": "hit",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        },
+        "5": {
+          "retrieved_chunk_ids": [
+            "Grampian-2018-2019:p0053_003",
+            "Grampian-2018-2019:p0038_001",
+            "Grampian-2018-2019:p0036_002",
+            "Grampian-2018-2019:p0036_001",
+            "Grampian-2018-2019:p0050_002"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2018-2019",
+            "Grampian-2018-2019",
+            "Grampian-2018-2019",
+            "Grampian-2018-2019",
+            "Grampian-2018-2019"
+          ],
+          "retrieved_pages_ranked": [
+            53,
+            38,
+            36,
+            50
+          ],
+          "page_recall_at_k": 1.0,
+          "page_precision_at_k": 0.25,
+          "page_mrr_at_k": 1.0,
+          "chunk_hit_at_k": 1.0,
+          "chunk_precision_at_k": 0.2,
+          "chunk_mrr_at_k": 1.0,
+          "chunk_hit_flags": [
+            1,
+            0,
+            0,
+            0,
+            0
+          ],
+          "table_chunk_hit_at_k": 0.0,
+          "failure_stage": "hit",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        },
+        "10": {
+          "retrieved_chunk_ids": [
+            "Grampian-2018-2019:p0053_003",
+            "Grampian-2018-2019:p0038_001",
+            "Grampian-2018-2019:p0036_002",
+            "Grampian-2018-2019:p0036_001",
+            "Grampian-2018-2019:p0050_002",
+            "Grampian-2018-2019:p0052_000",
+            "Grampian-2018-2019:p0031_001",
+            "Grampian-2018-2019:p0053_000",
+            "Grampian-2018-2019:p0031_002",
+            "Grampian-2018-2019:p0038_002"
+          ],
+          "retrieved_doc_ids_top_k": [
+            "Grampian-2018-2019",
+            "Grampian-2018-2019",
+            "Grampian-2018-2019",
+            "Grampian-2018-2019",
+            "Grampian-2018-2019",
+            "Grampian-2018-2019",
+            "Grampian-2018-2019",
+            "Grampian-2018-2019",
+            "Grampian-2018-2019",
+            "Grampian-2018-2019"
+          ],
+          "retrieved_pages_ranked": [
+            53,
+            38,
+            36,
+            50,
+            52,
+            31
+          ],
+          "page_recall_at_k": 1.0,
+          "page_precision_at_k": 0.16666666666666666,
+          "page_mrr_at_k": 1.0,
+          "chunk_hit_at_k": 1.0,
+          "chunk_precision_at_k": 0.2,
+          "chunk_mrr_at_k": 1.0,
+          "chunk_hit_flags": [
+            1,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            1,
+            0,
+            0
+          ],
+          "table_chunk_hit_at_k": 0.0,
+          "failure_stage": "hit",
+          "leakage_count_top_k": 0,
+          "leakage_doc_ids_top_k": [],
+          "leakage_rate_top_k": 0.0
+        }
+      }
+    }
+  ]
+}

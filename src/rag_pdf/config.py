@@ -139,6 +139,12 @@ class TableExtractConfig:
 @dataclass
 class RegionConfig:
     ENABLE_DIAGNOSTICS: bool = False
+    # When True, pages with both table and text regions are routed to both
+    # extractors instead of being forced into one bucket.
+    ENABLE_MIXED_ROUTING: bool = False
+    # Minimum word count for a text region to be worth emitting prose chunks.
+    # Keeps captions / standalone headers from becoming undersized chunks.
+    MIXED_MIN_TEXT_WORDS: int = 30
     MIN_LINES_PER_REGION: int = 2
     Y_GAP_MULTIPLIER: float = 1.8
     MIN_REGION_HEIGHT: float = 18.0

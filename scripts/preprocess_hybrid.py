@@ -914,6 +914,8 @@ def main() -> None:
         region_records = []
         text_pages = []
         table_pages = []
+        # page_no → joined text of non-table regions (populated when ENABLE_MIXED_ROUTING)
+        mixed_text_regions: dict[int, str] = {}
         ocr_short_pages_triggered = 0
         ocr_short_pages_accepted = 0
         ocr_attempts = 0
@@ -1028,37 +1030,60 @@ def main() -> None:
                     classification["table_type"] = detect_table_type(clean_text)
 
             s = page_structs.get(page_no, {})
-            if bool(cfg.REGION.ENABLE_DIAGNOSTICS):
-                regions = segment_page_into_regions(
+            _need_regions = bool(cfg.REGION.ENABLE_DIAGNOSTICS) or (
+                cfg.REGION.ENABLE_MIXED_ROUTING and not cfg.WHOLE_DOC_MARKDOWN_MODE
+            )
+            if _need_regions:
+                _regions = segment_page_into_regions(
                     page_no=page_no,
                     lines_all=s.get("lines_all", []),
                 )
-                for region in regions:
-                    region_cls = classify_region(region)
-                    region_records.append({
-                        "doc_id": doc_id,
-                        "corpus_id": corpus_id,
-                        "report_year": report_year,
-                        "report_year_source": report_year_source,
-                        "period_end_date": period_end_date,
-                        "run_date_utc": run_date_utc,
-                        "page": page_no,
-                        "region_id": region.region_id,
-                        "region_index": region.region_index,
-                        "x0": region.x0,
-                        "y0": region.y0,
-                        "x1": region.x1,
-                        "y1": region.y1,
-                        "width": region.width,
-                        "height": region.height,
-                        "line_count": region.line_count,
-                        "text": region.text,
-                        "is_table": bool(region_cls.get("is_table", False)),
-                        "is_text": bool(region_cls.get("is_text", False)),
-                        "is_raw_table": bool(region_cls.get("is_raw_table", False)),
-                        "table_type": region_cls.get("table_type"),
-                        "confidence": region_cls.get("confidence"),
-                    })
+                # Classify each region once; reuse result for diagnostics and mixed routing.
+                _region_cls_pairs = [(_r, classify_region(_r)) for _r in _regions]
+
+                if bool(cfg.REGION.ENABLE_DIAGNOSTICS):
+                    for region, region_cls in _region_cls_pairs:
+                        region_records.append({
+                            "doc_id": doc_id,
+                            "corpus_id": corpus_id,
+                            "report_year": report_year,
+                            "report_year_source": report_year_source,
+                            "period_end_date": period_end_date,
+                            "run_date_utc": run_date_utc,
+                            "page": page_no,
+                            "region_id": region.region_id,
+                            "region_index": region.region_index,
+                            "x0": region.x0,
+                            "y0": region.y0,
+                            "x1": region.x1,
+                            "y1": region.y1,
+                            "width": region.width,
+                            "height": region.height,
+                            "line_count": region.line_count,
+                            "text": region.text,
+                            "is_table": bool(region_cls.get("is_table", False)),
+                            "is_text": bool(region_cls.get("is_text", False)),
+                            "is_raw_table": bool(region_cls.get("is_raw_table", False)),
+                            "table_type": region_cls.get("table_type"),
+                            "confidence": region_cls.get("confidence"),
+                        })
+
+                if cfg.REGION.ENABLE_MIXED_ROUTING and not cfg.WHOLE_DOC_MARKDOWN_MODE:
+                    _tbl_regions = [r for r, cls in _region_cls_pairs if cls["is_table"]]
+                    _txt_texts = [
+                        r.text for r, cls in _region_cls_pairs
+                        if not cls["is_table"]
+                        and len(r.text.split()) >= int(cfg.REGION.MIXED_MIN_TEXT_WORDS)
+                    ]
+                    if _tbl_regions and _txt_texts:
+                        mixed_text_regions[page_no] = "\n\n".join(_txt_texts)
+                        # Page had text classification but contains table regions
+                        # → upgrade to table so Camelot also runs on it.
+                        if not classification["is_table"]:
+                            classification["is_table"] = True
+                            classification["confidence"] = "medium"
+                            if not classification.get("table_type"):
+                                classification["table_type"] = detect_table_type(clean_text)
 
             pages_records.append({
                 "doc_id": doc_id,
@@ -1114,6 +1139,8 @@ def main() -> None:
 
         print(f"  Text pages: {len(text_pages)}")
         print(f"  Table pages: {len(table_pages)}")
+        if mixed_text_regions:
+            print(f"  Mixed pages (table+prose): {len(mixed_text_regions)}")
         print(f"  OCR short pages: {ocr_short_pages_triggered}")
         print(f"  OCR used pages: {ocr_short_pages_accepted}")
         print(f"  OCR attempts: {ocr_attempts}")
@@ -1252,6 +1279,34 @@ def main() -> None:
                     ):
                         cross_page_overlap_chunks += 1
 
+        # Emit prose chunks for the non-table regions of mixed pages.
+        # These pages went through Camelot for their table portion; here we
+        # chunk the text portions that would otherwise be silently dropped.
+        if mixed_text_regions:
+            _mixed_chunk_count = 0
+            for _page_no in sorted(mixed_text_regions):
+                _mtext = mixed_text_regions[_page_no]
+                _part, _section, _subsection = find_section_for_page(sections_df, _page_no)
+                _, _created = _append_text_chunks_for_page(
+                    text_chunks=text_chunks,
+                    doc_id=doc_id,
+                    corpus_id=corpus_id,
+                    report_year=report_year,
+                    report_year_source=report_year_source,
+                    period_end_date=period_end_date,
+                    run_date_utc=run_date_utc,
+                    page_no=_page_no,
+                    text=_mtext,
+                    part=_part,
+                    section=_section,
+                    subsection=_subsection,
+                    cfg=cfg,
+                    enc=enc,
+                )
+                _mixed_chunk_count += _created
+            if _mixed_chunk_count:
+                print(f"  Added {_mixed_chunk_count} prose chunk(s) from {len(mixed_text_regions)} mixed page(s)")
+
         text_chunks_df = pd.DataFrame(text_chunks)
         print(f"  Created {len(text_chunks_df)} text chunks")
         if cfg.SEGMENT_AWARE_CHUNKING:
@@ -1326,6 +1381,9 @@ def main() -> None:
             for tpage in table_pages:
                 page_no = int(tpage.get("page", 0) or 0)
                 if page_no <= 0 or page_no in rejected_pages:
+                    continue
+                # Mixed routing already chunked the prose regions for this page.
+                if page_no in mixed_text_regions:
                     continue
                 text = str(tpage.get("text") or "").strip()
                 if not text:

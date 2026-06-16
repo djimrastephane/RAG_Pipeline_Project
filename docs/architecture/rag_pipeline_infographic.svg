@@ -1,5 +1,5 @@
 <svg width="1800" height="1200" viewBox="0 0 1800 1200" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
-  <title id="title">Inside the Thesis RAG Pipeline</title>
+  <title id="title">Inside RAG Pipeline</title>
   <desc id="desc">Infographic showing the main stages of the thesis retrieval pipeline from PDF reports to grounded answers.</desc>
   <defs>
     <marker id="arrow" markerWidth="14" markerHeight="14" refX="10" refY="5" orient="auto" markerUnits="strokeWidth">
@@ -22,7 +22,7 @@
 
   <rect class="bg" x="8" y="8" width="1784" height="1184" rx="42"/>
 
-  <text class="title" x="84" y="120">Inside the Thesis RAG Pipeline</text>
+  <text class="title" x="84" y="120">Inside RAG Pipeline</text>
   <text class="subtitle" x="84" y="172">How the system turns NHS PDF reports into grounded,</text>
   <text class="subtitle" x="84" y="208">page-level evidence</text>
 
@@ -90,5 +90,5 @@
   </g>
 
   <text class="footer" x="82" y="1102">Figure concept: document-side stages are prepared offline; query-time retrieval fuses dense and lexical evidence.</text>
-  <text class="footer" x="82" y="1138">This mirrors the thesis pipeline: preprocessing, indexing, hybrid retrieval, and page-level evidence attribution.</text>
+  <text class="footer" x="82" y="1138">Pipeline stages: preprocessing, indexing, hybrid retrieval, and page-level evidence attribution.</text>
 </svg>

@@ -1,0 +1,147 @@
+<svg width="1800" height="1160" viewBox="0 0 1800 1160" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+  <title id="title">Preprocessing Pipeline</title>
+  <desc id="desc">Flowchart showing the hybrid PDF preprocessing pipeline from raw PDF to structured indexed chunks.</desc>
+  <defs>
+    <marker id="arrow" markerWidth="14" markerHeight="14" refX="10" refY="5" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L10,5 L0,10 Z" fill="#6B7280"/>
+    </marker>
+    <style>
+      .bg       { fill: #F7F8FA; }
+      .panel    { fill: #FFFFFF; stroke: #D6D9DE; stroke-width: 2; }
+      .line     { stroke: #6B7280; stroke-width: 4; fill: none; marker-end: url(#arrow); }
+      .linePlain{ stroke: #6B7280; stroke-width: 4; fill: none; }
+      .title    { font: 700 62px 'Arial', sans-serif; fill: #111827; }
+      .subtitle { font: 400 32px 'Arial', sans-serif; fill: #374151; }
+      .stageHead{ font: 700 26px 'Arial', sans-serif; fill: #1F2937; text-anchor: middle; }
+      .stageSub { font: 400 22px 'Arial', sans-serif; fill: #374151; text-anchor: middle; }
+      .bulletHead{ font: 700 24px 'Arial', sans-serif; fill: #111827; }
+      .bulletBody{ font: 400 21px 'Arial', sans-serif; fill: #2F3A49; }
+      .label    { font: 700 22px 'Arial', sans-serif; fill: #1F2937; text-anchor: middle; }
+      .yesno    { font: 700 20px 'Arial', sans-serif; fill: #4B5563; }
+      .footer   { font: 400 22px 'Arial', sans-serif; fill: #4B5563; }
+      .sectionLabel { font: 700 20px 'Arial', sans-serif; fill: #6B7280; text-anchor: middle; letter-spacing: 1; }
+    </style>
+  </defs>
+
+  <!-- Background -->
+  <rect class="bg" x="8" y="8" width="1784" height="1144" rx="42"/>
+
+  <!-- Title -->
+  <text class="title" x="84" y="100">Preprocessing Pipeline</text>
+  <text class="subtitle" x="84" y="148">From raw PDF to structured, indexed retrieval chunks</text>
+
+  <!-- ═══════════════════════════════════════
+       LEFT FLOW PANEL  x:40–580
+       ═══════════════════════════════════════ -->
+  <rect class="panel" x="40" y="170" width="540" height="940" rx="26"/>
+
+  <!-- Stage 0: Raw PDF -->
+  <rect x="140" y="196" width="340" height="76" rx="18" fill="#E8EAED" stroke="#B8BEC8" stroke-width="2"/>
+  <text class="stageHead" x="310" y="234">Raw PDF Reports</text>
+  <text class="stageSub"  x="310" y="260">annual accounts · mixed layouts</text>
+
+  <!-- Arrow 0→1 -->
+  <line class="line" x1="310" y1="272" x2="310" y2="310"/>
+
+  <!-- Stage 1: Page Extraction -->
+  <rect x="100" y="310" width="420" height="104" rx="18" fill="#F8E7B6" stroke="#CFB76B" stroke-width="2"/>
+  <text class="stageHead" x="310" y="348">Page Extraction</text>
+  <text class="stageSub"  x="310" y="376">PyMuPDF primary</text>
+  <text class="stageSub"  x="310" y="400">PDFPlumber fallback · OCR last resort</text>
+
+  <!-- Arrow 1→2 -->
+  <line class="line" x1="310" y1="414" x2="310" y2="452"/>
+
+  <!-- Stage 2: Boilerplate Stripping -->
+  <rect x="100" y="452" width="420" height="104" rx="18" fill="#F8E7B6" stroke="#CFB76B" stroke-width="2"/>
+  <text class="stageHead" x="310" y="490">Boilerplate Stripping</text>
+  <text class="stageSub"  x="310" y="518">coordinate crop: 8 % portrait · 2 % landscape</text>
+  <text class="stageSub"  x="310" y="542">rotation-aware · text normalisation</text>
+
+  <!-- Arrow 2→3 -->
+  <line class="line" x1="310" y1="556" x2="310" y2="594"/>
+
+  <!-- Stage 3: Section + Page Classification -->
+  <rect x="80" y="594" width="460" height="104" rx="18" fill="#C8D6EE" stroke="#8FA5C8" stroke-width="2"/>
+  <text class="stageHead" x="310" y="632">Section Detection + Classification</text>
+  <text class="stageSub"  x="310" y="660">ToC · font-size headings · text vs table routing</text>
+  <text class="stageSub"  x="310" y="684">page labels: part · section · subsection</text>
+
+  <!-- Branch arrow down-left (text) and down-right (table) -->
+  <!-- Left branch to Text Chunking -->
+  <path class="line" d="M220 698 L220 742"/>
+  <!-- Right branch to Table Extraction -->
+  <path class="line" d="M400 698 L400 742"/>
+
+  <!-- "text" label -->
+  <text class="yesno" x="180" y="726">text</text>
+  <!-- "table" label -->
+  <text class="yesno" x="404" y="726">table</text>
+
+  <!-- Stage 4a: Text Chunking (left) -->
+  <rect x="60" y="742" width="270" height="104" rx="18" fill="#D8EAD4" stroke="#8FB786" stroke-width="2"/>
+  <text class="stageHead" x="195" y="778">Text Chunking</text>
+  <text class="stageSub"  x="195" y="804">224-token chunks</text>
+  <text class="stageSub"  x="195" y="828">56-token overlap · tiktoken</text>
+
+  <!-- Stage 4b: Table Extraction (right) -->
+  <rect x="340" y="742" width="220" height="104" rx="18" fill="#FBDCC8" stroke="#E0A070" stroke-width="2"/>
+  <text class="stageHead" x="450" y="778">Table Extraction</text>
+  <text class="stageSub"  x="450" y="804">Camelot lattice</text>
+  <text class="stageSub"  x="450" y="828">→ pdfplumber hybrid</text>
+
+  <!-- Merge lines -->
+  <path class="line" d="M195 846 L195 880 L310 880 L310 916"/>
+  <path class="linePlain" d="M450 846 L450 880 L310 880"/>
+
+  <!-- Stage 5: Merge + Metadata -->
+  <rect x="100" y="916" width="420" height="104" rx="18" fill="#D8EAD4" stroke="#8FB786" stroke-width="2"/>
+  <text class="stageHead" x="310" y="952">Merge + Metadata Enrichment</text>
+  <text class="stageSub"  x="310" y="978">chunk IDs · page refs · section labels</text>
+  <text class="stageSub"  x="310" y="1002">table flags · segment titles · is_table</text>
+
+  <!-- Arrow 5→6 -->
+  <line class="line" x1="310" y1="1020" x2="310" y2="1058"/>
+
+  <!-- Stage 6: Output -->
+  <rect x="80" y="1058" width="460" height="36" rx="14" fill="#EEF2F7" stroke="#C8D0DC" stroke-width="2"/>
+  <text class="label" x="310" y="1082">chunks.parquet · pages.parquet · sections.parquet</text>
+
+  <!-- ═══════════════════════════════════════
+       RIGHT INFO PANEL  x:620–1760
+       ═══════════════════════════════════════ -->
+  <g transform="translate(636, 182)">
+
+    <text class="bulletHead" x="0" y="36">• Extraction Layer</text>
+    <text class="bulletBody" x="18" y="70">PyMuPDF is the primary extractor. Pages where extracted text falls below a</text>
+    <text class="bulletBody" x="18" y="96">quality threshold (low character count, high whitespace ratio) are routed to</text>
+    <text class="bulletBody" x="18" y="122">PDFPlumber as a per-page fallback. Scanned pages fall back to OCR.</text>
+
+    <text class="bulletHead" x="0" y="186">• Boilerplate &amp; Normalisation</text>
+    <text class="bulletBody" x="18" y="220">Headers and footers are stripped by a coordinate-based crop: 8 % of page</text>
+    <text class="bulletBody" x="18" y="246">height on portrait pages and 2 % on rotated/landscape pages. Hyphenation</text>
+    <text class="bulletBody" x="18" y="272">is rejoined, encoding artefacts removed, and whitespace normalised.</text>
+
+    <text class="bulletHead" x="0" y="336">• Section Detection</text>
+    <text class="bulletBody" x="18" y="370">Section boundaries are inferred from a Table of Contents (when present)</text>
+    <text class="bulletBody" x="18" y="396">and from font-size-based heading classification. Each page receives part,</text>
+    <text class="bulletBody" x="18" y="422">section, and subsection labels that propagate into every downstream chunk.</text>
+
+    <text class="bulletHead" x="0" y="490">• Dual Chunking Paths</text>
+    <text class="bulletBody" x="18" y="524">Text pages are split into 224-token overlapping chunks (56-token stride)</text>
+    <text class="bulletBody" x="18" y="550">using tiktoken cl100k_base. Table pages are extracted via Camelot lattice</text>
+    <text class="bulletBody" x="18" y="576">mode (falling back to pdfplumber hybrid); each table becomes a structured</text>
+    <text class="bulletBody" x="18" y="602">markdown chunk with column headers and a section context prefix. Pages</text>
+    <text class="bulletBody" x="18" y="628">classified as mixed are routed through both paths simultaneously.</text>
+
+    <text class="bulletHead" x="0" y="694">• Metadata Enrichment</text>
+    <text class="bulletBody" x="18" y="728">Every chunk carries: global chunk ID, page start/end, section and subsection</text>
+    <text class="bulletBody" x="18" y="754">title, is_table flag, table_type, token count, and segment boundary type.</text>
+    <text class="bulletBody" x="18" y="780">This metadata is persisted in chunks.parquet and read at query time by</text>
+    <text class="bulletBody" x="18" y="806">the retrieval layer to support section-aware re-ranking and failure analysis.</text>
+
+  </g>
+
+  <!-- Footer -->
+  <text class="footer" x="82" y="1112">Pipeline outputs feed directly into the indexing stage: chunk embeddings (MiniLM-L6-v2) and BM25 lexical index are built from chunks.parquet.</text>
+</svg>

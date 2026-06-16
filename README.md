@@ -101,6 +101,14 @@ External binaries required for full table extraction:
 brew install ghostscript poppler tesseract   # macOS
 ```
 
+Download the embedding model weights (required before starting the API):
+
+```bash
+python scripts/download_model.py
+```
+
+This populates `models/all-MiniLM-L6-v2/` from the HuggingFace Hub (or local cache). The API will raise `FileNotFoundError` at startup if this step is skipped. Pass `--force` to re-download.
+
 ---
 
 ## Quickstart

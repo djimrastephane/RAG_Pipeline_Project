@@ -5,7 +5,7 @@
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <meta name="author" content="How MiniLM fits the NHS Grampian RAG pipeline" />
-  <title>From Thesis Chunks to FAISS Vectors</title>
+  <title>From RAG Chunks to FAISS Vectors</title>
   <style>
     /* Default styles provided by pandoc.
     ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -174,14 +174,14 @@
 </head>
 <body>
 <header id="title-block-header">
-<h1 class="title">From Thesis Chunks to FAISS Vectors</h1>
+<h1 class="title">From RAG Chunks to FAISS Vectors</h1>
 <p class="author">How MiniLM fits the NHS Grampian RAG pipeline</p>
 </header>
-<h1 id="from-thesis-chunks-to-faiss-vectors">From Thesis Chunks to FAISS
+<h1 id="from-rag-chunks-to-faiss-vectors">From RAG Chunks to FAISS
 Vectors</h1>
 <h2 id="chunk-entering-the-encoder">1. Chunk entering the encoder</h2>
 <ul>
-<li>Thesis retrieval setting: <code>chunk_size=224</code>,
+<li>Retrieval setting: <code>chunk_size=224</code>,
 <code>overlap=56</code>, <code>segment_aware=false</code></li>
 <li>The same chunk is indexed for both branches:
 <ul>
@@ -204,8 +204,7 @@ representation</li>
 <li>That final vector is the row stored in FAISS for dense
 retrieval</li>
 </ul>
-<h2 id="why-this-matters-in-the-thesis">3. Why this matters in the
-thesis</h2>
+<h2 id="why-this-matters">3. Why this matters</h2>
 <ul>
 <li>Query example: <code>Q_2025_FIN_02</code></li>
 <li>Question:
@@ -221,7 +220,7 @@ top-1 via <code>Grampian-2024-2025:p0028_001</code></li>
 <h2 id="reader-takeaway">Reader takeaway</h2>
 <ul>
 <li><code>tiktoken</code> decides where chunks begin and end</li>
-<li>MiniLM turns each thesis chunk into a searchable semantic
+<li>MiniLM turns each RAG chunk into a searchable semantic
 vector</li>
 <li>BM25 plus reranking help the same evidence win when the question
 uses exact finance wording</li>

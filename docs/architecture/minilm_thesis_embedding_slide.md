@@ -1,10 +1,10 @@
-% From Thesis Chunks to FAISS Vectors
+% From RAG Chunks to FAISS Vectors
 % How MiniLM fits the NHS Grampian RAG pipeline
 
-# From Thesis Chunks to FAISS Vectors
+# From RAG Chunks to FAISS Vectors
 
 ## 1. Chunk entering the encoder
-- Thesis retrieval setting: `chunk_size=224`, `overlap=56`, `segment_aware=false`
+- Retrieval setting: `chunk_size=224`, `overlap=56`, `segment_aware=false`
 - The same chunk is indexed for both branches:
   - dense with `all-MiniLM-L6-v2`
   - sparse with the BM25 regex tokenizer
@@ -17,7 +17,7 @@
 - Mean pooling collapses all token states into one `1 x 384` chunk vector
 - That final vector is the row stored in FAISS for dense retrieval
 
-## 3. Why this matters in the thesis
+## 3. Why this matters
 - Query example: `Q_2025_FIN_02`
 - Question: `How much did NHS Grampian actually spend against its core resource budget in 2024/25?`
 - Expected evidence page: `28`
@@ -27,6 +27,6 @@
 
 ## Reader takeaway
 - `tiktoken` decides where chunks begin and end
-- MiniLM turns each thesis chunk into a searchable semantic vector
+- MiniLM turns each RAG chunk into a searchable semantic vector
 - BM25 plus reranking help the same evidence win when the question uses exact finance wording
 - In this setup, the sliding-window stride is `168` tokens (`224 - 56`)

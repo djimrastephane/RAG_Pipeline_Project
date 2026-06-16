@@ -355,6 +355,32 @@ pytest tests/ -q
 
 ---
 
+## Limitations
+
+- **Hit@1 ceiling.** Mean page Hit@1 across the 5 evaluation cohorts is 0.672. Approximately one in three queries does not surface the correct page at rank 1. The rank survival curve shows strong recovery by k=5 (0.888), but top-1 precision remains the primary gap.
+- **FP2 dominates failures.** The majority of k=1 failures are FP2 (correct page is indexed and retrievable but not ranked first), not FP1 (missing content). This points to re-ranking rather than indexing coverage as the bottleneck.
+- **Fixed search window.** `MAX_K_SEARCH=100` caps how many chunks are retrieved from FAISS before BM25 fusion. For large documents (e.g. Grampian-2024-2025 with 423 chunks), BM25-only hits outside the top-100 dense window receive a `NULL` cosine score rather than a genuine zero — a known diagnostic artefact surfaced in the ranking margin panel.
+- **Single-document scope.** Retrieval is scoped to one document at a time. There is no cross-document index or multi-document fusion; a query about trends across years requires running separately against each document.
+- **Silver evaluation set.** The 250-question eval set was generated with LLM assistance and lightly audited, not fully human-annotated. Accuracy estimates carry the noise of silver labelling, particularly on ambiguous numeric questions.
+- **Local LLM dependency.** Generation requires Ollama running locally. There is no cloud LLM fallback; disabling generation (`LOCAL_LLM_ENABLED=0`) returns retrieval results only.
+- **Camelot/Ghostscript dependency.** Full table extraction requires Ghostscript and Camelot. Without them, table pages fall back to PDFPlumber text rendering, which loses table structure and degrades numeric retrieval on financial statement pages.
+- **Temporal vocabulary drift.** Terminology in NHS reports shifts across the 2004–2025 span (e.g. HSMR framing, CRES targets). Cross-era queries using current terminology against early documents can fail at both dense and sparse retrieval due to vocabulary mismatch.
+
+---
+
+## Future Improvements
+
+- **Neural re-ranking for FP2.** A cross-encoder (e.g. BGE reranker) applied to the top-20 fused candidates would directly address the dominant failure mode. Ablation scripts exist (`scripts/run_bge_reranker_ablation.py`, `scripts/run_cross_encoder_ablation.py`); latency vs accuracy trade-off is the remaining barrier to adoption.
+- **Selective query rewriting.** Hard multi-part questions (difficulty tier Hard/Very Hard) would benefit from sub-question decomposition before retrieval. Rewriting hurt simple numeric lookups in ablation, so the gain requires a query-difficulty classifier to gate the rewriting step.
+- **Multi-document retrieval.** A global FAISS index across all 31 documents would allow trend queries (e.g. "how did the capital resource limit change from 2010 to 2025?") to be answered in a single retrieval pass. `scripts/build_global_indexes.py` provides a starting point.
+- **Domain-adapted encoder.** Fine-tuning `all-MiniLM-L6-v2` on NHS financial QA pairs improved Hit@5 in early experiments but was inconsistent at k=1. A larger base model (e.g. `bge-base-en-v1.5`) fine-tuned on a larger silver set is the most likely path to meaningful dense recall gains.
+- **Structured numeric extraction.** Financial tables contain exact numeric answers that do not require semantic matching. A dedicated structured extractor (beyond the current Camelot + markdown chunking approach) could resolve FP4/FP5/FP6 generation failures on numeric questions without involving the LLM.
+- **Human-annotated eval set.** Replacing silver labels with human-verified question–page pairs on at least one full document would give a more reliable accuracy baseline, particularly for questions where the silver label points to an adjacent but not canonical page.
+- **SPLADE / learned sparse encoder.** Sparse learned representations could improve recall on out-of-vocabulary terms and numeric patterns that BM25 handles inconsistently. `scripts/retrieval_eval_splade_hybrid.py` has initial benchmarks.
+- **Incremental indexing.** Currently a new document requires a full re-index of that document's chunks. An incremental FAISS update path would reduce the time-to-search for newly uploaded PDFs.
+
+---
+
 ## License
 
 MIT License — see `LICENSE`.

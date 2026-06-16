@@ -31,7 +31,7 @@
 
   <rect class="bg" x="0" y="0" width="1000" height="980"/>
 
-  <text class="title" x="500" y="42" text-anchor="middle">Page-Level Hybrid Retrieval Used in the Thesis Pipeline</text>
+  <text class="title" x="500" y="42" text-anchor="middle">Page-Level Hybrid Retrieval</text>
   <text class="formula" x="500" y="78" text-anchor="middle">RRF_score(p) = w_dense / (k + r_dense(p)) + w_bm25 / (k + r_bm25(p))</text>
   <text class="small" x="500" y="100" text-anchor="middle">k = 20, w_dense = 0.5, w_bm25 = 2.0</text>
   <text class="query" x="500" y="118" text-anchor="middle">Query Q_2025_SAV_P1, Grampian-2024-2025: "What were the main sources of efficiency savings delivered in 2024/25?"</text>

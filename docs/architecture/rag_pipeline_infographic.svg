@@ -1,4 +1,4 @@
-<svg width="1800" height="1200" viewBox="0 0 1800 1200" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+<svg width="1800" height="1260" viewBox="0 0 1800 1260" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
   <title id="title">Inside RAG Pipeline</title>
   <desc id="desc">Infographic showing the main stages of the RAG pipeline from PDF reports to grounded answers.</desc>
   <defs>
@@ -20,7 +20,7 @@
     </style>
   </defs>
 
-  <rect class="bg" x="8" y="8" width="1784" height="1184" rx="42"/>
+  <rect class="bg" x="8" y="8" width="1784" height="1244" rx="42"/>
 
   <text class="title" x="84" y="120">Inside RAG Pipeline</text>
   <text class="subtitle" x="84" y="172">How the system turns NHS PDF reports into grounded,</text>
@@ -28,21 +28,29 @@
 
   <rect class="panel" x="40" y="220" width="500" height="760" rx="26"/>
   <rect x="96" y="774" width="250" height="92" rx="18" fill="#E8EAED" stroke="#B8BEC8" stroke-width="2"/>
+  <circle cx="346" cy="774" r="22" fill="#4B5563"/>
+  <text class="label" x="346" y="782" fill="#FFFFFF">1</text>
   <text class="boxText" x="221" y="820">Raw PDF Reports</text>
   <text class="boxSub" x="221" y="850">annual accounts,</text>
   <text class="boxSub" x="221" y="878">mixed layouts</text>
 
   <rect x="78" y="640" width="286" height="88" rx="18" fill="#F8E7B6" stroke="#CFB76B" stroke-width="2"/>
+  <circle cx="364" cy="640" r="22" fill="#4B5563"/>
+  <text class="label" x="364" y="648" fill="#FFFFFF">2</text>
   <text class="boxText" x="221" y="684">Page Extraction</text>
   <text class="boxSub" x="221" y="714">text, tables,</text>
   <text class="boxSub" x="221" y="742">OCR fallback</text>
 
   <rect x="66" y="500" width="310" height="94" rx="18" fill="#D8EAD4" stroke="#8FB786" stroke-width="2"/>
+  <circle cx="376" cy="500" r="22" fill="#4B5563"/>
+  <text class="label" x="376" y="508" fill="#FFFFFF">3</text>
   <text class="boxText" x="221" y="546">Chunking + Metadata</text>
   <text class="boxSub" x="221" y="576">pages, sections,</text>
   <text class="boxSub" x="221" y="604">table flags</text>
 
   <rect x="44" y="320" width="354" height="126" rx="26" fill="#C8D6EE" stroke="#8FA5C8" stroke-width="2"/>
+  <circle cx="398" cy="320" r="22" fill="#4B5563"/>
+  <text class="label" x="398" y="328" fill="#FFFFFF">4</text>
   <text class="boxText" x="221" y="374">Indexing Layer</text>
   <text class="boxSub" x="221" y="408">MiniLM embeddings + FAISS</text>
   <text class="boxSub" x="221" y="438">BM25 lexical representation</text>
@@ -77,18 +85,26 @@
     <text class="bulletBody" x="18" y="642">answers from retrieved evidence.</text>
   </g>
 
-  <g transform="translate(840,850)">
-    <rect x="0" y="0" width="140" height="58" rx="14" fill="#D8EAD4"/>
-    <rect x="484" y="0" width="140" height="58" rx="14" fill="#C8D6EE"/>
-    <text class="label" x="70" y="38">Question</text>
-    <text class="label" x="554" y="38">Answer</text>
-    <text x="156" y="76" style="font: 400 26px 'Arial', sans-serif; fill: #111827;">What was the capital limit?</text>
-    <rect x="256" y="18" width="76" height="76" rx="14" fill="#E5E7EB" stroke="#9CA3AF" stroke-width="2"/>
-    <text x="294" y="67" style="font: 700 48px 'Arial', sans-serif; fill: #4B5563; text-anchor: middle;">⇄</text>
-    <path class="line" d="M340 55 L428 55"/>
-    <text x="594" y="76" style="font: 400 25px 'Arial', sans-serif; fill: #111827;">£86,909 on page 28</text>
+  <rect x="620" y="910" width="320" height="54" rx="14" fill="#EEF2F7"/>
+  <text class="label" x="780" y="946">Online Query &amp; Generation</text>
+
+  <g transform="translate(620,995)">
+    <rect x="0" y="9" width="140" height="58" rx="14" fill="#D8EAD4"/>
+    <text class="label" x="70" y="47">Question</text>
+
+    <path class="line" d="M150 38 L228 38"/>
+
+    <rect x="238" y="0" width="200" height="76" rx="14" fill="#E5E7EB" stroke="#9CA3AF" stroke-width="2"/>
+    <text x="338" y="46" style="font: 700 30px 'Arial', sans-serif; fill: #4B5563; text-anchor: middle;">Hybrid RAG</text>
+
+    <path class="line" d="M448 38 L526 38"/>
+
+    <rect x="536" y="9" width="140" height="58" rx="14" fill="#C8D6EE"/>
+    <text class="label" x="606" y="47">Answer</text>
+
+    <text style="font: 400 24px 'Arial', sans-serif; fill: #4B5563;" x="0" y="118">Example — &#8220;What was the capital limit?&#8221; &#8594; &#8220;&#163;86,909 on page 28&#8221;</text>
   </g>
 
-  <text class="footer" x="82" y="1102">Figure concept: document-side stages are prepared offline; query-time retrieval fuses dense and lexical evidence.</text>
-  <text class="footer" x="82" y="1138">Pipeline stages: preprocessing, indexing, hybrid retrieval, and page-level evidence attribution.</text>
+  <text class="footer" x="82" y="1152">Figure concept: document-side stages are prepared offline; query-time retrieval fuses dense and lexical evidence.</text>
+  <text class="footer" x="82" y="1188">Pipeline stages: preprocessing, indexing, hybrid retrieval, and page-level evidence attribution.</text>
 </svg>

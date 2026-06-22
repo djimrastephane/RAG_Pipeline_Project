@@ -166,9 +166,9 @@ Requires `eval_set.json` in the document directory. Outputs:
 ### 4. Single query
 
 ```bash
-python scripts/retrieve.py \
-  --config configs/thesis_rag.yaml \
-  --query "What was the Core Revenue Resource Limit for 2024/25?"
+python scripts/ask_query.py \
+  --doc Grampian-2024-2025 \
+  --question "What was the Core Revenue Resource Limit for 2024/25?"
 ```
 
 ### 5. Batch reprocess all documents
@@ -225,15 +225,17 @@ The FastAPI service at `app/api/main.py` exposes:
 
 | Endpoint | Method | Description |
 |---|---|---|
-| `/health` | GET | Liveness check |
-| `/metrics` | GET | Generation observability counters |
-| `/docs/list` | GET | List indexed documents |
-| `/docs/upload` | POST | Upload and index a new PDF |
-| `/docs/{doc_id}/search` | POST | Retrieve + optionally generate answer |
-| `/docs/{doc_id}/rank` | POST | Re-rank a pre-supplied candidate set |
-| `/docs/{doc_id}/stats` | GET | Document chunk/page statistics |
-| `/docs/{doc_id}/tables` | GET | List extracted table chunks |
-| `/docs/{doc_id}/eval` | GET | Return eval set items |
+| `/api/v1/health` | GET | Liveness check (includes Ollama reachability) |
+| `/api/v1/metrics` | GET | Generation observability counters |
+| `/api/v1/docs` | GET | List indexed documents |
+| `/api/v1/docs/upload` | POST | Upload and index a new PDF |
+| `/api/v1/docs/{doc_id}/stats` | GET | Document chunk/page statistics |
+| `/api/v1/docs/{doc_id}/eval-items` | GET | Return eval set items |
+| `/api/v1/docs/{doc_id}/logs` | GET | Tail processing logs for one document |
+| `/api/v1/docs/{doc_id}/tables` | GET | List extracted table chunks |
+| `/api/v1/docs/{doc_id}/pages/{page_no}/chunks` | GET | Per-page chunks with overlap metadata |
+| `/api/v1/docs/{doc_id}/search` | POST | Retrieve + optionally generate answer |
+| `/api/v1/docs/rank` | POST | Rank all documents by top-1 similarity for a query |
 
 ### Key environment variables
 
@@ -262,10 +264,12 @@ The FastAPI service at `app/api/main.py` exposes:
 | `chunking` | `min_chunk_words` | 20 |
 | `embedding` | `model_name` | `all-MiniLM-L6-v2` |
 | `embedding` | `apply_l2_normalization` | `true` |
-| `retrieval` | `rrf_k` | 60 |
-| `retrieval` | `dense_top_k` | 20 |
-| `retrieval` | `sparse_top_k` | 20 |
+| `retrieval` | `rrf_k` | 20 |
+| `retrieval` | `dense_top_k` | 10 |
+| `retrieval` | `sparse_top_k` | 10 |
 | `retrieval` | `hybrid_top_k` | 10 |
+| `retrieval` | `dense_weight` | 0.5 |
+| `retrieval` | `sparse_weight` | 2.0 |
 | `bm25` | `k1` | 1.5 |
 | `bm25` | `b` | 0.75 |
 
